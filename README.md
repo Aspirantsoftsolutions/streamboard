@@ -1,4 +1,4 @@
-# Vuexy - Angular Admin Template
+# Stream Board
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli).
 
