@@ -6,16 +6,16 @@ import { takeUntil } from 'rxjs/operators';
 
 import { CoreConfigService } from '@core/services/config.service';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
+import { SchoolsListService } from './schools-list.service';
 
-import { UserListService } from 'app/main/apps/user/user-list/user-list.service';
 
 @Component({
-  selector: 'app-user-list',
-  templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.scss'],
+  selector: 'app-schools-list',
+  templateUrl: './schools-list.component.html',
+  styleUrls: ['./schools-list.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class UserListComponent implements OnInit {
+export class SchoolsListComponent implements OnInit {
   // Public
   public sidebarToggleRef = false;
   public rows;
@@ -28,19 +28,19 @@ export class UserListComponent implements OnInit {
 
   public selectRole: any = [
     { name: 'All', value: '' },
-    { name: 'School', value: 'School' },
-    { name: 'Teacher', value: 'Teacher' },
-    { name: 'Student', value: 'Student' },
-    { name: 'Class', value: 'Class' }
+    { name: 'Admin', value: 'Admin' },
+    { name: 'Author', value: 'Author' },
+    { name: 'Editor', value: 'Editor' },
+    { name: 'Maintainer', value: 'Maintainer' },
+    { name: 'Subscriber', value: 'Subscriber' }
   ];
 
   public selectPlan: any = [
     { name: 'All', value: '' },
-    { name: 'Free', value: 'Free' },
-    { name: 'Bronze', value: 'Bronze' },
-    { name: 'Silver', value: 'Silver' },
-    { name: 'Gold', value: 'Gold' },
-    { name: 'Platinum', value: 'Platinum' }
+    { name: 'Basic', value: 'Basic' },
+    { name: 'Company', value: 'Company' },
+    { name: 'Enterprise', value: 'Enterprise' },
+    { name: 'Team', value: 'Team' }
   ];
 
   public selectStatus: any = [
@@ -70,7 +70,7 @@ export class UserListComponent implements OnInit {
    * @param {CoreSidebarService} _coreSidebarService
    */
   constructor(
-    private _userListService: UserListService,
+    private _userListService: SchoolsListService,
     private _coreSidebarService: CoreSidebarService,
     private _coreConfigService: CoreConfigService
   ) {

@@ -35,14 +35,47 @@ export const menu: CoreMenu[] = [
         id: 'users_list',
         title: 'Clients',
         type: 'item',
+        role: ['Admin'],
         icon: 'circle',
         url: 'apps/user/user-list'
+      },
+      {
+        id: 'schools_list',
+        title: 'Schools',
+        type: 'item',
+        role: ['Admin'],
+        icon: 'circle',
+        url: 'apps/user/schools-list'
+      },
+      {
+        id: 'teachers_list',
+        title: 'Teachers',
+        type: 'item',
+        role: ['School', 'Class', 'Admin'],
+        icon: 'circle',
+        url: 'apps/user/teachers-list'
+      },
+      {
+        id: 'classes_list',
+        title: 'Classes',
+        type: 'item',
+        role: ['Teacher', 'School', 'Admin'],
+        icon: 'circle',
+        url: 'apps/user/classes-list'
+      },
+      {
+        id: 'sessions_list',
+        title: 'Sessions',
+        type: 'item',
+        icon: 'circle',
+        url: 'apps/user/sessions-list'
       },
       {
         id: 'calendar',
         title: 'Calendar',
         translate: 'MENU.APPS.CALENDAR',
         type: 'item',
+        role: ['Class'],
         icon: 'calendar',
         url: 'apps/calendar'
       },
@@ -51,12 +84,14 @@ export const menu: CoreMenu[] = [
         title: 'Subscriptions',
         type: 'item',
         icon: 'circle',
+        role: ['Admin'],
         url: 'apps/user/subscriptions-list'
       },
       {
         id: 'payments-list',
         title: 'Payments',
         type: 'item',
+        role: ['Admin'],
         icon: 'circle',
         url: 'apps/user/payments-list'
       },
@@ -64,6 +99,7 @@ export const menu: CoreMenu[] = [
         id: 'invoice',
         title: 'Settings',
         type: 'collapsible',
+        role: ['Admin'],
         icon: 'file-text',
         children: [
           {

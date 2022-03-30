@@ -6,6 +6,11 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { FakeDbService } from '@fake-db/fake-db.service';
+import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
+import {
+  GoogleLoginProvider,
+  FacebookLoginProvider
+} from 'angularx-social-login';
 
 import 'hammerjs';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -116,7 +121,8 @@ const appRoutes: Routes = [
     CoreThemeCustomizerModule,
     CardSnippetModule,
     LayoutModule,
-    ContentHeaderModule
+    ContentHeaderModule,
+    SocialLoginModule
   ],
 
   providers: [
@@ -124,7 +130,28 @@ const appRoutes: Routes = [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 
     // ! IMPORTANT: Provider used to create fake backend, comment while using real API
-    fakeBackendProvider
+    fakeBackendProvider,
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '257698626403-9dvcpsmpn1gb33sau8al4u6tr4ucmusf.apps.googleusercontent.com'
+            )
+          },
+          // {
+          //   id: FacebookLoginProvider.PROVIDER_ID,
+          //   provider: new FacebookLoginProvider('clientId')
+          // }
+        ],
+        onError: (err) => {
+          console.error(err);
+        }
+      } as SocialAuthServiceConfig,
+    }
   ],
   entryComponents: [BasicCustomContextMenuComponent, AnimatedCustomContextMenuComponent],
   bootstrap: [AppComponent]

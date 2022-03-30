@@ -1,3 +1,20 @@
+import { NewStudentsSidebarComponent } from './students/new-students-sidebar/new-students-sidebar.component';
+import { StudentsListService } from './students/students-list.service';
+import { StudentsListComponent } from './students/students-list.component';
+import { ClassesListService } from './classes/classes-list.service';
+import { NewClassesSidebarComponent } from './classes/new-classes-sidebar/new-classes-sidebar.component';
+import { ClassesListComponent } from './classes/classes-list.component';
+import { TeachersListService } from './teachers/teachers-list.service';
+import { TeachersListComponent } from './teachers/teachers-list.component';
+import { NewTeachersSidebarComponent } from './teachers/new-teachers-sidebar/new-teachers-sidebar.component';
+import { SchoolsListComponent } from './schools/schools-list.component';
+import { NewSchoolsSidebarComponent } from './schools/new-schools-sidebar/new-schools-sidebar.component';
+import { NewSessionsSidebarComponent } from './sessions/new-sessions-sidebar/new-sessions-sidebar.component';
+import { NewSubscriptionSidebarComponent } from './subscriptions/new-subscription-sidebar/new-subscription-sidebar.component';
+import { NewPaymentSidebarComponent } from './payments/new-payment-sidebar/new-payment-sidebar.component';
+import { SessionsListService } from './sessions/sessions-list.service';
+import { SessionsListComponent } from './sessions/sessions-list.component';
+import { ToastrModule } from 'ngx-toastr';
 import { PaymentsListService } from './payments/payments-list.service';
 import { PaymentsListComponent } from './payments/payments-list.component';
 import { CommonModule } from '@angular/common';
@@ -29,6 +46,7 @@ import { UserViewService } from 'app/main/apps/user/user-view/user-view.service'
 import { NewUserSidebarComponent } from 'app/main/apps/user/user-list/new-user-sidebar/new-user-sidebar.component';
 import { SubscriptionsListComponent } from './subscriptions/subscriptions-list.component';
 import { SubscriptionsListService } from './subscriptions/subscriptions-list.service';
+import { SchoolsListService } from './schools/schools-list.service';
 
 // routing
 const routes: Routes = [
@@ -55,6 +73,46 @@ const routes: Routes = [
       uls: UserListService
     },
     data: { animation: 'UserListComponent' }
+  },
+  {
+    path: 'sessions-list',
+    component: SessionsListComponent,
+    resolve: {
+      uls: SessionsListService
+    },
+    data: { animation: 'SessionsListComponent' }
+  },
+  {
+    path: 'schools-list',
+    component: SchoolsListComponent,
+    resolve: {
+      uls: SchoolsListService
+    },
+    data: { animation: 'SchoolsListComponent' }
+  },
+  {
+    path: 'teachers-list',
+    component: TeachersListComponent,
+    resolve: {
+      uls: TeachersListService
+    },
+    data: { animation: 'TeachersListComponent' }
+  },
+  {
+    path: 'classes-list',
+    component: ClassesListComponent,
+    resolve: {
+      uls: ClassesListService
+    },
+    data: { animation: 'ClassesListComponent' }
+  },
+  {
+    path: 'students-list',
+    component: StudentsListComponent,
+    resolve: {
+      uls: StudentsListService
+    },
+    data: { animation: 'StudentsListComponent' }
   },
   {
     path: 'user-view/:id',
@@ -84,7 +142,26 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [SubscriptionsListComponent, PaymentsListComponent, UserListComponent, UserViewComponent, UserEditComponent, NewUserSidebarComponent],
+  declarations: [
+    NewTeachersSidebarComponent,
+    TeachersListComponent,
+    SessionsListComponent,
+    NewSessionsSidebarComponent,
+    SubscriptionsListComponent,
+    PaymentsListComponent,
+    UserListComponent,
+    UserViewComponent,
+    UserEditComponent,
+    NewUserSidebarComponent,
+    NewPaymentSidebarComponent,
+    NewSubscriptionSidebarComponent,
+    NewSchoolsSidebarComponent,
+    SchoolsListComponent,
+    ClassesListComponent,
+    NewClassesSidebarComponent,
+    StudentsListComponent,
+    NewStudentsSidebarComponent
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -97,8 +174,20 @@ const routes: Routes = [
     CorePipesModule,
     CoreDirectivesModule,
     InvoiceModule,
-    CoreSidebarModule
+    CoreSidebarModule,
+    ToastrModule
   ],
-  providers: [SubscriptionsListService, PaymentsListService, UserListService, UserViewService, UserEditService]
+  providers: [
+    TeachersListService,
+    SchoolsListService,
+    SessionsListService,
+    SubscriptionsListService,
+    PaymentsListService,
+    UserListService,
+    UserViewService,
+    UserEditService,
+    ClassesListService,
+    StudentsListService
+  ]
 })
 export class UserModule {}

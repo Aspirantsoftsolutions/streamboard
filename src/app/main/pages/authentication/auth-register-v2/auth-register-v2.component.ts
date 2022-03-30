@@ -5,6 +5,10 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 import { CoreConfigService } from '@core/services/config.service';
+import { AuthenticationService, UserService } from 'app/auth/service';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
+import { UserListService } from 'app/main/apps/user/user-list/user-list.service';
 
 @Component({
   selector: 'app-auth-register-v2',
@@ -18,9 +22,17 @@ export class AuthRegisterV2Component implements OnInit {
   public passwordTextType: boolean;
   public registerForm: FormGroup;
   public submitted = false;
-
+  public role = 'teacher';
   // Private
   private _unsubscribeAll: Subject<any>;
+  public selectedStatus = [];
+
+  public selectStatusRegister: any = [
+    { name: 'Select', value: '' },
+    { name: 'Pending', value: 'Are you a teacher' },
+    { name: 'Active', value: 'Are you a student' },
+    { name: 'Inactive', value: 'Are you a IT Admin' }
+  ];
 
   /**
    * Constructor
@@ -28,7 +40,11 @@ export class AuthRegisterV2Component implements OnInit {
    * @param {CoreConfigService} _coreConfigService
    * @param {FormBuilder} _formBuilder
    */
-  constructor(private _coreConfigService: CoreConfigService, private _formBuilder: FormBuilder) {
+  constructor(private _coreConfigService: CoreConfigService,
+    private _authenticationService: UserListService,
+    private toastr: ToastrService,
+    private _router: Router,
+    private _formBuilder: FormBuilder) {
     this._unsubscribeAll = new Subject();
 
     // Configure the layout
@@ -68,9 +84,27 @@ export class AuthRegisterV2Component implements OnInit {
     this.submitted = true;
 
     // stop here if form is invalid
-    if (this.registerForm.invalid) {
-      return;
+    // if (this.registerForm.invalid) {
+    //   return;
+    // }
+    this._authenticationService.register(this.registerForm.value,this.role).then((resposne) => {
+      console.log('res set:', resposne);
+      this._router.navigate(['/pages/authentication/login-v2']);
+
+      let successString = Response;
+      this.toastr.success('👋 Registered Created Successfully.', 'Success!', {
+        toastClass: 'toast ngx-toastr',
+        closeButton: true
+      });
+    }, (error) => {
+      console.log('res set error:', error);
+      let errorString = error;
+      this.toastr.error(errorString, 'Error!', {
+        toastClass: 'toast ngx-toastr',
+        closeButton: true
+      });
     }
+    );
   }
 
   // Lifecycle Hooks
@@ -83,8 +117,13 @@ export class AuthRegisterV2Component implements OnInit {
     this.registerForm = this._formBuilder.group({
       username: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
+      mobilenumber: ['', Validators.required],
+      location: ['', Validators.required],
+      organisation: ['', Validators.required],
+      role: ['', Validators.required]
     });
+    this.selectedStatus = this.selectStatusRegister[0];
 
     // Subscribe to config changes
     this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {

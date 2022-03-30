@@ -5,9 +5,9 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/r
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable()
-export class UserEditService implements Resolve<any> {
-  public apiData: any;
-  public onUserEditChanged: BehaviorSubject<any>;
+export class TeachersListService implements Resolve<any> {
+  public rows: any;
+  public onUserListChanged: BehaviorSubject<any>;
 
   /**
    * Constructor
@@ -16,7 +16,7 @@ export class UserEditService implements Resolve<any> {
    */
   constructor(private _httpClient: HttpClient) {
     // Set the defaults
-    this.onUserEditChanged = new BehaviorSubject({});
+    this.onUserListChanged = new BehaviorSubject({});
   }
 
   /**
@@ -28,21 +28,21 @@ export class UserEditService implements Resolve<any> {
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
     return new Promise<void>((resolve, reject) => {
-      Promise.all([this.getApiData()]).then(() => {
+      Promise.all([this.getDataTableRows()]).then(() => {
         resolve();
       }, reject);
     });
   }
 
   /**
-   * Get API Data
+   * Get rows
    */
-  getApiData(): Promise<any[]> {
+  getDataTableRows(): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      this._httpClient.get('api/user/all').subscribe((response: any) => {
-        this.apiData = response;
-        this.onUserEditChanged.next(this.apiData);
-        resolve(this.apiData);
+      this._httpClient.get('api/users-data').subscribe((response: any) => {
+        this.rows = response;
+        this.onUserListChanged.next(this.rows);
+        resolve(this.rows);
       }, reject);
     });
   }

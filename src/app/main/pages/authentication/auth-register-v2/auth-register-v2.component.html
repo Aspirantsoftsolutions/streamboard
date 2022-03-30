@@ -23,7 +23,7 @@
     <!-- Register-->
     <div class="d-flex col-lg-4 align-items-center auth-bg px-2 p-lg-5">
       <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
-        <h2 class="card-title font-weight-bold mb-1">Adventure starts here 🚀</h2>
+        <h2 class="card-title font-weight-bold mb-1">Welcome to StreamBoard 🚀</h2>
         <p class="card-text mb-2">Make your app management easy and fun!</p>
         <form class="auth-register-form mt-2" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
           <div class="form-group">
@@ -59,40 +59,66 @@
             </div>
           </div>
 
-          <div class="form-group">
-            <label for="register-password" class="form-label">Password</label>
+           <div class="form-group">
+             <label for="register-password" class="form-label">Password</label>
 
-            <div class="input-group input-group-merge form-password-toggle">
-              <input
-                [type]="passwordTextType ? 'text' : 'password'"
-                formControlName="password"
-                class="form-control form-control-merge"
-                placeholder="············"
-                aria-describedby="register-password"
-                tabindex="3"
-                [ngClass]="{ 'is-invalid error': submitted && f.password.errors }"
-              />
-              <div class="input-group-append">
-                <span class="input-group-text cursor-pointer"
-                  ><i
-                    class="feather font-small-4"
-                    [ngClass]="{
+             <div class="input-group input-group-merge form-password-toggle">
+               <input [type]="passwordTextType ? 'text' : 'password'" formControlName="password"
+                 class="form-control form-control-merge" placeholder="············" aria-describedby="register-password"
+                 tabindex="3" [ngClass]="{ 'is-invalid error': submitted && f.password.errors }" />
+               <div class="input-group-append">
+                 <span class="input-group-text cursor-pointer"><i class="feather font-small-4" [ngClass]="{
                       'icon-eye-off': passwordTextType,
                       'icon-eye': !passwordTextType
-                    }"
-                    (click)="togglePasswordTextType()"
-                  ></i
-                ></span>
+                    }" (click)="togglePasswordTextType()"></i></span>
+               </div>
+             </div>
+             <div *ngIf="submitted && f.password.errors" class="invalid-feedback"
+               [ngClass]="{ 'd-block': submitted && f.password.errors }">
+               <div *ngIf="f.password.errors.required">Password is required</div>
+             </div>
+           </div>
+
+            <div class="form-group">
+              <label for="register-mobilenumber" class="form-label">MobileNumber</label>
+              <input type="text" formControlName="mobilenumber" class="form-control" placeholder="+91-1234567890"
+                aria-describedby="register-mobilenumber" tabindex="1" autofocus
+                [ngClass]="{ 'is-invalid': submitted && f.mobilenumber.errors }" />
+              <div *ngIf="submitted && f.mobilenumber.errors" class="invalid-feedback">
+                <div *ngIf="f.mobilenumber.errors.required">mobilenumber is required</div>
               </div>
             </div>
-            <div
-              *ngIf="submitted && f.password.errors"
-              class="invalid-feedback"
-              [ngClass]="{ 'd-block': submitted && f.password.errors }"
-            >
-              <div *ngIf="f.password.errors.required">Password is required</div>
+
+            <div class="form-group">
+              <label for="register-location" class="form-label">Location</label>
+              <input type="text" formControlName="location" class="form-control" placeholder="Enter your location"
+                aria-describedby="register-location" tabindex="1" autofocus
+                [ngClass]="{ 'is-invalid': submitted && f.location.errors }" />
+              <div *ngIf="submitted && f.location.errors" class="invalid-feedback">
+                <div *ngIf="f.location.errors.required">location is required</div>
+              </div>
             </div>
-          </div>
+
+            <div class="form-group">
+              <label for="register-organisation" class="form-label">Organisation</label>
+              <input type="text" formControlName="organisation" class="form-control" placeholder="Enter your organisation"
+                aria-describedby="register-organisation" tabindex="1" autofocus
+                [ngClass]="{ 'is-invalid': submitted && f.organisation.errors }" />
+              <div *ngIf="submitted && f.organisation.errors" class="invalid-feedback">
+                <div *ngIf="f.organisation.errors.required">organisation is required</div>
+              </div>
+            </div>
+
+         
+<div class="form-group">
+  <label class="form-label" for="user-role">Are you a</label>
+  <select id="user-role" class="form-control" id="role" name='role' [(ngModel)]="role">
+     <option value="Teacher">Teacher</option>
+     <option value="Student">Student</option>
+     <option value="ITAdmin">IT Admin</option>
+  </select>
+</div>
+         
           <div class="form-group">
             <div class="custom-control custom-checkbox">
               <input class="custom-control-input" type="checkbox" id="register-privacy-policy" tabindex="4" />

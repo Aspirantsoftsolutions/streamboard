@@ -44,6 +44,42 @@ export class AuthenticationService {
     return this.currentUser && this.currentUserSubject.value.role === Role.Client;
   }
 
+  getCurrentUser(token) {
+    return this._http
+      .get<any>(`${environment.apiUrl}/api/user/profile`,
+        {
+          headers: {
+            'Authorization' : 'Bearer '+ token
+          }
+        })
+      .pipe(
+        map(user => {
+          console.log('logged in user:', user);
+          // login successful if there's a jwt token in the response
+          if (user) {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            localStorage.setItem('currentUser', JSON.stringify(user.data));
+
+            // Display welcome toast!
+            setTimeout(() => {
+              this._toastrService.success(
+                'You have successfully logged in as an ' +
+                user.data.role +
+                ' user to Streamboard. Now you can start to explore. Enjoy! 🎉',
+                '👋 Welcome, ' + user.data.username+'!',
+                { toastClass: 'toast ngx-toastr', closeButton: true }
+              );
+            }, 2500);
+
+            // notify
+            this.currentUserSubject.next(user.data);
+          }
+
+          return user;
+        })
+      );
+  }
+
   /**
    * User login
    *
@@ -53,27 +89,35 @@ export class AuthenticationService {
    */
   login(email: string, password: string) {
     return this._http
-      .post<any>(`${environment.apiUrl}/users/authenticate`, { email, password })
+      .post<any>(`${environment.apiUrl}/api/auth/login`, { 'identity':email,'password': password })
       .pipe(
         map(user => {
+          console.log('logged in user:', user);
           // login successful if there's a jwt token in the response
-          if (user && user.token) {
+          if (user && user.data.token) {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('currentUser', JSON.stringify(user));
+            // localStorage.setItem('currentUser', JSON.stringify(user));
 
-            // Display welcome toast!
-            setTimeout(() => {
-              this._toastrService.success(
-                'You have successfully logged in as an ' +
-                  user.role +
-                  ' user to Vuexy. Now you can start to explore. Enjoy! 🎉',
-                '👋 Welcome, ' + user.firstName + '!',
-                { toastClass: 'toast ngx-toastr', closeButton: true }
-              );
-            }, 2500);
+            // // Display welcome toast!
+            // setTimeout(() => {
+            //   this._toastrService.success(
+            //     'You have successfully logged in as an ' +
+            //       user.role +
+            //       ' user to Streamboard. Now you can start to explore. Enjoy! 🎉',
+            //     '👋 Welcome, !',
+            //     { toastClass: 'toast ngx-toastr', closeButton: true }
+            //   );
+            // }, 2500);
 
             // notify
-            this.currentUserSubject.next(user);
+            // this.currentUserSubject.next(user);
+            this.getCurrentUser(user.data.token)
+              .subscribe(
+                data => {
+                },
+                error => {
+                }
+              );
           }
 
           return user;

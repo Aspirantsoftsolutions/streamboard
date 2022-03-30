@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 
 import { AuthenticationService } from 'app/auth/service';
 import { CoreConfigService } from '@core/services/config.service';
+import { SocialAuthService, GoogleLoginProvider } from 'angularx-social-login';
 
 @Component({
   selector: 'app-auth-login-v2',
@@ -35,6 +36,7 @@ export class AuthLoginV2Component implements OnInit {
     private _coreConfigService: CoreConfigService,
     private _formBuilder: FormBuilder,
     private _route: ActivatedRoute,
+    private authService: SocialAuthService,
     private _router: Router,
     private _authenticationService: AuthenticationService
   ) {
@@ -76,21 +78,22 @@ export class AuthLoginV2Component implements OnInit {
   }
 
   onSubmit() {
-    this.submitted = true;
+   this.submitted = true;
+    // this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
 
-    // stop here if form is invalid
+    // // stop here if form is invalid
     if (this.loginForm.invalid) {
       return;
     }
 
-    // Login
+    // // Login
     this.loading = true;
     this._authenticationService
       .login(this.f.email.value, this.f.password.value)
       .pipe(first())
       .subscribe(
         data => {
-          this._router.navigate([this.returnUrl]);
+          this._router.navigate(['/']);
         },
         error => {
           this.error = error;
@@ -117,6 +120,9 @@ export class AuthLoginV2Component implements OnInit {
     // Subscribe to config changes
     this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
       this.coreConfig = config;
+    });
+    this.authService.authState.subscribe((user) => {
+      console.log('user:', user);
     });
   }
 
