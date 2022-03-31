@@ -1,3 +1,4 @@
+import { AuthenticationService } from './../../../../auth/service/authentication.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
@@ -14,9 +15,11 @@ export class SessionsListService implements Resolve<any> {
    *
    * @param {HttpClient} _httpClient
    */
-  constructor(private _httpClient: HttpClient) {
+  constructor(private _httpClient: HttpClient, private _authenticationService: AuthenticationService) {
     // Set the defaults
     this.onUserListChanged = new BehaviorSubject({});
+    console.log('current user here:', this._authenticationService.currentUser);
+
   }
 
   /**
@@ -39,11 +42,29 @@ export class SessionsListService implements Resolve<any> {
    */
   getDataTableRows(): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      this._httpClient.get('api/users-data').subscribe((response: any) => {
+      this._httpClient.get('api/user/all').subscribe((response: any) => {
         this.rows = response;
-        this.onUserListChanged.next(this.rows);
-        resolve(this.rows);
+        console.log(this.rows.data);
+        this.onUserListChanged.next(this.rows.data);
+        resolve(this.rows.data);
       }, reject);
     });
   }
+
+  /**
+  * Get rows
+  */
+  createSession(form): Promise<any[]> {
+    return new Promise((resolve, reject) => {
+      this._httpClient.post('api/session/createSession', {
+        'groupId': form['groupId'],
+        'description': form['user-description'],
+        'teacherId': form['teacherId'],
+      }).subscribe((response: any) => {
+        console.log(response);
+        resolve(response);
+      }, reject);
+    });
+  }
+
 }

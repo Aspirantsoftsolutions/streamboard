@@ -79,9 +79,9 @@
                   (keyup)="filterUpdate($event)"
                   (search)="filterUpdate($event)"
               /></label>
-              <button class="btn btn-primary ml-1" rippleEffect (click)="toggleSidebar('new-user-sidebar')">
+              <button class="btn btn-primary ml-1" rippleEffect (click)="toggleSidebar('new-teachers-sidebar')">
                 <i data-feather="plus" class="d-sm-none d-inline-block mr-0 mr-sm-1"></i
-                ><span class="d-none d-sm-inline-block">Add New User</span>
+                ><span class="d-none d-sm-inline-block">Add New Teacher</span>
               </button>
             </div>
           </div>
@@ -99,10 +99,10 @@
           <ngx-datatable-column name="User" prop="fullName" [width]="200">
             <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
               <div class="d-flex align-items-center">
-                <div *ngIf="row.avatar.length > 0; else customAvatar">
+                <div *ngIf="row.profile_pic.length > 0; else customAvatar">
                   <img
                     class="rounded-circle mr-1"
-                    src="{{ row.avatar }}"
+                    src="{{ row.profile_pic }}"
                     height="32"
                     width="32"
                     alt="datatable-avatar"
@@ -124,7 +124,7 @@
                   <a routerLink="/apps/user/user-view/{{ row.id }}" class="font-medium-1 d-block"
                     ><span class="font-weight-bold">{{ name }}</span></a
                   >
-                  <span class="text-muted font-small-2"> @{{ row.username }}</span>
+                  <span class="text-muted font-small-2"> {{ row.username }}</span>
                 </div>
               </div>
             </ng-template>
@@ -136,18 +136,18 @@
                 <i
                   class="feather font-medium-3"
                   [ngClass]="{
-                    'icon-edit-2 text-info': role == 'Editor',
-                    'icon-settings text-warning': role == 'Author',
-                    'icon-database text-success': role == 'Maintainer',
-                    'icon-user text-primary': role == 'Subscriber',
-                    'icon-slack text-danger': role == 'Admin'
+                    'icon-edit-2 text-info': role == 'Organisation',
+                    'icon-settings text-warning': role == 'Franchise',
+                    'icon-database text-success': role == 'School',
+                    'icon-user text-primary': role == 'Teacher',
+                    'icon-slack text-danger': role == 'Student'
                   }"
                 ></i>
                 {{ role }}
               </div>
             </ng-template>
           </ngx-datatable-column>
-          <ngx-datatable-column name="Plan" prop="currentPlan" [width]="100"></ngx-datatable-column>
+          <ngx-datatable-column name="Plan" prop="plan" [width]="100"></ngx-datatable-column>
           <ngx-datatable-column name="Status" prop="status" [width]="50">
             <ng-template let-status="value" ngx-datatable-cell-template>
               <div
@@ -189,10 +189,10 @@
   <!-- New User Sidebar -->
   <core-sidebar
     class="modal modal-slide-in sidebar-todo-modal fade"
-    name="new-user-sidebar"
+    name="new-teachers-sidebar"
     overlayClass="modal-backdrop"
   >
-    <app-new-user-sidebar></app-new-user-sidebar>
+    <app-new-teachers-sidebar></app-new-teachers-sidebar>
   </core-sidebar>
   <!--/ New User Sidebar -->
 </div>

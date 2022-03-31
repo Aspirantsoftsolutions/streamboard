@@ -130,14 +130,6 @@ const routes: Routes = [
       ues: UserEditService
     },
     data: { animation: 'UserEditComponent' }
-  },
-  {
-    path: 'user-view',
-    redirectTo: '/apps/user/user-view/2' // Redirection
-  },
-  {
-    path: 'user-edit',
-    redirectTo: '/apps/user/user-edit/2' // Redirection
   }
 ];
 

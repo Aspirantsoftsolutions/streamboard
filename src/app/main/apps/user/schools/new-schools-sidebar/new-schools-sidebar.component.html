@@ -8,16 +8,16 @@
           class="close"
           data-dismiss="modal"
           aria-label="Close"
-          (click)="toggleSidebar('new-user-sidebar')"
+          (click)="toggleSidebar('new-schools-sidebar')"
         >
           ×
         </button>
         <div class="modal-header mb-1">
-          <h5 class="modal-title" id="exampleModalLabel">New User</h5>
+          <h5 class="modal-title" id="exampleModalLabel">New School</h5>
         </div>
         <div class="modal-body flex-grow-1">
           <div class="form-group">
-            <label class="form-label" for="basic-icon-default-fullname">Full Name</label>
+            <label class="form-label" for="basic-icon-default-fullname">School Name</label>
             <input
               type="text"
               class="form-control dt-full-name"
@@ -36,26 +36,7 @@
             </span>
           </div>
           <div class="form-group">
-            <label class="form-label" for="basic-icon-default-uname">Username</label>
-            <input
-              type="text"
-              id="basic-icon-default-uname"
-              class="form-control dt-uname"
-              placeholder="Web Developer"
-              aria-label="jdoe1"
-              aria-describedby="basic-icon-default-uname2"
-              name="user-name"
-              [(ngModel)]="username"
-              [class.error]="newUserForm.submitted && FUserNameRef.invalid"
-              #FUserNameRef="ngModel"
-              required
-            />
-            <span *ngIf="newUserForm.submitted && FUserNameRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="FUserNameRef.errors.required">This field is required!</small>
-            </span>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="basic-icon-default-email">Email</label>
+            <label class="form-label" for="basic-icon-default-email">School Email ID</label>
             <input
               type="text"
               id="basic-icon-default-email"
@@ -74,19 +55,73 @@
             </span>
             <small class="form-text text-muted"> You can use letters, numbers & periods </small>
           </div>
+
           <div class="form-group">
-            <label class="form-label" for="user-role">Select Role</label>
-            <select id="user-role" class="form-control">
-               <option value="Teacher">Teacher</option>
-               <option value="Student">Student</option>
-               <option value="Class">Class</option>
-            </select>
+            <label class="form-label" for="basic-icon-default-email">School Owner Email ID</label>
+            <input
+              type="text"
+              id="basic-icon-default-email"
+              class="form-control dt-email"
+              placeholder="john.doe@example.com"
+              aria-label="john.doe@example.com"
+              aria-describedby="basic-icon-default-email2"
+              name="user-email-owner"
+              [(ngModel)]="emailOwner"
+              [class.error]="newUserForm.submitted && FEmailRef.invalid"
+              #FEmailRef="ngModel"
+              required
+            />
+            <span *ngIf="newUserForm.submitted && FEmailRef.invalid" class="invalid-form">
+              <small class="form-text text-danger" *ngIf="FEmailRef.errors.required">This field is required!</small>
+            </span>
+            <small class="form-text text-muted"> You can use letters, numbers & periods </small>
           </div>
+          
+          <div class="form-group">
+            <label class="form-label" for="basic-icon-default-fullname">School Address</label>
+            <input
+              type="text"
+              class="form-control dt-full-name"
+              id="basic-icon-default-fullname"
+              placeholder="School Address"
+              name="address"
+              [(ngModel)]="schoolAddress"
+              [class.error]="newUserForm.submitted && FNameRef.invalid"
+              #ANameRef="ngModel"
+              required
+              aria-label="School Address"
+              aria-describedby="basic-icon-default-fullname2"
+            />
+            <span *ngIf="newUserForm.submitted && ANameRef.invalid" class="invalid-form">
+              <small class="form-text text-danger" *ngIf="ANameRef.errors.required">This field is required!</small>
+            </span>
+          </div>
+
+           <div class="form-group">
+            <label class="form-label" for="basic-icon-default-fullname">School Location</label>
+            <input
+              type="text"
+              class="form-control dt-full-name"
+              id="basic-icon-default-fullname"
+              placeholder="School location"
+              name="location"
+              [(ngModel)]="schoolLocation"
+              [class.error]="newUserForm.submitted && LNameRef.invalid"
+              #LNameRef="ngModel"
+              required
+              aria-label="School Address"
+              aria-describedby="basic-icon-default-fullname2"
+            />
+            <span *ngIf="newUserForm.submitted && LNameRef.invalid" class="invalid-form">
+              <small class="form-text text-danger" *ngIf="LNameRef.errors.required">This field is required!</small>
+            </span>
+          </div>
+
           <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" rippleEffect>Submit</button>
           <button
             type="reset"
             class="btn btn-outline-secondary"
-            (click)="toggleSidebar('new-user-sidebar')"
+            (click)="toggleSidebar('new-schools-sidebar')"
             rippleEffect
           >
             Cancel

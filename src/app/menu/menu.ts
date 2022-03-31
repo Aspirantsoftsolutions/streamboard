@@ -56,6 +56,14 @@ export const menu: CoreMenu[] = [
         url: 'apps/user/teachers-list'
       },
       {
+        id: 'students_list',
+        title: 'Students',
+        type: 'item',
+        role: ['Teacher', 'School', 'Admin'],
+        icon: 'circle',
+        url: 'apps/user/students-list'
+      },
+      {
         id: 'classes_list',
         title: 'Classes',
         type: 'item',

@@ -1,5 +1,7 @@
+import { ClassesListService } from './../classes-list.service';
 import { Component, OnInit } from '@angular/core';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-new-classes-sidebar',
@@ -15,7 +17,9 @@ export class NewClassesSidebarComponent implements OnInit {
    *
    * @param {CoreSidebarService} _coreSidebarService
    */
-  constructor(private _coreSidebarService: CoreSidebarService) {}
+  constructor(private _coreSidebarService: CoreSidebarService,
+    private toastr: ToastrService,
+    private _userListService: ClassesListService, ) { }
 
   /**
    * Toggle the sidebar
@@ -33,7 +37,25 @@ export class NewClassesSidebarComponent implements OnInit {
    */
   submit(form) {
     if (form.valid) {
-      this.toggleSidebar('new-payment-sidebar');
+      console.log(form);
+      this._userListService.setUser(form.value).then((resposne) => {
+        console.log('res set:', resposne);
+        let successString = Response;
+        this.toastr.success('👋 User Created Successfully.', 'Success!', {
+          toastClass: 'toast ngx-toastr',
+          closeButton: true
+        });
+        this._userListService.getDataTableRows();
+      }, (error) => {
+        console.log('res set error:', error);
+        let errorString = error;
+        this.toastr.error(errorString, 'Error!', {
+          toastClass: 'toast ngx-toastr',
+          closeButton: true
+        });
+      }
+      );
+      this.toggleSidebar('new-user-sidebar');
     }
   }
 

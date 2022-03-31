@@ -93,7 +93,14 @@ export class AuthLoginV2Component implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          this._router.navigate(['/']);
+          this._authenticationService.getCurrentUser(data.data.token)
+            .subscribe(
+              data => {
+                this._router.navigate(['/']);
+              },
+              error => {
+              }
+            );
         },
         error => {
           this.error = error;

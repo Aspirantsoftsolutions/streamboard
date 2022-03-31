@@ -39,7 +39,7 @@ export class UserViewComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     this._userViewService.onUserViewChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
-      this.data = response;
+      this.data = response.data;
     });
   }
 

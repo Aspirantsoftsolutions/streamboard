@@ -44,7 +44,10 @@ export class UserEditComponent implements OnInit, OnDestroy {
    */
   constructor(private router: Router, private _userEditService: UserEditService) {
     this._unsubscribeAll = new Subject();
+    console.log('url:', this.url);
     this.urlLastValue = this.url.substr(this.url.lastIndexOf('/') + 1);
+    console.log('url:', this.urlLastValue);
+
   }
 
   // Public Methods
@@ -93,10 +96,16 @@ export class UserEditComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this._userEditService.onUserEditChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
       this.rows = response;
-      this.rows.map(row => {
-        if (row.id == this.urlLastValue) {
+      console.log('current rows', this.rows);
+
+      this.rows.data.map(row => {
+        console.log('current rows id', row.userId);
+        console.log('current rows cid', this.urlLastValue);
+
+        if (row.userId == this.urlLastValue) {
           this.currentRow = row;
-          this.avatarImage = this.currentRow.avatar;
+          console.log('current row',this.currentRow);
+          this.avatarImage = this.currentRow.profile_pic;
           this.tempRow = cloneDeep(row);
         }
       });
