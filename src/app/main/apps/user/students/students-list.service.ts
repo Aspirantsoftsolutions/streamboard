@@ -1,3 +1,4 @@
+import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
@@ -42,6 +43,9 @@ export class StudentsListService implements Resolve<any> {
       this._httpClient.get('api/user/all/Student').subscribe((response: any) => {
         this.rows = response;
         console.log(this.rows.data);
+        this.rows.data.map(row => {
+          row.checked = false;
+        });
         this.onUserListChanged.next(this.rows.data);
         resolve(this.rows.data);
       }, reject);
@@ -54,37 +58,21 @@ export class StudentsListService implements Resolve<any> {
   setUser(form): Promise<any[]> {
     return new Promise((resolve, reject) => {
       this._httpClient.post('api/auth/register', {
-        'username': form['user-name'],
+        'username': form['user-fullname'],
         'email': form['user-email'],
-        'password': 'Welcome@123',
+        'password': 'Test@123',
         'mobile': form['user-number'],
         'countryCode': '+91',
         'role': "Student",
         'plan': "Free",
-        'status': 'pending'
+        'status': 'active',
+        'classId': form['class'],
+        'grade': form['grade']
       }).subscribe((response: any) => {
         console.log(response);
         resolve(response);
       }, reject);
     });
   }
-  register(form, role): Promise<any[]> {
-    return new Promise((resolve, reject) => {
-      this._httpClient.post('api/auth/register', {
-        'username': form['username'],
-        'email': form['email'],
-        'password': form['password'],
-        'mobile': form['mobilenumber'],
-        'countryCode': '+91',
-        'role': "Student",
-        'plan': "Free",
-        'status': 'pending',
-        'location': form['location'],
-        'organisation': form['organisation']
-      }).subscribe((response: any) => {
-        console.log(response);
-        resolve(response);
-      }, reject);
-    });
-  }
+
 }

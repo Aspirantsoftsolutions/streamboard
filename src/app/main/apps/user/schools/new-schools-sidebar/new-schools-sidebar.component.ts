@@ -8,13 +8,13 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './new-schools-sidebar.component.html'
 })
 export class NewSchoolsSidebarComponent implements OnInit {
-  public fullname;
+  public schoolName;
   public username;
   public email;
   public emailOwner;
   public schoolAddress;
   public schoolLocation;
-
+  public schoolNumber;
   /**
    * Constructor
    *
@@ -44,7 +44,7 @@ export class NewSchoolsSidebarComponent implements OnInit {
       this._userListService.setUser(form.value).then((resposne) => {
         console.log('res set:', resposne);
         let successString = Response;
-        this.toastr.success('👋 User Created Successfully.', 'Success!', {
+        this.toastr.success('👋 School Created Successfully.', 'Success!', {
           toastClass: 'toast ngx-toastr',
           closeButton: true
         });
@@ -58,7 +58,7 @@ export class NewSchoolsSidebarComponent implements OnInit {
         });
       }
       );
-      this.toggleSidebar('new-user-sidebar');
+      this.toggleSidebar('new-schools-sidebar');
     }
   }
 

@@ -1,3 +1,4 @@
+import { ClassesListService } from './../../classes/classes-list.service';
 import { TeachersListService } from './../teachers-list.service';
 import { Component, OnInit } from '@angular/core';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
@@ -9,8 +10,10 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class NewTeachersSidebarComponent implements OnInit {
   public fullname;
-  public username;
+  public mobileNumber;
   public email;
+  public classRows;
+  public class;
 
   /**
    * Constructor
@@ -19,7 +22,8 @@ export class NewTeachersSidebarComponent implements OnInit {
    */
   constructor(private _coreSidebarService: CoreSidebarService,
     private toastr: ToastrService,
-    private _userListService: TeachersListService, ) {}
+    private _userListService: TeachersListService,
+    private _classListService: ClassesListService,) { }
 
   /**
    * Toggle the sidebar
@@ -55,9 +59,19 @@ export class NewTeachersSidebarComponent implements OnInit {
         });
       }
       );
-      this.toggleSidebar('new-user-sidebar');
+      this.toggleSidebar('new-teachers-sidebar');
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this._classListService.getDataTableRows().then((resposne) => {
+      console.log('res set teacher:', resposne);
+      this.classRows = resposne;
+      console.log('teachers:', this.classRows);
+    }, (error) => {
+      console.log('res set error:', error);
+    }
+    );
+  }
+
 }

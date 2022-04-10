@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   hmr: false,
   apiUrl: 'http://localhost:3000'
+  // apiUrl: 'http://65.108.95.12:9001'
 };
 
 /*

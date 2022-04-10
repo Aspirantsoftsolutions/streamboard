@@ -1,3 +1,4 @@
+import { ClassesListService } from './../classes/classes-list.service';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ColumnMode, DatatableComponent } from '@swimlane/ngx-datatable';
 
@@ -73,7 +74,8 @@ export class StudentsListComponent implements OnInit {
   constructor(
     private _userListService: StudentsListService,
     private _coreSidebarService: CoreSidebarService,
-    private _coreConfigService: CoreConfigService
+    private _coreConfigService: CoreConfigService,
+    private _classListService: ClassesListService
   ) {
     this._unsubscribeAll = new Subject();
   }
@@ -111,6 +113,10 @@ export class StudentsListComponent implements OnInit {
    * @param name
    */
   toggleSidebar(name): void {
+    let ro = this.rows
+      .filter(opt => opt.checked);
+    console.log('checked list:', ro);
+    this._classListService.classRows = ro;
     this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
   }
 

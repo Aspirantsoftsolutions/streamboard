@@ -13,7 +13,7 @@
           ×
         </button>
         <div class="modal-header mb-1">
-          <h5 class="modal-title" id="exampleModalLabel">New User</h5>
+          <h5 class="modal-title" id="exampleModalLabel">New Teacher</h5>
         </div>
         <div class="modal-body flex-grow-1">
           <div class="form-group">
@@ -22,13 +22,13 @@
               type="text"
               class="form-control dt-full-name"
               id="basic-icon-default-fullname"
-              placeholder="John Doe"
+              placeholder="Full name"
               name="user-fullname"
               [(ngModel)]="fullname"
               [class.error]="newUserForm.submitted && FNameRef.invalid"
               #FNameRef="ngModel"
               required
-              aria-label="John Doe"
+              aria-label="Full name"
               aria-describedby="basic-icon-default-fullname2"
             />
             <span *ngIf="newUserForm.submitted && FNameRef.invalid" class="invalid-form">
@@ -36,16 +36,16 @@
             </span>
           </div>
           <div class="form-group">
-            <label class="form-label" for="basic-icon-default-uname">Username</label>
+            <label class="form-label" for="basic-icon-default-uname">Mobile Number</label>
             <input
               type="text"
               id="basic-icon-default-uname"
               class="form-control dt-uname"
-              placeholder="Web Developer"
-              aria-label="jdoe1"
+              placeholder="mobile number"
+              aria-label="mobile number"
               aria-describedby="basic-icon-default-uname2"
-              name="user-name"
-              [(ngModel)]="username"
+              name="user-number"
+              [(ngModel)]="mobileNumber"
               [class.error]="newUserForm.submitted && FUserNameRef.invalid"
               #FUserNameRef="ngModel"
               required
@@ -81,7 +81,12 @@
               <option value="Student">Student</option>
             </select>
           </div> -->
-         
+           <div class="form-group mb-2">
+            <label class="form-label" for="class">Select Class</label>
+            <select id="class" class="form-control" name='class'  [(ngModel)]="class">
+              <option value="{{item.userId}}" *ngFor="let item of classRows">{{item.username}}</option>
+            </select>
+          </div>
           <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" rippleEffect>Submit</button>
           <button
             type="reset"

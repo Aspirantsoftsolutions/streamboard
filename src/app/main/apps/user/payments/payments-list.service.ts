@@ -56,12 +56,12 @@ export class PaymentsListService implements Resolve<any> {
       this._httpClient.post('api/auth/register', {
         'username': form['user-name'],
         'email': form['user-email'],
-        'password': 'Welcome@123',
+        'password': 'Test@123',
         'mobile': form['user-number'],
         'countryCode': '+91',
         'role': form['role'],
         'plan': form['plan'],
-        'status': 'pending'
+        'status': 'active'
       }).subscribe((response: any) => {
         console.log(response);
         resolve(response);
@@ -78,7 +78,7 @@ export class PaymentsListService implements Resolve<any> {
         'countryCode': '+91',
         'role': role,
         'plan': "Free",
-        'status': 'pending',
+        'status': 'active',
         'location': form['location'],
         'organisation': form['organisation']
       }).subscribe((response: any) => {

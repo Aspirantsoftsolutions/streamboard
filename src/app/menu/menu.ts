@@ -8,7 +8,7 @@ export const menu: CoreMenu[] = [
     id: 'dashboard',
     title: 'Dashboard',
     type: 'item',
-    role: ['Admin'], //? To hide collapsible based on user role
+    role: ['Admin','School'], //? To hide collapsible based on user role
     icon: 'home',
     url: 'dashboard/analytics',
     children: [
@@ -17,8 +17,8 @@ export const menu: CoreMenu[] = [
         title: 'Analytics',
         translate: 'MENU.DASHBOARD.ANALYTICS',
         type: 'item',
-        role: ['Admin'], //? To set multiple role: ['Admin', 'Client']
-        icon: 'circle',
+        role: ['Admin', 'School'], //? To set multiple role: ['Admin', 'Client']
+        icon: 'user',
         url: 'dashboard/analytics'
       },
     ]
@@ -32,11 +32,35 @@ export const menu: CoreMenu[] = [
     icon: 'package',
     children: [
       {
+        id: 'sso',
+        title: 'SSO',
+        type: 'item',
+        role: ['Admin'],
+        icon: 'user',
+        url: 'apps/user/appazure'
+      },
+      {
+        id: 'calendar',
+        title: 'Calendar',
+        translate: 'MENU.APPS.CALENDAR',
+        type: 'item',
+        role: ['Class', 'Student', 'Teacher', 'School'],
+        icon: 'calendar',
+        url: 'apps/calendar'
+      },
+      {
+        id: 'sessions_list',
+        title: 'Sessions',
+        type: 'item',
+        icon: 'user',
+        url: 'apps/user/sessions-list'
+      },
+      {
         id: 'users_list',
         title: 'Clients',
         type: 'item',
         role: ['Admin'],
-        icon: 'circle',
+        icon: 'user',
         url: 'apps/user/user-list'
       },
       {
@@ -44,7 +68,7 @@ export const menu: CoreMenu[] = [
         title: 'Schools',
         type: 'item',
         role: ['Admin'],
-        icon: 'circle',
+        icon: 'user',
         url: 'apps/user/schools-list'
       },
       {
@@ -52,7 +76,7 @@ export const menu: CoreMenu[] = [
         title: 'Teachers',
         type: 'item',
         role: ['School', 'Class', 'Admin'],
-        icon: 'circle',
+        icon: 'user',
         url: 'apps/user/teachers-list'
       },
       {
@@ -60,38 +84,38 @@ export const menu: CoreMenu[] = [
         title: 'Students',
         type: 'item',
         role: ['Teacher', 'School', 'Admin'],
-        icon: 'circle',
+        icon: 'user',
         url: 'apps/user/students-list'
       },
       {
         id: 'classes_list',
         title: 'Classes',
         type: 'item',
-        role: ['Teacher', 'School', 'Admin'],
-        icon: 'circle',
+        role: ['School', 'Admin'],
+        icon: 'user',
         url: 'apps/user/classes-list'
       },
       {
-        id: 'sessions_list',
-        title: 'Sessions',
+        id: 'groups_list',
+        title: 'Groups',
         type: 'item',
-        icon: 'circle',
-        url: 'apps/user/sessions-list'
+        role: ['Teacher', 'School', 'Admin'],
+        icon: 'user',
+        url: 'apps/user/groups-list'
       },
       {
-        id: 'calendar',
-        title: 'Calendar',
-        translate: 'MENU.APPS.CALENDAR',
+        id: 'grades_list',
+        title: 'Grades',
         type: 'item',
-        role: ['Class'],
-        icon: 'calendar',
-        url: 'apps/calendar'
+        role: ['Teacher', 'School', 'Admin'],
+        icon: 'user',
+        url: 'apps/user/grades-list'
       },
       {
         id: 'subscriptions-list',
         title: 'Subscriptions',
         type: 'item',
-        icon: 'circle',
+        icon: 'user',
         role: ['Admin'],
         url: 'apps/user/subscriptions-list'
       },
@@ -100,35 +124,35 @@ export const menu: CoreMenu[] = [
         title: 'Payments',
         type: 'item',
         role: ['Admin'],
-        icon: 'circle',
+        icon: 'user',
         url: 'apps/user/payments-list'
       },
       {
         id: 'invoice',
         title: 'Settings',
         type: 'collapsible',
-        role: ['Admin'],
+        role: ['Admin','School'],
         icon: 'file-text',
         children: [
           {
             id: 'invoice-list',
             title: 'Roles & Permissions',
             type: 'item',
-            icon: 'circle',
+            icon: 'user',
             url: 'apps/invoice/list'
           },
           {
             id: 'invoicePreview',
             title: 'Notifications',
             type: 'item',
-            icon: 'circle',
+            icon: 'user',
             url: 'apps/invoice/preview'
           },
           {
             id: 'invoiceEdit',
             title: 'Dynamic Forms',
             type: 'item',
-            icon: 'circle',
+            icon: 'user',
             url: 'apps/invoice/edit'
           }
         ]

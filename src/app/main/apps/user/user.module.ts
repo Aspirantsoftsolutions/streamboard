@@ -1,3 +1,9 @@
+import { NewGradesSidebarComponent } from './grades/new-grades-sidebar/new-grades-sidebar.component';
+import { GradesListService } from './grades/grades-list.service';
+import { GradesListComponent } from './grades/grades-list.component';
+import { NewGroupsSidebarComponent } from './groups/new-groups-sidebar/new-groups-sidebar.component';
+import { GroupsListService } from './groups/groups-list.service';
+import { GroupsListComponent } from './groups/groups-list.component';
 import { NewStudentsSidebarComponent } from './students/new-students-sidebar/new-students-sidebar.component';
 import { StudentsListService } from './students/students-list.service';
 import { StudentsListComponent } from './students/students-list.component';
@@ -48,6 +54,60 @@ import { SubscriptionsListComponent } from './subscriptions/subscriptions-list.c
 import { SubscriptionsListService } from './subscriptions/subscriptions-list.service';
 import { SchoolsListService } from './schools/schools-list.service';
 
+// import { MatButtonModule } from '@angular/material/button';
+// import { MatToolbarModule } from '@angular/material/toolbar';
+// import { MatListModule } from '@angular/material/list';
+// import { MatTableModule } from '@angular/material/table';
+// import { MatCardModule } from '@angular/material/card';
+
+import { AppComponent } from './sso/app.component';
+import { HomeComponent } from './sso/home/home.component';
+import { ProfileComponent } from './sso/profile/profile.component';
+import { TenantComponent } from './sso/tenant/tenant.component';
+
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { IPublicClientApplication, PublicClientApplication, InteractionType } from '@azure/msal-browser';
+import { MsalGuard, MsalInterceptor, MsalBroadcastService, MsalInterceptorConfiguration, MsalModule, MsalService, MSAL_GUARD_CONFIG, MSAL_INSTANCE, MSAL_INTERCEPTOR_CONFIG, MsalGuardConfiguration, MsalRedirectComponent } from '@azure/msal-angular';
+
+import { msalConfig, loginRequest, protectedResources } from './sso/auth-config';
+
+/**
+ * Here we pass the configuration parameters to create an MSAL instance.
+ * For more info, visit: https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-angular/docs/v2-docs/configuration.md
+ */
+
+export function MSALInstanceFactory(): IPublicClientApplication {
+  return new PublicClientApplication(msalConfig);
+}
+
+/**
+ * MSAL Angular will automatically retrieve tokens for resources 
+ * added to protectedResourceMap. For more info, visit: 
+ * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-angular/docs/v2-docs/initialization.md#get-tokens-for-web-api-calls
+ */
+export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
+  const protectedResourceMap = new Map<string, Array<string>>();
+
+  protectedResourceMap.set(protectedResources.graphMe.endpoint, protectedResources.graphMe.scopes);
+  protectedResourceMap.set(protectedResources.armTenants.endpoint, protectedResources.armTenants.scopes);
+
+  return {
+    interactionType: InteractionType.Redirect,
+    protectedResourceMap
+  };
+}
+
+/**
+ * Set your default interaction type for MSALGuard here. If you have any
+ * additional scopes you want the user to consent upon login, add them here as well.
+ */
+export function MSALGuardConfigFactory(): MsalGuardConfiguration {
+  return {
+    interactionType: InteractionType.Redirect,
+    authRequest: loginRequest
+  };
+}
+
 // routing
 const routes: Routes = [
   {
@@ -57,6 +117,22 @@ const routes: Routes = [
       uls: SubscriptionsListService
     },
     data: { animation: 'SubscriptionsListComponent' }
+  },
+  {
+    path: 'groups-list',
+    component: GroupsListComponent,
+    resolve: {
+      uls: GroupsListService
+    },
+    data: { animation: 'GroupsListComponent' }
+  },
+  {
+    path: 'grades-list',
+    component: GradesListComponent,
+    resolve: {
+      uls: GradesListService
+    },
+    data: { animation: 'GradesListComponent' }
   },
   {
     path: 'payments-list',
@@ -118,7 +194,7 @@ const routes: Routes = [
     path: 'user-view/:id',
     component: UserViewComponent,
     resolve: {
-      data: UserViewService,
+      data: UserEditService,
       InvoiceListService
     },
     data: { path: 'view/:id', animation: 'UserViewComponent' }
@@ -130,7 +206,16 @@ const routes: Routes = [
       ues: UserEditService
     },
     data: { animation: 'UserEditComponent' }
-  }
+  },
+  {
+    path: 'appazure',
+    component: AppComponent,
+    data: { animation: 'appazure' }
+  },
+  // {
+  //   path: 'appazure',
+  //   loadChildren: () => import('./sso/app.module').then(m => m.AppModule)
+  // }
 ];
 
 @NgModule({
@@ -152,7 +237,15 @@ const routes: Routes = [
     ClassesListComponent,
     NewClassesSidebarComponent,
     StudentsListComponent,
-    NewStudentsSidebarComponent
+    NewStudentsSidebarComponent,
+    GroupsListComponent,
+    NewGroupsSidebarComponent,
+    GradesListComponent,
+    NewGradesSidebarComponent,
+    AppComponent,
+    HomeComponent,
+    ProfileComponent,
+    TenantComponent
   ],
   imports: [
     CommonModule,
@@ -167,7 +260,8 @@ const routes: Routes = [
     CoreDirectivesModule,
     InvoiceModule,
     CoreSidebarModule,
-    ToastrModule
+    ToastrModule,
+    MsalModule
   ],
   providers: [
     TeachersListService,
@@ -179,7 +273,30 @@ const routes: Routes = [
     UserViewService,
     UserEditService,
     ClassesListService,
-    StudentsListService
-  ]
+    StudentsListService,
+    GroupsListService,
+    GradesListService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: MsalInterceptor,
+      multi: true
+    },
+    {
+      provide: MSAL_INSTANCE,
+      useFactory: MSALInstanceFactory
+    },
+    {
+      provide: MSAL_GUARD_CONFIG,
+      useFactory: MSALGuardConfigFactory
+    },
+    {
+      provide: MSAL_INTERCEPTOR_CONFIG,
+      useFactory: MSALInterceptorConfigFactory
+    },
+    MsalService,
+    MsalGuard,
+    MsalBroadcastService
+  ],
+  bootstrap: [AppComponent, MsalRedirectComponent]
 })
 export class UserModule {}

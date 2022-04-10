@@ -46,7 +46,7 @@ export class UserViewService implements Resolve<any> {
       this._httpClient.get(url).subscribe((response: any) => {
         response.data.forEach(element => {
           if (id == element.userId) {
-            this.rows = element;
+            this.rows = element.data;
             this.onUserViewChanged.next(this.rows);
             resolve(this.rows);
           }

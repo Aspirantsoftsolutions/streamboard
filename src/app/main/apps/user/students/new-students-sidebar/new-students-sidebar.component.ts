@@ -1,7 +1,11 @@
+import { GradesListService } from './../../grades/grades-list.service';
+import { ClassesListService } from './../../classes/classes-list.service';
 import { StudentsListService } from './../students-list.service';
 import { Component, OnInit } from '@angular/core';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 import { ToastrService } from 'ngx-toastr';
+import { TeachersListService } from '../../teachers/teachers-list.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-new-students-sidebar',
@@ -9,8 +13,13 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class NewStudentsSidebarComponent implements OnInit {
   public fullname;
-  public username;
+  public userNumber;
   public email;
+  private _unsubscribeAll: Subject<any>;
+  public classRows;
+  public grades;
+  public class;
+  public grade;
 
   /**
    * Constructor
@@ -19,7 +28,12 @@ export class NewStudentsSidebarComponent implements OnInit {
    */
   constructor(private _coreSidebarService: CoreSidebarService,
     private toastr: ToastrService,
-    private _userListService: StudentsListService, ) { }
+    private _classListService: ClassesListService,
+    private _gradeListService: GradesListService,
+    private _userListService: StudentsListService,) {
+    
+    this._unsubscribeAll = new Subject();
+    }
 
   /**
    * Toggle the sidebar
@@ -55,9 +69,27 @@ export class NewStudentsSidebarComponent implements OnInit {
         });
       }
       );
-      this.toggleSidebar('new-user-sidebar');
+      this.toggleSidebar('new-students-sidebar');
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this._classListService.getDataTableRows().then((resposne) => {
+      console.log('res set classRows:', resposne);
+      this.classRows = resposne;
+      console.log('classRows:', this.classRows);
+    }, (error) => {
+      console.log('res set error:', error);
+    });
+
+    this._gradeListService.getDataTableRows().then((resposne) => {
+      console.log('res set Grades:', resposne);
+      this.grades = resposne;
+      console.log('grades:', this.grades);
+    }, (error) => {
+      console.log('res set error:', error);
+    });
+
+  }
+
 }

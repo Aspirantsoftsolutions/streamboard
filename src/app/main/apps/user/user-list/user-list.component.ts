@@ -1,13 +1,16 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ColumnMode, DatatableComponent } from '@swimlane/ngx-datatable';
 
-import { Subject } from 'rxjs';
+import { Subject, async } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { CoreConfigService } from '@core/services/config.service';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 
 import { UserListService } from 'app/main/apps/user/user-list/user-list.service';
+// var admin = require('google-admin-sdk');
+// const privatekey = require('../../../../../../streamboard-346619-e851b52adce0.json');
+// const { JWT } = require('google-auth-library');    
 
 @Component({
   selector: 'app-user-list',
@@ -195,7 +198,42 @@ export class UserListComponent implements OnInit {
         });
       }
     });
+
+    this.getUser();
+
+
   }
+
+  
+
+  async getUser() {
+    // const client = new JWT({
+    //   email: privatekey.client_email,
+    //   key: privatekey.private_key,
+    //   scopes: ['https://www.googleapis.com/auth/cloud-platform'],
+    // });
+    // let url = "https://admin.googleapis.com/admin/directory/v1/users";
+    // const res = await client.request({ url });
+    // console.log(res.data);
+
+  // try {
+  //   const admin = await google.admin({
+  //     version: "directory_v1",
+  //     auth: client,
+  //   });
+  //   //get all users
+  //   const users = await admin.users.get({
+  //     userKey: email,
+  //   });
+  //   console.log(users, "users");
+  // } catch (error) {
+  //   console.log(
+  //     error.response ? error.response.data : error.message,
+  //     "error",
+  //     error.message ? error.errors : ""
+  //   );
+  // }
+}
 
   /**
    * On destroy

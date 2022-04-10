@@ -8,7 +8,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class ClassesListService implements Resolve<any> {
   public rows: any;
   public onUserListChanged: BehaviorSubject<any>;
-
+  public classRows: any;
+  
   /**
    * Constructor
    *
@@ -54,37 +55,31 @@ export class ClassesListService implements Resolve<any> {
   setUser(form): Promise<any[]> {
     return new Promise((resolve, reject) => {
       this._httpClient.post('api/auth/register', {
-        'username': form['user-name'],
+        'username': form['user-fullname'],
         'email': form['user-email'],
-        'password': 'Welcome@123',
-        'mobile': form['user-number'],
+        'password': 'Test@123',
+        'mobile': '123456789',
         'countryCode': '+91',
         'role': "Class",
         'plan': "Free",
-        'status': 'pending'
+        'status': 'active',
       }).subscribe((response: any) => {
         console.log(response);
         resolve(response);
       }, reject);
     });
   }
-  register(form, role): Promise<any[]> {
+
+  setUserClass(classId, userId): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      this._httpClient.post('api/auth/register', {
-        'username': form['username'],
-        'email': form['email'],
-        'password': form['password'],
-        'mobile': form['mobilenumber'],
-        'countryCode': '+91',
-        'role': "Class",
-        'plan': "Free",
-        'status': 'pending',
-        'location': form['location'],
-        'organisation': form['organisation']
+      this._httpClient.put('api/user', {
+        'classId': classId,
+        'userId' : userId
       }).subscribe((response: any) => {
         console.log(response);
         resolve(response);
       }, reject);
     });
   }
+ 
 }

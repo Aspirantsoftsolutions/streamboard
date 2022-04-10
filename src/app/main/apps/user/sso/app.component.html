@@ -1,0 +1,84 @@
+<div color="primary">
+  <a class="title" href="/">{{ title }}</a>
+
+  <div class="toolbar-spacer"></div>
+
+
+  <!-- <button  *ngIf="!loginDisplay" (click)="login()">Login</button> -->
+  <!-- <button  color="accent" *ngIf="loginDisplay" (click)="logout()">Logout</button> -->
+  <div class="content-wrapper container-xxl p-0">
+    <div class="content-body">
+      <div class="card">
+          <div class="card-body">
+               <h2>Azure </h2>
+          <form class="form-validate" (ngSubmit)="(accountForm.form.valid)" #accountForm="ngForm">
+                    <div style="margin:50px">
+                      <div class="row">
+                        <div class="form-group">
+                          <label for="tenantId">Tenant ID</label>
+                          <input
+                            type="text"
+                            id="tenantId"
+                            class="form-control"
+                            placeholder="tenantId"
+                            name="tenantId"
+                            [(ngModel)]="tenantId"
+                            [class.error]="accountForm.submitted && UserNameRef.invalid"
+                            #UserNameRef="ngModel"
+                            required
+                          />
+                          <span *ngIf="accountForm.submitted && UserNameRef.invalid" class="invalid-form">
+                            <small class="form-text text-danger" *ngIf="UserNameRef.errors.required"
+                              >This field is required!</small
+                            >
+                          </span>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="form-group">
+                          <label for="azureId">Azure AD Application ID</label>
+                          <input
+                            type="text"
+                            id="azureId"
+                            class="form-control"
+                            placeholder="azureId"
+                            name="azureId"
+                            [(ngModel)]="azureId"
+                            [class.error]="accountForm.submitted && FullNameRef.invalid"
+                            #FullNameRef="ngModel"
+                            required
+                          />
+                          <span *ngIf="accountForm.submitted && FullNameRef.invalid" class="invalid-form">
+                            <small class="form-text text-danger" *ngIf="FullNameRef.errors.required"
+                              >This field is required!</small
+                            >
+                          </span>
+                        </div>
+                      </div>
+                      
+                      <div class="col-12 d-flex flex-sm-row flex-column mt-2">
+                        <button type="submit" (click)="login()"
+                          class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"
+                          rippleEffect *ngIf="!loginDisplay" >
+                          <!-- *ngIf="!loginDisplay"  -->
+                          Save Changes
+                        </button>
+                          <button type="submit" (click)="logout()"
+                            class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"
+                            rippleEffect *ngIf="loginDisplay" >
+                            <!-- *ngIf="!loginDisplay"  -->
+                            Logout
+                          </button>
+
+                      </div>
+                    </div>
+                  </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+
+  <router-outlet *ngIf="!isIframe"></router-outlet>
+</div>

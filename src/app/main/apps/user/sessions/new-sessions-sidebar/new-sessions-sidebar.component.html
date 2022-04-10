@@ -3,60 +3,69 @@
   <div class="modalsd modal-slide-in sdfade new-user-modal" id="modals-slide-in">
     <div class="modal-dialog">
       <form class="add-new-user modal-content pt-0" (ngSubmit)="(newUserForm.form.valid)" #newUserForm="ngForm">
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-          (click)="toggleSidebar('new-sessions-sidebar')"
-        >
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+          (click)="toggleSidebar('new-sessions-sidebar')">
           ×
         </button>
         <div class="modal-header mb-1">
           <h5 class="modal-title" id="exampleModalLabel">New Session</h5>
         </div>
+        <!-- <div class="modal-body flex-grow-1">
+          <div class="form-group">
+            <label class="form-label" for="basic-icon-default-description">Title</label>
+            <input type="text" class="form-control dt-full-name" id="basic-icon-default-fullname" placeholder="Title"
+              name="user-title" [(ngModel)]="title"
+              [class.error]="newUserForm.submitted && FNameRef.invalid" #FNameRef="ngModel" required
+              aria-label="Title" aria-describedby="basic-icon-default-fullname2" />
+            <span *ngIf="newUserForm.submitted && FNameRef.invalid" class="invalid-form">
+              <small class="form-text text-danger" *ngIf="FNameRef.errors.required">This field is required!</small>
+            </span>
+          </div> -->
         <div class="modal-body flex-grow-1">
           <div class="form-group">
-            <label class="form-label" for="basic-icon-default-description">Description</label>
-            <input
-              type="text"
-              class="form-control dt-full-name"
-              id="basic-icon-default-fullname"
-              placeholder="John Doe"
-              name="user-description"
-              [(ngModel)]="description"
-              [class.error]="newUserForm.submitted && FNameRef.invalid"
-              #FNameRef="ngModel"
-              required
-              aria-label="John Doe"
-              aria-describedby="basic-icon-default-fullname2"
-            />
+            <label class="form-label" for="basic-icon-default-description">Title</label>
+            <input type="text" class="form-control dt-full-name" id="basic-icon-default-fullname" placeholder="Title"
+              name="user-title" [(ngModel)]="title" [class.error]="newUserForm.submitted && FNameRef.invalid"
+              #FNameRef="ngModel" required aria-label="Title" aria-describedby="basic-icon-default-fullname2" />
             <span *ngIf="newUserForm.submitted && FNameRef.invalid" class="invalid-form">
               <small class="form-text text-danger" *ngIf="FNameRef.errors.required">This field is required!</small>
             </span>
           </div>
-     
           <div class="form-group">
-            <label class="form-label" for="user-role">Select Group</label>
-            <select id="user-role" class="form-control" name="groupId" id="groupId" [(ngModel)]="groupId">
-              <option value="subscriber">Subscriber</option>
-              <option value="editor">Editor</option>
-              <option value="maintainer">Maintainer</option>
-              <option value="author">Author</option>
-              <option value="admin">Admin</option>
-            </select>
+            <label class="form-label" for="basic-icon-default-description">Description</label>
+            <input type="text" class="form-control dt-full-name" id="basic-icon-default-fullname"
+              placeholder="Description" name="user-description" [(ngModel)]="description"
+              [class.error]="newUserForm.submitted && FNameRef.invalid" #FNameRef="ngModel" required
+              aria-label="Description" aria-describedby="basic-icon-default-fullname2" />
+            <span *ngIf="newUserForm.submitted && FNameRef.invalid" class="invalid-form">
+              <small class="form-text text-danger" *ngIf="FNameRef.errors.required">This field is required!</small>
+            </span>
           </div>
-          
-          <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" rippleEffect>Submit</button>
-          <button
-            type="reset"
-            class="btn btn-outline-secondary"
-            (click)="toggleSidebar('new-sessions-sidebar')"
-            rippleEffect
-          >
-            Cancel
-          </button>
-        </div>
+
+          <div class="form-group">
+          <label class="form-label" for="basic-icon-default-description">Invite participants by group</label>
+          <input type="text" class="form-control dt-full-name" id="basic-icon-default-fullname"
+            placeholder="Participants email ids" name="user-emailids" [(ngModel)]="emailids"
+            [class.error]="newUserForm.submitted && FNameRef.invalid" #FNameRef="ngModel" required
+            aria-label="Participants email ids" aria-describedby="basic-icon-default-fullname2" />
+          <span *ngIf="newUserForm.submitted && FNameRef.invalid" class="invalid-form">
+            <small class="form-text text-danger" *ngIf="FNameRef.errors.required">This field is required!</small>
+          </span>
+          </div>
+            <div class="form-group mb-2">
+              <label class="form-label" for="group">Participants</label>
+              <select id="group" class="form-control" name='group' [(ngModel)]="group">
+                <option value="{{item.userId}}" *ngFor="let item of groupRows">{{item.username}}</option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)"
+              rippleEffect>Submit</button>
+            <button type="reset" class="btn btn-outline-secondary" (click)="toggleSidebar('new-sessions-sidebar')"
+              rippleEffect>
+              Cancel
+            </button>
+          </div>
       </form>
     </div>
   </div>

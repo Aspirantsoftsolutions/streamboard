@@ -1,3 +1,4 @@
+import { map } from 'rxjs/operators';
 import { ClassesListService } from './../classes-list.service';
 import { Component, OnInit } from '@angular/core';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
@@ -27,6 +28,7 @@ export class NewClassesSidebarComponent implements OnInit {
    * @param name
    */
   toggleSidebar(name): void {
+    // this._userListService.classRows = null;
     this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
   }
 
@@ -38,14 +40,27 @@ export class NewClassesSidebarComponent implements OnInit {
   submit(form) {
     if (form.valid) {
       console.log(form);
-      this._userListService.setUser(form.value).then((resposne) => {
+
+      this._userListService.setUser(form.value).then((resposne:any) => {
         console.log('res set:', resposne);
-        let successString = Response;
+        let successString = resposne;
+        this._userListService.classRows.map(row => {
+          console.log('current rows id', row.userId);
+          this._userListService.setUserClass(resposne.data.userId, row.userId).then((response) => {
+            console.log('res udpate:', response);
+            // let successString = response;
+          }, (error) => {
+            console.log('res set error:', error);
+            let errorString = error;
+          });
+        });
+
         this.toastr.success('👋 User Created Successfully.', 'Success!', {
           toastClass: 'toast ngx-toastr',
           closeButton: true
         });
-        this._userListService.getDataTableRows();
+        if(this._userListService.classRows==null)
+          this._userListService.getDataTableRows();
       }, (error) => {
         console.log('res set error:', error);
         let errorString = error;
@@ -55,7 +70,7 @@ export class NewClassesSidebarComponent implements OnInit {
         });
       }
       );
-      this.toggleSidebar('new-user-sidebar');
+      this.toggleSidebar('new-classes-sidebar');
     }
   }
 

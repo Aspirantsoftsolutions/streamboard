@@ -6,7 +6,7 @@
         <span class="brand-logo">
           <img src="{{ coreConfig.app.appLogoImage }}" alt="brand-logo" width="36" />
         </span>
-        <h2 class="brand-text mb-0">{{ coreConfig.app.appName }}</h2>
+        <!-- <h2 class="brand-text mb-0">{{ coreConfig.app.appName }}</h2> -->
       </a>
     </li>
   </ul>
@@ -26,12 +26,12 @@
     <!--/ Menu Toggler -->
 
     <!-- Bookmark -->
-    <app-navbar-bookmark></app-navbar-bookmark>
+    <!-- <app-navbar-bookmark></app-navbar-bookmark> -->
     <!--/ Bookmark -->
   </div>
   <ul class="nav navbar-nav align-items-center ml-auto">
     <!-- Language selection -->
-    <li ngbDropdown class="nav-item dropdown dropdown-language">
+    <!-- <li ngbDropdown class="nav-item dropdown dropdown-language">
       <a class="nav-link dropdown-toggle" id="dropdown-flag" ngbDropdownToggle>
         <i class="flag-icon flag-icon-{{ languageOptions[_translateService.currentLang].flag }}"></i
         ><span class="selected-language">{{ languageOptions[_translateService.currentLang].title }}</span></a
@@ -41,23 +41,23 @@
           <i class="flag-icon flag-icon-{{ languageOptions[lang].flag }}"></i> {{ languageOptions[lang].title }}
         </a>
       </div>
-    </li>
+    </li> -->
     <!--/ Language selection -->
 
     <!-- Toggle skin -->
-    <li class="nav-item d-none d-lg-block">
+    <!-- <li class="nav-item d-none d-lg-block">
       <a class="nav-link nav-link-style btn" (click)="toggleDarkSkin()">
         <span [ngClass]="currentSkin === 'dark' ? 'icon-sun' : 'icon-moon'" class="ficon font-medium-5 feather"></span>
       </a>
-    </li>
+    </li> -->
     <!--/ Toggle skin -->
 
     <!-- Search -->
-    <app-navbar-search></app-navbar-search>
+    <!-- <app-navbar-search></app-navbar-search> -->
     <!--/ Search -->
 
     <!-- Cart -->
-    <app-navbar-cart></app-navbar-cart>
+    <!-- <app-navbar-cart></app-navbar-cart> -->
     <!--/ Cart -->
 
     <!-- Notification -->
@@ -80,18 +80,25 @@
               >{{ this.currentUser.firstName }} {{ this.currentUser.lastName }}</span
             ><span class="user-status">{{ this.currentUser.role }}</span>
           </div>
-          <span class="avatar"
-            ><img
+          <span class="avatar">
+            <img
               class="round"
-              src="assets/images/portrait/small/{{ this.currentUser.avatar }}"
+              src="assets/images/logo/user.svg"
               alt="avatar"
               height="40"
-              width="40" /><span class="avatar-status-online"></span
-          ></span>
+              width="40" />
+            <!-- <img
+              class="round"
+              src="assets/images/portrait/small/{{ this.currentUser.profile_pic }}"
+              alt="avatar"
+              height="40"
+              width="40" /> -->
+              <span class="avatar-status-online">
+                </span></span>
         </ng-container>
       </a>
       <div ngbDropdownMenu aria-labelledby="navbarUserDropdown" class="dropdown-menu dropdown-menu-right">
-        <a ngbDropdownItem [routerLink]="['/pages/profile']"
+        <!-- <a ngbDropdownItem [routerLink]="['/pages/profile']"
           ><span [data-feather]="'user'" [class]="'mr-50'"></span> Profile</a
         ><a ngbDropdownItem [routerLink]="['/apps/email']"
           ><span [data-feather]="'mail'" [class]="'mr-50'"></span> Inbox</a
@@ -106,8 +113,8 @@
         ><a ngbDropdownItem [routerLink]="['/pages/pricing']"
           ><span [data-feather]="'credit-card'" [class]="'mr-50'"></span> Pricing</a
         ><a ngbDropdownItem [routerLink]="['/pages/faq']"
-          ><span [data-feather]="'help-circle'" [class]="'mr-50'"></span> FAQ</a
-        ><a ngbDropdownItem (click)="logout()"><span [data-feather]="'power'" [class]="'mr-50'"></span> Logout</a>
+          ><span [data-feather]="'help-circle'" [class]="'mr-50'"></span> FAQ</a> -->
+          <a ngbDropdownItem (click)="logout()"><span [data-feather]="'power'" [class]="'mr-50'"></span> Logout</a>
       </div>
     </li>
     <!--/ User Dropdown -->

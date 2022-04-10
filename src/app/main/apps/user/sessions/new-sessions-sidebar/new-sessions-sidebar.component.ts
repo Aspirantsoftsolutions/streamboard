@@ -1,3 +1,4 @@
+import { GroupsListService } from './../../groups/groups-list.service';
 import { AuthenticationService } from './../../../../../auth/service/authentication.service';
 import { SessionsListService } from './../sessions-list.service';
 import { Component, OnInit } from '@angular/core';
@@ -12,8 +13,11 @@ export class NewSessionsSidebarComponent implements OnInit {
   public description;
   public username;
   public email;
-  public groupId;
+  public group;
   private currentUser;
+  public title;
+  public emailids;
+  public groupRows;
 
   /**
    * Constructor
@@ -22,6 +26,7 @@ export class NewSessionsSidebarComponent implements OnInit {
    */
   constructor(private _coreSidebarService: CoreSidebarService,
     private toastr: ToastrService,
+    private _groupListService: GroupsListService,
     private _userListService: SessionsListService,
     private _authenticationService:AuthenticationService) {
     
@@ -63,7 +68,7 @@ export class NewSessionsSidebarComponent implements OnInit {
         });
       }
       );
-      this.toggleSidebar('new-user-sidebar');
+      this.toggleSidebar('new-sessions-sidebar');
     }
   }
 
@@ -72,5 +77,16 @@ export class NewSessionsSidebarComponent implements OnInit {
       console.log('current user here:', x);
       this.currentUser = x;
     });
+
+    this._groupListService.getDataTableRows().then((resposne) => {
+      console.log('res set groupRows:', resposne);
+      this.groupRows = resposne;
+      console.log('groupRows:', this.groupRows);
+    }, (error) => {
+      console.log('res set error:', error);
+
+    }
+    );
+
   }
 }

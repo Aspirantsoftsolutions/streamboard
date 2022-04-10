@@ -42,7 +42,7 @@ export class SessionsListService implements Resolve<any> {
    */
   getDataTableRows(): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      this._httpClient.get('api/user/all').subscribe((response: any) => {
+      this._httpClient.get('api/session/all').subscribe((response: any) => {
         this.rows = response;
         console.log(this.rows.data);
         this.onUserListChanged.next(this.rows.data);
@@ -57,7 +57,8 @@ export class SessionsListService implements Resolve<any> {
   createSession(form): Promise<any[]> {
     return new Promise((resolve, reject) => {
       this._httpClient.post('api/session/createSession', {
-        'groupId': form['groupId'],
+        'title': form['user-title'],
+        'groupId': form['group'],
         'description': form['user-description'],
         'teacherId': form['teacherId'],
       }).subscribe((response: any) => {
