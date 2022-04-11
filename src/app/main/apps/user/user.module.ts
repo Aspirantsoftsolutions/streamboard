@@ -159,6 +159,30 @@ const routes: Routes = [
     data: { animation: 'SessionsListComponent' }
   },
   {
+    path: 'quick_sessions',
+    component: SessionsListComponent,
+    resolve: {
+      uls: SessionsListService
+    },
+    data: { animation: 'SessionsListComponent' }
+  },
+  {
+    path: 'live_sessions',
+    component: SessionsListComponent,
+    resolve: {
+      uls: SessionsListService
+    },
+    data: { animation: 'SessionsListComponent' }
+  },
+  {
+    path: 'scheduled_sessions',
+    component: SessionsListComponent,
+    resolve: {
+      uls: SessionsListService
+    },
+    data: { animation: 'SessionsListComponent' }
+  },
+  {
     path: 'schools-list',
     component: SchoolsListComponent,
     resolve: {

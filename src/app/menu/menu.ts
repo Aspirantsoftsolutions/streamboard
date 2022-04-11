@@ -35,7 +35,7 @@ export const menu: CoreMenu[] = [
         id: 'sso',
         title: 'SSO',
         type: 'item',
-        role: ['Admin'],
+        role: ['Admin','School'], //  for school
         icon: 'user',
         url: 'apps/user/appazure'
       },
@@ -48,13 +48,47 @@ export const menu: CoreMenu[] = [
         icon: 'calendar',
         url: 'apps/calendar'
       },
+      // {
+      //   id: 'sessions_list',
+      //   title: 'Collaboration Class',
+      //   type: 'item',
+      //   icon: 'user',
+      //   url: 'apps/user/sessions-list'
+      // },
+
       {
-        id: 'sessions_list',
-        title: 'Sessions',
-        type: 'item',
-        icon: 'user',
-        url: 'apps/user/sessions-list'
+        id: 'collab',
+        title: 'Collaboration Class',
+        type: 'collapsible',
+        role: ['Admin', 'School'],
+        icon: 'file-text',
+        children: [
+          {
+            id: 'quick_sessions',
+            title: 'Quick Sessions',
+            type: 'item',
+            icon: 'user',
+            url: 'apps/user/quick_sessions'
+          },
+          {
+            id: 'live_sessions',
+            title: 'Live Sessions',
+            type: 'item',
+            icon: 'user',
+            url: 'apps/user/live_sessions'
+          },
+          {
+            id: 'scheduled_sessions',
+            title: 'Scheduled Sessions',
+            type: 'item',
+            icon: 'user',
+            url: 'apps/user/scheduled_sessions'
+          },
+        ]
       },
+
+
+
       {
         id: 'users_list',
         title: 'Clients',
