@@ -80,6 +80,25 @@ export class AuthenticationService {
       );
   }
 
+  getUsers(bearerToken,idToken) {
+    return this._http
+      .get<any>('https://content-admin.googleapis.com/admin/directory/v1/users?domain=thestreamboard.com&key='+idToken,
+        {
+          headers: {
+            'Authorization': 'Bearer ' + bearerToken
+          }
+        })
+      .pipe(
+        map(user => {
+          console.log('logged in users here:', user);
+          // login successful if there's a jwt token in the response
+         
+
+          return user;
+        })
+      );
+  }
+
   /**
    * User login
    *

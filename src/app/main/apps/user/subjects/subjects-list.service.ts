@@ -5,10 +5,11 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/r
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable()
-export class TeachersListService implements Resolve<any> {
+export class SubjectsListService implements Resolve<any> {
   public rows: any;
   public onUserListChanged: BehaviorSubject<any>;
-
+  public classRows: any;
+  
   /**
    * Constructor
    *
@@ -28,7 +29,7 @@ export class TeachersListService implements Resolve<any> {
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
     return new Promise<void>((resolve, reject) => {
-      Promise.all([this.getAllTeachers()]).then(() => {
+      Promise.all([this.getDataTableRows()]).then(() => {
         resolve();
       }, reject);
     });
@@ -37,9 +38,9 @@ export class TeachersListService implements Resolve<any> {
   /**
    * Get rows
    */
-  getAllTeachers(): Promise<any[]> {
+  getDataTableRows(): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      this._httpClient.get('api/user/allTeachers').subscribe((response: any) => {
+      this._httpClient.get('api/user/all/Subject').subscribe((response: any) => {
         this.rows = response;
         console.log(this.rows.data);
         this.onUserListChanged.next(this.rows.data);
@@ -51,16 +52,17 @@ export class TeachersListService implements Resolve<any> {
   /**
   * Get rows
   */
-  setTeacher(form): Promise<any[]> {
+  setUser(form): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      this._httpClient.post('api/auth/registerTeacher', {
-        'firstName': form['user-firstName'],
-        'lastName': form['user-lastName'],
-        'email': form['user-email'],
+      this._httpClient.post('api/auth/register', {
+        'username': form['user-fullname'],
+        'email': form['user-fullname']+"@gmail.om",
         'password': 'Test@123',
-        'mobile': form['user-number'],
+        'mobile': '123456789',
         'countryCode': '+91',
-        'classId':form['class']
+        'role': "Subject",
+        'plan': "Free",
+        'status': 'active',
       }).subscribe((response: any) => {
         console.log(response);
         resolve(response);
@@ -68,4 +70,16 @@ export class TeachersListService implements Resolve<any> {
     });
   }
 
+  setUserClass(classId, userId): Promise<any[]> {
+    return new Promise((resolve, reject) => {
+      this._httpClient.put('api/user', {
+        'classId': classId,
+        'userId' : userId
+      }).subscribe((response: any) => {
+        console.log(response);
+        resolve(response);
+      }, reject);
+    });
+  }
+ 
 }

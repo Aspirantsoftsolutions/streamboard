@@ -23,7 +23,7 @@ export class AuthLoginV2Component implements OnInit {
   public returnUrl: string;
   public error = '';
   public passwordTextType: boolean;
-
+  public userSocial: any;
   // Private
   private _unsubscribeAll: Subject<any>;
 
@@ -78,10 +78,13 @@ export class AuthLoginV2Component implements OnInit {
   }
 
   onSubmit() {
-   this.submitted = true;
-    // this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    this.submitted = true;
+    // const googleLoginOptions = {
+    //   scope: 'https://www.googleapis.com/auth/admin.directory.user.readonly'
+    // }
+    // this.authService.signIn(GoogleLoginProvider.PROVIDER_ID, googleLoginOptions);
 
-    // // stop here if form is invalid
+    // stop here if form is invalid
     if (this.loginForm.invalid) {
       return;
     }
@@ -130,6 +133,18 @@ export class AuthLoginV2Component implements OnInit {
     });
     this.authService.authState.subscribe((user) => {
       console.log('user:', user);
+      this.userSocial = user;
+      // this._authenticationService.getUsers(this.userSocial.response.access_token, this.userSocial.response.id_token);
+      // console.log('user token:', this.userSocial.response.access_token);
+      this._authenticationService.getUsers(this.userSocial.response.access_token, 'e851b52adce04eb4597101ccd7dd6167acc65f46')
+            .subscribe(
+              data => {
+                console.log("data c:", data);
+                // this._router.navigate(['/']);
+              },
+              error => {
+              }
+            );
     });
   }
 

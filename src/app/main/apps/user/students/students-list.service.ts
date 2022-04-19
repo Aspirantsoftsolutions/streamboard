@@ -29,7 +29,7 @@ export class StudentsListService implements Resolve<any> {
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
     return new Promise<void>((resolve, reject) => {
-      Promise.all([this.getDataTableRows()]).then(() => {
+      Promise.all([this.getAllStudents()]).then(() => {
         resolve();
       }, reject);
     });
@@ -38,9 +38,9 @@ export class StudentsListService implements Resolve<any> {
   /**
    * Get rows
    */
-  getDataTableRows(): Promise<any[]> {
+  getAllStudents(): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      this._httpClient.get('api/user/all/Student').subscribe((response: any) => {
+      this._httpClient.get('api/user/allStudent').subscribe((response: any) => {
         this.rows = response;
         console.log(this.rows.data);
         this.rows.data.map(row => {
@@ -55,17 +55,15 @@ export class StudentsListService implements Resolve<any> {
   /**
   * Get rows
   */
-  setUser(form): Promise<any[]> {
+  setStudent(form): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      this._httpClient.post('api/auth/register', {
-        'username': form['user-fullname'],
+      this._httpClient.post('api/auth/registerStudent', {
+        'firstName': form['user-firstName'],
+        'lastName': form['user-lastName'],
         'email': form['user-email'],
         'password': 'Test@123',
         'mobile': form['user-number'],
         'countryCode': '+91',
-        'role': "Student",
-        'plan': "Free",
-        'status': 'active',
         'classId': form['class'],
         'grade': form['grade']
       }).subscribe((response: any) => {

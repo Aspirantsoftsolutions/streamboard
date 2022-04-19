@@ -1,3 +1,5 @@
+import { SubjectsListService } from './subjects/subjects-list.service';
+import { SubjectsListComponent } from './subjects/subjects-list.component';
 import { NewGradesSidebarComponent } from './grades/new-grades-sidebar/new-grades-sidebar.component';
 import { GradesListService } from './grades/grades-list.service';
 import { GradesListComponent } from './grades/grades-list.component';
@@ -70,6 +72,8 @@ import { IPublicClientApplication, PublicClientApplication, InteractionType } fr
 import { MsalGuard, MsalInterceptor, MsalBroadcastService, MsalInterceptorConfiguration, MsalModule, MsalService, MSAL_GUARD_CONFIG, MSAL_INSTANCE, MSAL_INTERCEPTOR_CONFIG, MsalGuardConfiguration, MsalRedirectComponent } from '@azure/msal-angular';
 
 import { msalConfig, loginRequest, protectedResources } from './sso/auth-config';
+import { NewSubjectsSidebarComponent } from './subjects/new-subjects-sidebar/new-subjects-sidebar.component';
+import { GoogleLoginProvider, SocialAuthServiceConfig } from 'angularx-social-login';
 
 /**
  * Here we pass the configuration parameters to create an MSAL instance.
@@ -133,6 +137,14 @@ const routes: Routes = [
       uls: GradesListService
     },
     data: { animation: 'GradesListComponent' }
+  },
+  {
+    path: 'subjects-list',
+    component: SubjectsListComponent,
+    resolve: {
+      uls: SubjectsListService
+    },
+    data: { animation: 'SubjectsListComponent' }
   },
   {
     path: 'payments-list',
@@ -269,7 +281,9 @@ const routes: Routes = [
     AppComponent,
     HomeComponent,
     ProfileComponent,
-    TenantComponent
+    TenantComponent,
+    SubjectsListComponent,
+    NewSubjectsSidebarComponent
   ],
   imports: [
     CommonModule,
@@ -300,6 +314,7 @@ const routes: Routes = [
     StudentsListService,
     GroupsListService,
     GradesListService,
+    SubjectsListService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: MsalInterceptor,
@@ -319,7 +334,24 @@ const routes: Routes = [
     },
     MsalService,
     MsalGuard,
-    MsalBroadcastService
+    MsalBroadcastService,
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '257698626403-9dvcpsmpn1gb33sau8al4u6tr4ucmusf.apps.googleusercontent.com'
+            )
+          },
+        ],
+        onError: (err) => {
+          console.error(err);
+        }
+      } as SocialAuthServiceConfig,
+    }
   ],
   bootstrap: [AppComponent, MsalRedirectComponent]
 })

@@ -4,7 +4,6 @@ import { StudentsListService } from './../students-list.service';
 import { Component, OnInit } from '@angular/core';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 import { ToastrService } from 'ngx-toastr';
-import { TeachersListService } from '../../teachers/teachers-list.service';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -12,7 +11,8 @@ import { Subject } from 'rxjs';
   templateUrl: './new-students-sidebar.component.html'
 })
 export class NewStudentsSidebarComponent implements OnInit {
-  public fullname;
+  public lastName;
+  public firstName;
   public userNumber;
   public email;
   private _unsubscribeAll: Subject<any>;
@@ -30,7 +30,7 @@ export class NewStudentsSidebarComponent implements OnInit {
     private toastr: ToastrService,
     private _classListService: ClassesListService,
     private _gradeListService: GradesListService,
-    private _userListService: StudentsListService,) {
+    private _studentListService: StudentsListService,) {
     
     this._unsubscribeAll = new Subject();
     }
@@ -52,14 +52,14 @@ export class NewStudentsSidebarComponent implements OnInit {
   submit(form) {
     if (form.valid) {
       console.log(form);
-      this._userListService.setUser(form.value).then((resposne) => {
+      this._studentListService.setStudent(form.value).then((resposne) => {
         console.log('res set:', resposne);
         let successString = Response;
         this.toastr.success('👋 User Created Successfully.', 'Success!', {
           toastClass: 'toast ngx-toastr',
           closeButton: true
         });
-        this._userListService.getDataTableRows();
+        this._studentListService.getAllStudents();
       }, (error) => {
         console.log('res set error:', error);
         let errorString = error;

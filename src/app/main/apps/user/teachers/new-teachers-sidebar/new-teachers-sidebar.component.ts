@@ -9,7 +9,8 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './new-teachers-sidebar.component.html'
 })
 export class NewTeachersSidebarComponent implements OnInit {
-  public fullname;
+  public firstName;
+  public lastName;
   public mobileNumber;
   public email;
   public classRows;
@@ -22,7 +23,7 @@ export class NewTeachersSidebarComponent implements OnInit {
    */
   constructor(private _coreSidebarService: CoreSidebarService,
     private toastr: ToastrService,
-    private _userListService: TeachersListService,
+    private _teacherListService: TeachersListService,
     private _classListService: ClassesListService,) { }
 
   /**
@@ -42,14 +43,14 @@ export class NewTeachersSidebarComponent implements OnInit {
   submit(form) {
     if (form.valid) {
       console.log(form);
-      this._userListService.setUser(form.value).then((resposne) => {
+      this._teacherListService.setTeacher(form.value).then((resposne) => {
         console.log('res set:', resposne);
         let successString = Response;
-        this.toastr.success('👋 User Created Successfully.', 'Success!', {
+        this.toastr.success('👋 Teacher Created Successfully.', 'Success!', {
           toastClass: 'toast ngx-toastr',
           closeButton: true
         });
-        this._userListService.getDataTableRows();
+        this._teacherListService.getAllTeachers();                                     
       }, (error) => {
         console.log('res set error:', error);
         let errorString = error;
@@ -64,13 +65,13 @@ export class NewTeachersSidebarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._classListService.getDataTableRows().then((resposne) => {
-      console.log('res set teacher:', resposne);
-      this.classRows = resposne;
-      console.log('teachers:', this.classRows);
-    }, (error) => {
-      console.log('res set error:', error);
-    }
+      this._classListService.getDataTableRows().then((resposne) => {
+        console.log('res set teacher:', resposne);
+        this.classRows = resposne;
+        console.log('teachers:', this.classRows);
+      }, (error) => {
+        console.log('res set error:', error);
+      }
     );
   }
 
