@@ -54,6 +54,7 @@ export class TeachersListService implements Resolve<any> {
   setTeacher(form): Promise<any[]> {
     return new Promise((resolve, reject) => {
       this._httpClient.post('api/auth/registerTeacher', {
+        'username': form['user-firstName'] + form['user-lastName'],
         'firstName': form['user-firstName'],
         'lastName': form['user-lastName'],
         'email': form['user-email'],

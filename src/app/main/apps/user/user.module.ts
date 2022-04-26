@@ -74,6 +74,7 @@ import { MsalGuard, MsalInterceptor, MsalBroadcastService, MsalInterceptorConfig
 import { msalConfig, loginRequest, protectedResources } from './sso/auth-config';
 import { NewSubjectsSidebarComponent } from './subjects/new-subjects-sidebar/new-subjects-sidebar.component';
 import { GoogleLoginProvider, SocialAuthServiceConfig } from 'angularx-social-login';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 /**
  * Here we pass the configuration parameters to create an MSAL instance.
@@ -299,7 +300,9 @@ const routes: Routes = [
     InvoiceModule,
     CoreSidebarModule,
     ToastrModule,
-    MsalModule
+    MsalModule,
+    NgMultiSelectDropDownModule.forRoot()
+
   ],
   providers: [
     TeachersListService,

@@ -40,7 +40,7 @@ export class StudentsListService implements Resolve<any> {
    */
   getAllStudents(): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      this._httpClient.get('api/user/allStudent').subscribe((response: any) => {
+      this._httpClient.get('api/user/allStudents').subscribe((response: any) => {
         this.rows = response;
         console.log(this.rows.data);
         this.rows.data.map(row => {
@@ -58,6 +58,7 @@ export class StudentsListService implements Resolve<any> {
   setStudent(form): Promise<any[]> {
     return new Promise((resolve, reject) => {
       this._httpClient.post('api/auth/registerStudent', {
+        'username': form['user-firstName'] + form['user-lastName'],
         'firstName': form['user-firstName'],
         'lastName': form['user-lastName'],
         'email': form['user-email'],

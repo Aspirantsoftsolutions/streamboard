@@ -92,13 +92,44 @@ export class AuthenticationService {
         map(user => {
           console.log('logged in users here:', user);
           // login successful if there's a jwt token in the response
-         
-
           return user;
         })
       );
   }
 
+  getCalendarEvents(bearerToken) {
+    return this._http
+      .get<any>('https://www.googleapis.com/calendar/v3/users/me/calendarList',
+        {
+          headers: {
+            'Authorization': 'Bearer ' + bearerToken
+          }
+        })
+      .pipe(
+        map(calendar => {
+          console.log('calendar here:', calendar);
+          return calendar;
+        })
+      );
+  }
+
+  getCalendarEventsList(bearerToken,calendarId) {
+    return this._http
+      .get<any>('https://www.googleapis.com/calendar/v3/calendars/'+calendarId+'/events',
+        {
+          headers: {
+            'Authorization': 'Bearer ' + bearerToken
+          }
+        })
+      .pipe(
+        map(calendar => {
+          console.log('calendar here:', calendar);
+          return calendar;
+        })
+      );
+  }
+
+  
   /**
    * User login
    *

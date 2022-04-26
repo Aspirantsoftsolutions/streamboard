@@ -20,6 +20,7 @@ import { IPublicClientApplication, PublicClientApplication, InteractionType } fr
 import { MsalGuard, MsalInterceptor, MsalBroadcastService, MsalInterceptorConfiguration, MsalModule, MsalService, MSAL_GUARD_CONFIG, MSAL_INSTANCE, MSAL_INTERCEPTOR_CONFIG, MsalGuardConfiguration, MsalRedirectComponent } from '@azure/msal-angular';
 
 import { msalConfig, loginRequest, protectedResources } from './auth-config';
+import { GraphService } from './graph.service';
 
 /**
  * Here we pass the configuration parameters to create an MSAL instance.
@@ -97,7 +98,8 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     },
     MsalService,
     MsalGuard,
-    MsalBroadcastService
+    MsalBroadcastService,
+    GraphService
   ],
   bootstrap: [AppComponent, MsalRedirectComponent]
 })

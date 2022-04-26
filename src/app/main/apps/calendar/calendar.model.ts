@@ -1,11 +1,11 @@
 export class EventRef {
-  id? = undefined;
+  id ;
   url: string;
   title: string = '';
   start: string;
   end: string;
   allDay = false;
-  calendar: '';
+  calendar:string= '';
   extendedProps = {
     location: '',
     description: '',

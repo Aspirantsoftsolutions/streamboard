@@ -20,6 +20,7 @@ import { CalendarMainSidebarComponent } from 'app/main/apps/calendar/calendar-si
 
 import { CalendarComponent } from 'app/main/apps/calendar/calendar.component';
 import { CalendarService } from 'app/main/apps/calendar/calendar.service';
+import { GoogleLoginProvider, SocialAuthServiceConfig } from 'angularx-social-login';
 
 FullCalendarModule.registerPlugins([dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin]);
 
@@ -48,6 +49,22 @@ const routes: Routes = [
     NgSelectModule,
     NgbModule
   ],
-  providers: [CalendarService]
+  providers: [CalendarService, {
+    provide: 'SocialAuthServiceConfig',
+    useValue: {
+      autoLogin: true,
+      providers: [
+        {
+          id: GoogleLoginProvider.PROVIDER_ID,
+          provider: new GoogleLoginProvider(
+            '257698626403-9dvcpsmpn1gb33sau8al4u6tr4ucmusf.apps.googleusercontent.com'
+          )
+        },
+      ],
+      onError: (err) => {
+        console.error(err);
+      }
+    } as SocialAuthServiceConfig,
+  }]
 })
 export class CalendarModule {}

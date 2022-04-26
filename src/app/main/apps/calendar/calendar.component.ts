@@ -9,6 +9,8 @@ import { CoreConfigService } from '@core/services/config.service';
 
 import { CalendarService } from 'app/main/apps/calendar/calendar.service';
 import { EventRef } from 'app/main/apps/calendar/calendar.model';
+import { GoogleLoginProvider, SocialAuthService } from 'angularx-social-login';
+import { AuthenticationService } from 'app/auth/service';
 
 @Component({
   selector: 'app-calendar',
@@ -21,6 +23,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   public slideoutShow = false;
   public events = [];
   public event;
+  public calendarSec: EventRef[] = [];
 
   public calendarOptions: CalendarOptions = {
     headerToolbar: {
@@ -54,7 +57,10 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   constructor(
     private _coreSidebarService: CoreSidebarService,
     private _calendarService: CalendarService,
-    private _coreConfigService: CoreConfigService
+    private _coreConfigService: CoreConfigService,
+    private _sauthService: SocialAuthService,
+    private _authenticationService: AuthenticationService
+
   ) {
     this._unsubscribeAll = new Subject();
   }
@@ -141,6 +147,74 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     this._calendarService.onCurrentEventChange.subscribe(res => {
       this.event = res;
     });
+
+    this._sauthService.authState.subscribe((user) => {
+      console.log('user:', user);
+      // this.userSocial = user;
+      // this._authenticationService.getUsers(this.userSocial.response.access_token, this.userSocial.response.id_token);
+      // console.log('user token:', this.userSocial.response.access_token);
+      this._authenticationService.getUsers(user.response.access_token, 'e851b52adce04eb4597101ccd7dd6167acc65f46')
+        .subscribe(
+          data => {
+            console.log("data c:", data);
+            // this._router.navigate(['/']);
+          },
+          error => {
+          }
+        );
+
+      this._authenticationService.getCalendarEvents(user.response.access_token)
+        .subscribe(
+          data => {
+            console.log("data c:", data);
+
+            data.items.forEach(element => {
+              this._authenticationService.getCalendarEventsList(user.response.access_token, element.id)
+                .subscribe(
+                  data1 => {
+                    console.log("data c1:", data1);
+                    this._calendarService.calendar = [];
+                    this._calendarService.events = [];
+                    data1.items.forEach(event => {
+                      console.log("data cevent1:", event.id);
+
+                      const data = new EventRef();
+                      // newEvent.id = parseInt(eventRef.event.id);
+                      data.id = event.id;
+                      data.title = event.source?.title ?? event.summary;
+                      data.url = event.source?.url ?? "";
+                      data.start = event.start?.date ?? "";
+                      data.calendar = 'Personal';
+                      data.end = event.end?.date ?? "";
+                      data.extendedProps.description = event.summary;
+                      this._calendarService.calendar.push(data);
+                      this._calendarService.events.push(data);
+                    });
+                    this._calendarService.onEventChange.next(this._calendarService.events);
+                    this._calendarService.onCalendarChange.next(this._calendarService.calendar);
+
+                    console.log("data this._calendarService.calendarSecondary:", this._calendarService.calendar);
+
+
+                  },
+                  error => {
+                  }
+                );
+            });
+            // this._router.navigate(['/']);
+            
+          },
+          error => {
+          }
+        );
+    });
+
+    // const googleLoginOptions = {
+    //   scope: 'https://www.googleapis.com/auth/admin.directory.user.readonly https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/calendar.events.readonly'
+    // }
+    // this._sauthService.signIn(GoogleLoginProvider.PROVIDER_ID, googleLoginOptions);
+
+
   }
 
   /**
