@@ -54,4 +54,23 @@ export class UserViewService implements Resolve<any> {
       }, reject);
     });
   }
+
+  setUser(email, username): Promise<any[]> {
+    return new Promise((resolve, reject) => {
+      this._httpClient.post('api/auth/register', {
+        'username': username,
+        'email': email,
+        'password': 'Test@123',
+        'mobile': '123456789',
+        'countryCode': '+91',
+        'role': "Individual",
+        'plan': "Free",
+        'status': 'active',
+      }).subscribe((response: any) => {
+        console.log(response);
+        resolve(response);
+      }, reject);
+    });
+  }
+
 }

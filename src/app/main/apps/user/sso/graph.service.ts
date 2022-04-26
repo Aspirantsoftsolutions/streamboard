@@ -22,20 +22,20 @@ export interface ProviderOptions extends AuthenticationProviderOptions {
 })
 export class GraphService {
 
-  constructor(private authService: MsalService) { }
+  constructor() { }
 
 /**
  * Returns a graph client object with the provided token acquisition options
  * @param {ProviderOptions} providerOptions: object containing user account, required scopes and interaction type
  */
-  getGraphClient = (providerOptions: ProviderOptions) => {
+  getGraphClient = (providerOptions: ProviderOptions, authService: MsalService) => {
 
     /**
      * Pass the instance as authProvider in ClientOptions to instantiate the Client which will create and set the default middleware chain.
      * For more information, visit: https://github.com/microsoftgraph/msgraph-sdk-javascript/blob/dev/docs/CreatingClientInstance.md
      */
     let clientOptions = {
-      authProvider: new MsalAuthenticationProvider(providerOptions, this.authService),
+      authProvider: new MsalAuthenticationProvider(providerOptions, authService),
     };
 
     const graphClient = Client.initWithMiddleware(clientOptions);

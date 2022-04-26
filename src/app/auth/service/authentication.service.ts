@@ -82,7 +82,7 @@ export class AuthenticationService {
 
   getUsers(bearerToken,idToken) {
     return this._http
-      .get<any>('https://content-admin.googleapis.com/admin/directory/v1/users?domain=thestreamboard.com&key='+idToken,
+      .get<any>('https://content-admin.googleapis.com/admin/directory/v1/users?domain=adsrive.com&key='+idToken,
         {
           headers: {
             'Authorization': 'Bearer ' + bearerToken

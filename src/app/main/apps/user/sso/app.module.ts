@@ -99,7 +99,6 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     MsalService,
     MsalGuard,
     MsalBroadcastService,
-    GraphService
   ],
   bootstrap: [AppComponent, MsalRedirectComponent]
 })

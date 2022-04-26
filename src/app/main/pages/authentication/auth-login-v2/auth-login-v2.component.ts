@@ -133,21 +133,29 @@ export class AuthLoginV2Component implements OnInit {
     });
     this.authService.authState.subscribe((user) => {
       console.log('user:', user);
-      this.userSocial = user;
+      // this.userSocial = user;
+      this.submitted = true;
+      this._router.navigate(['/']);
       // this._authenticationService.getUsers(this.userSocial.response.access_token, this.userSocial.response.id_token);
       // console.log('user token:', this.userSocial.response.access_token);
-      this._authenticationService.getUsers(this.userSocial.response.access_token, 'e851b52adce04eb4597101ccd7dd6167acc65f46')
-            .subscribe(
-              data => {
-                console.log("data c:", data);
-                // this._router.navigate(['/']);
-              },
-              error => {
-              }
-            );
+      // this._authenticationService.getUsers(this.userSocial.response.access_token, 'e851b52adce04eb4597101ccd7dd6167acc65f46')
+      //       .subscribe(
+      //         data => {
+      //           console.log("data c:", data);
+      //           // this._router.navigate(['/']);
+      //         },
+      //         error => {
+      //         }
+      //       );
     });
   }
-
+  googleLogin() {
+    // this.googleLogout();
+    const googleLoginOptions = {
+      scope: 'https://www.googleapis.com/auth/admin.directory.user.readonly https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/calendar.events.readonly'
+    }
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID, googleLoginOptions);
+  }
   /**
    * On destroy
    */

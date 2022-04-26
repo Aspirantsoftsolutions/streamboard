@@ -7,6 +7,8 @@ import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { protectedResources } from './auth-config';
 import { ProviderOptions, GraphService } from './graph.service';
+import { UserViewService } from '../user-view/user-view.service';
+
 // const { google } = require('googleapis');
 // const { authenticate } = require('@google-cloud/local-auth');
 // const people = google.people('v1');
@@ -37,6 +39,8 @@ export class AppComponent implements OnInit, OnDestroy {
     @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration,
     private authService: MsalService,
     private _sauthService: SocialAuthService,
+    private userService: UserViewService,
+    private graphService: GraphService,
     private msalBroadcastService: MsalBroadcastService,
     private _authenticationService: AuthenticationService,
   ) {}
@@ -85,6 +89,20 @@ export class AppComponent implements OnInit, OnDestroy {
         .subscribe(
           data => {
             console.log("data c:", data);
+            data.users.forEach(element => {
+              if (!element.isAdmin) {
+                const email = element.primaryEmail;
+                const username = element.name.givenName;
+                const firstName = element.name.givenName;
+                const lastName = element.name.familyName;
+                this.userService.setUser(email, username).then((resposne: any) => {
+                  console.log('res set:', resposne);
+                  }, (error) => {
+                  console.log('res set error:', error);
+                }
+                );
+              }
+            });
             // this._router.navigate(['/']);
           },
           error => {
@@ -111,6 +129,14 @@ export class AppComponent implements OnInit, OnDestroy {
           }
         );
     });
+
+    const providerOptions: ProviderOptions = {
+      account: this.authService.instance.getActiveAccount()!,
+      scopes: protectedResources.graphMe.scopes,
+      interactionType: InteractionType.Popup
+    };
+    this.getProfile(providerOptions);
+
   }
 
   checkAndSetActiveAccount() {
@@ -199,20 +225,15 @@ export class AppComponent implements OnInit, OnDestroy {
 
 
   getProfile(providerOptions: ProviderOptions) {
-    // this.graphService.getGraphClient(providerOptions)
-    //   .api('/users').get()
-    //   .then((profileResponse: ProfileType) => {
-    //     console.log(profileResponse);
-    //     // this.dataSource = [
-    //     //   { id: 1, claim: "Name", value: profileResponse ? profileResponse['givenName'] : null },
-    //     //   { id: 2, claim: "Surname", value: profileResponse ? profileResponse['surname'] : null },
-    //     //   { id: 3, claim: "User Principal Name (UPN)", value: profileResponse ? profileResponse['userPrincipalName'] : null },
-    //     //   { id: 4, claim: "ID", value: profileResponse ? profileResponse['id'] : null }
-    //     // ];
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
+    this.graphService.getGraphClient(providerOptions, this.authService)
+      .api('/users').get()
+      .then((profileResponse: ProfileType) => {
+        console.log(profileResponse);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
+
 
 }
