@@ -247,7 +247,18 @@ const routes: Routes = [
   {
     path: 'appazure',
     component: AppComponent,
+    canActivate: [
+      MsalGuard
+    ],
     data: { animation: 'appazure' }
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [
+      MsalGuard
+    ],
+    data: { animation: 'profile' }
   },
   // {
   //   path: 'appazure',

@@ -8,6 +8,7 @@ import { filter, takeUntil } from 'rxjs/operators';
 import { protectedResources } from './auth-config';
 import { ProviderOptions, GraphService } from './graph.service';
 import { UserViewService } from '../user-view/user-view.service';
+import { Router } from '@angular/router';
 
 // const { google } = require('googleapis');
 // const { authenticate } = require('@google-cloud/local-auth');
@@ -38,6 +39,7 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration,
     private authService: MsalService,
+    private _router: Router,
     private _sauthService: SocialAuthService,
     private userService: UserViewService,
     private graphService: GraphService,
@@ -130,12 +132,12 @@ export class AppComponent implements OnInit, OnDestroy {
         );
     });
 
-    const providerOptions: ProviderOptions = {
-      account: this.authService.instance.getActiveAccount()!,
-      scopes: protectedResources.graphMe.scopes,
-      interactionType: InteractionType.Popup
-    };
-    this.getProfile(providerOptions);
+    // const providerOptions: ProviderOptions = {
+    //   account: this.authService.instance.getActiveAccount()!,
+    //   scopes: protectedResources.graphMe.scopes,
+    //   interactionType: InteractionType.Popup
+    // };
+    // this.getProfile(providerOptions);
 
   }
 
@@ -160,32 +162,27 @@ export class AppComponent implements OnInit, OnDestroy {
 
   login() {
     // this.logout();
+  const providerOptions: ProviderOptions = {
+      account: this.authService.instance.getActiveAccount()!,
+      scopes: protectedResources.graphMe.scopes,
+      interactionType: InteractionType.Popup
+    };
+    this.getProfile(providerOptions);
+
 
     if (this.msalGuardConfig.interactionType === InteractionType.Popup) {
       if (this.msalGuardConfig.authRequest) {
         this.authService.loginPopup({ ...this.msalGuardConfig.authRequest } as PopupRequest)
           .subscribe((response: AuthenticationResult) => {
             this.authService.instance.setActiveAccount(response.account);
-            const providerOptions: ProviderOptions = {
-              account: this.authService.instance.getActiveAccount()!,
-              scopes: protectedResources.graphMe.scopes,
-              interactionType: InteractionType.Popup
-            };
-            this.getProfile(providerOptions);
-
+            
           });
       } else {
         this.authService.loginPopup()
           .subscribe((response: AuthenticationResult) => {
             console.log("coming here");
             this.authService.instance.setActiveAccount(response.account);
-            const providerOptions: ProviderOptions = {
-              account: this.authService.instance.getActiveAccount()!,
-              scopes: protectedResources.graphMe.scopes,
-              interactionType: InteractionType.Popup
-            };
-            this.getProfile(providerOptions);
-
+           
           });
       }
     } else {
@@ -198,6 +195,17 @@ export class AppComponent implements OnInit, OnDestroy {
     // if (this.tenantId != "" && this.azureId != "") {
      
     // }
+  }
+
+  doSync() {
+    // this._router.navigate(['/apps/user/profile']);
+    const providerOptions: ProviderOptions = {
+      account: this.authService.instance.getActiveAccount()!,
+      scopes: protectedResources.graphMe.scopes,
+      interactionType: InteractionType.Popup
+    };
+    this.getProfile(providerOptions);
+
   }
 
   logout() {
@@ -227,8 +235,23 @@ export class AppComponent implements OnInit, OnDestroy {
   getProfile(providerOptions: ProviderOptions) {
     this.graphService.getGraphClient(providerOptions, this.authService)
       .api('/users').get()
-      .then((profileResponse: ProfileType) => {
-        console.log(profileResponse);
+      .then((profileResponse: any) => {
+        console.log('data',profileResponse);
+        profileResponse.value.forEach(element => {
+          if (!element.userPrincipalName.includes('admin')) {
+            const email = element.mail;
+            const username = element.displayName;
+            const firstName = element.displayName;
+            const lastName = element.displayName;
+            this.userService.setUser(email, username).then((resposne: any) => {
+              console.log('res set:', resposne);
+            }, (error) => {
+              console.log('res set error:', error);
+            }
+            );
+          }
+        });
+        
       })
       .catch((error) => {
         console.log(error);
