@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 
 import { BehaviorSubject, Observable } from 'rxjs';
+import { environment } from 'environments/environment';
 
 @Injectable()
 export class SessionsListService implements Resolve<any> {
@@ -42,7 +43,7 @@ export class SessionsListService implements Resolve<any> {
    */
   getDataTableRows(): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      this._httpClient.get('api/session/all').subscribe((response: any) => {
+      this._httpClient.get(`${environment.apiUrl}/api/session/all`).subscribe((response: any) => {
         this.rows = response;
         console.log(this.rows.data);
         this.onUserListChanged.next(this.rows.data);
@@ -56,7 +57,7 @@ export class SessionsListService implements Resolve<any> {
   */
   createSession(form): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      this._httpClient.post('api/session/createSession', {
+      this._httpClient.post(`${environment.apiUrl}/api/session/createSession`, {
         'title': form['user-title'],
         'groupId': form['group'],
         'description': form['user-description'],

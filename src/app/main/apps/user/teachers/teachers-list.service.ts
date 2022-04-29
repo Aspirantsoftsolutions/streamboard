@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { environment } from 'environments/environment';
 
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -39,7 +40,7 @@ export class TeachersListService implements Resolve<any> {
    */
   getAllTeachers(): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      this._httpClient.get('api/user/allTeachers').subscribe((response: any) => {
+      this._httpClient.get(`${environment.apiUrl}/api/user/allTeachers`).subscribe((response: any) => {
         this.rows = response;
         console.log(this.rows.data);
         this.onUserListChanged.next(this.rows.data);
@@ -53,7 +54,7 @@ export class TeachersListService implements Resolve<any> {
   */
   setTeacher(form): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      this._httpClient.post('api/auth/registerTeacher', {
+      this._httpClient.post(`${environment.apiUrl}/api/auth/registerTeacher`, {
         'username': form['user-firstName'] + form['user-lastName'],
         'firstName': form['user-firstName'],
         'lastName': form['user-lastName'],
