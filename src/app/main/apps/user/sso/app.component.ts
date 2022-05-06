@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { MsalService, MsalBroadcastService, MSAL_GUARD_CONFIG, MsalGuardConfiguration } from '@azure/msal-angular';
 import { AuthenticationResult, EventMessage, EventType, InteractionStatus, InteractionType, PopupRequest, RedirectRequest } from '@azure/msal-browser';
-import { GoogleLoginProvider, SocialAuthService } from 'angularx-social-login';
+import { GoogleLoginProvider, MicrosoftLoginProvider, SocialAuthService } from 'angularx-social-login';
 import { AuthenticationService } from 'app/auth/service';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
@@ -66,78 +66,78 @@ export class AppComponent implements OnInit, OnDestroy {
       });
     
     
-    this.msalBroadcastService.msalSubject$
-      .pipe(
-        filter((msg: EventMessage) => msg.eventType === EventType.LOGIN_SUCCESS),
-        takeUntil(this._destroying$)
-      )
-      .subscribe((result: EventMessage) => {
-        console.log(result);
-        const payload = result.payload as AuthenticationResult;
-        this.authService.instance.setActiveAccount(payload.account);
-        this.setLoginDisplay();
-      });
-
-    
-    
-    
     this._sauthService.authState.subscribe((user) => {
       console.log('user:', user);
-      this.gloginDisplay = true;
-      // this.userSocial = user;
-      // this._authenticationService.getUsers(this.userSocial.response.access_token, this.userSocial.response.id_token);
-      // console.log('user token:', this.userSocial.response.access_token);
-      this._authenticationService.getUsers(user.response.access_token, 'e851b52adce04eb4597101ccd7dd6167acc65f46')
-        .subscribe(
-          data => {
-            console.log("data c:", data);
-            data.users.forEach(element => {
-              if (!element.isAdmin) {
-                const email = element.primaryEmail;
-                const username = element.name.givenName;
-                const firstName = element.name.givenName;
-                const lastName = element.name.familyName;
-                this.userService.setUser(email, username).then((resposne: any) => {
-                  console.log('res set:', resposne);
+      if (user.provider == "MICROSOFT") {
+        // this.login();
+        this._authenticationService.getMicroSoftUsers(user.response.access_token)
+          .subscribe(
+            profileResponse => {
+              console.log('profileResponse', profileResponse);
+              profileResponse.value.forEach(element => {
+                if (!element.userPrincipalName.includes('admin')) {
+                  const email = element.mail;
+                  const username = element.displayName;
+                  const firstName = element.displayName;
+                  const lastName = element.displayName;
+                  this.userService.setUser(email, username).then((resposne: any) => {
+                    console.log('res set:', resposne);
                   }, (error) => {
-                  console.log('res set error:', error);
+                    console.log('res set error:', error);
+                  }
+                  );
                 }
-                );
-              }
-            });
-            // this._router.navigate(['/']);
-          },
-          error => {
-          }
-      );
-      
-      this._authenticationService.getCalendarEvents(user.response.access_token)
-        .subscribe(
-          data => {
-            console.log("data c:", data);
-            
-            // this._router.navigate(['/']);
-            this._authenticationService.getCalendarEventsList(user.response.access_token, data.items[3].id)
-              .subscribe(
-                data1 => {
-                  console.log("data c1:", data1);
-                  // this._router.navigate(['/']);
-                },
-                error => {
+              });
+              // this._router.navigate(['/']);
+            },
+            error => {
+            }
+          );
+      } else {
+        this.gloginDisplay = true;
+        // this.userSocial = user;
+        // this._authenticationService.getUsers(this.userSocial.response.access_token, this.userSocial.response.id_token);
+        // console.log('user token:', this.userSocial.response.access_token);
+        this._authenticationService.getUsers(user.response.access_token, 'e851b52adce04eb4597101ccd7dd6167acc65f46')
+          .subscribe(
+            data => {
+              console.log("data c:", data);
+              data.users.forEach(element => {
+                if (!element.isAdmin) {
+                  const email = element.primaryEmail;
+                  const username = element.name.givenName;
+                  const firstName = element.name.givenName;
+                  const lastName = element.name.familyName;
+                  this.userService.setUser(email, username).then((resposne: any) => {
+                    console.log('res set:', resposne);
+                  }, (error) => {
+                    console.log('res set error:', error);
+                  }
+                  );
                 }
-              );
-          },
-          error => {
-          }
-        );
-    });
+              });
+              // this._router.navigate(['/']);
+            },
+            error => {}
+          );
 
-    // const providerOptions: ProviderOptions = {
-    //   account: this.authService.instance.getActiveAccount()!,
-    //   scopes: protectedResources.graphMe.scopes,
-    //   interactionType: InteractionType.Popup
-    // };
-    // this.getProfile(providerOptions);
+        this._authenticationService.getCalendarEvents(user.response.access_token)
+          .subscribe(
+            data => {
+              console.log("data c:", data);
+              this._authenticationService.getCalendarEventsList(user.response.access_token, data.items[3].id)
+                .subscribe(
+                  data1 => {
+                    console.log("data c1:", data1);
+                  },
+                  error => { }
+                );
+            },
+            error => {
+            }
+          );
+      }
+    });
 
   }
 
@@ -161,6 +161,17 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   login() {
+    this.msalBroadcastService.msalSubject$
+      .pipe(
+        filter((msg: EventMessage) => msg.eventType === EventType.LOGIN_SUCCESS),
+        takeUntil(this._destroying$)
+      )
+      .subscribe((result: EventMessage) => {
+        console.log(result);
+        const payload = result.payload as AuthenticationResult;
+        this.authService.instance.setActiveAccount(payload.account);
+        this.setLoginDisplay();
+      });
     // this.logout();
   const providerOptions: ProviderOptions = {
       account: this.authService.instance.getActiveAccount()!,
@@ -218,6 +229,14 @@ export class AppComponent implements OnInit, OnDestroy {
         scope: 'https://www.googleapis.com/auth/admin.directory.user.readonly https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/calendar.events.readonly'
     }
     this._sauthService.signIn(GoogleLoginProvider.PROVIDER_ID, googleLoginOptions);
+  }
+
+  microSoftLogin() {
+    this._router.navigate(['/apps/user/appazure']);
+    // const microsoftLoginOptions = {
+    //   scope: 'User.Read User.Read.All'
+    // }
+    // this._sauthService.signIn(MicrosoftLoginProvider.PROVIDER_ID, microsoftLoginOptions);
   }
 
   googleLogout() {

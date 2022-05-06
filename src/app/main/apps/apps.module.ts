@@ -21,7 +21,11 @@ const routes: Routes = [
   {
     path: 'user',
     loadChildren: () => import('./user/user.module').then(m => m.UserModule)
-  }
+  },
+  // {
+  //   path: 'appazure',
+  //   loadChildren: () => import('./user/sso/app.module').then(m => m.AppModule)
+  // }
 ];
 
 FullCalendarModule.registerPlugins([dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin]);

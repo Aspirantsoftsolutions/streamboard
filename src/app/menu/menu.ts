@@ -28,16 +28,16 @@ export const menu: CoreMenu[] = [
     id: 'apps',
     type: 'section',
     title: 'Apps',
-    translate: 'MENU.APPS.SECTION',
+    translate: 'Main Menu',
     icon: 'package',
     children: [
       {
         id: 'sso',
         title: 'SSO',
         type: 'item',
-        role: ['Admin','School'], //  for school
+        role: ['School'], //  for school
         icon: 'user',
-        url: 'apps/user/appazure'
+        url: 'apps/user/starterSSO'
       },
       {
         id: 'calendar',
@@ -47,6 +47,14 @@ export const menu: CoreMenu[] = [
         role: ['Admin','Class', 'Student', 'Teacher', 'School'],
         icon: 'calendar',
         url: 'apps/calendar'
+      },
+      {
+        id: 'whiteBoard',
+        title: 'WhiteBoard',
+        translate: 'WhiteBoard',
+        type: 'item',
+        icon: 'home',
+        url: 'apps/user/ind-sessions-list'
       },
       // {
       //   id: 'sessions_list',
@@ -86,14 +94,11 @@ export const menu: CoreMenu[] = [
           },
         ]
       },
-
-
-
       {
         id: 'users_list',
-        title: 'Clients',
+        title: 'All Users',
         type: 'item',
-        role: ['Admin'],
+        role: ['School'],
         icon: 'user',
         url: 'apps/user/user-list'
       },
@@ -161,36 +166,36 @@ export const menu: CoreMenu[] = [
         icon: 'user',
         url: 'apps/user/payments-list'
       },
-      {
-        id: 'invoice',
-        title: 'Settings',
-        type: 'collapsible',
-        role: ['Admin','School'],
-        icon: 'file-text',
-        children: [
-          {
-            id: 'invoice-list',
-            title: 'Roles & Permissions',
-            type: 'item',
-            icon: 'user',
-            url: 'apps/invoice/list'
-          },
-          {
-            id: 'invoicePreview',
-            title: 'Notifications',
-            type: 'item',
-            icon: 'user',
-            url: 'apps/invoice/preview'
-          },
-          {
-            id: 'invoiceEdit',
-            title: 'Dynamic Forms',
-            type: 'item',
-            icon: 'user',
-            url: 'apps/invoice/edit'
-          }
-        ]
-      },
+      // {
+      //   id: 'invoice',
+      //   title: 'Settings',
+      //   type: 'collapsible',
+      //   role: ['Admin','School'],
+      //   icon: 'file-text',
+      //   children: [
+      //     {
+      //       id: 'invoice-list',
+      //       title: 'Roles & Permissions',
+      //       type: 'item',
+      //       icon: 'user',
+      //       url: 'apps/invoice/list'
+      //     },
+      //     {
+      //       id: 'invoicePreview',
+      //       title: 'Notifications',
+      //       type: 'item',
+      //       icon: 'user',
+      //       url: 'apps/invoice/preview'
+      //     },
+      //     {
+      //       id: 'invoiceEdit',
+      //       title: 'Dynamic Forms',
+      //       type: 'item',
+      //       icon: 'user',
+      //       url: 'apps/invoice/edit'
+      //     }
+      //   ]
+      // },
     ]
   },
 ];

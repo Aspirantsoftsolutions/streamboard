@@ -52,7 +52,7 @@ export class CalendarService implements Resolve<any> {
    * Get Events
    */
   getEvents(): Promise<any[]> {
-    const url = `${environment.apiUrl}api/calendar-events`;
+    const url = `api/calendar-events`;
 
     return new Promise((resolve, reject) => {
       this._httpClient.get(url).subscribe((response: any) => {
@@ -68,7 +68,7 @@ export class CalendarService implements Resolve<any> {
    * Get Calendar
    */
   getCalendar(): Promise<any[]> {
-    const url = `${environment.apiUrl}/api/calendar-filter`;
+    const url = `/api/calendar-filter`;
 
     return new Promise((resolve, reject) => {
       this._httpClient.get(url).subscribe((response: any) => {
@@ -114,7 +114,7 @@ export class CalendarService implements Resolve<any> {
    */
   deleteEvent(event) {
     return new Promise((resolve, reject) => {
-      this._httpClient.delete(`${environment.apiUrl}api/calendar-events/' + event.id).subscribe(response => {
+      this._httpClient.delete(`api/calendar-events/` + event.id).subscribe(response => {
         this.getEvents();
         resolve(response);
       }, reject);

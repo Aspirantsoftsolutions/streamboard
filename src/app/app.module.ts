@@ -6,7 +6,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { FakeDbService } from '@fake-db/fake-db.service';
-import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
+import { SocialLoginModule, SocialAuthServiceConfig, MicrosoftLoginProvider } from 'angularx-social-login';
 import {
   GoogleLoginProvider,
   FacebookLoginProvider
@@ -142,10 +142,13 @@ const appRoutes: Routes = [
               '257698626403-9dvcpsmpn1gb33sau8al4u6tr4ucmusf.apps.googleusercontent.com',
             )
           },
-          // {
-          //   id: FacebookLoginProvider.PROVIDER_ID,
-          //   provider: new FacebookLoginProvider('clientId')
-          // }
+          {
+            id: MicrosoftLoginProvider.PROVIDER_ID,
+            provider: new MicrosoftLoginProvider('96b6652e-a952-4991-9b27-02e578e89a9f', {
+              redirect_uri: 'http://localhost:4200/apps/user/appazure',
+              logout_redirect_uri: 'https://localhost:4200/logout'
+            }),
+          }
         ],
         onError: (err) => {
           console.error(err);

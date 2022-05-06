@@ -29,7 +29,7 @@ export class SearchService {
    */
   getSearchData(): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      this._httpClient.get(`${environment.apiUrl}/api/search-data').subscribe((response: any) => {
+      this._httpClient.get(`${environment.apiUrl}/api/search-data`).subscribe((response: any) => {
         this.apiData = response;
         this.onApiDataChange.next(this.apiData);
         resolve(this.apiData);

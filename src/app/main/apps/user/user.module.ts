@@ -1,3 +1,4 @@
+import { NewIndSessionsSidebarComponent } from './individual-sessions/new-ind-sessions-sidebar/new-ind-sessions-sidebar.component';
 import { SubjectsListService } from './subjects/subjects-list.service';
 import { SubjectsListComponent } from './subjects/subjects-list.component';
 import { NewGradesSidebarComponent } from './grades/new-grades-sidebar/new-grades-sidebar.component';
@@ -73,8 +74,10 @@ import { MsalGuard, MsalInterceptor, MsalBroadcastService, MsalInterceptorConfig
 
 import { msalConfig, loginRequest, protectedResources } from './sso/auth-config';
 import { NewSubjectsSidebarComponent } from './subjects/new-subjects-sidebar/new-subjects-sidebar.component';
-import { GoogleLoginProvider, SocialAuthServiceConfig } from 'angularx-social-login';
+import { GoogleLoginProvider, MicrosoftLoginProvider, SocialAuthServiceConfig } from 'angularx-social-login';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { IndSessionsListComponent } from './individual-sessions/ind-sessions-list.component';
+import { IndSessionsListService } from './individual-sessions/ind-sessions-list.service';
 
 /**
  * Here we pass the configuration parameters to create an MSAL instance.
@@ -172,6 +175,14 @@ const routes: Routes = [
     data: { animation: 'SessionsListComponent' }
   },
   {
+    path: 'ind-sessions-list',
+    component: IndSessionsListComponent,
+    resolve: {
+      uls: IndSessionsListService
+    },
+    data: { animation: 'IndSessionsListComponent' }
+  },
+  {
     path: 'quick_sessions',
     component: SessionsListComponent,
     resolve: {
@@ -253,17 +264,11 @@ const routes: Routes = [
     data: { animation: 'appazure' }
   },
   {
-    path: 'profile',
-    component: ProfileComponent,
-    canActivate: [
-      MsalGuard
-    ],
-    data: { animation: 'profile' }
+    path: 'starterSSO',
+    component: AppComponent,
+    data: { animation: 'appazure' }
   },
-  // {
-  //   path: 'appazure',
-  //   loadChildren: () => import('./sso/app.module').then(m => m.AppModule)
-  // }
+ 
 ];
 
 @NgModule({
@@ -295,7 +300,9 @@ const routes: Routes = [
     ProfileComponent,
     TenantComponent,
     SubjectsListComponent,
-    NewSubjectsSidebarComponent
+    NewSubjectsSidebarComponent,
+    IndSessionsListComponent,
+    NewIndSessionsSidebarComponent
   ],
   imports: [
     CommonModule,
@@ -329,6 +336,7 @@ const routes: Routes = [
     GroupsListService,
     GradesListService,
     SubjectsListService,
+    IndSessionsListService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: MsalInterceptor,
@@ -360,6 +368,12 @@ const routes: Routes = [
               '257698626403-9dvcpsmpn1gb33sau8al4u6tr4ucmusf.apps.googleusercontent.com'
             )
           },
+          {
+            id: MicrosoftLoginProvider.PROVIDER_ID,
+            provider: new MicrosoftLoginProvider('96b6652e-a952-4991-9b27-02e578e89a9f', {
+              redirect_uri: 'http://localhost:4200/apps/user/appazure',
+            }),
+          }
         ],
         onError: (err) => {
           console.error(err);

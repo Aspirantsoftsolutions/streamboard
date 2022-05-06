@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
 
 import { AuthenticationService } from 'app/auth/service';
 import { CoreConfigService } from '@core/services/config.service';
-import { SocialAuthService, GoogleLoginProvider } from 'angularx-social-login';
+import { SocialAuthService, GoogleLoginProvider, MicrosoftLoginProvider } from 'angularx-social-login';
 
 @Component({
   selector: 'app-auth-login-v2',
@@ -132,10 +132,13 @@ export class AuthLoginV2Component implements OnInit {
       this.coreConfig = config;
     });
     this.authService.authState.subscribe((user) => {
+      this._router.navigate(['/']);
+
       console.log('user:', user);
+      localStorage.setItem('currentUser', JSON.stringify(user));
+
       // this.userSocial = user;
       this.submitted = true;
-      this._router.navigate(['/']);
       // this._authenticationService.getUsers(this.userSocial.response.access_token, this.userSocial.response.id_token);
       // console.log('user token:', this.userSocial.response.access_token);
       // this._authenticationService.getUsers(this.userSocial.response.access_token, 'e851b52adce04eb4597101ccd7dd6167acc65f46')
@@ -149,6 +152,7 @@ export class AuthLoginV2Component implements OnInit {
       //       );
     });
   }
+
   googleLogin() {
     // this.googleLogout();
     const googleLoginOptions = {
@@ -156,6 +160,15 @@ export class AuthLoginV2Component implements OnInit {
     }
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID, googleLoginOptions);
   }
+
+  microSoftLogin() {
+    // this.googleLogout();
+    const microsoftLoginOptions = {
+      scope: 'User.Read'
+    }
+    this.authService.signIn(MicrosoftLoginProvider.PROVIDER_ID, microsoftLoginOptions);
+  }
+
   /**
    * On destroy
    */

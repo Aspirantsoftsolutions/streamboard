@@ -12,7 +12,7 @@
           <div class="card-body">
                <h2>Social SSO </h2>
                <div class="col-12 d-flex flex-sm-row flex-column mt-2">
-                  <button type="submit" (click)="login()" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"
+                  <button type="submit" (click)="microSoftLogin()" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"
                           rippleEffect *ngIf="!loginDisplay" >
                           Azure Login
                   </button>
@@ -25,6 +25,7 @@
                           Azure Sync
                   </button> 
                 </div>
+
                  <div class="col-12 d-flex flex-sm-row flex-column mt-2">
                   <button type="submit" (click)="googleLogin()" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"
                           rippleEffect *ngIf="!gloginDisplay" >
