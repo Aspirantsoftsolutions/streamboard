@@ -6,6 +6,7 @@
  */
 
 import { LogLevel, Configuration, BrowserCacheLocation } from '@azure/msal-browser';
+import { environment } from 'environments/environment';
 
 const isIE = window.navigator.userAgent.indexOf("MSIE ") > -1 || window.navigator.userAgent.indexOf("Trident/") > -1;
 
@@ -18,7 +19,7 @@ export const msalConfig: Configuration = {
     auth: {
         clientId: '96b6652e-a952-4991-9b27-02e578e89a9f', // This is the ONLY mandatory field that you need to supply.
         authority: 'https://login.microsoftonline.com/8773e58d-09ef-48e3-97f0-63ab901bcee0', // Defaults to "https://login.microsoftonline.com/common"
-        redirectUri: 'http://localhost:4200/apps/user/appazure', // Points to window.location.origin. You must register this URI on Azure portal/App Registration.
+        redirectUri: `${environment.apiUrl}/apps/user/appazure`, // Points to window.location.origin. You must register this URI on Azure portal/App Registration.
         //http://localhost:4200/apps/user/appazure
     },
     cache: {

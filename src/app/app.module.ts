@@ -35,6 +35,7 @@ import { ContextMenuComponent } from 'app/main/extensions/context-menu/context-m
 import { AnimatedCustomContextMenuComponent } from './main/extensions/context-menu/custom-context-menu/animated-custom-context-menu/animated-custom-context-menu.component';
 import { BasicCustomContextMenuComponent } from './main/extensions/context-menu/custom-context-menu/basic-custom-context-menu/basic-custom-context-menu.component';
 import { SubMenuCustomContextMenuComponent } from './main/extensions/context-menu/custom-context-menu/sub-menu-custom-context-menu/sub-menu-custom-context-menu.component';
+import { environment } from 'environments/environment';
 
 const appRoutes: Routes = [
   {
@@ -145,7 +146,7 @@ const appRoutes: Routes = [
           {
             id: MicrosoftLoginProvider.PROVIDER_ID,
             provider: new MicrosoftLoginProvider('96b6652e-a952-4991-9b27-02e578e89a9f', {
-              redirect_uri: 'http://localhost:4200/apps/user/appazure',
+              redirect_uri: `${environment.apiUrl}/apps/user/appazure`,
               logout_redirect_uri: 'https://localhost:4200/logout'
             }),
           }

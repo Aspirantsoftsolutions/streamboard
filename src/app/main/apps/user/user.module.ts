@@ -78,6 +78,7 @@ import { GoogleLoginProvider, MicrosoftLoginProvider, SocialAuthServiceConfig } 
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { IndSessionsListComponent } from './individual-sessions/ind-sessions-list.component';
 import { IndSessionsListService } from './individual-sessions/ind-sessions-list.service';
+import { environment } from 'environments/environment';
 
 /**
  * Here we pass the configuration parameters to create an MSAL instance.
@@ -371,7 +372,7 @@ const routes: Routes = [
           {
             id: MicrosoftLoginProvider.PROVIDER_ID,
             provider: new MicrosoftLoginProvider('96b6652e-a952-4991-9b27-02e578e89a9f', {
-              redirect_uri: 'http://localhost:4200/apps/user/appazure',
+              redirect_uri: `${environment.apiUrl}/apps/user/appazure`,
             }),
           }
         ],

@@ -17,6 +17,7 @@ import { AuthResetPasswordV2Component } from 'app/main/pages/authentication/auth
 import { SocialAuthServiceConfig, FacebookLoginProvider, GoogleLoginProvider, SocialLoginModule, MicrosoftLoginProvider } from 'angularx-social-login';
 import { ToastrModule } from 'ngx-toastr';
 import { UserListService } from 'app/main/apps/user/user-list/user-list.service';
+import { environment } from 'environments/environment';
 
 // routing
 const routes: Routes = [
@@ -64,7 +65,7 @@ const routes: Routes = [
           {
             id: MicrosoftLoginProvider.PROVIDER_ID,
             provider: new MicrosoftLoginProvider('96b6652e-a952-4991-9b27-02e578e89a9f', {
-              redirect_uri: 'http://localhost:4200/apps/user/appazure',
+              redirect_uri: `${environment.apiUrl}/apps/user/appazure`,
               logout_redirect_uri: 'https://localhost:4200/logout'
             }),
           }
