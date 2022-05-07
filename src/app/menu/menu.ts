@@ -8,7 +8,6 @@ export const menu: CoreMenu[] = [
     id: 'dashboard',
     title: 'Dashboard',
     type: 'item',
-    role: ['Admin','School'], //? To hide collapsible based on user role
     icon: 'home',
     url: 'dashboard/analytics',
     children: [
@@ -17,7 +16,6 @@ export const menu: CoreMenu[] = [
         title: 'Analytics',
         translate: 'MENU.DASHBOARD.ANALYTICS',
         type: 'item',
-        role: ['Admin', 'School'], //? To set multiple role: ['Admin', 'Client']
         icon: 'user',
         url: 'dashboard/analytics'
       },
