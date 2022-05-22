@@ -20,7 +20,7 @@ export class AuthSchoolRegisterV2Component implements OnInit {
   // Public
   public coreConfig: any;
   public passwordTextType: boolean;
-  public registerForm: FormGroup;
+  public sregisterForm: FormGroup;
   public submitted = false;
   public role = 'teacher';
   // Private
@@ -67,7 +67,7 @@ export class AuthSchoolRegisterV2Component implements OnInit {
 
   // convenience getter for easy access to form fields
   get f() {
-    return this.registerForm.controls;
+    return this.sregisterForm.controls;
   }
 
   /**
@@ -84,10 +84,10 @@ export class AuthSchoolRegisterV2Component implements OnInit {
     this.submitted = true;
 
     // stop here if form is invalid
-    // if (this.registerForm.invalid) {
+    // if (this.sregisterForm.invalid) {
     //   return;
     // }
-    this._authenticationService.register(this.registerForm.value,this.role).then((resposne) => {
+    this._authenticationService.registerSchool(this.sregisterForm.value,"School").then((resposne) => {
       console.log('res set:', resposne);
       this._router.navigate(['/pages/authentication/login-v2']);
 
@@ -114,13 +114,15 @@ export class AuthSchoolRegisterV2Component implements OnInit {
    * On init
    */
   ngOnInit(): void {
-    this.registerForm = this._formBuilder.group({
+    this.sregisterForm = this._formBuilder.group({
       username: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       mobilenumber: ['', Validators.required],
+      fullname: ['', Validators.required],
+      firstname: ['', Validators.required],
+      lastname: ['', Validators.required],
+      itemail: ['', [Validators.required, Validators.email]],
       location: ['', Validators.required],
-      organisation: ['', Validators.required],
-      role: ['', Validators.required]
     });
     this.selectedStatus = this.selectStatusRegister[0];
 

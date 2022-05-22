@@ -187,7 +187,7 @@ export class CommonService implements Resolve<any> {
   sendNotifications(form): Promise<any[]> {
     return new Promise((resolve, reject) => {
       this._httpClient.post(`${environment.apiUrl}/api/notificaitons/add`, {
-        'title': form['username'],
+        'title': form['title'],
         'body': form['body'],
       }).subscribe((response: any) => {
         console.log(response);

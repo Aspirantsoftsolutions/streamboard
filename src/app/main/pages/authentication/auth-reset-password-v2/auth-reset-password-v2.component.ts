@@ -39,7 +39,7 @@ export class AuthResetPasswordV2Component implements OnInit {
     private _router: Router,
     private _formBuilder: FormBuilder) {
     this._unsubscribeAll = new Subject();
-    this.urlLastValue = this.url.substr(this.url.lastIndexOf('/') + 1);
+    this.urlLastValue = this.url.substr(this.url.lastIndexOf('=') + 1);
 
     // Configure the layout
     this._coreConfigService.config = {

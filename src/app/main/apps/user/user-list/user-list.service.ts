@@ -69,7 +69,9 @@ export class UserListService implements Resolve<any> {
       }, reject);
     });
   }
-  register(form,role): Promise<any[]> {
+
+  register(form, role): Promise<any[]> {
+    console.log(form);
     return new Promise((resolve, reject) => {
       this._httpClient.post(`${environment.apiUrl}/api/auth/register`, {
         'username': form['username'],
@@ -81,7 +83,31 @@ export class UserListService implements Resolve<any> {
         'plan': "Free",
         'status': 'active',
         'location': form['location'],
-        'organisation':form['organisation']
+        'organisation': form['username']
+      }).subscribe((response: any) => {
+        console.log(response);
+        resolve(response);
+      }, reject);
+    });
+  }
+
+  registerSchool(form, role): Promise<any[]> {
+    console.log(form);
+    return new Promise((resolve, reject) => {
+      this._httpClient.post(`${environment.apiUrl}/api/auth/register`, {
+        'username': form['username'],
+        'email': form['email'],
+        'firstName': form['firstname'],
+        'lastName': form['lastname'],
+        'password': 'Test@123',
+        'mobile': form['mobilenumber'],
+        'countryCode': '+91',
+        'role': role,
+        'plan': "Free",
+        'status': 'active',
+        'address': form['location'],
+        'itemail': form['itemail'],
+        'organisation': form['username']
       }).subscribe((response: any) => {
         console.log(response);
         resolve(response);
@@ -112,5 +138,7 @@ export class UserListService implements Resolve<any> {
       }, reject);
     });
   }
+
+  
 
 }

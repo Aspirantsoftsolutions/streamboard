@@ -25,7 +25,7 @@
       <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
         <h2 class="card-title font-weight-bold mb-1">Welcome to StreamBoard 🚀</h2>
         <p class="card-text mb-2">Make your app management easy and fun!</p>
-        <form class="auth-register-form mt-2" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <form class="auth-register-form mt-2" [formGroup]="sregisterForm" (ngSubmit)="onSubmit()">
           <div class="form-group">
             <label for="register-username" class="form-label">Organisation Name</label>
             <input
@@ -47,9 +47,9 @@
               <label for="register-fullname" class="form-label">Owner Full name</label>
               <input type="text" formControlName="fullname" class="form-control" placeholder="Enter your Name"
                 aria-describedby="register-fullname" tabindex="1" autofocus
-                [ngClass]="{ 'is-invalid': submitted && f.organisation.errors }" />
-              <div *ngIf="submitted && f.organisation.errors" class="invalid-feedback">
-                <div *ngIf="f.organisation.errors.required">owner name is required</div>
+                [ngClass]="{ 'is-invalid': submitted && f.fullname.errors }" />
+              <div *ngIf="submitted && f.fullname.errors" class="invalid-feedback">
+                <div *ngIf="f.fullname.errors.required">owner name is required</div>
               </div>
             </div>
             
@@ -96,9 +96,9 @@
               <label for="register-firstname" class="form-label">First name</label>
               <input type="text" formControlName="firstname" class="form-control" placeholder="Enter your First name"
                 aria-describedby="register-firstname" tabindex="1" autofocus
-                [ngClass]="{ 'is-invalid': submitted && f.organisation.errors }" />
-              <div *ngIf="submitted && f.organisation.errors" class="invalid-feedback">
-                <div *ngIf="f.organisation.errors.required">firstname is required</div>
+                [ngClass]="{ 'is-invalid': submitted && f.firstname.errors }" />
+              <div *ngIf="submitted && f.firstname.errors" class="invalid-feedback">
+                <div *ngIf="f.firstname.errors.required">firstname is required</div>
               </div>
             </div>
 
@@ -106,9 +106,9 @@
               <label for="register-lastname" class="form-label">Last name</label>
               <input type="text" formControlName="lastname" class="form-control" placeholder="Enter your last name"
                 aria-describedby="register-lastname" tabindex="1" autofocus
-                [ngClass]="{ 'is-invalid': submitted && f.organisation.errors }" />
-              <div *ngIf="submitted && f.organisation.errors" class="invalid-feedback">
-                <div *ngIf="f.organisation.errors.required">lastname is required</div>
+                [ngClass]="{ 'is-invalid': submitted && f.lastname.errors }" />
+              <div *ngIf="submitted && f.lastname.errors" class="invalid-feedback">
+                <div *ngIf="f.lastname.errors.required">lastname is required</div>
               </div>
             </div>
 
