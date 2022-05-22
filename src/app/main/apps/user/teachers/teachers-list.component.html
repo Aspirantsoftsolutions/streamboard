@@ -171,9 +171,9 @@
                 <div ngbDropdownMenu>
                   <a routerLink="/apps/user/user-view/{{ row.userId }}" ngbDropdownItem>
                     <span [data-feather]="'file-text'" [size]="16" [class]="'mr-50'"></span> Details</a>
-                    <a routerLink="/apps/user/user-edit/{{ row.userId }}" ngbDropdownItem>
+                    <a (click)="toggleSidebarEdit('new-teachers-sidebar',row.userId)" ngbDropdownItem>
                       <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> Edit</a>
-                    <a href="javascript:;" ngbDropdownItem>
+                    <a (click)="deleteUser(row._id)" ngbDropdownItem>
                       <span [data-feather]="'trash'" [size]="16" [class]="'mr-50'"></span> Delete</a>
                 </div>
               </div>

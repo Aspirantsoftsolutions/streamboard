@@ -1,3 +1,5 @@
+import { CommonService } from 'app/main/apps/user/common.service';
+import { AuthSchoolRegisterV2Component } from './auth-school-register-v2/auth-school-register-v2.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -33,6 +35,13 @@ const routes: Routes = [
     },
   },
   {
+    path: 'authentication/school-register',
+    component: AuthSchoolRegisterV2Component,
+    resolve: {
+      uls: UserListService
+    },
+  },
+  {
     path: 'authentication/reset-password-v2',
     component: AuthResetPasswordV2Component
   },
@@ -47,10 +56,12 @@ const routes: Routes = [
     AuthLoginV2Component,
     AuthRegisterV2Component,
     AuthForgotPasswordV2Component,
-    AuthResetPasswordV2Component
+    AuthResetPasswordV2Component,
+    AuthSchoolRegisterV2Component
   ],
   providers: [
     UserListService,
+    CommonService,
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {

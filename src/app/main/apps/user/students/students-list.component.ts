@@ -1,3 +1,4 @@
+import { CommonService } from './../common.service';
 import { ClassesListService } from './../classes/classes-list.service';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ColumnMode, DatatableComponent } from '@swimlane/ngx-datatable';
@@ -75,6 +76,7 @@ export class StudentsListComponent implements OnInit {
     private _userListService: StudentsListService,
     private _coreSidebarService: CoreSidebarService,
     private _coreConfigService: CoreConfigService,
+    private _commonService: CommonService,
     private _classListService: ClassesListService
   ) {
     this._unsubscribeAll = new Subject();
@@ -119,6 +121,29 @@ export class StudentsListComponent implements OnInit {
     this._classListService.classRows = ro;
     this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
   }
+
+
+  deleteUser(id) {
+    this._commonService.deleteStudent(id).then((response) => {
+      this._userListService.getAllStudents();
+    });
+  }
+
+  toggleSidebarEdit(name, id): void {
+    console.log('id:', id);
+    this._commonService.getAllStudents().then((response: any) => {
+      response.map(row => {
+        if (row.userId == id) {
+          console.log('current row', row);
+          this._commonService.onUserEditListChanged.next(row);
+          this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
+        }
+      });
+    }, (error) => {
+      console.log('res set error:', error);
+    });
+  }
+
 
   /**
    * Filter By Roles

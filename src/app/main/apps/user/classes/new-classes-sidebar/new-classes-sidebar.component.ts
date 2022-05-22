@@ -3,6 +3,7 @@ import { ClassesListService } from './../classes-list.service';
 import { Component, OnInit } from '@angular/core';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 import { ToastrService } from 'ngx-toastr';
+import { CommonService } from '../../common.service';
 
 @Component({
   selector: 'app-new-classes-sidebar',
@@ -10,7 +11,6 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class NewClassesSidebarComponent implements OnInit {
   public fullname;
-  public username;
   public email;
 
   /**
@@ -20,7 +20,14 @@ export class NewClassesSidebarComponent implements OnInit {
    */
   constructor(private _coreSidebarService: CoreSidebarService,
     private toastr: ToastrService,
-    private _userListService: ClassesListService, ) { }
+    private _userListService: ClassesListService,
+    private _commonService: CommonService,) {
+    this._commonService.onUserEditListChanged.subscribe(response => {
+      console.log(response);
+      this.fullname = response.username!;
+      this.email = response.email;
+    });
+ }
 
   /**
    * Toggle the sidebar

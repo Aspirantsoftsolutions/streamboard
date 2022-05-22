@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 import { ToastrService } from 'ngx-toastr';
 import { SubjectsListService } from '../subjects-list.service';
+import { CommonService } from '../../common.service';
 
 @Component({
   selector: 'app-new-subjects-sidebar',
@@ -20,7 +21,16 @@ export class NewSubjectsSidebarComponent implements OnInit {
    */
   constructor(private _coreSidebarService: CoreSidebarService,
     private toastr: ToastrService,
-    private _userListService: SubjectsListService, ) { }
+    private _userListService: SubjectsListService,
+    private _commonService: CommonService,) {
+    this._commonService.onUserEditListChanged.subscribe(response => {
+      console.log(response);
+      this.username = response.username;
+      this.fullname = response.fullName!;
+      this.email = response.email;
+    });
+
+  }
 
   /**
    * Toggle the sidebar

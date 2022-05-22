@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
+import { CommonService } from '../../common.service';
 
 @Component({
   selector: 'app-new-students-sidebar',
@@ -30,7 +31,17 @@ export class NewStudentsSidebarComponent implements OnInit {
     private toastr: ToastrService,
     private _classListService: ClassesListService,
     private _gradeListService: GradesListService,
-    private _studentListService: StudentsListService,) {
+    private _studentListService: StudentsListService,
+    private _commonService: CommonService,) {
+    
+    this._commonService.onUserEditListChanged.subscribe(response => {
+      console.log(response);
+      this.email = response.email;
+      this.firstName = response.firstName!;
+      this.lastName = response.lastName!;
+      this.userNumber = response.mobile;
+    });
+
     
     this._unsubscribeAll = new Subject();
     }

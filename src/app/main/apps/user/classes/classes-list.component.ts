@@ -1,3 +1,4 @@
+import { CommonService } from './../common.service';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ColumnMode, DatatableComponent } from '@swimlane/ngx-datatable';
 
@@ -67,11 +68,12 @@ export class ClassesListComponent implements OnInit {
    * Constructor
    *
    * @param {CoreConfigService} _coreConfigService
-   * @param {UserListService} _userListService
+   * @param {UserListService} _classesListService
    * @param {CoreSidebarService} _coreSidebarService
    */
   constructor(
-    private _userListService: ClassesListService,
+    private _classesListService: ClassesListService,
+    private _commonService: CommonService,
     private _coreSidebarService: CoreSidebarService,
     private _coreConfigService: CoreConfigService
   ) {
@@ -112,6 +114,28 @@ export class ClassesListComponent implements OnInit {
    */
   toggleSidebar(name): void {
     this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
+  }
+
+
+  deleteUser(id) {
+    this._commonService.deleteUser(id).then((response) => {
+      this._commonService.getClasses();
+    });
+  }
+
+  toggleSidebarEdit(name, id): void {
+    console.log('id:', id);
+    this._commonService.getClasses().then((response: any) => {
+      response.map(row => {
+        if (row.userId == id) {
+          console.log('current row', row);
+          this._commonService.onUserEditListChanged.next(row);
+          this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
+        }
+      });
+    }, (error) => {
+      console.log('res set error:', error);
+    });
   }
 
   /**
@@ -184,13 +208,13 @@ export class ClassesListComponent implements OnInit {
       //! If we have zoomIn route Transition then load datatable after 450ms(Transition will finish in 400ms)
       if (config.layout.animation === 'zoomIn') {
         setTimeout(() => {
-          this._userListService.onUserListChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
+          this._classesListService.onUserListChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
             this.rows = response;
             this.tempData = this.rows;
           });
         }, 450);
       } else {
-        this._userListService.onUserListChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
+        this._classesListService.onUserListChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
           this.rows = response;
           this.tempData = this.rows;
         });

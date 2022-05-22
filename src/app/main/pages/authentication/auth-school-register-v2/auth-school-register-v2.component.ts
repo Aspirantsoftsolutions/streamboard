@@ -5,27 +5,34 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 import { CoreConfigService } from '@core/services/config.service';
-import { CommonService } from 'app/main/apps/user/common.service';
+import { AuthenticationService, UserService } from 'app/auth/service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { UserListService } from 'app/main/apps/user/user-list/user-list.service';
 
 @Component({
-  selector: 'app-auth-reset-password-v2',
-  templateUrl: './auth-reset-password-v2.component.html',
-  styleUrls: ['./auth-reset-password-v2.component.scss'],
+  selector: 'app-auth-school-register-v2',
+  templateUrl: './auth-school-register-v2.component.html',
+  styleUrls: ['./auth-school-register-v2.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class AuthResetPasswordV2Component implements OnInit {
+export class AuthSchoolRegisterV2Component implements OnInit {
   // Public
   public coreConfig: any;
   public passwordTextType: boolean;
-  public confPasswordTextType: boolean;
-  public resetPasswordForm: FormGroup;
+  public registerForm: FormGroup;
   public submitted = false;
-  public url = this._router.url;
+  public role = 'teacher';
   // Private
   private _unsubscribeAll: Subject<any>;
-  private urlLastValue = "";
+  public selectedStatus = [];
+
+  public selectStatusRegister: any = [
+    { name: 'Select', value: '' },
+    { name: 'Pending', value: 'Are you a teacher' },
+    { name: 'Active', value: 'Are you a student' },
+    { name: 'Inactive', value: 'Are you a IT Admin' }
+  ];
 
   /**
    * Constructor
@@ -34,12 +41,11 @@ export class AuthResetPasswordV2Component implements OnInit {
    * @param {FormBuilder} _formBuilder
    */
   constructor(private _coreConfigService: CoreConfigService,
-    private _commonService: CommonService,
+    private _authenticationService: UserListService,
     private toastr: ToastrService,
     private _router: Router,
     private _formBuilder: FormBuilder) {
     this._unsubscribeAll = new Subject();
-    this.urlLastValue = this.url.substr(this.url.lastIndexOf('/') + 1);
 
     // Configure the layout
     this._coreConfigService.config = {
@@ -61,7 +67,7 @@ export class AuthResetPasswordV2Component implements OnInit {
 
   // convenience getter for easy access to form fields
   get f() {
-    return this.resetPasswordForm.controls;
+    return this.registerForm.controls;
   }
 
   /**
@@ -72,29 +78,21 @@ export class AuthResetPasswordV2Component implements OnInit {
   }
 
   /**
-   * Toggle confirm password
-   */
-  toggleConfPasswordTextType() {
-    this.confPasswordTextType = !this.confPasswordTextType;
-  }
-
-  /**
    * On Submit
    */
   onSubmit() {
     this.submitted = true;
 
     // stop here if form is invalid
-    if (this.resetPasswordForm.invalid) {
-      return;
-    }
-
-    this._commonService.updateUserPassword(this.resetPasswordForm.value, this.urlLastValue).then((resposne) => {
+    // if (this.registerForm.invalid) {
+    //   return;
+    // }
+    this._authenticationService.register(this.registerForm.value,this.role).then((resposne) => {
       console.log('res set:', resposne);
       this._router.navigate(['/pages/authentication/login-v2']);
 
       let successString = Response;
-      this.toastr.success('👋 Password Updated Successfully.', 'Success!', {
+      this.toastr.success('👋 Registered Created Successfully.', 'Success!', {
         toastClass: 'toast ngx-toastr',
         closeButton: true
       });
@@ -107,7 +105,6 @@ export class AuthResetPasswordV2Component implements OnInit {
       });
     }
     );
-
   }
 
   // Lifecycle Hooks
@@ -117,10 +114,15 @@ export class AuthResetPasswordV2Component implements OnInit {
    * On init
    */
   ngOnInit(): void {
-    this.resetPasswordForm = this._formBuilder.group({
-      newPassword: ['', [Validators.required]],
-      confirmPassword: ['', [Validators.required]]
+    this.registerForm = this._formBuilder.group({
+      username: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      mobilenumber: ['', Validators.required],
+      location: ['', Validators.required],
+      organisation: ['', Validators.required],
+      role: ['', Validators.required]
     });
+    this.selectedStatus = this.selectStatusRegister[0];
 
     // Subscribe to config changes
     this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {

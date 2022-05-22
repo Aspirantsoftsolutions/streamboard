@@ -1,0 +1,73 @@
+<div class="auth-wrapper auth-v2">
+  <div class="auth-inner row m-0">
+    <!-- Brand logo--><a class="brand-logo" href="javascript:void(0);">
+      <img src="{{ coreConfig.app.appLogoImage }}" alt="brand-logo" width="260" />
+      </a
+    >
+    <!-- /Brand logo-->
+    <!-- Left Text-->
+    <div class="d-none d-lg-flex col-lg-8 align-items-center p-5">
+      <div class="w-100 d-lg-flex align-items-center justify-content-center px-5">
+        <img
+          [src]="
+            coreConfig.layout.skin === 'dark'
+              ? 'assets/images/pages/reset-password-v2-dark.svg'
+              : 'assets/images/pages/reset-password-v2.svg'
+          "
+          img-fluid="img-fluid"
+          alt="Register V2"
+        />
+      </div>
+    </div>
+    <!-- /Left Text-->
+    <!-- Reset password-->
+    <div class="d-flex col-lg-4 align-items-center auth-bg px-2 p-lg-5">
+      <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
+        <h2 class="card-title font-weight-bold mb-1">Notifications</h2>
+        <p class="card-text mb-2">Please send notifications by adding title and body</p>
+        <form class="auth-reset-password-form mt-2" [formGroup]="notificationsForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <div class="d-flex justify-content-between">
+              <label for="reset-password-new">Notification Title</label>
+            </div>
+            <div class="input-group input-group-merge form-password-toggle">
+              <input
+                 type="text"
+                formControlName="title"
+                class="form-control form-control-merge"
+                placeholder="············"
+                aria-describedby="reset-password-new"
+                tabindex="1"
+                autofocus
+                [ngClass]="{ 'is-invalid error': submitted && f.title.errors }"
+              />
+            
+            </div>
+           
+          </div>
+          <div class="form-group">
+            <div class="d-flex justify-content-between">
+              <label for="reset-password-confirm">Notification Body</label>
+            </div>
+            <div class="input-group input-group-merge form-password-toggle">
+              <input
+                 type="text"
+                formControlName="body"
+                class="form-control form-control-merge"
+                placeholder="············"
+                aria-describedby="reset-password-confirm"
+                tabindex="2"
+                [ngClass]="{ 'is-invalid error': submitted && f.body.errors }"
+              />
+            
+            </div>
+         
+          </div>
+          <button class="btn btn-primary btn-block" tabindex="3" rippleEffect>Send Notification</button>
+        </form>
+        
+      </div>
+    </div>
+    <!-- /Reset password-->
+  </div>
+</div>

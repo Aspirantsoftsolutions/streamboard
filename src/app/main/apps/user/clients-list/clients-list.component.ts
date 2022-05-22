@@ -2,24 +2,27 @@ import { CommonService } from './../common.service';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ColumnMode, DatatableComponent } from '@swimlane/ngx-datatable';
 
-import { Subject } from 'rxjs';
+import { Subject, async } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { CoreConfigService } from '@core/services/config.service';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
-import { GradesListService } from './grades-list.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
+// var admin = require('google-admin-sdk');
+// const privatekey = require('../../../../../../streamboard-346619-e851b52adce0.json');
+// const { JWT } = require('google-auth-library');    
 
 @Component({
-  selector: 'app-grades-list',
-  templateUrl: './grades-list.component.html',
-  styleUrls: ['./grades-list.component.scss'],
+  selector: 'app-clients-list',
+  templateUrl: './clients-list.component.html',
+  styleUrls: ['./clients-list.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-  
-export class GradesListComponent implements OnInit {
+export class ClientsListComponent implements OnInit {
   // Public
   public sidebarToggleRef = false;
+  public modalRef;
   public rows;
   public selectedOption = 10;
   public ColumnMode = ColumnMode;
@@ -27,22 +30,22 @@ export class GradesListComponent implements OnInit {
   public previousRoleFilter = '';
   public previousPlanFilter = '';
   public previousStatusFilter = '';
-
+  public emailInvite = '';
   public selectRole: any = [
     { name: 'All', value: '' },
-    { name: 'Admin', value: 'Admin' },
-    { name: 'Author', value: 'Author' },
-    { name: 'Editor', value: 'Editor' },
-    { name: 'Maintainer', value: 'Maintainer' },
-    { name: 'Subscriber', value: 'Subscriber' }
+    { name: 'School', value: 'School' },
+    { name: 'Teacher', value: 'Teacher' },
+    { name: 'Student', value: 'Student' },
+    { name: 'Class', value: 'Class' }
   ];
 
   public selectPlan: any = [
     { name: 'All', value: '' },
-    { name: 'Basic', value: 'Basic' },
-    { name: 'Company', value: 'Company' },
-    { name: 'Enterprise', value: 'Enterprise' },
-    { name: 'Team', value: 'Team' }
+    { name: 'Free', value: 'Free' },
+    { name: 'Bronze', value: 'Bronze' },
+    { name: 'Silver', value: 'Silver' },
+    { name: 'Gold', value: 'Gold' },
+    { name: 'Platinum', value: 'Platinum' }
   ];
 
   public selectStatus: any = [
@@ -72,9 +75,9 @@ export class GradesListComponent implements OnInit {
    * @param {CoreSidebarService} _coreSidebarService
    */
   constructor(
-    private _userListService: GradesListService,
-    private _coreSidebarService: CoreSidebarService,
     private _commonService: CommonService,
+    private modalService: NgbModal,
+    private _coreSidebarService: CoreSidebarService,
     private _coreConfigService: CoreConfigService
   ) {
     this._unsubscribeAll = new Subject();
@@ -107,16 +110,36 @@ export class GradesListComponent implements OnInit {
     this.table.offset = 0;
   }
 
+  openInvite(modalForm) {
+    this.modalRef = this.modalService.open(modalForm);
+  }
+
+  sendInvite(modal, modalForm) {
+    console.log(this.modalRef);
+    let value = this.modalRef._contentRef;
+    console.log(this.emailInvite);
+    this._commonService.sendInvitationEmail(this.emailInvite);
+    modal.close('Accept click');
+  }
+
+  /**
+   * Toggle the sidebar
+   *
+   * @param name
+   */
+  toggleSidebar(name): void {
+    this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
+  }
 
   deleteUser(id) {
     this._commonService.deleteUser(id).then((response) => {
-      this._userListService.getDataTableRows();
+      this._commonService.getDataTableRows();
     });
   }
 
   toggleSidebarEdit(name, id): void {
     console.log('id:', id);
-    this._commonService.getGrades().then((response: any) => {
+    this._commonService.getDataTableRows().then((response:any) => {
       response.map(row => {
         if (row.userId == id) {
           console.log('current row', row);
@@ -127,15 +150,6 @@ export class GradesListComponent implements OnInit {
     }, (error) => {
       console.log('res set error:', error);
     });
-  }
-
-  /**
-   * Toggle the sidebar
-   *
-   * @param name
-   */
-  toggleSidebar(name): void {
-    this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
   }
 
   /**
@@ -208,19 +222,54 @@ export class GradesListComponent implements OnInit {
       //! If we have zoomIn route Transition then load datatable after 450ms(Transition will finish in 400ms)
       if (config.layout.animation === 'zoomIn') {
         setTimeout(() => {
-          this._userListService.onUserListChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
+          this._commonService.onUserListChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
             this.rows = response;
             this.tempData = this.rows;
           });
         }, 450);
       } else {
-        this._userListService.onUserListChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
+        this._commonService.onUserListChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
           this.rows = response;
           this.tempData = this.rows;
         });
       }
     });
+
+    this.getUser();
+
+
   }
+
+  
+
+  async getUser() {
+    // const client = new JWT({
+    //   email: privatekey.client_email,
+    //   key: privatekey.private_key,
+    //   scopes: ['https://www.googleapis.com/auth/cloud-platform'],
+    // });
+    // let url = "https://admin.googleapis.com/admin/directory/v1/users";
+    // const res = await client.request({ url });
+    // console.log(res.data);
+
+  // try {
+  //   const admin = await google.admin({
+  //     version: "directory_v1",
+  //     auth: client,
+  //   });
+  //   //get all users
+  //   const users = await admin.users.get({
+  //     userKey: email,
+  //   });
+  //   console.log(users, "users");
+  // } catch (error) {
+  //   console.log(
+  //     error.response ? error.response.data : error.message,
+  //     "error",
+  //     error.message ? error.errors : ""
+  //   );
+  // }
+}
 
   /**
    * On destroy

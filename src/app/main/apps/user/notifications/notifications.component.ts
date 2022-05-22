@@ -6,21 +6,21 @@ import { Subject } from 'rxjs';
 
 import { CoreConfigService } from '@core/services/config.service';
 import { CommonService } from 'app/main/apps/user/common.service';
-import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-auth-reset-password-v2',
-  templateUrl: './auth-reset-password-v2.component.html',
-  styleUrls: ['./auth-reset-password-v2.component.scss'],
+  selector: 'app-notifications',
+  templateUrl: './notifications.component.html',
+  styleUrls: ['./notifications.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class AuthResetPasswordV2Component implements OnInit {
+export class NotificationsComponent implements OnInit {
   // Public
   public coreConfig: any;
   public passwordTextType: boolean;
   public confPasswordTextType: boolean;
-  public resetPasswordForm: FormGroup;
+  public notificationsForm: FormGroup;
   public submitted = false;
   public url = this._router.url;
   // Private
@@ -33,49 +33,19 @@ export class AuthResetPasswordV2Component implements OnInit {
    * @param {CoreConfigService} _coreConfigService
    * @param {FormBuilder} _formBuilder
    */
-  constructor(private _coreConfigService: CoreConfigService,
+  constructor(
     private _commonService: CommonService,
+    private _coreConfigService: CoreConfigService,
     private toastr: ToastrService,
     private _router: Router,
     private _formBuilder: FormBuilder) {
     this._unsubscribeAll = new Subject();
-    this.urlLastValue = this.url.substr(this.url.lastIndexOf('/') + 1);
 
-    // Configure the layout
-    this._coreConfigService.config = {
-      layout: {
-        navbar: {
-          hidden: true
-        },
-        menu: {
-          hidden: true
-        },
-        footer: {
-          hidden: true
-        },
-        customizer: false,
-        enableLocalStorage: false
-      }
-    };
   }
 
   // convenience getter for easy access to form fields
   get f() {
-    return this.resetPasswordForm.controls;
-  }
-
-  /**
-   * Toggle password
-   */
-  togglePasswordTextType() {
-    this.passwordTextType = !this.passwordTextType;
-  }
-
-  /**
-   * Toggle confirm password
-   */
-  toggleConfPasswordTextType() {
-    this.confPasswordTextType = !this.confPasswordTextType;
+    return this.notificationsForm.controls;
   }
 
   /**
@@ -84,17 +54,12 @@ export class AuthResetPasswordV2Component implements OnInit {
   onSubmit() {
     this.submitted = true;
 
-    // stop here if form is invalid
-    if (this.resetPasswordForm.invalid) {
-      return;
-    }
 
-    this._commonService.updateUserPassword(this.resetPasswordForm.value, this.urlLastValue).then((resposne) => {
+    this._commonService.sendNotifications(this.notificationsForm.value).then((resposne) => {
       console.log('res set:', resposne);
-      this._router.navigate(['/pages/authentication/login-v2']);
 
       let successString = Response;
-      this.toastr.success('👋 Password Updated Successfully.', 'Success!', {
+      this.toastr.success('👋 Notifications Send Successfully.', 'Success!', {
         toastClass: 'toast ngx-toastr',
         closeButton: true
       });
@@ -117,11 +82,10 @@ export class AuthResetPasswordV2Component implements OnInit {
    * On init
    */
   ngOnInit(): void {
-    this.resetPasswordForm = this._formBuilder.group({
-      newPassword: ['', [Validators.required]],
-      confirmPassword: ['', [Validators.required]]
+    this.notificationsForm = this._formBuilder.group({
+      title: ['', [Validators.required]],
+      body: ['', [Validators.required]]
     });
-
     // Subscribe to config changes
     this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
       this.coreConfig = config;

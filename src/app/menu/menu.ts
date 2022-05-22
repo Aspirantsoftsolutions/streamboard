@@ -9,7 +9,7 @@ export const menu: CoreMenu[] = [
     title: 'Dashboard',
     type: 'item',
     icon: 'home',
-    url: 'dashboard/analytics',
+    url: 'dashboard/ecommerce',
     children: [
       {
         id: 'analytics',
@@ -17,7 +17,7 @@ export const menu: CoreMenu[] = [
         translate: 'MENU.DASHBOARD.ANALYTICS',
         type: 'item',
         icon: 'user',
-        url: 'dashboard/analytics'
+        url: 'dashboard/ecommerce'
       },
     ]
   },
@@ -29,31 +29,17 @@ export const menu: CoreMenu[] = [
     translate: 'Main Menu',
     icon: 'package',
     children: [
-      {
-        id: 'sso',
-        title: 'SSO',
-        type: 'item',
-        role: ['School'], //  for school
-        icon: 'user',
-        url: 'apps/user/starterSSO'
-      },
+      
       {
         id: 'calendar',
         title: 'Calendar',
         translate: 'MENU.APPS.CALENDAR',
         type: 'item',
-        role: ['Admin','Class', 'Student', 'Teacher', 'School'],
+        role: ['Class', 'Student', 'Teacher', 'School'],
         icon: 'calendar',
         url: 'apps/calendar'
       },
-      {
-        id: 'whiteBoard',
-        title: 'WhiteBoard',
-        translate: 'WhiteBoard',
-        type: 'item',
-        icon: 'home',
-        url: 'apps/user/ind-sessions-list'
-      },
+      
       // {
       //   id: 'sessions_list',
       //   title: 'Collaboration Class',
@@ -66,7 +52,7 @@ export const menu: CoreMenu[] = [
         id: 'collab',
         title: 'Collaboration Class',
         type: 'collapsible',
-        role: ['Admin', 'School'],
+        role: ['School'],
         icon: 'file-text',
         children: [
           {
@@ -101,52 +87,36 @@ export const menu: CoreMenu[] = [
         url: 'apps/user/user-list'
       },
       {
-        id: 'schools_list',
-        title: 'Schools',
+        id: 'clients_list',
+        title: 'Clients',
         type: 'item',
         role: ['Admin'],
         icon: 'user',
-        url: 'apps/user/schools-list'
+        url: 'apps/user/clients-list'
       },
       {
-        id: 'teachers_list',
-        title: 'Teachers',
+        id: 'whiteBoard',
+        title: 'WhiteBoard',
+        translate: 'WhiteBoard',
         type: 'item',
-        role: ['School', 'Class', 'Admin'],
-        icon: 'user',
-        url: 'apps/user/teachers-list'
+        icon: 'home',
+        url: 'apps/user/ind-sessions-list'
       },
       {
-        id: 'students_list',
-        title: 'Students',
+        id: 'sso',
+        title: 'SSO',
         type: 'item',
-        role: ['Teacher', 'School', 'Admin'],
+        role: ['School'], //  for school
         icon: 'user',
-        url: 'apps/user/students-list'
+        url: 'apps/user/starterSSO'
       },
       {
-        id: 'classes_list',
-        title: 'Classes',
+        id: 'integrations',
+        title: 'Integrations',
         type: 'item',
-        role: ['School', 'Admin'],
+        role: ['Admin'], 
         icon: 'user',
-        url: 'apps/user/classes-list'
-      },
-      {
-        id: 'groups_list',
-        title: 'Groups',
-        type: 'item',
-        role: ['Teacher', 'School', 'Admin'],
-        icon: 'user',
-        url: 'apps/user/groups-list'
-      },
-      {
-        id: 'grades_list',
-        title: 'Grades',
-        type: 'item',
-        role: ['Teacher', 'School', 'Admin'],
-        icon: 'user',
-        url: 'apps/user/grades-list'
+        url: 'pages/miscellaneous/coming-soon'
       },
       {
         id: 'subscriptions-list',
@@ -164,36 +134,111 @@ export const menu: CoreMenu[] = [
         icon: 'user',
         url: 'apps/user/payments-list'
       },
-      // {
-      //   id: 'invoice',
-      //   title: 'Settings',
-      //   type: 'collapsible',
-      //   role: ['Admin','School'],
-      //   icon: 'file-text',
-      //   children: [
-      //     {
-      //       id: 'invoice-list',
-      //       title: 'Roles & Permissions',
-      //       type: 'item',
-      //       icon: 'user',
-      //       url: 'apps/invoice/list'
-      //     },
-      //     {
-      //       id: 'invoicePreview',
-      //       title: 'Notifications',
-      //       type: 'item',
-      //       icon: 'user',
-      //       url: 'apps/invoice/preview'
-      //     },
-      //     {
-      //       id: 'invoiceEdit',
-      //       title: 'Dynamic Forms',
-      //       type: 'item',
-      //       icon: 'user',
-      //       url: 'apps/invoice/edit'
-      //     }
-      //   ]
-      // },
+      {
+        id: 'subscriptions-list',
+        title: 'Subscriptions',
+        type: 'item',
+        icon: 'user',
+        role: ['Admin'],
+        url: 'apps/user/subscriptions-list'
+      },
+      {
+        id: 'reports-list',
+        title: 'Reports',
+        type: 'item',
+        role: ['Admin'],
+        icon: 'user',
+        url: 'pages/miscellaneous/coming-soon'
+      },
+      {
+        id: 'invoice',
+        title: 'Settings',
+        type: 'collapsible',
+        role: ['Admin'],
+        icon: 'file-text',
+        children: [
+          {
+            id: 'invoice-list',
+            title: 'Roles & Permissions',
+            type: 'item',
+            icon: 'user',
+            url: 'apps/invoice/list'
+          },
+          {
+            id: 'invoicePreview',
+            title: 'Invoice Preview',
+            type: 'item',
+            icon: 'user',
+            url: 'apps/invoice/preview'
+          },
+          {
+            id: 'invoiceEdit',
+            title: 'Invoice Edit',
+            type: 'item',
+            icon: 'user',
+            url: 'apps/invoice/edit'
+          }
+        ]
+      },
+      {
+        id: 'schools_list',
+        title: 'Schools',
+        type: 'item',
+        role: ['School'],
+        icon: 'user',
+        url: 'apps/user/schools-list'
+      },
+      {
+        id: 'teachers_list',
+        title: 'Teachers',
+        type: 'item',
+        role: ['School', 'Class'],
+        icon: 'user',
+        url: 'apps/user/teachers-list'
+      },
+      {
+        id: 'students_list',
+        title: 'Students',
+        type: 'item',
+        role: ['Teacher', 'School'],
+        icon: 'user',
+        url: 'apps/user/students-list'
+      },
+      {
+        id: 'classes_list',
+        title: 'Classes',
+        type: 'item',
+        role: ['School'],
+        icon: 'user',
+        url: 'apps/user/classes-list'
+      },
+      {
+        id: 'groups_list',
+        title: 'Groups',
+        type: 'item',
+        role: ['Teacher', 'School'],
+        icon: 'user',
+        url: 'apps/user/groups-list'
+      },
+      {
+        id: 'grades_list',
+        title: 'Grades',
+        type: 'item',
+        role: ['Teacher', 'School'],
+        icon: 'user',
+        url: 'apps/user/grades-list'
+      },
+     
+      {
+        id: 'notifications',
+        title: 'Notifications',
+        translate: 'Notifications',
+        type: 'item',
+        icon: 'home',
+        url: 'apps/user/notifications'
+      },
+      
+      
     ]
   },
 ];

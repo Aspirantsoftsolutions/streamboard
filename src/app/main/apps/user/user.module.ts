@@ -1,3 +1,6 @@
+import { NotificationsComponent } from './notifications/notifications.component';
+import { NewClientSidebarComponent } from './clients-list/new-client-sidebar/new-client-sidebar.component';
+import { ClientsListComponent } from './clients-list/clients-list.component';
 import { NewIndSessionsSidebarComponent } from './individual-sessions/new-ind-sessions-sidebar/new-ind-sessions-sidebar.component';
 import { SubjectsListService } from './subjects/subjects-list.service';
 import { SubjectsListComponent } from './subjects/subjects-list.component';
@@ -64,9 +67,6 @@ import { SchoolsListService } from './schools/schools-list.service';
 // import { MatCardModule } from '@angular/material/card';
 
 import { AppComponent } from './sso/app.component';
-import { HomeComponent } from './sso/home/home.component';
-import { ProfileComponent } from './sso/profile/profile.component';
-import { TenantComponent } from './sso/tenant/tenant.component';
 
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { IPublicClientApplication, PublicClientApplication, InteractionType } from '@azure/msal-browser';
@@ -79,6 +79,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { IndSessionsListComponent } from './individual-sessions/ind-sessions-list.component';
 import { IndSessionsListService } from './individual-sessions/ind-sessions-list.service';
 import { environment } from 'environments/environment';
+import { CommonService } from './common.service';
 
 /**
  * Here we pass the configuration parameters to create an MSAL instance.
@@ -166,6 +167,19 @@ const routes: Routes = [
       uls: UserListService
     },
     data: { animation: 'UserListComponent' }
+  },
+  {
+    path: 'clients-list',
+    component: ClientsListComponent,
+    resolve: {
+      uls: CommonService,
+    },
+    data: { animation: 'ClientsListComponent' }
+  },
+  {
+    path: 'notifications',
+    component: NotificationsComponent,
+    data: { animation: 'NotificationsComponent' }
   },
   {
     path: 'sessions-list',
@@ -297,15 +311,16 @@ const routes: Routes = [
     GradesListComponent,
     NewGradesSidebarComponent,
     AppComponent,
-    HomeComponent,
-    ProfileComponent,
-    TenantComponent,
     SubjectsListComponent,
     NewSubjectsSidebarComponent,
     IndSessionsListComponent,
-    NewIndSessionsSidebarComponent
+    NewIndSessionsSidebarComponent,
+    ClientsListComponent,
+    NewClientSidebarComponent,
+    NotificationsComponent,
   ],
   imports: [
+    ToastrModule,
     CommonModule,
     RouterModule.forChild(routes),
     CoreCommonModule,
@@ -338,6 +353,7 @@ const routes: Routes = [
     GradesListService,
     SubjectsListService,
     IndSessionsListService,
+    CommonService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: MsalInterceptor,

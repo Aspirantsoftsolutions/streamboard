@@ -88,4 +88,29 @@ export class UserListService implements Resolve<any> {
       }, reject);
     });
   }
+
+  registerClient(form): Promise<any[]> {
+    return new Promise((resolve, reject) => {
+      this._httpClient.post(`${environment.apiUrl}/api/auth/register`, {
+        'organisation': form['username'],
+        'username': form['username'],
+        'email': form['email'],
+        'itemail': form['itemail'],
+        'fullName': form['fullname'],
+        'firstName': form['firstname'],
+        'lastName': form['lastname'],
+        'password': 'Test@123',
+        'address': form['location'],
+        'mobile': form['mobilenumber'],
+        'countryCode': '+91',
+        'role': form['role'],
+        'plan': form['plan'],
+        'status': 'active'
+      }).subscribe((response: any) => {
+        console.log(response);
+        resolve(response);
+      }, reject);
+    });
+  }
+
 }

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 import { ToastrService } from 'ngx-toastr';
 import { GroupsListService } from '../groups-list.service';
+import { CommonService } from '../../common.service';
 
 @Component({
   selector: 'app-new-groups-sidebar',
@@ -10,7 +11,6 @@ import { GroupsListService } from '../groups-list.service';
 })
 export class NewGroupsSidebarComponent implements OnInit {
   public fullname;
-  public username;
   public email;
 
   /**
@@ -20,7 +20,15 @@ export class NewGroupsSidebarComponent implements OnInit {
    */
   constructor(private _coreSidebarService: CoreSidebarService,
     private toastr: ToastrService,
-    private _userListService: GroupsListService, ) { }
+    private _userListService: GroupsListService,
+    private _commonService: CommonService,) {
+    this._commonService.onUserEditListChanged.subscribe(response => {
+      console.log(response);
+      this.fullname = response.username!;
+      this.email = response.email;
+    });
+
+  }
 
   /**
    * Toggle the sidebar

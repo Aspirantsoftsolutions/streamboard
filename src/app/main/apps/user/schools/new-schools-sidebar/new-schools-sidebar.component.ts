@@ -2,6 +2,7 @@ import { SchoolsListService } from './../schools-list.service';
 import { Component, OnInit } from '@angular/core';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 import { ToastrService } from 'ngx-toastr';
+import { CommonService } from '../../common.service';
 
 @Component({
   selector: 'app-new-schools-sidebar',
@@ -22,7 +23,18 @@ export class NewSchoolsSidebarComponent implements OnInit {
    */
   constructor(private _coreSidebarService: CoreSidebarService,
     private toastr: ToastrService,
-    private _userListService: SchoolsListService, ) { }
+    private _userListService: SchoolsListService,
+    private _commonService: CommonService,) {
+    this._commonService.onUserEditListChanged.subscribe(response => {
+      console.log(response);
+      // this.username = response.username;
+      this.schoolName = response.username;
+      this.email = response.email;
+      this.schoolAddress = response.address!;
+      this.schoolNumber = response.mobile;
+    });
+
+  }
 
   /**
    * Toggle the sidebar

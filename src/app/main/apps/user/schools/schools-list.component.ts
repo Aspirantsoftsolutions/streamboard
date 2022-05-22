@@ -1,3 +1,4 @@
+import { CommonService } from './../common.service';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ColumnMode, DatatableComponent } from '@swimlane/ngx-datatable';
 
@@ -72,6 +73,7 @@ export class SchoolsListComponent implements OnInit {
   constructor(
     private _userListService: SchoolsListService,
     private _coreSidebarService: CoreSidebarService,
+    private _commonService: CommonService,
     private _coreConfigService: CoreConfigService
   ) {
     this._unsubscribeAll = new Subject();
@@ -111,6 +113,27 @@ export class SchoolsListComponent implements OnInit {
    */
   toggleSidebar(name): void {
     this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
+  }
+
+  deleteUser(id) {
+    this._commonService.deleteUser(id).then((response) => {
+      this._userListService.getDataTableRows();
+    });
+  }
+
+  toggleSidebarEdit(name, id): void {
+    console.log('id:', id);
+    this._commonService.getSchools().then((response: any) => {
+      response.map(row => {
+        if (row.userId == id) {
+          console.log('current row', row);
+          this._commonService.onUserEditListChanged.next(row);
+          this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
+        }
+      });
+    }, (error) => {
+      console.log('res set error:', error);
+    });
   }
 
   /**
