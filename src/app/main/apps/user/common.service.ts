@@ -154,7 +154,7 @@ export class CommonService implements Resolve<any> {
         'password': 'Test@123',
         'mobile': form['user-number'],
         'countryCode': '+91',
-        'role': 'Individual',
+        'role': 'School',
         'plan': 'Free',
         'status': 'active'
       }).subscribe((response: any) => {
