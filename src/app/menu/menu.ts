@@ -35,7 +35,7 @@ export const menu: CoreMenu[] = [
         title: 'Calendar',
         translate: 'MENU.APPS.CALENDAR',
         type: 'item',
-        role: ['Class', 'Student', 'Teacher', 'School'],
+        role: ['Class', 'Student', 'Teacher', 'School','Admin'],
         icon: 'calendar',
         url: 'apps/calendar'
       },
@@ -106,7 +106,7 @@ export const menu: CoreMenu[] = [
         id: 'sso',
         title: 'SSO',
         type: 'item',
-        role: ['School'], //  for school
+        role: ['School','Admin'], //  for school
         icon: 'user',
         url: 'apps/user/starterSSO'
       },
@@ -133,14 +133,6 @@ export const menu: CoreMenu[] = [
         role: ['Admin'],
         icon: 'user',
         url: 'apps/user/payments-list'
-      },
-      {
-        id: 'subscriptions-list',
-        title: 'Subscriptions',
-        type: 'item',
-        icon: 'user',
-        role: ['Admin'],
-        url: 'apps/user/subscriptions-list'
       },
       {
         id: 'reports-list',

@@ -169,8 +169,6 @@
                   <span [data-feather]="'more-vertical'" [class]="'cursor-pointer'"></span>
                 </button>
                 <div ngbDropdownMenu>
-                  <a routerLink="/apps/user/user-view/{{ row.userId }}" ngbDropdownItem>
-                    <span [data-feather]="'file-text'" [size]="16" [class]="'mr-50'"></span> Details</a>
                     <a routerLink="/apps/user/user-edit/{{ row.userId }}" ngbDropdownItem>
                       <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> Edit</a>
                     <a href="javascript:;" ngbDropdownItem>
