@@ -7,6 +7,7 @@ import { Subject } from 'rxjs';
 import { AuthenticationService } from 'app/auth/service';
 import { CoreConfigService } from '@core/services/config.service';
 import { SocialAuthService, GoogleLoginProvider, MicrosoftLoginProvider } from 'angularx-social-login';
+import { UserListService } from 'app/main/apps/user/user-list/user-list.service';
 
 @Component({
   selector: 'app-auth-login-v2',
@@ -37,6 +38,7 @@ export class AuthLoginV2Component implements OnInit {
     private _formBuilder: FormBuilder,
     private _route: ActivatedRoute,
     private authService: SocialAuthService,
+    private userService: UserListService,
     private _router: Router,
     private _authenticationService: AuthenticationService
   ) {
@@ -132,11 +134,16 @@ export class AuthLoginV2Component implements OnInit {
       this.coreConfig = config;
     });
     this.authService.authState.subscribe((user) => {
-      this._router.navigate(['/']);
-
+      if (user == null) {
+        this._router.navigate(['/pages/authentication/login-v2']);
+      }
       console.log('user:', user);
       localStorage.setItem('currentUser', JSON.stringify(user));
 
+      if ((user?.provider == 'GOOGLE') || (user?.provider == 'MICROSOFT')) {
+        this.loginH(user);
+      }
+      
       // this.userSocial = user;
       this.submitted = true;
       // this._authenticationService.getUsers(this.userSocial.response.access_token, this.userSocial.response.id_token);
@@ -153,6 +160,48 @@ export class AuthLoginV2Component implements OnInit {
     });
   }
 
+  loginH(user) {
+    this._authenticationService
+      .login(user.email, 'Test@123')
+      .pipe(first())
+      .subscribe(
+        data => {
+          this._authenticationService.getCurrentUser(data.data.token)
+            .subscribe(
+              data => {
+                this._router.navigate(['/']);
+              },
+              error => {
+              }
+            );
+        },
+        error => {
+          this.error = error;
+          this.loading = false;
+          console.log('login eror:', error);
+          this.register(user);
+        }
+      );
+  }
+
+  register(user) {
+    
+    let form = {
+      'username': user.firstName,
+      'email': user.email,
+      'mobile': '123456789',
+      'password': 'Test@123',
+      'countryCode': '+91'
+    }
+    this.userService.register(form, 'Individual').then((resposne) => {
+      console.log('res set:', resposne);
+      this.loginH(user);
+    }, (error) => {
+      console.log('res set error:', error);
+      
+    }
+    );
+  }
   googleLogin() {
     // this.googleLogout();
     const googleLoginOptions = {

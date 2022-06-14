@@ -6,6 +6,9 @@ import { map } from 'rxjs/operators';
 import { environment } from 'environments/environment';
 import { User, Role } from 'app/auth/models';
 import { ToastrService } from 'ngx-toastr';
+import { SocialAuthService } from 'angularx-social-login';
+import { Subject, async } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -20,7 +23,10 @@ export class AuthenticationService {
    * @param {HttpClient} _http
    * @param {ToastrService} _toastrService
    */
-  constructor(private _http: HttpClient, private _toastrService: ToastrService) {
+  constructor(private _http: HttpClient, private _toastrService: ToastrService,
+    private _sauthService: SocialAuthService,
+    private _router: Router,
+) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
   }
@@ -192,7 +198,8 @@ export class AuthenticationService {
    * User logout
    *
    */
-  logout() {
+  async logout() {
+    await this._sauthService.signOut();
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
     // notify
