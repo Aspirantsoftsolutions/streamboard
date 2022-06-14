@@ -15,7 +15,7 @@ interface notification {
 })
 export class NavbarNotificationComponent implements OnInit {
   // Public
-  public notifications: notification;
+  public notifications: any;
 
   /**
    *

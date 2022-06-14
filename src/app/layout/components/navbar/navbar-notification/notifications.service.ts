@@ -17,7 +17,7 @@ export class NotificationsService {
    * @param {HttpClient} _httpClient
    */
   constructor(private _httpClient: HttpClient) {
-    this.onApiDataChange = new BehaviorSubject('');
+    this.onApiDataChange = new BehaviorSubject(''); 
     this.getNotificationsData();
   }
 
@@ -26,7 +26,7 @@ export class NotificationsService {
    */
   getNotificationsData(): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      this._httpClient.get(`${environment.apiUrl}/api/notifications-data`).subscribe((response: any) => {
+      this._httpClient.get(`${environment.apiUrl}/api/notificaitons/all`).subscribe((response: any) => {
         this.apiData = response;
         this.onApiDataChange.next(this.apiData);
         resolve(this.apiData);

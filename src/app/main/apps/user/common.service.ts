@@ -229,6 +229,15 @@ export class CommonService implements Resolve<any> {
     });
   }
 
+  getNotifications(): Promise<any[]> {
+    return new Promise((resolve, reject) => {
+      this._httpClient.get(`${environment.apiUrl}/api/notificaitons/all`).subscribe((response: any) => {
+        console.log(response);
+        resolve(response);
+      }, reject);
+    });
+  }
+
   deleteUser(id): Promise<any[]> {
     return new Promise((resolve, reject) => {
       this._httpClient.delete(`${environment.apiUrl}/api/user/${id}`, {

@@ -698,7 +698,11 @@ export class EcommerceComponent implements OnInit {
     this._commonServie.getCount().then((response) => {
       console.log("counts:", response);
       this.countData = response;
-    })
+    });
+    this._commonServie.getNotifications().then((response) => {
+      console.log("notifications:", response);
+      
+    });
   }
 
   /**
