@@ -4,6 +4,7 @@ import { SessionsListService } from './../sessions-list.service';
 import { Component, OnInit } from '@angular/core';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 import { ToastrService } from 'ngx-toastr';
+import { NgbDateStruct, NgbCalendar, NgbDate, NgbDateParserFormatter, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-new-sessions-sidebar',
@@ -18,6 +19,9 @@ export class NewSessionsSidebarComponent implements OnInit {
   public title;
   public emailids;
   public groupRows;
+  // Basic Date Picker
+  public basicDPdataS: NgbDateStruct;
+  public basicDPdataE: NgbDateStruct;
 
   /**
    * Constructor

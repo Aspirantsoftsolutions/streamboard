@@ -45,6 +45,7 @@ export class AuthenticationService {
   }
 
   getCurrentUser(token) {
+    localStorage.setItem('token', token);
     return this._http
       .get<any>(`${environment.apiUrl}/api/user/profile`,
         {
@@ -80,9 +81,9 @@ export class AuthenticationService {
       );
   }
 
-  getUsers(bearerToken,idToken) {
+  getUsers(bearerToken,idToken, domainName) {
     return this._http
-      .get<any>('https://content-admin.googleapis.com/admin/directory/v1/users?domain=adsrive.com&key='+idToken,
+      .get<any>('https://content-admin.googleapis.com/admin/directory/v1/users?domain='+domainName+'&key='+idToken,
         {
           headers: {
             'Authorization': 'Bearer ' + bearerToken

@@ -23,7 +23,7 @@
           <div class="card-header">
             <h4 class="card-title">Statistics</h4>
             <div class="d-flex align-items-center">
-              <p class="card-text font-small-2 mr-25 mb-0">Updated 1 month ago</p>
+              <p class="card-text font-small-2 mr-25 mb-0">Updated Just now</p>
             </div>
           </div>
           <div class="card-body statistics-body">
@@ -36,8 +36,8 @@
                     </div>
                   </div>
                   <div class="media-body my-auto">
-                    <h4 class="font-weight-bolder mb-0">{{ data.statistics.analyticsData.sales }}</h4>
-                    <p class="card-text font-small-3 mb-0">Sales</p>
+                    <h4 class="font-weight-bolder mb-0">{{ countData.usersCount }}</h4>
+                    <p class="card-text font-small-3 mb-0">Total Users</p>
                   </div>
                 </div>
               </div>
@@ -49,8 +49,8 @@
                     </div>
                   </div>
                   <div class="media-body my-auto">
-                    <h4 class="font-weight-bolder mb-0">{{ data.statistics.analyticsData.customers }}</h4>
-                    <p class="card-text font-small-3 mb-0">Customers</p>
+                    <h4 class="font-weight-bolder mb-0">{{ countData.adminsCount }}</h4>
+                    <p class="card-text font-small-3 mb-0">Admins</p>
                   </div>
                 </div>
               </div>
@@ -62,8 +62,8 @@
                     </div>
                   </div>
                   <div class="media-body my-auto">
-                    <h4 class="font-weight-bolder mb-0">{{ data.statistics.analyticsData.products }}</h4>
-                    <p class="card-text font-small-3 mb-0">Products</p>
+                    <h4 class="font-weight-bolder mb-0">{{ countData.individualsCount }}</h4>
+                    <p class="card-text font-small-3 mb-0">Individuals</p>
                   </div>
                 </div>
               </div>
@@ -75,11 +75,39 @@
                     </div>
                   </div>
                   <div class="media-body my-auto">
-                    <h4 class="font-weight-bolder mb-0">{{ data.statistics.analyticsData.revenue }}</h4>
-                    <p class="card-text font-small-3 mb-0">Revenue</p>
+                    <h4 class="font-weight-bolder mb-0">{{ countData.schoolsCount }}</h4>
+                    <p class="card-text font-small-3 mb-0">Schools</p>
                   </div>
                 </div>
               </div>
+
+              <div class="col-sm-6 col-xl-3 mb-2 mb-sm-0" style="margin-top: 20px;">
+                <div class="media">
+                  <div class="avatar bg-light-danger mr-2">
+                    <div class="avatar-content">
+                      <i data-feather="box" class="avatar-icon"></i>
+                    </div>
+                  </div>
+                  <div class="media-body my-auto">
+                    <h4 class="font-weight-bolder mb-0">{{ countData.studentsCount }}</h4>
+                    <p class="card-text font-small-3 mb-0">Students</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-xl-3" style="margin-top: 20px;">
+                <div class="media">
+                  <div class="avatar bg-light-success mr-2">
+                    <div class="avatar-content">
+                      <i data-feather="dollar-sign" class="avatar-icon"></i>
+                    </div>
+                  </div>
+                  <div class="media-body my-auto">
+                    <h4 class="font-weight-bolder mb-0">{{ countData.teachersCount }}</h4>
+                    <p class="card-text font-small-3 mb-0">Teachers</p>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>

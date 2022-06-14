@@ -1,3 +1,4 @@
+import { CommonService } from 'app/main/apps/user/common.service';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 
 import { CoreConfigService } from '@core/services/config.service';
@@ -50,7 +51,7 @@ export class EcommerceComponent implements OnInit {
   public stateDangerChartoptions;
   public earningChartoptions;
   public isMenuToggled = false;
-
+  public countData: any;
   // Private
   private $barColor = '#f3f3f3';
   private $trackBgColor = '#EBEBEB';
@@ -73,13 +74,22 @@ export class EcommerceComponent implements OnInit {
     private _authenticationService: AuthenticationService,
     private _dashboardService: DashboardService,
     private _coreConfigService: CoreConfigService,
-    private _coreTranslationService: CoreTranslationService
+    private _coreTranslationService: CoreTranslationService,
+    private _commonServie: CommonService
   ) {
     this._authenticationService.currentUser.subscribe(x => (this.currentUser = x));
     this.isAdmin = this._authenticationService.isAdmin;
     this.isClient = this._authenticationService.isClient;
 
     this._coreTranslationService.translate(english, french, german, portuguese);
+    this.countData = {
+      'adminsCount': 0,
+      'individualsCount': 0,
+      'schoolsCount': 0,
+      'studentsCount': 0,
+      'teachersCount': 0,
+      'usersCount': 0
+    }
     // Statistics Bar Chart
     this.statisticsBar = {
       chart: {
@@ -685,6 +695,10 @@ export class EcommerceComponent implements OnInit {
     this._dashboardService.onApiDataChanged.subscribe(response => {
       this.data = response;
     });
+    this._commonServie.getCount().then((response) => {
+      console.log("counts:", response);
+      this.countData = response;
+    })
   }
 
   /**

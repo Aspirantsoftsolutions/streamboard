@@ -10,7 +10,7 @@ export class CommonService implements Resolve<any> {
   public rows: any;
   public onUserListChanged: BehaviorSubject<any>;
   public onUserEditListChanged: BehaviorSubject<any>;
- 
+
   /**
    * Constructor
    *
@@ -133,6 +133,39 @@ export class CommonService implements Resolve<any> {
         console.log(response.data);
         this.onUserListChanged.next(response.data);
         resolve(response.data);
+      }, reject);
+    });
+  }
+
+  getCount(): Promise<any[]> {
+    return new Promise((resolve, reject) => {
+      this._httpClient.get(`${environment.apiUrl}/api/user/getCounts`).subscribe((response: any) => {
+        console.log(response.data);
+        resolve(response.data);
+      }, reject);
+    });
+  }
+
+  updateUserStatus(isactive, userId): Promise<any[]> {
+    let val = "";
+    if (isactive == true) {
+      val = "active";
+    } else {
+      val = "inactive";
+    }
+
+    return new Promise((resolve, reject) => {
+      this._httpClient.put(`${environment.apiUrl}/api/user/userActive`, {
+        'isActive': isactive,
+        'userId': userId,
+        "status": val
+      }, {
+          headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+          },
+      }).subscribe((response: any) => {
+        console.log(response);
+        resolve(response);
       }, reject);
     });
   }

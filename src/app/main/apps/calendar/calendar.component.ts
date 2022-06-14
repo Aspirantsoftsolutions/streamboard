@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { Component, OnInit, AfterViewInit, ViewEncapsulation } from '@angular/core';
 
 import { Subject } from 'rxjs';
@@ -138,6 +139,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       } else {
         // Subscribe to Event Change
         this._calendarService.onEventChange.subscribe(res => {
+          console.log('init here:', res);
           this.events = res;
           this.calendarOptions.events = res;
         });
@@ -153,15 +155,17 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       // this.userSocial = user;
       // this._authenticationService.getUsers(this.userSocial.response.access_token, this.userSocial.response.id_token);
       // console.log('user token:', this.userSocial.response.access_token);
-      this._authenticationService.getUsers(user.response.access_token, 'e851b52adce04eb4597101ccd7dd6167acc65f46')
-        .subscribe(
-          data => {
-            console.log("data c:", data);
-            // this._router.navigate(['/']);
-          },
-          error => {
-          }
-        );
+     
+      // let domainName = user.email.split("@");
+      // this._authenticationService.getUsers(user.response.access_token, 'e851b52adce04eb4597101ccd7dd6167acc65f46',domainName[1])
+      //   .subscribe(
+      //     data => {
+      //       console.log("data c:", data);
+      //       // this._router.navigate(['/']);
+      //     },
+      //     error => {
+      //     }
+      //   );
 
       this._authenticationService.getCalendarEvents(user.response.access_token)
         .subscribe(
@@ -176,25 +180,25 @@ export class CalendarComponent implements OnInit, AfterViewInit {
                     this._calendarService.calendar = [];
                     this._calendarService.events = [];
                     data1.items.forEach(event => {
-                      console.log("data cevent1:", event.id);
+                      console.log("data cevent1:", event);
 
                       const data = new EventRef();
                       // newEvent.id = parseInt(eventRef.event.id);
                       data.id = event.id;
-                      data.title = event.source?.title ?? event.summary;
-                      data.url = event.source?.url ?? "";
-                      data.start = event.start?.date ?? "";
+                      data.title = event.summary;
+                      // data.url = event.source?.url ?? "";
+                      data.start = event.start?.dateTime ?? "";
                       data.calendar = 'Personal';
-                      data.end = event.end?.date ?? "";
-                      data.extendedProps.description = event.summary;
+                      data.end = event.end?.dateTime ?? "";
+                      data.extendedProps.description = event.summary??event.title;
                       this._calendarService.calendar.push(data);
                       this._calendarService.events.push(data);
                     });
+                    this.calendarOptions.events = this._calendarService.events;
                     this._calendarService.onEventChange.next(this._calendarService.events);
                     this._calendarService.onCalendarChange.next(this._calendarService.calendar);
-
-                    console.log("data this._calendarService.calendarSecondary:", this._calendarService.calendar);
-
+                    this.events = this._calendarService.events;
+                    console.log("data this._calendarService.calendarSecondary:", this._calendarService.events);
 
                   },
                   error => {

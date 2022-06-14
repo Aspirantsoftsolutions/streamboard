@@ -98,7 +98,8 @@ export class AppComponent implements OnInit, OnDestroy {
         // this.userSocial = user;
         // this._authenticationService.getUsers(this.userSocial.response.access_token, this.userSocial.response.id_token);
         // console.log('user token:', this.userSocial.response.access_token);
-        this._authenticationService.getUsers(user.response.access_token, 'e851b52adce04eb4597101ccd7dd6167acc65f46')
+        let domainName = user.email.split("@");
+        this._authenticationService.getUsers(user.response.access_token, 'e851b52adce04eb4597101ccd7dd6167acc65f46',domainName[1])
           .subscribe(
             data => {
               console.log("data c:", data);
@@ -219,6 +220,33 @@ export class AppComponent implements OnInit, OnDestroy {
 
   }
 
+  getProfile(providerOptions: ProviderOptions) {
+    this.graphService.getGraphClient(providerOptions, this.authService)
+      .api('/users').get()
+      .then((profileResponse: any) => {
+        console.log('data', profileResponse);
+        profileResponse.value.forEach(element => {
+          if (!element.userPrincipalName.includes('admin')) {
+            const email = element.mail;
+            const username = element.displayName;
+            const firstName = element.displayName;
+            const lastName = element.displayName;
+            this.userService.setUser(email, username).then((resposne: any) => {
+              console.log('res set:', resposne);
+            }, (error) => {
+              console.log('res set error:', error);
+            }
+            );
+          }
+        });
+
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  
   logout() {
     this.authService.logout();
   }
@@ -251,31 +279,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
 
-  getProfile(providerOptions: ProviderOptions) {
-    this.graphService.getGraphClient(providerOptions, this.authService)
-      .api('/users').get()
-      .then((profileResponse: any) => {
-        console.log('data',profileResponse);
-        profileResponse.value.forEach(element => {
-          if (!element.userPrincipalName.includes('admin')) {
-            const email = element.mail;
-            const username = element.displayName;
-            const firstName = element.displayName;
-            const lastName = element.displayName;
-            this.userService.setUser(email, username).then((resposne: any) => {
-              console.log('res set:', resposne);
-            }, (error) => {
-              console.log('res set error:', error);
-            }
-            );
-          }
-        });
-        
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-
+ 
 
 }

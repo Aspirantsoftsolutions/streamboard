@@ -1,3 +1,4 @@
+import { CommonService } from 'app/main/apps/user/common.service';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ColumnMode, DatatableComponent } from '@swimlane/ngx-datatable';
 
@@ -8,6 +9,11 @@ import { CoreConfigService } from '@core/services/config.service';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 
 import { UserListService } from 'app/main/apps/user/user-list/user-list.service';
+import { protectedResources } from '../sso/auth-config';
+import { InteractionType } from '@azure/msal-browser';
+import { ProviderOptions, GraphService } from '../sso/graph.service';
+import { MsalService } from '@azure/msal-angular';
+import { UserViewService } from '../user-view/user-view.service';
 // var admin = require('google-admin-sdk');
 // const privatekey = require('../../../../../../streamboard-346619-e851b52adce0.json');
 // const { JWT } = require('google-auth-library');    
@@ -75,9 +81,18 @@ export class UserListComponent implements OnInit {
   constructor(
     private _userListService: UserListService,
     private _coreSidebarService: CoreSidebarService,
-    private _coreConfigService: CoreConfigService
+    private _coreConfigService: CoreConfigService,
+    private _commonService: CommonService,
+    private authService: MsalService,
+    private userService: UserViewService,
+    private graphService: GraphService,
+
   ) {
     this._unsubscribeAll = new Subject();
+  }
+
+  setLoginDisplay() {
+    return this.authService.instance.getAllAccounts().length > 0;
   }
 
   // Public Methods
@@ -204,7 +219,51 @@ export class UserListComponent implements OnInit {
 
   }
 
-  
+  statusChange(id, status): void {
+    this._commonService.updateUserStatus(!status, id).then((response) => {
+      this._commonService.getDataTableRows();
+    });
+  }
+
+
+  doSync() {
+    // this._router.navigate(['/apps/user/profile']);
+    const providerOptions: ProviderOptions = {
+      account: this.authService.instance.getActiveAccount()!,
+      scopes: protectedResources.graphMe.scopes,
+      interactionType: InteractionType.Popup
+    };
+    this.getProfile(providerOptions);
+
+  }
+
+  getProfile(providerOptions: ProviderOptions) {
+    this.graphService.getGraphClient(providerOptions, this.authService)
+      .api('/users').get()
+      .then((profileResponse: any) => {
+        console.log('data', profileResponse);
+        profileResponse.value.forEach(element => {
+          if (!element.userPrincipalName.includes('admin')) {
+            const email = element.mail;
+            const username = element.displayName;
+            const firstName = element.displayName;
+            const lastName = element.displayName;
+            this.userService.setUser(email, username).then((resposne: any) => {
+              console.log('res set:', resposne);
+            }, (error) => {
+              console.log('res set error:', error);
+            }
+            );
+          }
+        });
+
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+
 
   async getUser() {
     // const client = new JWT({

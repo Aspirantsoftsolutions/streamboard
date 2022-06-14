@@ -20,13 +20,13 @@ import { DashboardService } from 'app/main/dashboard/dashboard.service';
 
 import { AnalyticsComponent } from 'app/main/dashboard/analytics/analytics.component';
 import { EcommerceComponent } from 'app/main/dashboard/ecommerce/ecommerce.component';
+import { CommonService } from '../apps/user/common.service';
 
 const routes = [
   {
     path: 'analytics',
     component: AnalyticsComponent,
     canActivate: [AuthGuard],
-    data: { roles: [Role.Admin], animation: 'danalytics' },
     resolve: {
       css: DashboardService,
       inv: InvoiceListService
@@ -55,7 +55,7 @@ const routes = [
     NgApexchartsModule,
     InvoiceModule
   ],
-  providers: [DashboardService, InvoiceListService],
+  providers: [DashboardService, InvoiceListService, CommonService],
   exports: [EcommerceComponent]
 })
 export class DashboardModule {}

@@ -111,6 +111,10 @@
                 <i data-feather="plus" class="d-sm-none d-inline-block mr-0 mr-sm-1"></i
                 ><span class="d-none d-sm-inline-block">Add New User</span>
               </button>
+              <button type="submit" *ngIf="setLoginDisplay()" (click)="doSync()"
+                class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1" rippleEffect>
+                Azure Sync
+              </button>
             </div>
           </div>
         </div>
@@ -197,6 +201,10 @@
                   <span [data-feather]="'more-vertical'" [class]="'cursor-pointer'"></span>
                 </button>
                 <div ngbDropdownMenu> 
+                  <a (click)="statusChange(row.userId, row.isActive)" ngbDropdownItem *ngIf="row.isActive">
+                    <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span>  InActive </a>
+                    <a (click)="statusChange(row.userId, row.isActive)" ngbDropdownItem *ngIf="!row.isActive">
+                      <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> Active </a>
                     <a (click)="toggleSidebarEdit('new-client-sidebar',row.userId)" ngbDropdownItem>
                       <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> Edit</a>
                     <a (click)="deleteUser(row._id)" ngbDropdownItem>
