@@ -18,7 +18,8 @@ export class NewClientSidebarComponent implements OnInit {
   public firstname;
   public lastname;
   public address;
-
+  public isToUpdate = false;
+  public userId;
   /**
    * Constructor
    *
@@ -28,15 +29,21 @@ export class NewClientSidebarComponent implements OnInit {
     private toastr: ToastrService,
     private _commonService: CommonService,) {
     this._commonService.onUserEditListChanged.subscribe(response => {
-      console.log(response);
-      this.username = response.username;
-      this.fullname = response.fullName!;
-      this.email = response.email;
-      this.firstname = response.firstName!;
-      this.lastname = response.lastName!;
-      this.address = response.address!;
-      this.itemail = response.itemail!;
-      this.mobilenumber = response.mobile;
+      console.log('res cms', response);
+      if (response != null) {
+        this.isToUpdate = true;
+        this.userId = response.userId;
+        this.username = response.organisation;
+        this.fullname = response.fullName!;
+        this.email = response.email;
+        this.firstname = response.firstName!;
+        this.lastname = response.lastName!;
+        this.address = response.address!;
+        this.itemail = response.itemail!;
+        this.mobilenumber = response.mobile;
+      } else {
+        this.isToUpdate = false;
+      }
     });
 
   }
@@ -58,23 +65,44 @@ export class NewClientSidebarComponent implements OnInit {
   submit(form) {
     if (form.valid) {
       console.log(form);
-      this._commonService.setUser(form.value).then((resposne) => {
-        console.log('res set:', resposne); 
-        let successString = Response;
-        this.toastr.success('👋 User Created Successfully.', 'Success!', {
-          toastClass: 'toast ngx-toastr',
-          closeButton: true
-        });
-        this._commonService.getDataTableRows();
-      }, (error) => {
-          console.log('res set error:', error); 
+      if (this.isToUpdate) {
+        this._commonService.updateProfile(form.value,this.userId).then((resposne) => {
+          console.log('res set:', resposne);
+          let successString = Response;
+          this.toastr.success('👋 updated Successfully.', 'Success!', {
+            toastClass: 'toast ngx-toastr',
+            closeButton: true
+          });
+          this._commonService.getDataTableRows();
+        }, (error) => {
+          console.log('res set error:', error);
           let errorString = error;
           this.toastr.error(errorString, 'Error!', {
             toastClass: 'toast ngx-toastr',
             closeButton: true
           });
+        }
+        );
+      } else {
+        this._commonService.setUser(form.value).then((resposne) => {
+          console.log('res set:', resposne);
+          let successString = Response;
+          this.toastr.success('👋 User Created Successfully.', 'Success!', {
+            toastClass: 'toast ngx-toastr',
+            closeButton: true
+          });
+          this._commonService.getDataTableRows();
+        }, (error) => {
+          console.log('res set error:', error);
+          let errorString = error;
+          this.toastr.error(errorString, 'Error!', {
+            toastClass: 'toast ngx-toastr',
+            closeButton: true
+          });
+        }
+        );
       }
-      );
+     
       this.toggleSidebar('new-client-sidebar');
     }
   }

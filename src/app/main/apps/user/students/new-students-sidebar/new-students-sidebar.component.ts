@@ -21,6 +21,8 @@ export class NewStudentsSidebarComponent implements OnInit {
   public grades;
   public class;
   public grade;
+  public isToUpdate = false;
+  public userId;
 
   /**
    * Constructor
@@ -36,10 +38,18 @@ export class NewStudentsSidebarComponent implements OnInit {
     
     this._commonService.onUserEditListChanged.subscribe(response => {
       console.log(response);
-      this.email = response.email;
-      this.firstName = response.firstName!;
-      this.lastName = response.lastName!;
-      this.userNumber = response.mobile;
+      if (response != null) {
+        this.isToUpdate = true;
+        this.userId = response.userId;
+
+        this.email = response.email;
+        this.firstName = response.firstName!;
+        this.lastName = response.lastName!;
+        this.userNumber = response.mobile;
+      } else {
+        this.isToUpdate = false;
+      }
+      
     });
 
     
@@ -63,23 +73,44 @@ export class NewStudentsSidebarComponent implements OnInit {
   submit(form) {
     if (form.valid) {
       console.log(form);
-      this._studentListService.setStudent(form.value).then((resposne) => {
-        console.log('res set:', resposne);
-        let successString = Response;
-        this.toastr.success('👋 User Created Successfully.', 'Success!', {
-          toastClass: 'toast ngx-toastr',
-          closeButton: true
-        });
-        this._studentListService.getAllStudents();
-      }, (error) => {
-        console.log('res set error:', error);
-        let errorString = error;
-        this.toastr.error(errorString, 'Error!', {
-          toastClass: 'toast ngx-toastr',
-          closeButton: true
-        });
+      if (this.isToUpdate) {
+        this._commonService.updateProfile(form.value, this.userId).then((resposne) => {
+          console.log('res set:', resposne);
+          let successString = Response;
+          this.toastr.success('👋 updated Successfully.', 'Success!', {
+            toastClass: 'toast ngx-toastr',
+            closeButton: true
+          });
+          this._studentListService.getAllStudents();
+        }, (error) => {
+          console.log('res set error:', error);
+          let errorString = error;
+          this.toastr.error(errorString, 'Error!', {
+            toastClass: 'toast ngx-toastr',
+            closeButton: true
+          });
+        }
+        );
+      } else {
+        var school = this._commonService.getCurrentUser();
+        this._studentListService.setStudent(form.value, school.userId).then((resposne) => {
+          console.log('res set:', resposne);
+          let successString = Response;
+          this.toastr.success('👋 User Created Successfully.', 'Success!', {
+            toastClass: 'toast ngx-toastr',
+            closeButton: true
+          });
+          this._studentListService.getAllStudents();
+        }, (error) => {
+          console.log('res set error:', error);
+          let errorString = error;
+          this.toastr.error(errorString, 'Error!', {
+            toastClass: 'toast ngx-toastr',
+            closeButton: true
+          });
+        }
+        );
       }
-      );
       this.toggleSidebar('new-students-sidebar');
     }
   }

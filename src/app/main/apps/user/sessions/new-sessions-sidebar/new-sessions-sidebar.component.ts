@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgbDateStruct, NgbCalendar, NgbDate, NgbDateParserFormatter, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-sessions-sidebar',
@@ -22,6 +23,9 @@ export class NewSessionsSidebarComponent implements OnInit {
   // Basic Date Picker
   public basicDPdataS: NgbDateStruct;
   public basicDPdataE: NgbDateStruct;
+  public url = this.router.url;
+  public urlLastValue;
+  public basicTP;
 
   /**
    * Constructor
@@ -31,10 +35,11 @@ export class NewSessionsSidebarComponent implements OnInit {
   constructor(private _coreSidebarService: CoreSidebarService,
     private toastr: ToastrService,
     private _groupListService: GroupsListService,
+    private router: Router,
     private _userListService: SessionsListService,
     private _authenticationService:AuthenticationService) {
     
- 
+    this.urlLastValue = this.url.substr(this.url.lastIndexOf('/') + 1);
      }
 
   /**
@@ -54,6 +59,20 @@ export class NewSessionsSidebarComponent implements OnInit {
   submit(form) {
     if (form.valid) {
       form.value['teacherId'] = this.currentUser.userId;
+      var type = "";
+      if (this.urlLastValue == 'quick_sessions') {
+        type = "quickSession";
+      } else if (this.urlLastValue == 'live_sessions') {
+        type = "liveSession";
+      } else if (this.urlLastValue == 'scheduled_sessions') {
+        type = "ScheduledSession";
+      }
+      form.value['type'] = type;
+      form.value['start'] = this.basicDPdataS.day + "-" + this.basicDPdataS.month + "-" + this.basicDPdataS.year;
+      form.value['end'] = this.basicDPdataE.day + "-" + this.basicDPdataE.month + "-" + this.basicDPdataE.year;
+      if (!form.value['group']) {
+        form.value['group'] = "x";
+      }
       console.log(form);
       this._userListService.createSession(form.value).then((resposne) => {
         console.log('res set:', resposne);

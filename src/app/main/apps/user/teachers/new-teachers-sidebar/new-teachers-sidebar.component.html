@@ -109,7 +109,10 @@
               <option value="{{item.userId}}" *ngFor="let item of classRows">{{item.username}}</option>
             </select>
           </div>
-          <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" rippleEffect>Submit</button>
+          <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" *ngIf="!isToUpdate"
+            rippleEffect>Submit</button>
+          <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" *ngIf="isToUpdate"
+            rippleEffect>Update</button>
           <button
             type="reset"
             class="btn btn-outline-secondary"

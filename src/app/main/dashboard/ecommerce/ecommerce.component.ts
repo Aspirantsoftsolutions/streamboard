@@ -36,7 +36,7 @@ export class EcommerceComponent implements OnInit {
 
   // Public
   public data: any;
-  public currentUser: User;
+  public currentUser: any;
   public isAdmin: boolean;
   public isClient: boolean;
   public statisticsBar;
@@ -78,7 +78,7 @@ export class EcommerceComponent implements OnInit {
     private _commonServie: CommonService
   ) {
     this._authenticationService.currentUser.subscribe(x => (this.currentUser = x));
-    this.isAdmin = this._authenticationService.isAdmin;
+    this.isAdmin = true;
     this.isClient = this._authenticationService.isClient;
 
     this._coreTranslationService.translate(english, french, german, portuguese);
@@ -690,12 +690,12 @@ export class EcommerceComponent implements OnInit {
   ngOnInit(): void {
     // get the currentUser details from localStorage
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-
+    console.log('current user:', this.currentUser);
     // Get the dashboard service data
     this._dashboardService.onApiDataChanged.subscribe(response => {
       this.data = response;
     });
-    this._commonServie.getCount().then((response) => {
+    this._commonServie.getCount(this.currentUser.userId).then((response) => {
       console.log("counts:", response);
       this.countData = response;
     });

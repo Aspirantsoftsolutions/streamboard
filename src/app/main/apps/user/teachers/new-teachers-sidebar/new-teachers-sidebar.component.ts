@@ -16,7 +16,8 @@ export class NewTeachersSidebarComponent implements OnInit {
   public email;
   public classRows;
   public class;
-
+  public isToUpdate:boolean = false;
+  public userId;
   /**
    * Constructor
    *
@@ -29,10 +30,16 @@ export class NewTeachersSidebarComponent implements OnInit {
     private _commonService: CommonService,) {
     this._commonService.onUserEditListChanged.subscribe(response => {
       console.log(response);
-      this.email = response.email;
-      this.firstName = response.firstName!;
-      this.lastName = response.lastName!;
-      this.mobileNumber = response.mobile;
+      if (response != null) {
+        this.isToUpdate = true;
+        this.userId = response.userId;
+        this.email = response.email;
+        this.firstName = response.firstName!;
+        this.lastName = response.lastName!;
+        this.mobileNumber = response.mobile;
+      } else {
+        this.isToUpdate = false;
+      }
     });
 
   }
@@ -52,25 +59,47 @@ export class NewTeachersSidebarComponent implements OnInit {
    * @param form
    */
   submit(form) {
+    var school = this._commonService.getCurrentUser();
     if (form.valid) {
       console.log(form);
-      this._teacherListService.setTeacher(form.value).then((resposne) => {
-        console.log('res set:', resposne);
-        let successString = Response;
-        this.toastr.success('👋 Teacher Created Successfully.', 'Success!', {
-          toastClass: 'toast ngx-toastr',
-          closeButton: true
-        });
-        this._teacherListService.getAllTeachers();                                     
-      }, (error) => {
-        console.log('res set error:', error);
-        let errorString = error;
-        this.toastr.error(errorString, 'Error!', {
-          toastClass: 'toast ngx-toastr',
-          closeButton: true
-        });
+      if (this.isToUpdate) {
+        this._commonService.updateProfile(form.value, this.userId).then((resposne) => {
+          console.log('res set:', resposne);
+          let successString = Response;
+          this.toastr.success('👋 updated Successfully.', 'Success!', {
+            toastClass: 'toast ngx-toastr',
+            closeButton: true
+          });
+          this._teacherListService.getAllTeachers(school.userId);
+        }, (error) => {
+          console.log('res set error:', error);
+          let errorString = error;
+          this.toastr.error(errorString, 'Error!', {
+            toastClass: 'toast ngx-toastr',
+            closeButton: true
+          });
+        }
+        );
+      } else {
+        let user = this._commonService.getCurrentUser();
+        this._teacherListService.setTeacher(form.value,user.userId).then((resposne) => {
+          console.log('res set:', resposne);
+          let successString = Response;
+          this.toastr.success('👋 Teacher Created Successfully.', 'Success!', {
+            toastClass: 'toast ngx-toastr',
+            closeButton: true
+          });
+          this._teacherListService.getAllTeachers(school.userId);
+        }, (error) => {
+          console.log('res set error:', error);
+          let errorString = error;
+          this.toastr.error(errorString, 'Error!', {
+            toastClass: 'toast ngx-toastr',
+            closeButton: true
+          });
+        }
+        );
       }
-      );
       this.toggleSidebar('new-teachers-sidebar');
     }
   }

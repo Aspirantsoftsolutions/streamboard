@@ -10,6 +10,7 @@ export class CommonService implements Resolve<any> {
   public rows: any;
   public onUserListChanged: BehaviorSubject<any>;
   public onUserEditListChanged: BehaviorSubject<any>;
+  public onTeacherEditListChanged = null;
 
   /**
    * Constructor
@@ -22,6 +23,9 @@ export class CommonService implements Resolve<any> {
     this.onUserEditListChanged = new BehaviorSubject({});
   }
 
+  getCurrentUser() {
+    return JSON.parse(localStorage.getItem('currentUser'));
+  }
   /**
    * Resolver
    *
@@ -42,7 +46,7 @@ export class CommonService implements Resolve<any> {
    */
   getDataTableRows(): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      this._httpClient.get(`${environment.apiUrl}/api/user/all`).subscribe((response: any) => {
+      this._httpClient.get(`${environment.apiUrl}/api/user/all/School`).subscribe((response: any) => {
         this.rows = response;
         console.log(this.rows.data);
         this.onUserListChanged.next(this.rows.data);
@@ -66,7 +70,7 @@ export class CommonService implements Resolve<any> {
 
   getClasses(): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      this._httpClient.get(`${environment.apiUrl}/api/user/all/Class`).subscribe((response: any) => {
+      this._httpClient.get(`${environment.apiUrl}/api/user/allClasses/` + this.getCurrentUser().userId).subscribe((response: any) => {
         console.log(response.data);
         resolve(response.data);
       }, reject);
@@ -106,7 +110,7 @@ export class CommonService implements Resolve<any> {
 
   getAllStudents(): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      this._httpClient.get(`${environment.apiUrl}/api/user/allStudents`).subscribe((response: any) => {
+      this._httpClient.get(`${environment.apiUrl}/api/user/allStudents/` + this.getCurrentUser().userId).subscribe((response: any) => {
         console.log(response.data);
         response.data.map(row => {
           row.checked = false;
@@ -129,7 +133,7 @@ export class CommonService implements Resolve<any> {
 
   getAllTeachers(): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      this._httpClient.get(`${environment.apiUrl}/api/user/allTeachers`).subscribe((response: any) => {
+      this._httpClient.get(`${environment.apiUrl}/api/user/allTeachers/`+this.getCurrentUser().userId).subscribe((response: any) => {
         console.log(response.data);
         this.onUserListChanged.next(response.data);
         resolve(response.data);
@@ -137,9 +141,9 @@ export class CommonService implements Resolve<any> {
     });
   }
 
-  getCount(): Promise<any[]> {
+  getCount(userid): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      this._httpClient.get(`${environment.apiUrl}/api/user/getCounts`).subscribe((response: any) => {
+      this._httpClient.get(`${environment.apiUrl}/api/user/getCounts/`+userid,).subscribe((response: any) => {
         console.log(response.data);
         resolve(response.data);
       }, reject);
@@ -163,6 +167,28 @@ export class CommonService implements Resolve<any> {
           headers: {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
           },
+      }).subscribe((response: any) => {
+        console.log(response);
+        resolve(response);
+      }, reject);
+    });
+  }
+
+  updateProfile(form,userid): Promise<any[]> { 
+
+    return new Promise((resolve, reject) => {
+      this._httpClient.put(`${environment.apiUrl}/api/user/updateProfileData`, {
+        'organisation': form['user-name'],
+        'fullName': form['user-fullname'],
+        'firstName': form['user-firstname'],
+        'lastName': form['user-lastname'],
+        'address': form['user-address'],
+        'mobile': form['user-number'],
+        'userId': userid
+      }, {
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
       }).subscribe((response: any) => {
         console.log(response);
         resolve(response);

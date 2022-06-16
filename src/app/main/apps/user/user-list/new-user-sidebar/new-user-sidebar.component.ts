@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 import { UserListService } from '../user-list.service';
 import { ToastrService } from 'ngx-toastr';
+import { CommonService } from '../../common.service';
 
 @Component({
   selector: 'app-new-user-sidebar',
@@ -15,7 +16,8 @@ export class NewUserSidebarComponent implements OnInit {
   public mobilenumber;
   public role = "Organisation";
   public plan = "Free";
-
+  public isToUpdate = false;
+  public userId;
   /**
    * Constructor
    *
@@ -23,7 +25,18 @@ export class NewUserSidebarComponent implements OnInit {
    */
   constructor(private _coreSidebarService: CoreSidebarService,
     private toastr: ToastrService,
-    private _userListService: UserListService, ) { }
+    private _userListService: UserListService,
+    private _commonService: CommonService,) {
+    this._commonService.onUserEditListChanged.subscribe(response => {
+      console.log('res cms', response);
+      this.isToUpdate = true;
+      this.userId = response.userId;
+      this.username = response.username;
+      this.fullname = response.fullName!;
+      this.email = response.email;
+      this.mobilenumber = response.mobile;
+    });
+     }
 
   /**
    * Toggle the sidebar
@@ -42,23 +55,43 @@ export class NewUserSidebarComponent implements OnInit {
   submit(form) {
     if (form.valid) {
       console.log(form);
-      this._userListService.setUser(form.value).then((resposne) => {
-        console.log('res set:', resposne); 
-        let successString = Response;
-        this.toastr.success('👋 User Created Successfully.', 'Success!', {
-          toastClass: 'toast ngx-toastr',
-          closeButton: true
-        });
-        this._userListService.getDataTableRows();
-      }, (error) => {
-          console.log('res set error:', error); 
+      if (this.isToUpdate) {
+        this._commonService.updateProfile(form.value, this.userId).then((resposne) => {
+          console.log('res set:', resposne);
+          let successString = Response;
+          this.toastr.success('👋 updated Successfully.', 'Success!', {
+            toastClass: 'toast ngx-toastr',
+            closeButton: true
+          });
+          this._userListService.getDataTableRows();
+        }, (error) => {
+          console.log('res set error:', error);
           let errorString = error;
           this.toastr.error(errorString, 'Error!', {
             toastClass: 'toast ngx-toastr',
             closeButton: true
           });
+        }
+        );
+      } else {
+        this._userListService.setUser(form.value).then((resposne) => {
+          console.log('res set:', resposne);
+          let successString = Response;
+          this.toastr.success('👋 User Created Successfully.', 'Success!', {
+            toastClass: 'toast ngx-toastr',
+            closeButton: true
+          });
+          this._userListService.getDataTableRows();
+        }, (error) => {
+          console.log('res set error:', error);
+          let errorString = error;
+          this.toastr.error(errorString, 'Error!', {
+            toastClass: 'toast ngx-toastr',
+            closeButton: true
+          });
+        }
+        );
       }
-      );
       this.toggleSidebar('new-user-sidebar');
     }
   }

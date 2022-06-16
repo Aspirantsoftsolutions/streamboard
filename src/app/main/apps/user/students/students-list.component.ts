@@ -69,11 +69,11 @@ export class StudentsListComponent implements OnInit {
    * Constructor
    *
    * @param {CoreConfigService} _coreConfigService
-   * @param {UserListService} _userListService
+   * @param {UserListService} _studentListService
    * @param {CoreSidebarService} _coreSidebarService
    */
   constructor(
-    private _userListService: StudentsListService,
+    private _studentListService: StudentsListService,
     private _coreSidebarService: CoreSidebarService,
     private _coreConfigService: CoreConfigService,
     private _commonService: CommonService,
@@ -120,12 +120,15 @@ export class StudentsListComponent implements OnInit {
     console.log('checked list:', ro);
     this._classListService.classRows = ro;
     this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
+    setTimeout(() => {
+      this._commonService.onUserEditListChanged.next(null);
+    }, 200);
   }
 
 
   deleteUser(id) {
     this._commonService.deleteStudent(id).then((response) => {
-      this._userListService.getAllStudents();
+      this._studentListService.getAllStudents();
     });
   }
 
@@ -135,7 +138,9 @@ export class StudentsListComponent implements OnInit {
       response.map(row => {
         if (row.userId == id) {
           console.log('current row', row);
-          this._commonService.onUserEditListChanged.next(row);
+          setTimeout(() => {
+            this._commonService.onUserEditListChanged.next(row);
+          }, 200);
           this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
         }
       });
@@ -198,7 +203,7 @@ export class StudentsListComponent implements OnInit {
 
     return this.tempData.filter(row => {
       const isPartialNameMatch = row.role.toLowerCase().indexOf(roleFilter) !== -1 || !roleFilter;
-      const isPartialGenderMatch = row.currentPlan.toLowerCase().indexOf(planFilter) !== -1 || !planFilter;
+      const isPartialGenderMatch = row.plan.toLowerCase().indexOf(planFilter) !== -1 || !planFilter;
       const isPartialStatusMatch = row.status.toLowerCase().indexOf(statusFilter) !== -1 || !statusFilter;
       return isPartialNameMatch && isPartialGenderMatch && isPartialStatusMatch;
     });
@@ -215,13 +220,13 @@ export class StudentsListComponent implements OnInit {
       //! If we have zoomIn route Transition then load datatable after 450ms(Transition will finish in 400ms)
       if (config.layout.animation === 'zoomIn') {
         setTimeout(() => {
-          this._userListService.onUserListChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
+          this._studentListService.onUserListChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
             this.rows = response;
             this.tempData = this.rows;
           });
         }, 450);
       } else {
-        this._userListService.onUserListChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
+        this._studentListService.onUserListChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
           this.rows = response;
           this.tempData = this.rows;
         });

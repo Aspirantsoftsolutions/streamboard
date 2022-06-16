@@ -13,6 +13,7 @@ import { UserViewService } from '../user-view/user-view.service';
 import { GraphService, ProviderOptions } from '../sso/graph.service';
 import { InteractionType } from '@azure/msal-browser';
 import { protectedResources } from '../sso/auth-config';
+import { ToastrService } from 'ngx-toastr';
 
 // var admin = require('google-admin-sdk');
 // const privatekey = require('../../../../../../streamboard-346619-e851b52adce0.json');
@@ -50,7 +51,6 @@ export class ClientsListComponent implements OnInit {
     { name: 'Bronze', value: 'Bronze' },
     { name: 'Silver', value: 'Silver' },
     { name: 'Gold', value: 'Gold' },
-    { name: 'Platinum', value: 'Platinum' }
   ];
 
   public selectStatus: any = [
@@ -87,6 +87,7 @@ export class ClientsListComponent implements OnInit {
     private authService: MsalService,
     private userService: UserViewService,
     private graphService: GraphService,
+    private _toastrService: ToastrService,
 
   ) {
     this._unsubscribeAll = new Subject();
@@ -129,6 +130,14 @@ export class ClientsListComponent implements OnInit {
     console.log(this.emailInvite);
     this._commonService.sendInvitationEmail(this.emailInvite);
     modal.close('Accept click');
+     // // Display welcome toast!
+            setTimeout(() => {
+              this._toastrService.success(
+                'Successfully invited  🎉',
+                '👋 !',
+                { toastClass: 'toast ngx-toastr', closeButton: true }
+              );
+            }, 1000);
   }
 
   /**
@@ -138,6 +147,9 @@ export class ClientsListComponent implements OnInit {
    */
   toggleSidebar(name): void {
     this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
+    setTimeout(() => {
+      this._commonService.onUserEditListChanged.next(null);
+    }, 200);
   }
 
   statusChange(id,status): void {
@@ -158,7 +170,9 @@ export class ClientsListComponent implements OnInit {
       response.map(row => {
         if (row.userId == id) {
           console.log('current row', row);
-          this._commonService.onUserEditListChanged.next(row);
+          setTimeout(() => {
+            this._commonService.onUserEditListChanged.next(row);
+          }, 200);
           this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
         }
       });
@@ -220,7 +234,7 @@ export class ClientsListComponent implements OnInit {
 
     return this.tempData.filter(row => {
       const isPartialNameMatch = row.role.toLowerCase().indexOf(roleFilter) !== -1 || !roleFilter;
-      const isPartialGenderMatch = row.currentPlan.toLowerCase().indexOf(planFilter) !== -1 || !planFilter;
+      const isPartialGenderMatch = row.plan.toLowerCase().indexOf(planFilter) !== -1 || !planFilter;
       const isPartialStatusMatch = row.status.toLowerCase().indexOf(statusFilter) !== -1 || !statusFilter;
       return isPartialNameMatch && isPartialGenderMatch && isPartialStatusMatch;
     });

@@ -35,7 +35,7 @@ export const menu: CoreMenu[] = [
         title: 'Calendar',
         translate: 'MENU.APPS.CALENDAR',
         type: 'item',
-        role: ['Class', 'Student', 'Teacher', 'School','Admin'],
+        role: ['Class', 'Student', 'Teacher', 'School'],
         icon: 'calendar',
         url: 'apps/calendar'
       },
@@ -172,14 +172,14 @@ export const menu: CoreMenu[] = [
           }
         ]
       },
-      {
-        id: 'schools_list',
-        title: 'Schools',
-        type: 'item',
-        role: ['School'],
-        icon: 'user',
-        url: 'apps/user/schools-list'
-      },
+      // {
+      //   id: 'schools_list',
+      //   title: 'Schools',
+      //   type: 'item',
+      //   role: ['Admin'],
+      //   icon: 'user',
+      //   url: 'apps/user/schools-list'
+      // },
       {
         id: 'teachers_list',
         title: 'Teachers',

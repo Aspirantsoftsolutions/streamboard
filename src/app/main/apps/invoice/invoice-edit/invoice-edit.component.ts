@@ -64,7 +64,7 @@ export class InvoiceEditComponent implements OnInit, OnDestroy {
     private _coreSidebarService: CoreSidebarService
   ) {
     this._unsubscribeAll = new Subject();
-    this.urlLastValue = this.url.substr(this.url.lastIndexOf('/') + 1);
+    this.urlLastValue = this.url.substr(this.url.lastIndexOf('/') + 1); 
   }
 
   // Public Methods

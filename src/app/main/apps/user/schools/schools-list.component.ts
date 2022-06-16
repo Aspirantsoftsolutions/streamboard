@@ -189,7 +189,7 @@ export class SchoolsListComponent implements OnInit {
 
     return this.tempData.filter(row => {
       const isPartialNameMatch = row.role.toLowerCase().indexOf(roleFilter) !== -1 || !roleFilter;
-      const isPartialGenderMatch = row.currentPlan.toLowerCase().indexOf(planFilter) !== -1 || !planFilter;
+      const isPartialGenderMatch = row.plan.toLowerCase().indexOf(planFilter) !== -1 || !planFilter;
       const isPartialStatusMatch = row.status.toLowerCase().indexOf(statusFilter) !== -1 || !statusFilter;
       return isPartialNameMatch && isPartialGenderMatch && isPartialStatusMatch;
     });

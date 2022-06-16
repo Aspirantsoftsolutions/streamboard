@@ -198,8 +198,8 @@ export class AuthenticationService {
    * User logout
    *
    */
-  async logout() {
-    await this._sauthService.signOut();
+  logout() {
+    this._sauthService.signOut();
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
     // notify

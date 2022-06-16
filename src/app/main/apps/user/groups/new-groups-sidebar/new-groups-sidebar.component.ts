@@ -23,9 +23,11 @@ export class NewGroupsSidebarComponent implements OnInit {
     private _userListService: GroupsListService,
     private _commonService: CommonService,) {
     this._commonService.onUserEditListChanged.subscribe(response => {
-      console.log(response);
-      this.fullname = response.username!;
-      this.email = response.email;
+      if (response != null) {
+        console.log(response);
+        this.fullname = response.username!;
+        this.email = response.email;
+      }
     });
 
   }

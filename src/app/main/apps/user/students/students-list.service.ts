@@ -1,3 +1,4 @@
+import { CommonService } from 'app/main/apps/user/common.service';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -16,7 +17,7 @@ export class StudentsListService implements Resolve<any> {
    *
    * @param {HttpClient} _httpClient
    */
-  constructor(private _httpClient: HttpClient) {
+  constructor(private _httpClient: HttpClient, private _commonService:CommonService) {
     // Set the defaults
     this.onUserListChanged = new BehaviorSubject({});
   }
@@ -41,7 +42,8 @@ export class StudentsListService implements Resolve<any> {
    */
   getAllStudents(): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      this._httpClient.get(`${environment.apiUrl}/api/user/allStudents`).subscribe((response: any) => {
+      var school = this._commonService.getCurrentUser();
+      this._httpClient.get(`${environment.apiUrl}/api/user/allStudents/`+school.userId).subscribe((response: any) => {
         this.rows = response;
         console.log(this.rows.data);
         this.rows.data.map(row => {
@@ -56,7 +58,7 @@ export class StudentsListService implements Resolve<any> {
   /**
   * Get rows
   */
-  setStudent(form): Promise<any[]> {
+  setStudent(form, schoolId): Promise<any[]> {
     return new Promise((resolve, reject) => {
       this._httpClient.post(`${environment.apiUrl}/api/auth/registerStudent`, {
         'username': form['user-firstName'] + form['user-lastName'],
@@ -67,7 +69,8 @@ export class StudentsListService implements Resolve<any> {
         'mobile': form['user-number'],
         'countryCode': '+91',
         'classId': form['class'],
-        'grade': form['grade']
+        'grade': form['grade'],
+        'schoolId': schoolId
       }).subscribe((response: any) => {
         console.log(response);
         resolve(response);
