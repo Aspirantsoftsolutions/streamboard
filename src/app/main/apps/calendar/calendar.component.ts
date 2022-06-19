@@ -44,7 +44,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     eventClassNames: this.eventClass.bind(this),
     select: this.handleDateSelect.bind(this)
   };
-
+  gloginDisplay = false;
   // Private
   private _unsubscribeAll: Subject<any>;
 
@@ -118,6 +118,15 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     this._calendarService.onCurrentEventChange.next(newEvent);
   }
 
+
+  googleLogin() {
+    // this.googleLogout();
+    const googleLoginOptions = {
+      scope: 'https://www.googleapis.com/auth/admin.directory.user.readonly https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/calendar.events.readonly'
+    }
+    this._sauthService.signIn(GoogleLoginProvider.PROVIDER_ID, googleLoginOptions);
+  }
+
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------
 
@@ -142,31 +151,25 @@ export class CalendarComponent implements OnInit, AfterViewInit {
           console.log('init here:', res);
           this.events = res;
           this.calendarOptions.events = res;
+          console.log('init here:sdf', this.calendarOptions.events);
         });
       }
     });
 
     this._calendarService.onCurrentEventChange.subscribe(res => {
-      this.event = res;
+      console.log(res);
+      this._calendarService.events.push(res);
+      let temp: any = this._calendarService.events;
+      this._calendarService.events = [];
+      // this.calendarOptions.events.push(res);
+      // this.events.push(res); 
     });
 
+
+    
     this._sauthService.authState.subscribe((user) => {
       console.log('user:', user);
-      // this.userSocial = user;
-      // this._authenticationService.getUsers(this.userSocial.response.access_token, this.userSocial.response.id_token);
-      // console.log('user token:', this.userSocial.response.access_token);
-     
-      // let domainName = user.email.split("@");
-      // this._authenticationService.getUsers(user.response.access_token, 'e851b52adce04eb4597101ccd7dd6167acc65f46',domainName[1])
-      //   .subscribe(
-      //     data => {
-      //       console.log("data c:", data);
-      //       // this._router.navigate(['/']);
-      //     },
-      //     error => {
-      //     }
-      //   );
-
+      
       this._authenticationService.getCalendarEvents(user.response.access_token)
         .subscribe(
           data => {
@@ -177,6 +180,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
                 .subscribe(
                   data1 => {
                     console.log("data c1:", data1);
+                    let temp:any = this.calendarOptions.events;
                     this._calendarService.calendar = [];
                     this._calendarService.events = [];
                     data1.items.forEach(event => {
@@ -194,10 +198,15 @@ export class CalendarComponent implements OnInit, AfterViewInit {
                       this._calendarService.calendar.push(data);
                       this._calendarService.events.push(data);
                     });
+                    temp.forEach(element => {
+                      this._calendarService.events.push(element);
+                    });
                     this.calendarOptions.events = this._calendarService.events;
+                    
+                    
                     this._calendarService.onEventChange.next(this._calendarService.events);
                     this._calendarService.onCalendarChange.next(this._calendarService.calendar);
-                    this.events = this._calendarService.events;
+                    // this.events = this._calendarService.events;
                     console.log("data this._calendarService.calendarSecondary:", this._calendarService.events);
 
                   },
@@ -212,12 +221,6 @@ export class CalendarComponent implements OnInit, AfterViewInit {
           }
         );
     });
-
-    // const googleLoginOptions = {
-    //   scope: 'https://www.googleapis.com/auth/admin.directory.user.readonly https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/calendar.events.readonly'
-    // }
-    // this._sauthService.signIn(GoogleLoginProvider.PROVIDER_ID, googleLoginOptions);
-
 
   }
 

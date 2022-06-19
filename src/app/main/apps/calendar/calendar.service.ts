@@ -52,12 +52,12 @@ export class CalendarService implements Resolve<any> {
    * Get Events
    */
   getEvents(): Promise<any[]> {
-    const url = `api/calendar-events`;
+    const url = `${environment.apiUrl}/api/user/getCalendar`;
 
     return new Promise((resolve, reject) => {
       this._httpClient.get(url).subscribe((response: any) => {
-        this.events = response;
-        this.tempEvents = response;
+        this.events = response.data;
+        this.tempEvents = response.data;
         this.onEventChange.next(this.events);
         resolve(this.events);
       }, reject);
@@ -68,11 +68,11 @@ export class CalendarService implements Resolve<any> {
    * Get Calendar
    */
   getCalendar(): Promise<any[]> {
-    const url = `/api/calendar-filter`;
+    const url = `${environment.apiUrl}/api/user/getCalendar`;
 
     return new Promise((resolve, reject) => {
       this._httpClient.get(url).subscribe((response: any) => {
-        this.calendar = response;
+        this.calendar = response.data;
         this.onCalendarChange.next(this.calendar);
         resolve(this.calendar);
       }, reject);
@@ -139,7 +139,8 @@ export class CalendarService implements Resolve<any> {
     newEvent.extendedProps.addGuest = eventForm.addGuest;
     this.currentEvent = newEvent;
     this.onCurrentEventChange.next(this.currentEvent);
-    this.postNewEvent();
+    console.log(newEvent);
+    this.postNewEvent(eventForm);
   }
 
   /**
@@ -166,10 +167,27 @@ export class CalendarService implements Resolve<any> {
   /**
    * Post New Event
    */
-  postNewEvent() {
+  // postNewEvent() {
+  //   return new Promise((resolve, reject) => {
+  //     this._httpClient.post('api/calendar-events/', this.currentEvent).subscribe(response => {
+  //       this.getEvents();
+  //       resolve(response);
+  //     }, reject);
+  //   });
+  // }
+  postNewEvent(form): Promise<any[]> {
+    console.log(form);
     return new Promise((resolve, reject) => {
-      this._httpClient.post('api/calendar-events/', this.currentEvent).subscribe(response => {
-        this.getEvents();
+      this._httpClient.post(`${environment.apiUrl}/api/user/addEvent`, {
+        'title': form['title'],
+        'label': form['selectlabel'],
+        'startDate': form['start'],
+        'endDate': form['end'],
+        'eventUrl': form['url'],
+        'guests': form['selectGuest'],
+        'description': form['description'],
+      }).subscribe((response: any) => {
+        console.log(response);
         resolve(response);
       }, reject);
     });

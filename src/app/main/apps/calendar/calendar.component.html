@@ -16,6 +16,16 @@
         <!-- calendar -->
         <div class="col position-relative">
           <div class="card shadow-none border-0 mb-0 rounded-0">
+            <div class="col-12 d-flex flex-sm-row flex-column mt-2">
+              <button type="submit" (click)="googleLogin()" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"
+                rippleEffect *ngIf="!gloginDisplay">
+                Google Login
+              </button>
+              <button type="submit" (click)="googleLogout()" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"
+                rippleEffect *ngIf="gloginDisplay">
+                Gooogle Logout
+              </button>
+            </div>
             <div class="card-body pb-0">
               <full-calendar [options]="calendarOptions"></full-calendar>
             </div>

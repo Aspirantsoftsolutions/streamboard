@@ -158,6 +158,10 @@
                   <span [data-feather]="'more-vertical'" [class]="'cursor-pointer'"></span>
                 </button>
                 <div ngbDropdownMenu>
+                    <a (click)="statusChange(row.userId, row.isActive)" ngbDropdownItem *ngIf="row.isActive">
+                      <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> InActive </a>
+                      <a (click)="statusChange(row.userId, row.isActive)" ngbDropdownItem *ngIf="!row.isActive">
+                        <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> Active </a>
                     <a (click)="toggleSidebarEdit('new-teachers-sidebar',row.userId)" ngbDropdownItem>
                       <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> Edit</a>
                     <a (click)="deleteUser(row._id)" ngbDropdownItem>

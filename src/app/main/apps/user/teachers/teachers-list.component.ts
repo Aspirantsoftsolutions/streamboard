@@ -120,8 +120,7 @@ export class TeachersListComponent implements OnInit {
 
   deleteUser(id) {
     this._commonService.deleteTeacher(id).then((response) => {
-      var school = this._commonService.getCurrentUser();
-      this._teacherListService.getAllTeachers(school.userId);
+      this._teacherListService.getAllTeachers();
     });
   }
 
@@ -201,6 +200,11 @@ export class TeachersListComponent implements OnInit {
     });
   }
 
+  statusChange(id, status): void {
+    this._commonService.updateTeacherStatus(!status, id).then((response) => {
+      this._teacherListService.getAllTeachers();
+    });
+  }
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------
   /**

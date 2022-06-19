@@ -7,6 +7,7 @@ import { takeUntil } from 'rxjs/operators';
 import { CoreConfigService } from '@core/services/config.service';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 import { SessionsListService } from './sessions-list.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -61,7 +62,8 @@ export class SessionsListComponent implements OnInit {
   // Private
   private tempData = [];
   private _unsubscribeAll: Subject<any>;
-
+  public url = this.router.url;
+  public urlLastValue;
   /**
    * Constructor
    *
@@ -72,9 +74,11 @@ export class SessionsListComponent implements OnInit {
   constructor(
     private _userListService: SessionsListService,
     private _coreSidebarService: CoreSidebarService,
-    private _coreConfigService: CoreConfigService
+    private _coreConfigService: CoreConfigService,
+    private router: Router,
   ) {
     this._unsubscribeAll = new Subject();
+    this.urlLastValue = this.url.substr(this.url.lastIndexOf('/') + 1);
   }
 
   // Public Methods
@@ -186,14 +190,32 @@ export class SessionsListComponent implements OnInit {
           this._userListService.onUserListChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
             this.rows = response;
             this.tempData = this.rows;
+            this.rows = this.filterSession();
           });
         }, 450);
       } else {
         this._userListService.onUserListChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
           this.rows = response;
           this.tempData = this.rows;
+          console.log(this.rows);
+          this.rows = this.filterSession();
         });
       }
+    });
+  }
+
+  filterSession() {
+    return this.rows.filter(row => {
+      var match;
+      console.log(row.type.toLowerCase().indexOf('scheduledsession'));
+      if (this.urlLastValue == 'quick_sessions') {
+        match = row.type.toLowerCase().indexOf('quickSession') !== -1;
+      } else if (this.urlLastValue == 'scheduled_sessions') {
+        match = row.type.toLowerCase().indexOf('scheduledsession') !== -1;
+      } else if (this.urlLastValue == 'live_sessions') {
+        match = row.type.toLowerCase().indexOf('livesession') !== -1;
+      }
+      return match;  
     });
   }
 

@@ -61,7 +61,25 @@
               />
             
             </div>
-         
+            <div class="modal-body flex-grow-1 pb-sm-0 pb-3">
+              <form class="event-form needs-validation" (ngSubmit)="(eventForm.form.valid); eventForm.reset()"
+                #eventForm="ngForm">
+               
+                <ng-multiselect-dropdown [placeholder]="'All Users'" [settings]="dropdownSettings"
+                  [data]="allUsers" [(ngModel)]="selectedItems" (onSelect)="onItemSelect($event)"
+                  (onSelectAll)="onSelectAll($event)">
+                </ng-multiselect-dropdown>
+                 
+                <ng-multiselect-dropdown [placeholder]="'All Schools'" [settings]="dropdownSettings" [data]="allSchools"
+                  [(ngModel)]="selectedItems" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+                </ng-multiselect-dropdown>
+
+                <ng-multiselect-dropdown [placeholder]="'All Teachers'" [settings]="dropdownSettings" [data]="allTeachers"
+                  [(ngModel)]="selectedItems" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+                </ng-multiselect-dropdown>
+                </form>
+            </div>
+        
           </div>
           <button class="btn btn-primary btn-block" tabindex="3" rippleEffect>Send Notification</button>
         </form>

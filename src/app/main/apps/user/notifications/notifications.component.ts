@@ -8,6 +8,7 @@ import { CoreConfigService } from '@core/services/config.service';
 import { CommonService } from 'app/main/apps/user/common.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
 @Component({
   selector: 'app-notifications',
@@ -26,6 +27,14 @@ export class NotificationsComponent implements OnInit {
   // Private
   private _unsubscribeAll: Subject<any>;
   private urlLastValue = "";
+  public allUsers = [];
+  public allTeachers = [];
+  public allSchools = [];
+  guestList;
+
+  dropdownList = [];
+  selectedItems = [];
+  dropdownSettings: IDropdownSettings = {};
 
   /**
    * Constructor
@@ -90,6 +99,44 @@ export class NotificationsComponent implements OnInit {
     this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
       this.coreConfig = config;
     });
+
+    this._commonService.getAllUsers().then((resposne) => {
+      this.allUsers = resposne;
+    }, (error) => {
+        
+    });
+
+    this._commonService.getAllTeachers().then((resposne) => {
+      this.allTeachers = resposne;
+    }, (error) => {
+
+    });
+
+    this._commonService.getDataTableRows().then((resposne) => {
+      this.allSchools = resposne;
+    }, (error) => {
+
+    });
+
+
+
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'userId',
+      textField: 'username',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: true
+    };
+
+  }
+
+  onItemSelect(item: any) {
+    console.log(item);
+  }
+  onSelectAll(items: any) {
+    console.log(items);
   }
 
   /**

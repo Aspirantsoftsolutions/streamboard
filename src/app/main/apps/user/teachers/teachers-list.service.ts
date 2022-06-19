@@ -29,9 +29,8 @@ export class TeachersListService implements Resolve<any> {
    * @returns {Observable<any> | Promise<any> | any}
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
-    var school = this._commonService.getCurrentUser();
     return new Promise<void>((resolve, reject) => {
-      Promise.all([this.getAllTeachers(school.userId)]).then(() => {
+      Promise.all([this.getAllTeachers()]).then(() => {
         resolve();
       }, reject);
     });
@@ -40,9 +39,10 @@ export class TeachersListService implements Resolve<any> {
   /**
    * Get rows
    */
-  getAllTeachers(schoolId): Promise<any[]> {
+  getAllTeachers(): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      this._httpClient.get(`${environment.apiUrl}/api/user/allTeachers/`+schoolId).subscribe((response: any) => {
+      var school = this._commonService.getCurrentUser();
+      this._httpClient.get(`${environment.apiUrl}/api/user/allTeachers/` + school.userId).subscribe((response: any) => {
         this.rows = response;
         console.log(this.rows.data);
         this.onUserListChanged.next(this.rows.data);

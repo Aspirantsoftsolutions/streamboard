@@ -35,7 +35,7 @@ export const menu: CoreMenu[] = [
         title: 'Calendar',
         translate: 'MENU.APPS.CALENDAR',
         type: 'item',
-        role: ['Class', 'Student', 'Teacher', 'School'],
+        role: ['Admin', 'Student', 'Teacher', 'School'],
         icon: 'calendar',
         url: 'apps/calendar'
       },

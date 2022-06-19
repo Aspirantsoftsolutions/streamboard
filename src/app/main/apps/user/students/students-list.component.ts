@@ -209,6 +209,12 @@ export class StudentsListComponent implements OnInit {
     });
   }
 
+  statusChange(id, status): void {
+    this._commonService.updateStudentStatus(!status, id).then((response) => {
+      this._studentListService.getAllStudents();
+    });
+  }
+
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------
   /**

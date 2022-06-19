@@ -1,3 +1,4 @@
+import { CommonService } from 'app/main/apps/user/common.service';
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { MsalService, MsalBroadcastService, MSAL_GUARD_CONFIG, MsalGuardConfiguration } from '@azure/msal-angular';
 import { AuthenticationResult, EventMessage, EventType, InteractionStatus, InteractionType, PopupRequest, RedirectRequest } from '@azure/msal-browser';
@@ -35,6 +36,12 @@ export class AppComponent implements OnInit, OnDestroy {
   azureId = "";
   private readonly _destroying$ = new Subject<void>();
   profile!: ProfileType;
+  isGooogleDrive = false;
+  isOneDrive = false;
+  isImmersiveReader = false;
+  isMagicDraw = false;
+  isHandWriting = false;
+  isPhet = false;
 
   constructor(
     @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration,
@@ -45,6 +52,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private graphService: GraphService,
     private msalBroadcastService: MsalBroadcastService,
     private _authenticationService: AuthenticationService,
+    private _commonService: CommonService
   ) {}
 
   ngOnInit(): void {
@@ -122,21 +130,21 @@ export class AppComponent implements OnInit, OnDestroy {
             error => {}
           );
 
-        this._authenticationService.getCalendarEvents(user.response.access_token)
-          .subscribe(
-            data => {
-              console.log("data c:", data);
-              this._authenticationService.getCalendarEventsList(user.response.access_token, data.items[3].id)
-                .subscribe(
-                  data1 => {
-                    console.log("data c1:", data1);
-                  },
-                  error => { }
-                );
-            },
-            error => {
-            }
-          );
+        // this._authenticationService.getCalendarEvents(user.response.access_token)
+        //   .subscribe(
+        //     data => {
+        //       console.log("data c:", data);
+        //       this._authenticationService.getCalendarEventsList(user.response.access_token, data.items[3].id)
+        //         .subscribe(
+        //           data1 => {
+        //             console.log("data c1:", data1);
+        //           },
+        //           error => { }
+        //         );
+        //     },
+        //     error => {
+        //     }
+        //   );
       }
     });
 
@@ -278,6 +286,23 @@ export class AppComponent implements OnInit, OnDestroy {
     this._destroying$.complete();
   }
 
+  updateFeatures() {
+    const userId = this._commonService.getCurrentUser().userId;
+    let featureUpdate:any = {};
+    featureUpdate.isGoogleDriveEnable = this.isGooogleDrive;
+    featureUpdate.isOneDriveEnable = this.isOneDrive;
+    featureUpdate.isImmersiveReaderEnable = this.isImmersiveReader;
+    featureUpdate.isMagicDrawEnable = this.isMagicDraw;
+    featureUpdate.isHandWritingEnable = this.isHandWriting;
+    featureUpdate.isPhetEnable = this.isPhet;
+
+    this._commonService.updateFeatures(featureUpdate, userId).then((resposne: any) => {
+      console.log('res updateFeatures:', resposne);
+    }, (error) => {
+        console.log('res updateFeatures error:', error);
+    }
+    );
+  }
 
  
 

@@ -70,7 +70,7 @@ export class NewTeachersSidebarComponent implements OnInit {
             toastClass: 'toast ngx-toastr',
             closeButton: true
           });
-          this._teacherListService.getAllTeachers(school.userId);
+          this._teacherListService.getAllTeachers();
         }, (error) => {
           console.log('res set error:', error);
           let errorString = error;
@@ -89,7 +89,7 @@ export class NewTeachersSidebarComponent implements OnInit {
             toastClass: 'toast ngx-toastr',
             closeButton: true
           });
-          this._teacherListService.getAllTeachers(school.userId);
+          this._teacherListService.getAllTeachers();
         }, (error) => {
           console.log('res set error:', error);
           let errorString = error;

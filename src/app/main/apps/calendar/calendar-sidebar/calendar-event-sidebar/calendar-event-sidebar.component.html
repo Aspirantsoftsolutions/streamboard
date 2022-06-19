@@ -1,3 +1,4 @@
+
 <!-- Calendar Add/Update/Delete event modal-->
 <div class="modal-dialog sidebar-lg">
   <div class="modal-content p-0">
@@ -106,15 +107,9 @@
           >
             <ng-template ng-option-tmp ng-label-tmp let-item="item">
               <div class="media align-items-center">
-                <img
-                  class="d-block rounded-circle mr-50"
-                  [src]="item.avatar"
-                  height="26"
-                  width="26"
-                  [alt]="item.name"
-                />
+               
                 <div class="media-body">
-                  <p class="mb-0">{{ item.name }}</p>
+                  <p class="mb-0">{{ item }}</p>
                 </div>
               </div>
             </ng-template>

@@ -26,12 +26,8 @@ export class CalendarEventSidebarComponent implements OnInit {
     { label: 'ETC', bullet: 'info' }
   ];
   public selectGuest = [
-    { name: 'Jane Foster', avatar: 'assets/images/avatars/1-small.png' },
-    { name: 'Donna Frank', avatar: 'assets/images/avatars/3-small.png' },
-    { name: 'Gabrielle Robertson', avatar: 'assets/images/avatars/5-small.png' },
-    { name: 'Lori Spears', avatar: 'assets/images/avatars/7-small.png' },
-    { name: 'Sandy Vega', avatar: 'assets/images/avatars/9-small.png' },
-    { name: 'Cheryl May', avatar: 'assets/images/avatars/11-small.png' }
+    'venkat',
+    'gsvs'
   ];
   public startDateOptions = {
     altInput: true,
@@ -69,6 +65,7 @@ export class CalendarEventSidebarComponent implements OnInit {
    * @param eventForm
    */
   addEvent(eventForm) {
+    console.log(eventForm);
     if (eventForm.valid) {
       //! Fix: Temp fix till ng2-flatpicker support ng-modal (Getting NG0100: Expression has changed after it was checked error if we use ng-model with ng2-flatpicker)
       eventForm.form.value.start = this.startDatePicker.flatpickrElement.nativeElement.children[0].value;

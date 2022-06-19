@@ -141,6 +141,15 @@ export class CommonService implements Resolve<any> {
     });
   }
 
+   getAllUsers(): Promise<any[]> {
+    return new Promise((resolve, reject) => {
+      this._httpClient.get(`${environment.apiUrl}/api/user/all/`).subscribe((response: any) => {
+        console.log(response.data);
+        resolve(response.data);
+      }, reject);
+    });
+   }
+  
   getCount(userid): Promise<any[]> {
     return new Promise((resolve, reject) => {
       this._httpClient.get(`${environment.apiUrl}/api/user/getCounts/`+userid,).subscribe((response: any) => {
@@ -173,6 +182,55 @@ export class CommonService implements Resolve<any> {
       }, reject);
     });
   }
+
+  updateTeacherStatus(isactive, userId): Promise<any[]> {
+    let val = "";
+    if (isactive == true) {
+      val = "active";
+    } else {
+      val = "inactive";
+    }
+
+    return new Promise((resolve, reject) => {
+      this._httpClient.put(`${environment.apiUrl}/api/user/teacherActive`, {
+        'isActive': isactive,
+        'userId': userId,
+        "status": val
+      }, {
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+      }).subscribe((response: any) => {
+        console.log(response);
+        resolve(response);
+      }, reject);
+    });
+  }
+
+  updateStudentStatus(isactive, userId): Promise<any[]> {
+    let val = "";
+    if (isactive == true) {
+      val = "active";
+    } else {
+      val = "inactive";
+    }
+
+    return new Promise((resolve, reject) => {
+      this._httpClient.put(`${environment.apiUrl}/api/user/studentActive`, {
+        'isActive': isactive,
+        'userId': userId,
+        "status": val
+      }, {
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+      }).subscribe((response: any) => {
+        console.log(response);
+        resolve(response);
+      }, reject);
+    });
+  }
+
 
   updateProfile(form,userid): Promise<any[]> { 
 
@@ -243,6 +301,32 @@ export class CommonService implements Resolve<any> {
     });
   }
 
+  addCalendarEvent(form): Promise<any[]> {
+    return new Promise((resolve, reject) => {
+      this._httpClient.post(`${environment.apiUrl}/api/user/addEvent`, {
+        'title': form['title'],
+        'label': form['label'],
+        'startDate': form['startDate'],
+        'endDate': form['endDate'],
+        'eventUrl': form['eventUrl'],
+        'guests': form['guests'],
+        'description': form['description'],
+      }).subscribe((response: any) => {
+        console.log(response);
+        resolve(response);
+      }, reject);
+    });
+  }
+
+  getCalendar(): Promise<any[]> {
+    return new Promise((resolve, reject) => {
+      this._httpClient.get(`${environment.apiUrl}/api/user/getCalendar`).subscribe((response: any) => {
+        console.log(response);
+        resolve(response);
+      }, reject);
+    });
+  }
+
   sendNotifications(form): Promise<any[]> {
     return new Promise((resolve, reject) => {
       this._httpClient.post(`${environment.apiUrl}/api/notificaitons/add`, {
@@ -298,6 +382,23 @@ export class CommonService implements Resolve<any> {
     return new Promise((resolve, reject) => {
       this._httpClient.put(`${environment.apiUrl}/api/user/updatePassword`, {
         'password': form['newPassword'],
+        'userId': userId
+      }).subscribe((response: any) => {
+        console.log(response);
+        resolve(response);
+      }, reject);
+    });
+  }
+
+  updateFeatures(object, userId): Promise<any[]> {
+    return new Promise((resolve, reject) => {
+      this._httpClient.put(`${environment.apiUrl}/api/user/updateFeatures`, {
+        'isGoogleDriveEnable': object.isGoogleDriveEnable,
+        'isOneDriveEnable': object.isOneDriveEnable,
+        'isImmersiveReaderEnable': object.isImmersiveReaderEnable,
+        'isMagicDrawEnable': object.isMagicDrawEnable,
+        'isHandWritingEnable': object.isHandWritingEnable,
+        'isPhetEnable': object.isPhetEnable,
         'userId': userId
       }).subscribe((response: any) => {
         console.log(response);
