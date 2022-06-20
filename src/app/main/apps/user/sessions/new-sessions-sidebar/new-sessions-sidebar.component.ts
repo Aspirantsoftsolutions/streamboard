@@ -1,7 +1,7 @@
 import { GroupsListService } from './../../groups/groups-list.service';
 import { AuthenticationService } from './../../../../../auth/service/authentication.service';
 import { SessionsListService } from './../sessions-list.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgbDateStruct, NgbCalendar, NgbDate, NgbDateParserFormatter, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
@@ -12,6 +12,9 @@ import { Router } from '@angular/router';
   templateUrl: './new-sessions-sidebar.component.html'
 })
 export class NewSessionsSidebarComponent implements OnInit {
+  @ViewChild('startDatePicker') startDatePicker;
+  @ViewChild('endDatePicker') endDatePicker;
+
   public description;
   public username;
   public email;
@@ -26,6 +29,18 @@ export class NewSessionsSidebarComponent implements OnInit {
   public url = this.router.url;
   public urlLastValue;
   public basicTP;
+  public startDateOptions = {
+    altInput: true,
+    mode: 'single',
+    altInputClass: 'form-control flat-picker flatpickr-input invoice-edit-input',
+    enableTime: true
+  };
+  public endDateOptions = {
+    altInput: true,
+    mode: 'single',
+    altInputClass: 'form-control flat-picker flatpickr-input invoice-edit-input',
+    enableTime: true
+  };
 
   /**
    * Constructor
@@ -39,7 +54,7 @@ export class NewSessionsSidebarComponent implements OnInit {
     private _userListService: SessionsListService,
     private _authenticationService:AuthenticationService) {
     
-    this.urlLastValue = this.url.substr(this.url.lastIndexOf('/') + 1);
+     this.urlLastValue = this.url.substr(this.url.lastIndexOf('/') + 1);
      }
 
   /**
@@ -51,6 +66,23 @@ export class NewSessionsSidebarComponent implements OnInit {
     this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
   }
 
+  isDateDisplay() {
+    if (this.urlLastValue == 'quick_sessions') {
+      return false;
+    } else if (this.urlLastValue == 'live_sessions') {
+      return false;
+    } else if (this.urlLastValue == 'scheduled_sessions') {
+      return true;
+    }
+  }
+
+  isToInvite() {
+    if ((this.urlLastValue == 'live_sessions') || (this.urlLastValue == 'scheduled_sessions')) {
+      return true;
+    }
+    return false;
+  }
+
   /**
    * Submit
    *
@@ -58,6 +90,7 @@ export class NewSessionsSidebarComponent implements OnInit {
    */
   submit(form) {
     if (form.valid) {
+
       form.value['teacherId'] = this.currentUser.userId;
       var type = "";
       if (this.urlLastValue == 'quick_sessions') {
@@ -66,10 +99,11 @@ export class NewSessionsSidebarComponent implements OnInit {
         type = "liveSession";
       } else if (this.urlLastValue == 'scheduled_sessions') {
         type = "ScheduledSession";
+      form.value['start'] = this.startDatePicker.flatpickrElement.nativeElement.children[0].value;
+      form.value['end'] = this.endDatePicker.flatpickrElement.nativeElement.children[0].value;
       }
       form.value['type'] = type;
-      form.value['start'] = this.basicDPdataS.day + "-" + this.basicDPdataS.month + "-" + this.basicDPdataS.year;
-      form.value['end'] = this.basicDPdataE.day + "-" + this.basicDPdataE.month + "-" + this.basicDPdataE.year;
+      
       if (!form.value['group']) {
         form.value['group'] = "x";
       }
@@ -110,6 +144,9 @@ export class NewSessionsSidebarComponent implements OnInit {
 
     }
     );
-
+    setTimeout(() => {
+      this.startDatePicker.flatpickr.clear();
+      this.endDatePicker.flatpickr.clear();
+    });
   }
 }

@@ -64,7 +64,8 @@ export class SessionsListService implements Resolve<any> {
         'teacherId': form['teacherId'],
         'type': form['type'],
         'start': form['start'],
-        'end': form['end']
+        'end': form['end'],
+        'participants': form['user-emailids']
       }).subscribe((response: any) => {
         console.log(response);
         resolve(response);

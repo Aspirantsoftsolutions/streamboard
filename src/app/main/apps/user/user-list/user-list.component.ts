@@ -14,6 +14,7 @@ import { InteractionType } from '@azure/msal-browser';
 import { ProviderOptions, GraphService } from '../sso/graph.service';
 import { MsalService } from '@azure/msal-angular';
 import { UserViewService } from '../user-view/user-view.service';
+import { ToastrService } from 'ngx-toastr';
 // var admin = require('google-admin-sdk');
 // const privatekey = require('../../../../../../streamboard-346619-e851b52adce0.json');
 // const { JWT } = require('google-auth-library');    
@@ -86,7 +87,7 @@ export class UserListComponent implements OnInit {
     private authService: MsalService,
     private userService: UserViewService,
     private graphService: GraphService,
-
+    private toastr: ToastrService,
   ) {
     this._unsubscribeAll = new Subject();
   }
@@ -129,6 +130,9 @@ export class UserListComponent implements OnInit {
    */
   toggleSidebar(name): void {
     this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
+    setTimeout(() => {
+      this._commonService.onUserEditListChanged.next(null);
+    }, 200);
   }
 
   /**
@@ -221,7 +225,7 @@ export class UserListComponent implements OnInit {
 
   statusChange(id, status): void {
     this._commonService.updateUserStatus(!status, id).then((response) => {
-      this._commonService.getDataTableRows();
+      this._userListService.getDataTableRows();
     });
   }
 
@@ -250,6 +254,7 @@ export class UserListComponent implements OnInit {
             const lastName = element.displayName;
             this.userService.setUser(email, username).then((resposne: any) => {
               console.log('res set:', resposne);
+              this._userListService.getDataTableRows();
             }, (error) => {
               console.log('res set error:', error);
             }
@@ -263,7 +268,32 @@ export class UserListComponent implements OnInit {
       });
   }
 
+  toggleSidebarEdit(name, id): void {
+    console.log('id:', id);
+    this._userListService.getDataTableRows().then((response: any) => {
+      response.map(row => {
+        if (row.userId == id) {
+          console.log('current row', row);
+          setTimeout(() => {
+            this._commonService.onUserEditListChanged.next(row);
+          }, 200);
+          this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
+        }
+      });
+    }, (error) => {
+      console.log('res set error:', error);
+    });
+  }
 
+  deleteUser(id) {
+    this._commonService.deleteUser(id).then((response) => {
+      this._userListService.getDataTableRows();
+      this.toastr.success('👋 Deleted Successfully.', 'Success!', {
+        toastClass: 'toast ngx-toastr',
+        closeButton: true
+      });
+    });
+  }
 
   async getUser() {
     // const client = new JWT({

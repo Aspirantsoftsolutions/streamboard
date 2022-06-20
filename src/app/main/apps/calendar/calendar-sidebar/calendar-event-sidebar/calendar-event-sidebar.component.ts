@@ -21,9 +21,6 @@ export class CalendarEventSidebarComponent implements OnInit {
   public selectLabel = [
     { label: 'Business', bullet: 'primary' },
     { label: 'Personal', bullet: 'danger' },
-    { label: 'Family', bullet: 'warning' },
-    { label: 'Holiday', bullet: 'success' },
-    { label: 'ETC', bullet: 'info' }
   ];
   public selectGuest = [
     'venkat',
@@ -73,6 +70,11 @@ export class CalendarEventSidebarComponent implements OnInit {
 
       this._calendarService.addEvent(eventForm.form.value);
       this.toggleEventSidebar();
+      
+      setTimeout(() => {
+        this._calendarService.getEvents();
+        this._calendarService.getCalendar();
+      }, 1000);
     }
   }
 

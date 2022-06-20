@@ -29,12 +29,17 @@ export class NewUserSidebarComponent implements OnInit {
     private _commonService: CommonService,) {
     this._commonService.onUserEditListChanged.subscribe(response => {
       console.log('res cms', response);
-      this.isToUpdate = true;
-      this.userId = response.userId;
-      this.username = response.username;
-      this.fullname = response.fullName!;
-      this.email = response.email;
-      this.mobilenumber = response.mobile;
+      if (response != null) {
+        this.isToUpdate = true;
+        this.userId = response.userId;
+        this.username = response.username;
+        this.fullname = response.fullName!;
+        this.email = response.email;
+        this.mobilenumber = response.mobile;
+      } else {
+        this.isToUpdate = false;
+      }
+      
     });
      }
 

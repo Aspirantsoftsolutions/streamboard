@@ -64,15 +64,16 @@ export class SessionsListComponent implements OnInit {
   private _unsubscribeAll: Subject<any>;
   public url = this.router.url;
   public urlLastValue;
+  
   /**
    * Constructor
    *
    * @param {CoreConfigService} _coreConfigService
-   * @param {UserListService} _userListService
+   * @param {UserListService} _sessionListService
    * @param {CoreSidebarService} _coreSidebarService
    */
   constructor(
-    private _userListService: SessionsListService,
+    private _sessionListService: SessionsListService,
     private _coreSidebarService: CoreSidebarService,
     private _coreConfigService: CoreConfigService,
     private router: Router,
@@ -187,14 +188,14 @@ export class SessionsListComponent implements OnInit {
       //! If we have zoomIn route Transition then load datatable after 450ms(Transition will finish in 400ms)
       if (config.layout.animation === 'zoomIn') {
         setTimeout(() => {
-          this._userListService.onUserListChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
+          this._sessionListService.onUserListChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
             this.rows = response;
             this.tempData = this.rows;
             this.rows = this.filterSession();
           });
         }, 450);
       } else {
-        this._userListService.onUserListChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
+        this._sessionListService.onUserListChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
           this.rows = response;
           this.tempData = this.rows;
           console.log(this.rows);
@@ -207,12 +208,14 @@ export class SessionsListComponent implements OnInit {
   filterSession() {
     return this.rows.filter(row => {
       var match;
-      console.log(row.type.toLowerCase().indexOf('scheduledsession'));
       if (this.urlLastValue == 'quick_sessions') {
-        match = row.type.toLowerCase().indexOf('quickSession') !== -1;
+        console.log(row.type.toLowerCase().indexOf('quicksession'));
+        match = row.type.toLowerCase().indexOf('quicksession') !== -1;
       } else if (this.urlLastValue == 'scheduled_sessions') {
+        console.log(row.type.toLowerCase().indexOf('scheduledsession'));
         match = row.type.toLowerCase().indexOf('scheduledsession') !== -1;
       } else if (this.urlLastValue == 'live_sessions') {
+        console.log(row.type.toLowerCase().indexOf('scheduledsession'));
         match = row.type.toLowerCase().indexOf('livesession') !== -1;
       }
       return match;  

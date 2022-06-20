@@ -11,139 +11,37 @@
       <div class="card">
           <div class="card-body">
                <h2>Social SSO </h2>
+               <p>
+                   You must be a Global Administrator in your Azure AD & Google Account.<br>
+
+                    To install onboarding application, use the sign in button to proceed.
+                 </p>
                <div class="col-12 d-flex flex-sm-row flex-column mt-2">
+                 
                   <button type="submit" (click)="microSoftLogin()" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"
                           rippleEffect *ngIf="!loginDisplay" >
-                          Azure Login
+                          SignIn with Microsoft
                   </button>
                   <button type="submit" (click)="logout()" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"
                             rippleEffect *ngIf="loginDisplay" >
-                            Azure Logout
+                            SignOut with Microsoft
                   </button> 
-                  <!-- <button type="submit" (click)="doSync()" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"
-                          rippleEffect>
-                          Azure Sync
-                  </button>  -->
                 </div>
 
                  <div class="col-12 d-flex flex-sm-row flex-column mt-2">
                   <button type="submit" (click)="googleLogin()" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"
                           rippleEffect *ngIf="!gloginDisplay" >
-                          Google Login
+                          SignIn with Google Workspace
                   </button>
                   <button type="submit" (click)="googleLogout()" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"
                             rippleEffect *ngIf="gloginDisplay" >
-                            Gooogle Logout
+                            Signout from Google Workspace
                   </button>
                 </div>
                
-          <!-- <form class="form-validate" (ngSubmit)="(accountForm.form.valid)" #accountForm="ngForm">
-            <div class="custom-control custom-checkbox">
-                    <input class="custom-control-input" id="remember-me" type="checkbox" tabindex="3" />
-                    <label class="custom-control-label" for="remember-me"> Google Drive</label>
-                  </div>
-                    <div style="margin:50px">
-                      <div class="row">
-                        <div class="form-group">
-                          <label for="tenantId">Tenant ID</label>
-                          <input
-                            type="text"
-                            id="tenantId"
-                            class="form-control"
-                            placeholder="tenantId"
-                            name="tenantId"
-                            [(ngModel)]="tenantId"
-                            [class.error]="accountForm.submitted && UserNameRef.invalid"
-                            #UserNameRef="ngModel"
-                            required
-                          />
-                          <span *ngIf="accountForm.submitted && UserNameRef.invalid" class="invalid-form">
-                            <small class="form-text text-danger" *ngIf="UserNameRef.errors.required"
-                              >This field is required!</small
-                            >
-                          </span>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="form-group">
-                          <label for="azureId">Azure AD Application ID</label>
-                          <input
-                            type="text"
-                            id="azureId"
-                            class="form-control"
-                            placeholder="azureId"
-                            name="azureId"
-                            [(ngModel)]="azureId"
-                            [class.error]="accountForm.submitted && FullNameRef.invalid"
-                            #FullNameRef="ngModel"
-                            required
-                          />
-                          <span *ngIf="accountForm.submitted && FullNameRef.invalid" class="invalid-form">
-                            <small class="form-text text-danger" *ngIf="FullNameRef.errors.required"
-                              >This field is required!</small
-                            >
-                          </span>
-                        </div>
-                      </div>
-                      
-                      <div class="col-12 d-flex flex-sm-row flex-column mt-2">
-                        <button type="submit" (click)="login()"
-                          class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"
-                          rippleEffect *ngIf="!loginDisplay" >
-                          Save Changes
-                        </button>
-                          <button type="submit" (click)="logout()"
-                            class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"
-                            rippleEffect *ngIf="loginDisplay" >
-                            Logout
-                          </button>
-
-                      </div>
-                    </div>
-                  </form> -->
           </div>
       </div>
-       <div class="card">
-         <div class="card-body">
-           <div class="form-group">
-             <div class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
-               <input class="custom-control-input" id="google-drive" type="checkbox" tabindex="3"
-                 [(ngModel)]="isGooogleDrive" />
-               <label class="custom-control-label" for="google-drive"> Google Drive</label>
-             </div>
-             <div class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
-               <input class="custom-control-input" id="one-drive" type="checkbox" tabindex="3"
-                 [(ngModel)]="isOneDrive" />
-               <label class="custom-control-label" for="one-drive"> One Drive</label>
-             </div>
-             <div class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
-               <input class="custom-control-input" id="immersive-reader" type="checkbox" tabindex="3"
-                 [(ngModel)]="isImmersiveReader" />
-               <label class="custom-control-label" for="immersive-reader"> Immersive Reader</label>
-             </div>
-             <div class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
-               <input class="custom-control-input" id="magic-draw" type="checkbox" tabindex="3"
-                 [(ngModel)]="isMagicDraw" />
-               <label class="custom-control-label" for="magic-draw"> Magic Draw</label>
-             </div>
-             <div class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
-               <input class="custom-control-input" id="hand-writing" type="checkbox" tabindex="3" 
-               [(ngModel)]="isHandWriting"/>
-               <label class="custom-control-label" for="hand-writing"> Hand Writing</label>
-             </div>
-             <div class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
-               <input class="custom-control-input" id="phet" type="checkbox" tabindex="3" [(ngModel)]="isPhet" />
-               <label class="custom-control-label" for="phet"> Phet</label>
-             </div>
-             <div class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
-                <button type="submit" (click)="updateFeatures()" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"
-                  rippleEffect >
-                  Update Readers
-                </button>
-             </div>
-           </div>
-         </div>
-       </div>
+      
     </div>
   </div>
 </div>

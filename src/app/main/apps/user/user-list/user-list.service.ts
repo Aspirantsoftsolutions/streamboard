@@ -42,9 +42,20 @@ export class UserListService implements Resolve<any> {
     return new Promise((resolve, reject) => {
       this._httpClient.get(`${environment.apiUrl}/api/user/all`).subscribe((response: any) => {
         this.rows = response;
-        console.log(this.rows.data);
-        this.onUserListChanged.next(this.rows.data);
-        resolve(this.rows.data);
+        let data = this.rows.data;
+        data.splice(0, 1);
+        this.rows.data.forEach(element => {
+          
+          element.teacher.forEach(teachers => {
+            data.push(teachers);
+          });
+          element.student.forEach(students => {
+            data.push(students);
+          });
+        });
+        console.log(data);
+        this.onUserListChanged.next(data);
+        resolve(data);
       }, reject);
     });
   }

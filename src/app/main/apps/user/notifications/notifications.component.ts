@@ -29,6 +29,7 @@ export class NotificationsComponent implements OnInit {
   private urlLastValue = "";
   public allUsers = [];
   public allTeachers = [];
+  public allStudents = [];
   public allSchools = [];
   guestList;
 
@@ -84,6 +85,9 @@ export class NotificationsComponent implements OnInit {
 
   }
 
+  isAdmin() {
+    return this._commonService.getCurrentUser().role == 'Admin';
+  }
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------
 
@@ -108,6 +112,12 @@ export class NotificationsComponent implements OnInit {
 
     this._commonService.getAllTeachers().then((resposne) => {
       this.allTeachers = resposne;
+    }, (error) => {
+
+    });
+
+    this._commonService.getAllStudents().then((resposne) => {
+      this.allStudents = resposne;
     }, (error) => {
 
     });

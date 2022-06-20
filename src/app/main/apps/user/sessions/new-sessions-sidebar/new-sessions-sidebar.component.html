@@ -43,45 +43,37 @@
             </span>
           </div>
 
-          <div class="form-group mb-2">
-                <label class="form-label" for="group">Start Date</label>
-               <div class="input-group">
-                 <input class="form-control" placeholder="yyyy-mm-dd" name="Basic Date Picker" [(ngModel)]="basicDPdataS"
-                   ngbDatepicker #basicDP="ngbDatepicker" />
-                 <div class="input-group-append">
-                   <button class="btn btn-outline-secondary feather icon-calendar" (click)="basicDP.toggle()"
-                     type="button" rippleEffect></button>
-                 </div>
-               </div>
+            
+            <div class="form-group position-relative" *ngIf="isDateDisplay()">
+              <label for="start-date" class="form-label">Start Date</label>
+              <ng2-flatpickr
+                [config]="startDateOptions"
+                name="startDate"
+                [setDate]="21-6-2022"
+                #startDatePicker
+                required
+              ></ng2-flatpickr>
+            </div>
+            <div class="form-group position-relative" *ngIf="isDateDisplay()">
+              <label for="end-date" class="form-label">End Date</label>
+              <ng2-flatpickr
+                [config]="endDateOptions"
+                name="endDate"
+                [setDate]="21-6-2022"
+                #endDatePicker
+                required
+              ></ng2-flatpickr>
             </div>
 
-            <div class="form-group mb-2">
-              <label class="form-label" for="group">End Date</label>
-              <div class="input-group">
-                <input class="form-control" placeholder="yyyy-mm-dd" name="Basic Date Picker" [(ngModel)]="basicDPdataE"
-                  ngbDatepicker #basicDPE="ngbDatepicker" />
-                <div class="input-group-append">
-                  <button class="btn btn-outline-secondary feather icon-calendar" (click)="basicDPE.toggle()"
-                    type="button" rippleEffect></button>
-                </div>
-              </div>
-            </div>
-            <div class="form-group mb-2">
-              <label class="form-label" for="group">End Time</label>
-              <div class="input-group">
-                <ngb-timepicker [(ngModel)]="basicTP"></ngb-timepicker>
-                
-              </div>
-            </div>
             <!-- <ngb-timepicker [(ngModel)]="basicTP"></ngb-timepicker> -->
-            <div class="form-group mb-2">
+            <div class="form-group mb-2" *ngIf="isToInvite()">
               <label class="form-label" for="group">Participants</label>
               <select id="group" class="form-control" name='group' [(ngModel)]="group">
                 <option value="{{item.userId}}" *ngFor="let item of groupRows">{{item.username}}</option>
               </select>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" *ngIf="isToInvite()">
               <label class="form-label" for="basic-icon-default-description">Invite participants by email</label>
               <input type="text" class="form-control dt-full-name" id="basic-icon-default-fullname"
                 placeholder="Participants email ids" name="user-emailids" [(ngModel)]="emailids"

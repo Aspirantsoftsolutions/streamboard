@@ -115,7 +115,7 @@
                   </div>
                 </ng-template>
                 <div class="cell-line-height">
-                  <a routerLink="/apps/user/user-view/{{ row.id }}" class="font-medium-1 d-block"
+                  <a class="font-medium-1 d-block"
                     ><span class="font-weight-bold">{{ name }}</span></a
                   >
                   <span class="text-muted font-small-2"> {{ row.username }}</span>
@@ -167,9 +167,9 @@
                     <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> InActive </a>
                   <a (click)="statusChange(row.userId, row.isActive)" ngbDropdownItem *ngIf="!row.isActive">
                     <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> Active </a>
-                    <a routerLink="/apps/user/user-edit/{{ row.userId }}" ngbDropdownItem>
+                    <a (click)="toggleSidebarEdit('new-user-sidebar',row.userId)" ngbDropdownItem>
                       <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> Edit</a>
-                    <a href="javascript:;" ngbDropdownItem>
+                    <a (click)="deleteUser(row._id)" ngbDropdownItem>
                       <span [data-feather]="'trash'" [size]="16" [class]="'mr-50'"></span> Delete</a>
                     <!-- <a routerLink="/apps/user/appazure" ngbDropdownItem>
                      <span [data-feather]="'trash'" [size]="16" [class]="'mr-50'"></span>SSO</a> -->

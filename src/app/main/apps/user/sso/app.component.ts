@@ -130,21 +130,6 @@ export class AppComponent implements OnInit, OnDestroy {
             error => {}
           );
 
-        // this._authenticationService.getCalendarEvents(user.response.access_token)
-        //   .subscribe(
-        //     data => {
-        //       console.log("data c:", data);
-        //       this._authenticationService.getCalendarEventsList(user.response.access_token, data.items[3].id)
-        //         .subscribe(
-        //           data1 => {
-        //             console.log("data c1:", data1);
-        //           },
-        //           error => { }
-        //         );
-        //     },
-        //     error => {
-        //     }
-        //   );
       }
     });
 
@@ -265,6 +250,7 @@ export class AppComponent implements OnInit, OnDestroy {
         scope: 'https://www.googleapis.com/auth/admin.directory.user.readonly https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/calendar.events.readonly'
     }
     this._sauthService.signIn(GoogleLoginProvider.PROVIDER_ID, googleLoginOptions);
+    
   }
 
   microSoftLogin() {

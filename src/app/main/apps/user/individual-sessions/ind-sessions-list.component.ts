@@ -7,6 +7,8 @@ import { takeUntil } from 'rxjs/operators';
 import { CoreConfigService } from '@core/services/config.service';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 import { IndSessionsListService } from './ind-sessions-list.service';
+import { CommonService } from '../common.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -61,18 +63,25 @@ export class IndSessionsListComponent implements OnInit {
   // Private
   private tempData = [];
   private _unsubscribeAll: Subject<any>;
+  isGooogleDrive = false;
+  isOneDrive = false;
+  isImmersiveReader = false;
+  isMagicDraw = false;
+  isHandWriting = false;
+  isPhet = false;
 
   /**
    * Constructor
    *
    * @param {CoreConfigService} _coreConfigService
-   * @param {UserListService} _userListService
    * @param {CoreSidebarService} _coreSidebarService
    */
   constructor(
     private _userListService: IndSessionsListService,
     private _coreSidebarService: CoreSidebarService,
-    private _coreConfigService: CoreConfigService
+    private _coreConfigService: CoreConfigService,
+    private _commonService: CommonService,
+    private _toastrService: ToastrService,
   ) {
     this._unsubscribeAll = new Subject();
   }
@@ -195,6 +204,13 @@ export class IndSessionsListComponent implements OnInit {
         });
       }
     });
+    let user = this._commonService.getCurrentUser();
+     this.isGooogleDrive = user.isGoogleDriveEnable;
+    this.isOneDrive = user.isOneDriveEnable ;
+     this.isImmersiveReader = user.isImmersiveReaderEnable;
+     this.isMagicDraw = user.isMagicDrawEnable;
+     this.isHandWriting = user.isHandWritingEnable;
+     this.isPhet = user.isPhetEnable;
   }
 
   /**
@@ -204,5 +220,40 @@ export class IndSessionsListComponent implements OnInit {
     // Unsubscribe from all subscriptions
     this._unsubscribeAll.next();
     this._unsubscribeAll.complete();
+  }
+  updateFeatures() {
+    let user = this._commonService.getCurrentUser();
+    const userId = user.userId;
+    let featureUpdate: any = {};
+    featureUpdate.isGoogleDriveEnable = this.isGooogleDrive;
+    featureUpdate.isOneDriveEnable = this.isOneDrive;
+    featureUpdate.isImmersiveReaderEnable = this.isImmersiveReader;
+    featureUpdate.isMagicDrawEnable = this.isMagicDraw;
+    featureUpdate.isHandWritingEnable = this.isHandWriting;
+    featureUpdate.isPhetEnable = this.isPhet;
+
+    user.isGoogleDriveEnable = this.isGooogleDrive;
+    user.isOneDriveEnable = this.isOneDrive;
+    user.isImmersiveReaderEnable = this.isImmersiveReader;
+    user.isMagicDrawEnable = this.isMagicDraw;
+    user.isHandWritingEnable = this.isHandWriting;
+    user.isPhetEnable = this.isPhet;
+
+    this._commonService.updateFeatures(featureUpdate, userId).then((resposne: any) => {
+      console.log('res updateFeatures:', resposne);
+      localStorage.setItem('currentUser', JSON.stringify(user));
+
+      setTimeout(() => {
+        this._toastrService.success(
+          'Successfully Updated  🎉',
+          '👋 !',
+          { toastClass: 'toast ngx-toastr', closeButton: true }
+        );
+      }, 1000);
+      
+    }, (error) => {
+      console.log('res updateFeatures error:', error);
+    }
+    );
   }
 }

@@ -335,6 +335,7 @@ const routes: Routes = [
     CoreSidebarModule,
     ToastrModule,
     MsalModule,
+    Ng2FlatpickrModule,
     NgMultiSelectDropDownModule.forRoot()
 
   ],

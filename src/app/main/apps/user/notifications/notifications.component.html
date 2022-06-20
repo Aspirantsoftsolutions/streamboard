@@ -61,22 +61,31 @@
               />
             
             </div>
-            <div class="modal-body flex-grow-1 pb-sm-0 pb-3">
+            <div class="form-group" style="margin-top: 20px;">
               <form class="event-form needs-validation" (ngSubmit)="(eventForm.form.valid); eventForm.reset()"
                 #eventForm="ngForm">
                
-                <ng-multiselect-dropdown [placeholder]="'All Users'" [settings]="dropdownSettings"
-                  [data]="allUsers" [(ngModel)]="selectedItems" (onSelect)="onItemSelect($event)"
-                  (onSelectAll)="onSelectAll($event)">
-                </ng-multiselect-dropdown>
-                 
-                <ng-multiselect-dropdown [placeholder]="'All Schools'" [settings]="dropdownSettings" [data]="allSchools"
-                  [(ngModel)]="selectedItems" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
-                </ng-multiselect-dropdown>
-
-                <ng-multiselect-dropdown [placeholder]="'All Teachers'" [settings]="dropdownSettings" [data]="allTeachers"
-                  [(ngModel)]="selectedItems" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
-                </ng-multiselect-dropdown>
+                <div style="margin-top: 20px;">
+                  <ng-multiselect-dropdown [placeholder]="'All Users'" [settings]="dropdownSettings"
+                    [data]="allUsers" [(ngModel)]="selectedItems" (onSelect)="onItemSelect($event)"
+                    (onSelectAll)="onSelectAll($event)">
+                  </ng-multiselect-dropdown>
+                 </div>
+                 <div style="margin-top: 20px;">
+                  <ng-multiselect-dropdown [placeholder]="'All Schools'" [settings]="dropdownSettings" [data]="allSchools" *ngIf="isAdmin()"
+                    [(ngModel)]="selectedItems" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+                  </ng-multiselect-dropdown>
+                </div>
+                <div style="margin-top: 20px;">
+                  <ng-multiselect-dropdown [placeholder]="'All Teachers'" [settings]="dropdownSettings" [data]="allTeachers"
+                    [(ngModel)]="selectedItems" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+                  </ng-multiselect-dropdown>
+                  </div>
+                <div style="margin-top: 20px;">
+                  <ng-multiselect-dropdown [placeholder]="'All Students'" [settings]="dropdownSettings" [data]="allStudents"
+                    [(ngModel)]="selectedItems" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+                  </ng-multiselect-dropdown>
+                </div>
                 </form>
             </div>
         
