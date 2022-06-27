@@ -74,7 +74,8 @@ export class NewStudentsSidebarComponent implements OnInit {
     if (form.valid) {
       console.log(form);
       if (this.isToUpdate) {
-        this._commonService.updateProfile(form.value, this.userId).then((resposne) => {
+        console.log('class,', this.class);
+        this._commonService.updateStudentProfile(form.value, this.userId, this.class).then((resposne) => {
           console.log('res set:', resposne);
           let successString = Response;
           this.toastr.success('👋 updated Successfully.', 'Success!', {

@@ -253,6 +253,25 @@ export class CommonService implements Resolve<any> {
     });
   }
 
+  updateStudentProfile(form, userid, classId): Promise<any[]> {
+    return new Promise((resolve, reject) => {
+      this._httpClient.put(`${environment.apiUrl}/api/user/updateStudentProfileData`, {
+        'classId': classId,
+        'firstName': form['user-firstName'],
+        'lastName': form['user-lastName'],
+        'mobile': form['user-number'],
+        'userId': userid
+      }, {
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+      }).subscribe((response: any) => {
+        console.log(response);
+        resolve(response);
+      }, reject);
+    });
+  }
+
   updateGroup(form, userid): Promise<any[]> {
     return new Promise((resolve, reject) => {
       this._httpClient.put(`${environment.apiUrl}/api/user/updateProfileData`, {
