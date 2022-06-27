@@ -119,7 +119,7 @@ export class ClassesListComponent implements OnInit {
 
   deleteUser(id) {
     this._commonService.deleteUser(id).then((response) => {
-      this._commonService.getClasses();
+      this._classesListService.getDataTableRows();
     });
   }
 

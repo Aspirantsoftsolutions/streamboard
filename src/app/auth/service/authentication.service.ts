@@ -50,15 +50,10 @@ export class AuthenticationService {
     return this.currentUser && this.currentUserSubject.value.role === Role.Client;
   }
 
-  getCurrentUser(token) {
+  getCurrentUser(token,id) {
     localStorage.setItem('token', token);
     return this._http
-      .get<any>(`${environment.apiUrl}/api/user/profile`,
-        {
-          headers: {
-            'Authorization' : 'Bearer '+ token
-          }
-        })
+      .get<any>(`${environment.apiUrl}/api/user/profile/`+id)
       .pipe(
         map(user => {
           console.log('logged in user:', user);

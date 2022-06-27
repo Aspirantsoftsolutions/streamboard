@@ -42,7 +42,13 @@ export class UserListService implements Resolve<any> {
     return new Promise((resolve, reject) => {
       this._httpClient.get(`${environment.apiUrl}/api/user/all`).subscribe((response: any) => {
         this.rows = response;
-        let data = this.rows.data;
+        let data = [];
+        this.rows.data.forEach(element => {
+          if (element.type != 'Grade') {
+            data.push(element);
+            }
+
+        });
         data.splice(0, 1);
         this.rows.data.forEach(element => {
           
@@ -53,6 +59,7 @@ export class UserListService implements Resolve<any> {
             data.push(students);
           });
         });
+        
         console.log(data);
         this.onUserListChanged.next(data);
         resolve(data);

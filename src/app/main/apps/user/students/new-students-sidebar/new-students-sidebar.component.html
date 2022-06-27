@@ -99,7 +99,7 @@
            <div class="form-group mb-2">
             <label class="form-label" for="class">Select Class</label>
             <select id="class" class="form-control" name='class'  [(ngModel)]="class">
-              <option value="{{item.userId}}" *ngFor="let item of classRows">{{item.username}}</option>
+              <option value="{{itemp.userId}}" *ngFor="let itemp of classes">{{itemp.className}}</option>
             </select>
           </div>
 

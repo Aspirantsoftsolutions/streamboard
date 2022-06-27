@@ -52,18 +52,20 @@ export class NewClassesSidebarComponent implements OnInit {
 
       this._userListService.setUser(form.value).then((resposne:any) => {
         console.log('res set:', resposne);
-        let successString = resposne;
-        this._userListService.classRows.map(row => {
-          console.log('current rows id', row.userId);
-          this._userListService.setUserClass(resposne.data.userId, row.userId).then((response) => {
-            console.log('res udpate:', response);
-            // let successString = response;
-          }, (error) => {
-            console.log('res set error:', error);
-            let errorString = error;
+        if (this._userListService.classRows != null) {
+          this._userListService.classRows.map(row => {
+            console.log('current rows id', row.userId);
+            this._userListService.setUserClass(resposne.data.userId, row.userId).then((response) => {
+              console.log('res udpate:', response);
+              // let successString = response;
+            }, (error) => {
+              console.log('res set error:', error);
+              let errorString = error;
+            });
           });
-        });
 
+        }
+        
         this.toastr.success('👋 User Created Successfully.', 'Success!', {
           toastClass: 'toast ngx-toastr',
           closeButton: true

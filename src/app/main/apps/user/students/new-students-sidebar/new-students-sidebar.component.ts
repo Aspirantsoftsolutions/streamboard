@@ -17,7 +17,7 @@ export class NewStudentsSidebarComponent implements OnInit {
   public userNumber;
   public email;
   private _unsubscribeAll: Subject<any>;
-  public classRows;
+  public classes;
   public grades;
   public class;
   public grade;
@@ -118,8 +118,8 @@ export class NewStudentsSidebarComponent implements OnInit {
   ngOnInit(): void {
     this._classListService.getDataTableRows().then((resposne) => {
       console.log('res set classRows:', resposne);
-      this.classRows = resposne;
-      console.log('classRows:', this.classRows);
+      this.classes = resposne;
+      console.log('classRows:', this.classes);
     }, (error) => {
       console.log('res set error:', error);
     });

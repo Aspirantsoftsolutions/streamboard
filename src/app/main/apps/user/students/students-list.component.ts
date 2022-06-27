@@ -115,10 +115,10 @@ export class StudentsListComponent implements OnInit {
    * @param name
    */
   toggleSidebar(name): void {
-    let ro = this.rows
-      .filter(opt => opt.checked);
-    console.log('checked list:', ro);
-    this._classListService.classRows = ro;
+    // let ro = this.rows
+    //   .filter(opt => opt.checked);
+    // console.log('checked list:', ro);
+    // // this._classListService.classRows = ro;
     this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
     setTimeout(() => {
       this._commonService.onUserEditListChanged.next(null);

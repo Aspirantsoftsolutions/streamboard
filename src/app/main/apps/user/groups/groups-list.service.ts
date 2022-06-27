@@ -55,7 +55,7 @@ export class GroupsListService implements Resolve<any> {
   */
   setUser(form): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      this._httpClient.post('api/auth/register', {
+      this._httpClient.post(`${environment.apiUrl}/api/auth/register/`, {
         'username': form['user-fullname'],
         'email': form['user-email'],
         'password': 'Test@123',
@@ -73,7 +73,7 @@ export class GroupsListService implements Resolve<any> {
 
   setUserClass(classId, userId): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      this._httpClient.put('api/user', {
+      this._httpClient.put(`${environment.apiUrl}api/user`, {
         'classId': classId,
         'userId' : userId
       }).subscribe((response: any) => {

@@ -52,7 +52,7 @@ export const menu: CoreMenu[] = [
         id: 'collab',
         title: 'Collaboration Class',
         type: 'collapsible',
-        role: ['School'],
+        role: ['School','Teacher','Student'],
         icon: 'file-text',
         children: [
           {
@@ -100,6 +100,7 @@ export const menu: CoreMenu[] = [
         translate: 'WhiteBoard',
         type: 'item',
         icon: 'home',
+        role: ['School','Admin'],
         url: 'apps/user/ind-sessions-list'
       },
       {

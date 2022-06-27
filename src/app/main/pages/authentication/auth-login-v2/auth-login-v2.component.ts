@@ -98,7 +98,7 @@ export class AuthLoginV2Component implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          this._authenticationService.getCurrentUser(data.data.token)
+          this._authenticationService.getCurrentUser(data.data.token,data.data.user.userId)
             .subscribe(
               data => {
                 this._router.navigate(['/']);
@@ -166,7 +166,7 @@ export class AuthLoginV2Component implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          this._authenticationService.getCurrentUser(data.data.token)
+          this._authenticationService.getCurrentUser(data.data.token, data.data.user.userId)
             .subscribe(
               data => {
                 this._router.navigate(['/']);
