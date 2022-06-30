@@ -1,3 +1,5 @@
+import { SubscriptionsListService } from './subscriptions-list.service';
+import { CommonService } from './../common.service';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ColumnMode, DatatableComponent } from '@swimlane/ngx-datatable';
 
@@ -6,7 +8,8 @@ import { takeUntil } from 'rxjs/operators';
 
 import { CoreConfigService } from '@core/services/config.service';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
-import { SubscriptionsListService } from './subscriptions-list.service';
+import { SchoolsListService } from '../schools/schools-list.service';
+
 
 
 @Component({
@@ -38,9 +41,8 @@ export class SubscriptionsListComponent implements OnInit {
   public selectPlan: any = [
     { name: 'All', value: '' },
     { name: 'Basic', value: 'Basic' },
-    { name: 'Company', value: 'Company' },
-    { name: 'Enterprise', value: 'Enterprise' },
-    { name: 'Team', value: 'Team' }
+    { name: 'Premium', value: 'Premium' },
+    { name: 'Enterprise', value: 'Enterprise' }
   ];
 
   public selectStatus: any = [
@@ -72,6 +74,7 @@ export class SubscriptionsListComponent implements OnInit {
   constructor(
     private _userListService: SubscriptionsListService,
     private _coreSidebarService: CoreSidebarService,
+    private _commonService: CommonService,
     private _coreConfigService: CoreConfigService
   ) {
     this._unsubscribeAll = new Subject();
@@ -111,6 +114,33 @@ export class SubscriptionsListComponent implements OnInit {
    */
   toggleSidebar(name): void {
     this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
+  }
+
+  deleteUser(id) {
+    this._commonService.deleteUser(id).then((response) => {
+      this._userListService.getDataTableRows();
+    });
+  }
+
+  toggleSidebarEdit(name, id): void {
+    console.log('id:', id);
+    this._commonService.getSchools().then((response: any) => {
+      response.map(row => {
+        if (row.userId == id) {
+          console.log('current row', row);
+          this._commonService.onUserEditListChanged.next(row);
+          this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
+        }
+      });
+    }, (error) => {
+      console.log('res set error:', error);
+    });
+  }
+
+  changeSubscriptionType(plan,id) {
+    this._commonService.updateSchoolSubscription(plan, id).then((response) => {
+      this._userListService.getDataTableRows();
+    });
   }
 
   /**
@@ -166,7 +196,7 @@ export class SubscriptionsListComponent implements OnInit {
 
     return this.tempData.filter(row => {
       const isPartialNameMatch = row.role.toLowerCase().indexOf(roleFilter) !== -1 || !roleFilter;
-      const isPartialGenderMatch = row.currentPlan.toLowerCase().indexOf(planFilter) !== -1 || !planFilter;
+      const isPartialGenderMatch = row.plan.toLowerCase().indexOf(planFilter) !== -1 || !planFilter;
       const isPartialStatusMatch = row.status.toLowerCase().indexOf(statusFilter) !== -1 || !statusFilter;
       return isPartialNameMatch && isPartialGenderMatch && isPartialStatusMatch;
     });

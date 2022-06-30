@@ -2,8 +2,76 @@
   <div class="content-body">
     <div class="row match-height" *ngIf="isAdmin || isClient">
       <!-- Medal Card -->
-      
+      <div class="col-xl-4 col-md-6 col-12" *ngIf="currentUser.role == 'School'">
+        <div class="card card-congratulation-medal">
+          <div class="card-body">
+            <h3>You are in <b>{{ currentUser?.plan }}  Plan</b>🎉</h3>
+        
+            <!-- <button type="button" class="btn btn-primary" rippleEffect>{{ currentUser?.plan }}</button> -->
+            <!-- <img src="assets/images/illustration/badge.svg" class="congratulation-medal" alt="Medal Pic" /> -->
+          </div>
+        </div>
+      </div>
       <!--/ Medal Card -->
+
+        <!-- Statistics Card -->
+      <div class="col-xl-12 col-md-12 col-12" *ngIf="currentUser.role == 'Teacher'">
+        <div class="card card-statistics">
+          <div class="card-header">
+            <h4 class="card-title">Statistics</h4>
+            <div class="d-flex align-items-center">
+              <p class="card-text font-small-2 mr-25 mb-0">Updated Just now</p>
+            </div>
+          </div>
+          <div class="card-body statistics-body">
+            <div class="row">
+              <div class="col-sm-6 col-xl-3 mb-2 mb-xl-0">
+                <div class="media">
+                  <div class="avatar bg-light-primary mr-2">
+                    <div class="avatar-content">
+                      <i data-feather="user" class="avatar-icon"></i>
+                    </div>
+                  </div>
+                  <div class="media-body my-auto">
+                    <h4 class="font-weight-bolder mb-0">2</h4>
+                    <p class="card-text font-small-3 mb-0">Quick Sessions</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-xl-3 mb-2 mb-xl-0">
+                <div class="media">
+                  <div class="avatar bg-light-primary mr-2">
+                    <div class="avatar-content">
+                      <i data-feather="user" class="avatar-icon"></i>
+                    </div>
+                  </div>
+                  <div class="media-body my-auto">
+                    <h4 class="font-weight-bolder mb-0">2</h4>
+                    <p class="card-text font-small-3 mb-0">Live Sessions</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-xl-3 mb-2 mb-xl-0">
+                <div class="media">
+                  <div class="avatar bg-light-primary mr-2">
+                    <div class="avatar-content">
+                      <i data-feather="user" class="avatar-icon"></i>
+                    </div>
+                  </div>
+                  <div class="media-body my-auto">
+                    <h4 class="font-weight-bolder mb-0">2</h4>
+                    <p class="card-text font-small-3 mb-0">Scheduled Sessions</p>
+                  </div>
+                </div>
+              </div>
+              
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--/ Statistics Card -->
+
 
       <!-- Statistics Card -->
       <div class="col-xl-8 col-md-6 col-12" *ngIf="currentUser.role == 'Admin'">
@@ -90,7 +158,7 @@
       <!--/ Statistics Card -->
 
       <!-- Statistics Card -->
-      <div class="col-xl-8 col-md-6 col-12">
+      <div class="col-xl-8 col-md-6 col-12" *ngIf="currentUser.role == 'School'">
         <div class="card card-statistics">
           <div class="card-header">
             <h4 class="card-title">Statistics</h4>

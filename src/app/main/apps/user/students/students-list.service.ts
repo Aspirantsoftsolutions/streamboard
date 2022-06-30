@@ -59,6 +59,15 @@ export class StudentsListService implements Resolve<any> {
   * Get rows
   */
   setStudent(form, schoolId): Promise<any[]> {
+    let currentUser = this._commonService.getCurrentUser();
+    console.log(currentUser);
+    // let obj;
+    // if (currentUser.role == 'Teacher') {
+    //   obj = { 'teacherId': currentUser.userId, 'schoolId': currentUser.school.userId };
+    // } else {
+    //   obj = { 'schoolId': currentUser.userId };
+    // }
+
     return new Promise((resolve, reject) => {
       this._httpClient.post(`${environment.apiUrl}/api/auth/registerStudent`, {
         'username': form['user-firstName'] + form['user-lastName'],

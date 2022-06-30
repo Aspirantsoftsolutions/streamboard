@@ -46,13 +46,19 @@ export class CommonService implements Resolve<any> {
    */
   getDataTableRows(): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      this._httpClient.get(`${environment.apiUrl}/api/user/all/School`).subscribe((response: any) => {
+      this._httpClient.get(`${environment.apiUrl}/api/user/all`).subscribe((response: any) => {
         this.rows = response;
         console.log(this.rows.data);
-        this.onUserListChanged.next(this.rows.data);
-        this.onUserEditListChanged.next(this.rows);
+        let user = [];
+        this.rows.data.forEach(element => {
+          if (element.role == 'School' || element.role == 'Individual') {
+            user.push(element);
+          }
+        });
+        this.onUserListChanged.next(user);
+        this.onUserEditListChanged.next(user);
 
-        resolve(this.rows.data);
+        resolve(user);
       }, reject);
     });
   }
@@ -176,6 +182,22 @@ export class CommonService implements Resolve<any> {
           headers: {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
           },
+      }).subscribe((response: any) => {
+        console.log(response);
+        resolve(response);
+      }, reject);
+    });
+  }
+
+  updateSchoolSubscription(plan, userId): Promise<any[]> {
+    return new Promise((resolve, reject) => {
+      this._httpClient.put(`${environment.apiUrl}/api/user/updatePlanType`, {
+        'plan': plan,
+        'userId': userId
+      }, {
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
       }).subscribe((response: any) => {
         console.log(response);
         resolve(response);
@@ -324,7 +346,7 @@ export class CommonService implements Resolve<any> {
         'mobile': form['mobilenumber'],
         'countryCode': '+91',
         'role': role,
-        'plan': "Free",
+        'plan': "Basic",
         'status': 'active',
         'location': form['location'],
         'organisation':form['organisation']

@@ -69,6 +69,7 @@ export class IndSessionsListComponent implements OnInit {
   isMagicDraw = false;
   isHandWriting = false;
   isPhet = false;
+  currentUser;
 
   /**
    * Constructor
@@ -84,6 +85,7 @@ export class IndSessionsListComponent implements OnInit {
     private _toastrService: ToastrService,
   ) {
     this._unsubscribeAll = new Subject();
+    this.currentUser = this._commonService.getCurrentUser();
   }
 
   // Public Methods

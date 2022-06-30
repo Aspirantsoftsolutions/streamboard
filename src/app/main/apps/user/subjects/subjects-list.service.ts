@@ -62,7 +62,7 @@ export class SubjectsListService implements Resolve<any> {
         'mobile': '123456789',
         'countryCode': '+91',
         'role': "Subject",
-        'plan': "Free",
+        'plan': "Basic",
         'status': 'active',
       }).subscribe((response: any) => {
         console.log(response);

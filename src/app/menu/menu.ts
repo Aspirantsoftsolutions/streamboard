@@ -47,7 +47,14 @@ export const menu: CoreMenu[] = [
       //   icon: 'user',
       //   url: 'apps/user/sessions-list'
       // },
-
+    {
+        id: 'quick_sessionsa',
+        title: 'Quick Sessions',
+        type: 'item',
+        icon: 'user',
+        role: ['Individual'],
+        url: 'apps/user/quick_sessions'
+      },
       {
         id: 'collab',
         title: 'Collaboration Class',
@@ -227,6 +234,7 @@ export const menu: CoreMenu[] = [
         title: 'Notifications',
         translate: 'Notifications',
         type: 'item',
+        role: ['Admin', 'School'],
         icon: 'home',
         url: 'apps/user/notifications'
       },

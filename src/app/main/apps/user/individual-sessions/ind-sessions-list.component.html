@@ -5,7 +5,8 @@
 
       <div class="card">
          <div class="card-body">
-           <div class="form-group">
+          <h2 *ngIf="currentUser.plan=='Basic'"> Please contact Administrator</h2>
+           <div class="form-group" *ngIf="currentUser.plan!='Basic'" >
              <div class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
                <input class="custom-control-input" id="google-drive" type="checkbox" tabindex="3"
                  [(ngModel)]="isGooogleDrive" />

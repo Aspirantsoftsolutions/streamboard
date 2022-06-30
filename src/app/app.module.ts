@@ -11,6 +11,7 @@ import {
   GoogleLoginProvider,
   FacebookLoginProvider
 } from 'angularx-social-login';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 import 'hammerjs';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -110,7 +111,8 @@ const appRoutes: Routes = [
     }),
     RouterModule.forRoot(appRoutes, {
       scrollPositionRestoration: 'enabled', // Add options right here
-      relativeLinkResolution: 'legacy'
+      relativeLinkResolution: 'legacy',
+      useHash: true
     }),
     NgbModule,
     ToastrModule.forRoot(),
@@ -127,6 +129,7 @@ const appRoutes: Routes = [
   ],
 
   providers: [
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 

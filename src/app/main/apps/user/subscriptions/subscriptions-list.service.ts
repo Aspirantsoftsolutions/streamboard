@@ -40,10 +40,10 @@ export class SubscriptionsListService implements Resolve<any> {
    */
   getDataTableRows(): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      this._httpClient.get(`${environment.apiUrl}/api/user/all`).subscribe((response: any) => {
+      this._httpClient.get(`${environment.apiUrl}/api/user/all/School`).subscribe((response: any) => {
         this.rows = response;
         console.log(this.rows.data);
-        //this.onUserListChanged.next(this.rows.data);
+        this.onUserListChanged.next(this.rows.data);
         resolve(this.rows.data);
       }, reject);
     });
@@ -78,7 +78,7 @@ export class SubscriptionsListService implements Resolve<any> {
         'mobile': form['mobilenumber'],
         'countryCode': '+91',
         'role': role,
-        'plan': "Free",
+        'plan': "Basic",
         'status': 'active',
         'location': form['location'],
         'organisation': form['organisation']

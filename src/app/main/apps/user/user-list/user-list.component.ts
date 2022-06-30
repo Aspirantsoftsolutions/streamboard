@@ -38,19 +38,15 @@ export class UserListComponent implements OnInit {
 
   public selectRole: any = [
     { name: 'All', value: '' },
-    { name: 'School', value: 'School' },
     { name: 'Teacher', value: 'Teacher' },
     { name: 'Student', value: 'Student' },
-    { name: 'Class', value: 'Class' }
   ];
 
   public selectPlan: any = [
     { name: 'All', value: '' },
-    { name: 'Free', value: 'Free' },
-    { name: 'Bronze', value: 'Bronze' },
-    { name: 'Silver', value: 'Silver' },
-    { name: 'Gold', value: 'Gold' },
-    { name: 'Platinum', value: 'Platinum' }
+    { name: 'Basic', value: 'Basic' },
+    { name: 'Premium', value: 'Premium' },
+    { name: 'Enterprise', value: 'Enterprise' },
   ];
 
   public selectStatus: any = [

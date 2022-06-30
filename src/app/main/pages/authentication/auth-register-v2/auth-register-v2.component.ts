@@ -87,7 +87,7 @@ export class AuthRegisterV2Component implements OnInit {
     // if (this.registerForm.invalid) {
     //   return;
     // }
-    this._authenticationService.register(this.registerForm.value,this.role).then((resposne) => {
+    this._authenticationService.register(this.registerForm.value,'Individual').then((resposne) => {
       console.log('res set:', resposne);
       this._router.navigate(['/pages/authentication/login-v2']);
 

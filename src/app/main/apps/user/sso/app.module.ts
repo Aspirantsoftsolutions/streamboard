@@ -1,5 +1,4 @@
 import { CoreCommonModule } from '@core/common.module';
-import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 
@@ -11,9 +10,6 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
-import { ProfileComponent } from './profile/profile.component';
-import { TenantComponent } from './tenant/tenant.component';
 
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { IPublicClientApplication, PublicClientApplication, InteractionType } from '@azure/msal-browser';
@@ -21,6 +17,8 @@ import { MsalGuard, MsalInterceptor, MsalBroadcastService, MsalInterceptorConfig
 
 import { msalConfig, loginRequest, protectedResources } from './auth-config';
 import { GraphService } from './graph.service';
+import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
 
 /**
  * Here we pass the configuration parameters to create an MSAL instance.
@@ -61,12 +59,10 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HomeComponent,
-    ProfileComponent,
-    TenantComponent
+    AppComponent
   ],
   imports: [
+    CommonModule,
     CoreCommonModule,
     BrowserAnimationsModule,
     AppRoutingModule,

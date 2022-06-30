@@ -15,7 +15,7 @@ export class NewUserSidebarComponent implements OnInit {
   public email;
   public mobilenumber;
   public role = "Organisation";
-  public plan = "Free";
+  public plan = "Basic";
   public isToUpdate = false;
   public userId;
   /**

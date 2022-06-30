@@ -22,7 +22,7 @@ export class AuthSchoolRegisterV2Component implements OnInit {
   public passwordTextType: boolean;
   public sregisterForm: FormGroup;
   public submitted = false;
-  public role = 'teacher';
+  public role = 'Teacher';
   // Private
   private _unsubscribeAll: Subject<any>;
   public selectedStatus = [];

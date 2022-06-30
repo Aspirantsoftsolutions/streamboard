@@ -78,7 +78,7 @@ export class PaymentsListService implements Resolve<any> {
         'mobile': form['mobilenumber'],
         'countryCode': '+91',
         'role': role,
-        'plan': "Free",
+        'plan': "Basic",
         'status': 'active',
         'location': form['location'],
         'organisation': form['organisation']

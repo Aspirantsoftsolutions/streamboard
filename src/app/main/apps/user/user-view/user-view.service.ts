@@ -65,7 +65,7 @@ export class UserViewService implements Resolve<any> {
         'mobile': '123456789',
         'countryCode': '+91',
         'role': "Individual",
-        'plan': "Free",
+        'plan': "Basic",
         'status': 'active',
       }).subscribe((response: any) => {
         console.log(response);

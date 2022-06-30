@@ -62,7 +62,7 @@ export class GroupsListService implements Resolve<any> {
         'mobile': '123456789',
         'countryCode': '+91',
         'role': "Group",
-        'plan': "Free",
+        'plan': "Basic",
         'status': 'active',
       }).subscribe((response: any) => {
         console.log(response);

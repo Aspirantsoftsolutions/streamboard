@@ -1,3 +1,4 @@
+import { CommonService } from 'app/main/apps/user/common.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
@@ -15,7 +16,7 @@ export class UserListService implements Resolve<any> {
    *
    * @param {HttpClient} _httpClient
    */
-  constructor(private _httpClient: HttpClient) {
+  constructor(private _httpClient: HttpClient, private _commonService: CommonService) {
     // Set the defaults
     this.onUserListChanged = new BehaviorSubject({});
   }
@@ -39,27 +40,31 @@ export class UserListService implements Resolve<any> {
    * Get rows
    */
   getDataTableRows(): Promise<any[]> {
+    let currentUser = this._commonService.getCurrentUser();
     return new Promise((resolve, reject) => {
       this._httpClient.get(`${environment.apiUrl}/api/user/all`).subscribe((response: any) => {
         this.rows = response;
         let data = [];
         this.rows.data.forEach(element => {
-          if (element.type != 'Grade') {
-            data.push(element);
+          if (element != null && currentUser != null) {
+            if ((element.role != 'Grade') && (element.role != 'Group') && (element.role != 'Admin') && (element.email != currentUser.email) && (element.role != 'Individual')) {
+              data.push(element);
             }
-
+          }
         });
-        data.splice(0, 1);
-        this.rows.data.forEach(element => {
-          
-          element.teacher.forEach(teachers => {
-            data.push(teachers);
+        console.log(data);
+        if (currentUser != null) {
+          this.rows.data.forEach(element => {
+            element.teacher.forEach(teachers => {
+              data.push(teachers);
+            });
+            element.student.forEach(students => {
+              data.push(students);
+            });
           });
-          element.student.forEach(students => {
-            data.push(students);
-          });
-        });
-        
+        }
+       
+        console.log(this.rows);
         console.log(data);
         this.onUserListChanged.next(data);
         resolve(data);
@@ -71,8 +76,15 @@ export class UserListService implements Resolve<any> {
   * Get rows
   */
   setUser(form): Promise<any[]> {
+    let currentUser = this._commonService.getCurrentUser();
+    let url = `${environment.apiUrl}/api/auth/register`;
+    if (form['role'] == 'Student') {
+      url = `${environment.apiUrl}/api/auth/registerStudent`
+    } else if (form['role'] == 'Teacher') {
+      url = `${environment.apiUrl}/api/auth/registerTeacher`
+    }
     return new Promise((resolve, reject) => {
-      this._httpClient.post(`${environment.apiUrl}/api/auth/register`, {
+      this._httpClient.post(url, {
         'username': form['user-name'],
         'email': form['user-email'],
         'password': 'Test@123',
@@ -80,7 +92,8 @@ export class UserListService implements Resolve<any> {
         'countryCode': '+91',
         'role': form['role'],
         'plan': form['plan'],
-        'status': 'active'
+        'status': 'active',
+        'schoolId': currentUser.userId
       }).subscribe((response: any) => {
         console.log(response);
         resolve(response);
@@ -98,8 +111,8 @@ export class UserListService implements Resolve<any> {
         'mobile': form['mobilenumber'],
         'countryCode': '+91',
         'role': role,
-        'plan': "Free",
-        'status': 'active',
+        'plan': "Basic",
+        'status': 'pending',
         'location': form['location'],
         'organisation': form['username']
       }).subscribe((response: any) => {
@@ -121,7 +134,7 @@ export class UserListService implements Resolve<any> {
         'mobile': form['mobilenumber'],
         'countryCode': '+91',
         'role': role,
-        'plan': "Free",
+        'plan': "Basic",
         'status': 'active',
         'address': form['location'],
         'itemail': form['itemail'],

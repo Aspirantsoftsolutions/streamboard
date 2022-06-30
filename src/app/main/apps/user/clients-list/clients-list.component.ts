@@ -47,10 +47,9 @@ export class ClientsListComponent implements OnInit {
 
   public selectPlan: any = [
     { name: 'All', value: '' },
-    { name: 'Free', value: 'Free' },
-    { name: 'Bronze', value: 'Bronze' },
-    { name: 'Silver', value: 'Silver' },
-    { name: 'Gold', value: 'Gold' },
+    { name: 'Basic', value: 'Basic' },
+    { name: 'Premium', value: 'Premium' },
+    { name: 'Enerprise', value: 'Enerprise' },
   ];
 
   public selectStatus: any = [
@@ -146,10 +145,10 @@ export class ClientsListComponent implements OnInit {
    * @param name
    */
   toggleSidebar(name): void {
-    this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
     setTimeout(() => {
       this._commonService.onUserEditListChanged.next(null);
     }, 200);
+    this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
   }
 
   statusChange(id,status): void {
@@ -160,6 +159,12 @@ export class ClientsListComponent implements OnInit {
 
   deleteUser(id) {
     this._commonService.deleteUser(id).then((response) => {
+      this._commonService.getDataTableRows();
+    });
+  }
+
+  changeSubscriptionType(plan, id) {
+    this._commonService.updateSchoolSubscription(plan, id).then((response) => {
       this._commonService.getDataTableRows();
     });
   }

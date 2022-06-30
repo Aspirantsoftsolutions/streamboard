@@ -42,6 +42,7 @@ export class AppComponent implements OnInit, OnDestroy {
   isMagicDraw = false;
   isHandWriting = false;
   isPhet = false;
+  currentUser;
 
   constructor(
     @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration,
@@ -53,7 +54,9 @@ export class AppComponent implements OnInit, OnDestroy {
     private msalBroadcastService: MsalBroadcastService,
     private _authenticationService: AuthenticationService,
     private _commonService: CommonService
-  ) {}
+  ) {
+    this.currentUser = this._commonService.getCurrentUser();
+  }
 
   ngOnInit(): void {
     this.isIframe = window !== window.parent && !window.opener;

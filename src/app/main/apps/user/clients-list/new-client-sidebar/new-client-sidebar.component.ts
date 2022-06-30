@@ -44,7 +44,7 @@ export class NewClientSidebarComponent implements OnInit {
       } else {
         this.isToUpdate = false;
       }
-      if (response!=null && response.data.length==0) {
+      if (response != null && response.data!=null && response.data.length==0) {
         this.isToUpdate = false;
       } 
       

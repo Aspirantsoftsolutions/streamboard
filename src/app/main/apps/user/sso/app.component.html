@@ -9,7 +9,10 @@
   <div class="content-wrapper container-xxl p-0">
     <div class="content-body">
       <div class="card">
-          <div class="card-body">
+        <div class="card-body" *ngIf="currentUser.plan=='Basic'">
+         <h2 > Please contact Administrator</h2>
+           </div>
+          <div class="card-body" *ngIf="currentUser.plan!='Basic'">
                <h2>Social SSO </h2>
                <p>
                    You must be a Global Administrator in your Azure AD & Google Account.<br>

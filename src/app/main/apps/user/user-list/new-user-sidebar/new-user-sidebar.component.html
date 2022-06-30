@@ -86,7 +86,6 @@
           <div class="form-group" >
             <label class="form-label" for="user-role">User Role</label>
             <select id="user-role" class="form-control" id="role" name='role' [(ngModel)]="role">
-              <option value="School">School</option>
               <option value="Teacher">Teacher</option>
               <option value="Student">Student</option>
               <option value="Class">Class</option>
@@ -95,11 +94,9 @@
           <div class="form-group mb-2">
             <label class="form-label" for="user-plan">Select Plan</label>
             <select id="user-plan" class="form-control" name='plan' [(ngModel)]="plan">
-              <option value="Free">Free</option>
-              <option value="Bronze">Bronze</option>
-              <option value="Silver">Silver</option>
-              <option value="Gold">Gold</option>
-              <option value="Platinum">Platinum</option>
+              <option value="Basic">Basic</option>
+              <option value="Bronze">Premium</option>
+              <option value="Silver">Enterprise</option>
             </select>
           </div>
           <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" *ngIf="!isToUpdate"

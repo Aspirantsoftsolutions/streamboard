@@ -61,7 +61,7 @@ export class SchoolsListService implements Resolve<any> {
         'mobile': form['user-number'],
         'countryCode': '+91',
         'role': "School",
-        'plan': "Free",
+        'plan': "Basic",
         'status': 'active',
         'location': form['location'],
         'organisation': form['user-fullname'],
