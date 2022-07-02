@@ -61,15 +61,9 @@ export class StudentsListService implements Resolve<any> {
   setStudent(form, schoolId): Promise<any[]> {
     let currentUser = this._commonService.getCurrentUser();
     console.log(currentUser);
-    // let obj;
-    // if (currentUser.role == 'Teacher') {
-    //   obj = { 'teacherId': currentUser.userId, 'schoolId': currentUser.school.userId };
-    // } else {
-    //   obj = { 'schoolId': currentUser.userId };
-    // }
-
-    return new Promise((resolve, reject) => {
-      this._httpClient.post(`${environment.apiUrl}/api/auth/registerStudent`, {
+    let obj;
+    if (currentUser.role == 'Teacher') {
+      obj = {
         'username': form['user-firstName'] + form['user-lastName'],
         'firstName': form['user-firstName'],
         'lastName': form['user-lastName'],
@@ -79,8 +73,26 @@ export class StudentsListService implements Resolve<any> {
         'countryCode': '+91',
         'classId': form['class'],
         'grade': form['grade'],
-        'schoolId': schoolId
-      }).subscribe((response: any) => {
+        'teacherId': currentUser.userId,
+        'schoolId': currentUser.school[0].userId 
+      };
+    } else {
+      obj = {
+        'username': form['user-firstName'] + form['user-lastName'],
+        'firstName': form['user-firstName'],
+        'lastName': form['user-lastName'],
+        'email': form['user-email'],
+        'password': 'Test@123',
+        'mobile': form['user-number'],
+        'countryCode': '+91',
+        'classId': form['class'],
+        'grade': form['grade'],
+        'schoolId': currentUser.userId
+      };
+    }
+
+    return new Promise((resolve, reject) => {
+      this._httpClient.post(`${environment.apiUrl}/api/auth/registerStudent`, obj).subscribe((response: any) => {
         console.log(response);
         resolve(response);
       }, reject);
