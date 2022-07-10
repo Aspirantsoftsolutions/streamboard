@@ -110,6 +110,13 @@
             </select>
           </div>
 
+          <div class="form-group mb-2">
+            <label class="form-label" for="class">Select Teachers</label>
+            <select id="teacher" class="form-control" name='teacher' [(ngModel)]="teacher">
+              <option value="{{itemp.userId}}" *ngFor="let itemp of teachers">{{itemp.username}}</option>
+            </select>
+          </div>
+
           <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" *ngIf="!isToUpdate"
             rippleEffect>Submit</button>
           <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" *ngIf="isToUpdate"

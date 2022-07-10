@@ -39,6 +39,11 @@ export class NewTeachersSidebarComponent implements OnInit {
         this.mobileNumber = response.mobile;
       } else {
         this.isToUpdate = false;
+        this.userId = '';
+        this.email = '';
+        this.firstName = '';
+        this.lastName = '';
+        this.mobileNumber = '';
       }
     });
 

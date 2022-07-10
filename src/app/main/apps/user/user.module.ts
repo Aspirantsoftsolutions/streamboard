@@ -1,3 +1,4 @@
+import { LinkClassSidebarComponent } from './teachers/link-class-sidebar/link-class-sidebar.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { NewClientSidebarComponent } from './clients-list/new-client-sidebar/new-client-sidebar.component';
 import { ClientsListComponent } from './clients-list/clients-list.component';
@@ -80,6 +81,7 @@ import { IndSessionsListComponent } from './individual-sessions/ind-sessions-lis
 import { IndSessionsListService } from './individual-sessions/ind-sessions-list.service';
 import { environment } from 'environments/environment';
 import { CommonService } from './common.service';
+import { LinkTeacherSidebarComponent } from './students/link-teacher-sidebar/link-teacher-sidebar.component';
 
 /**
  * Here we pass the configuration parameters to create an MSAL instance.
@@ -318,6 +320,8 @@ const routes: Routes = [
     ClientsListComponent,
     NewClientSidebarComponent,
     NotificationsComponent,
+    LinkTeacherSidebarComponent,
+    LinkClassSidebarComponent
   ],
   imports: [
     ToastrModule,

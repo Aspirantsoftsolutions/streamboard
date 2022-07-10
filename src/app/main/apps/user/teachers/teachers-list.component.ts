@@ -112,10 +112,27 @@ export class TeachersListComponent implements OnInit {
    * @param name
    */
   toggleSidebar(name): void {
-    this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
-    setTimeout(() => {
-      this._commonService.onUserEditListChanged.next(null);
-    }, 200);
+    if (name == 'link-class-sidebar') {
+      let isChecked = false;
+      this.rows.forEach(element => {
+        if (element.checked) {
+          isChecked = true;
+        }
+      });
+      if (isChecked) {
+        CommonService.teacherGetList = this.rows;
+
+        this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
+
+      }
+
+    } else {
+      this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
+
+      setTimeout(() => {
+        this._commonService.onUserEditListChanged.next(null);
+      }, 200);
+    }
   }
 
   deleteUser(id) {

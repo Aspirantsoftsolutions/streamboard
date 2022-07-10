@@ -1,3 +1,4 @@
+import { TeachersListService } from './../../teachers/teachers-list.service';
 import { GradesListService } from './../../grades/grades-list.service';
 import { ClassesListService } from './../../classes/classes-list.service';
 import { StudentsListService } from './../students-list.service';
@@ -23,7 +24,8 @@ export class NewStudentsSidebarComponent implements OnInit {
   public grade;
   public isToUpdate = false;
   public userId;
-
+  public teachers;
+  teacher;
   /**
    * Constructor
    *
@@ -33,6 +35,7 @@ export class NewStudentsSidebarComponent implements OnInit {
     private toastr: ToastrService,
     private _classListService: ClassesListService,
     private _gradeListService: GradesListService,
+    private _teacherService: TeachersListService,
     private _studentListService: StudentsListService,
     private _commonService: CommonService,) {
     
@@ -129,6 +132,13 @@ export class NewStudentsSidebarComponent implements OnInit {
       console.log('res set Grades:', resposne);
       this.grades = resposne;
       console.log('grades:', this.grades);
+    }, (error) => {
+      console.log('res set error:', error);
+    });
+    this._teacherService.getAllTeachers().then((resposne) => {
+      console.log('res set classRows:', resposne);
+      this.teachers = resposne;
+      console.log('classRows:', this.teachers);
     }, (error) => {
       console.log('res set error:', error);
     });

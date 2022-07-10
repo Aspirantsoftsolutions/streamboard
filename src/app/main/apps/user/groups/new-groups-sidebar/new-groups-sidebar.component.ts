@@ -90,7 +90,6 @@ export class NewGroupsSidebarComponent implements OnInit {
             });
           }
 
-
           this.toastr.success('👋 User Created Successfully.', 'Success!', {
             toastClass: 'toast ngx-toastr',
             closeButton: true

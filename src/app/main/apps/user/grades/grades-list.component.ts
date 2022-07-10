@@ -63,7 +63,7 @@ export class GradesListComponent implements OnInit {
   // Private
   private tempData = [];
   private _unsubscribeAll: Subject<any>;
-
+  currentUser;
   /**
    * Constructor
    *
@@ -78,6 +78,8 @@ export class GradesListComponent implements OnInit {
     private _coreConfigService: CoreConfigService
   ) {
     this._unsubscribeAll = new Subject();
+    this.currentUser = this._commonService.getCurrentUser();
+
   }
 
   // Public Methods

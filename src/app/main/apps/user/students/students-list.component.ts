@@ -57,6 +57,7 @@ export class StudentsListComponent implements OnInit {
   public selectedPlan = [];
   public selectedStatus = [];
   public searchValue = '';
+  public currentUser;
 
   // Decorator
   @ViewChild(DatatableComponent) table: DatatableComponent;
@@ -80,6 +81,7 @@ export class StudentsListComponent implements OnInit {
     private _classListService: ClassesListService
   ) {
     this._unsubscribeAll = new Subject();
+    this.currentUser = this._commonService.getCurrentUser();
   }
 
   // Public Methods
@@ -115,16 +117,28 @@ export class StudentsListComponent implements OnInit {
    * @param name
    */
   toggleSidebar(name): void {
-    // let ro = this.rows
-    //   .filter(opt => opt.checked);
-    // console.log('checked list:', ro);
-    // // this._classListService.classRows = ro;
-    this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
-    setTimeout(() => {
-      this._commonService.onUserEditListChanged.next(null);
-    }, 200);
-  }
+    if (name == 'link-teacher-sidebar') {
+      let isChecked = false;
+      this.rows.forEach(element => {
+        if (element.checked) {
+          isChecked = true; 
+        }
+      });
+      if (isChecked) {
+        CommonService.teacherGetList = this.rows;
 
+        this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
+
+      }
+      
+    } else {
+      this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
+
+      setTimeout(() => {
+        this._commonService.onUserEditListChanged.next(null);
+      }, 200);
+    }
+  }
 
   deleteUser(id) {
     this._commonService.deleteStudent(id).then((response) => {

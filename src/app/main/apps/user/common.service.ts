@@ -10,6 +10,7 @@ export class CommonService implements Resolve<any> {
   public rows: any;
   public onUserListChanged: BehaviorSubject<any>;
   public onUserEditListChanged: BehaviorSubject<any>;
+  public static teacherGetList;
   public onTeacherEditListChanged = null;
 
   /**
@@ -283,6 +284,38 @@ export class CommonService implements Resolve<any> {
         'lastName': form['user-lastName'],
         'mobile': form['user-number'],
         'userId': userid
+      }, {
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+      }).subscribe((response: any) => {
+        console.log(response);
+        resolve(response);
+      }, reject);
+    });
+  }
+
+  linkTeachers(userIds, teacherId): Promise<any[]> {
+    return new Promise((resolve, reject) => {
+      this._httpClient.put(`${environment.apiUrl}/api/user/linkTeachers`, {
+        'teacherId': teacherId,
+        'userId': userIds
+      }, {
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+      }).subscribe((response: any) => {
+        console.log(response);
+        resolve(response);
+      }, reject);
+    });
+  }
+
+  linkClass(userIds, teacherId): Promise<any[]> {
+    return new Promise((resolve, reject) => {
+      this._httpClient.put(`${environment.apiUrl}/api/user/linkClasses`, {
+        'userId': teacherId,
+        'teacherId': userIds
       }, {
         headers: {
           'Authorization': 'Bearer ' + localStorage.getItem('token')

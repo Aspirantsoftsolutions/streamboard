@@ -1,0 +1,43 @@
+<div class="slideout-content">
+  <!-- Modal to add new user starts-->
+  <div class="modalsd modal-slide-in sdfade new-user-modal" id="modals-slide-in">
+    <div class="modal-dialog">
+      <form class="add-new-user modal-content pt-0" (ngSubmit)="(newUserFormt.form.valid)" #newUserFormt="ngForm">
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="toggleSidebar('link-teacher-sidebar')"
+        >
+          ×
+        </button>
+        <div class="modal-header mb-1">
+          <h5 class="modal-title" id="exampleModalLabel">Map Teachers</h5>
+        </div>
+        <div class="modal-body flex-grow-1">
+         
+           <div class="form-group">
+            <label class="form-label" for="class">Select Teachers</label>
+            <select id="teacher" class="form-control" name='teacher'  [(ngModel)]="teacher">
+              <option value="{{itemp.userId}}" *ngFor="let itemp of teachers">{{itemp.username}}</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserFormt)"
+            rippleEffect>Submit</button>
+          
+          <button
+            type="reset"
+            class="btn btn-outline-secondary"
+            (click)="toggleSidebar('link-teacher-sidebar')"
+            rippleEffect
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- Modal to add new user Ends-->
+</div>
