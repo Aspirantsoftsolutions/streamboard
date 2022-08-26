@@ -1,0 +1,153 @@
+.slideout-content
+{
+    .modal-slide-in .modal-dialog {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: auto;
+        margin: 0;
+        max-width: none;
+        width: 20rem;
+        margin: 0 auto;
+        width: 400px;
+        left: 0;
+        height: 650px;
+      
+    }
+    
+    .modal-slide-in .modal-dialog .modal-content{
+        padding-bottom:0 ;
+        border-radius: 20px;
+    }
+    .modal-header{
+        background-color: #fff;
+        padding: 30px 20px 0 20px;
+        p{margin:5px 0; font-weight: 600;}
+        h3{
+            font-weight: 600;
+        }
+
+       
+    }
+    .modal-slide-in .close {        
+        top: 40px;
+        font-size: 45px;
+    }
+
+
+
+    ;
+   
+  }
+  .pghead{
+    display: flex;
+    align-items: center;
+    margin: 0 0 20px 0;
+    h3{
+        margin: 0;
+        font-weight: 800;
+    }
+  }
+
+  .vdfooter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0;
+  }
+.container-new{
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%);
+    .row{
+        padding: 0 10px;
+        .col-sm-3{
+            padding: 6px;
+        }
+    }
+
+  
+  
+}
+
+.popupmain {
+    background: #fff;
+    width: 400px;
+    margin: 0 auto;
+    box-shadow: 0px 5px 15px 5px #ccc;
+    padding: 20px;
+    border-radius: 15px;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .btnsave {
+    background: #3a7aff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 15px 35px;
+  }
+  .draganddrap {
+    border: 2px dashed #cccc;
+    background: #fafafa;
+    align-items: center;
+    justify-items: center;
+    display: flex;
+    flex-direction: column;
+    padding:20px 0 20px 0;
+    margin-bottom:20px;
+    p{
+        margin: 5px 0;
+    }
+    .choose{
+        background: #e0ebfd;
+        border-radius: 100px;
+        padding: 3px 6px;
+    }
+  }
+  
+  .footerpopup{
+    text-align: right;
+  }
+  .btncancel{
+    background: none;
+    border: none;
+  }
+  .checkdrop{
+    display: flex;
+    margin-bottom: 15px;
+   
+    border-bottom: 1px solid #f1f1f1;
+    padding-bottom: 15px;
+    flex-direction: column;
+
+  }
+  .pad10{   
+ 
+    margin-bottom:10px;
+
+    .dateinput{
+        display: flex;
+        input{
+            margin-right: 10px;
+        }
+    }
+select{
+    background-color: #fafafa;
+    padding: 0 20px;
+    margin-right: 15px;
+}
+.datep{
+    margin-bottom: 4px;
+}
+  }
+  .greys{
+    font-weight: 300;
+    color: #ccc;
+}

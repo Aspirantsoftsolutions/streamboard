@@ -1,0 +1,82 @@
+<div class="slideout-content">
+    <!-- Modal to add new user starts-->
+    <div class="modalsd modal-slide-in sdfade new-user-modal" id="modals-slide-in">
+        <div class="modal-dialog">''
+            <form class="add-new-user modal-content pt-0" (ngSubmit)="(newUserForm.form.valid)" #newUserForm="ngForm">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                    (click)="toggleSidebar('app-multimedia-sidebar')">
+                    ×
+                </button>
+                <div class="modal-header mb-1">
+                    <!-- <h5 class="modal-title" id="exampleModalLabel">New Device</h5> -->
+
+                    <div>
+                        <h3>Broadcast multimedia</h3>
+
+                        <div class="greys">Broadcast multimedia to displays</div>
+
+                        <p>Max,video file size : 300MB</p>
+                        <p>Max,video file size : 30MB</p>
+                    </div>
+
+
+                </div>
+                <div class="modal-body flex-grow-1">
+
+                    <!-- <div class="header">
+                            <div class="headerleft">
+                               
+                            </div>
+                            <div class="headerleft">Close</div>
+                        </div> -->
+
+                    <div class="draganddrap">
+                        <img src="../../../../../../assets/images/icons/upload-new.svg" alt="">
+                        <p>Darg and drop a media file to upload</p>
+                        <p>or</p>
+                        <p><span> <input type="file" /> </span></p>
+                    </div>
+
+
+                    <p> <b>Schedule</b></p>
+                    <div class="checkdrop">
+                        <div class="pad10">
+                            <p class="datep">Select Date</p>
+                            <div class="dateinput">
+                                <input class="form-control" placeholder="yyyy-mm-dd" name="Basic Date Picker"
+                                    ngbDatepicker #basicDP="ngbDatepicker" />
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary feather icon-calendar"
+                                        (click)="basicDP.toggle()" type="button" rippleEffect></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pad10">
+                            <p class="datep">Select Time</p>
+                            <select class="form-control">
+                                <option>10:00</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="footerpopup">
+                        <button type="reset" class="btn btn-outline-secondary mr-1"
+                            (click)="toggleSidebar('app-multimedia-sidebar')" rippleEffect>
+                            Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary "
+                            (click)="toggleSidebar('app-multimedia-sidebar')">Ok</button>
+
+
+
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Modal to add new user Ends-->
+</div>

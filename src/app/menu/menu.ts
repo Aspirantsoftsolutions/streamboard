@@ -29,7 +29,7 @@ export const menu: CoreMenu[] = [
     translate: 'Main Menu',
     icon: 'package',
     children: [
-      
+
       {
         id: 'calendar',
         title: 'Calendar',
@@ -39,7 +39,7 @@ export const menu: CoreMenu[] = [
         icon: 'calendar',
         url: 'apps/calendar'
       },
-      
+
       // {
       //   id: 'sessions_list',
       //   title: 'Collaboration Class',
@@ -47,7 +47,7 @@ export const menu: CoreMenu[] = [
       //   icon: 'user',
       //   url: 'apps/user/sessions-list'
       // },
-    {
+      {
         id: 'quick_sessionsa',
         title: 'Quick Sessions',
         type: 'item',
@@ -59,7 +59,7 @@ export const menu: CoreMenu[] = [
         id: 'collab',
         title: 'Collaboration Class',
         type: 'collapsible',
-        role: ['School','Teacher','Student'],
+        role: ['School', 'Teacher', 'Student'],
         icon: 'file-text',
         children: [
           {
@@ -107,14 +107,14 @@ export const menu: CoreMenu[] = [
         translate: 'WhiteBoard',
         type: 'item',
         icon: 'home',
-        role: ['School','Admin'],
+        role: ['School', 'Admin'],
         url: 'apps/user/ind-sessions-list'
       },
       {
         id: 'sso',
         title: 'SSO',
         type: 'item',
-        role: ['School','Admin'], //  for school
+        role: ['School', 'Admin'], //  for school
         icon: 'user',
         url: 'apps/user/starterSSO'
       },
@@ -122,7 +122,7 @@ export const menu: CoreMenu[] = [
         id: 'integrations',
         title: 'Integrations',
         type: 'item',
-        role: ['Admin'], 
+        role: ['Admin'],
         icon: 'user',
         url: 'pages/miscellaneous/coming-soon'
       },
@@ -228,7 +228,7 @@ export const menu: CoreMenu[] = [
         icon: 'user',
         url: 'apps/user/grades-list'
       },
-     
+
       {
         id: 'notifications',
         title: 'Notifications',
@@ -238,8 +238,31 @@ export const menu: CoreMenu[] = [
         icon: 'home',
         url: 'apps/user/notifications'
       },
-      
-      
+      {
+        id: 'Devicemanagement',
+        title: 'Device management',
+        type: 'collapsible',
+        role: ['Admin', 'School'],
+        icon: 'airplay',
+        children: [
+          {
+            id: 'alldevices',
+            title: 'All Devices',
+            type: 'item',
+            icon: 'airplay',
+            url: 'apps/user/alldevices'
+          },
+          {
+            id: 'media',
+            title: 'Media',
+            type: 'item',
+            icon: 'upload',
+            url: 'apps/user/media'
+          }
+
+        ]
+      },
+
     ]
   },
 ];

@@ -1,0 +1,62 @@
+<div class="slideout-content">
+    <!-- Modal to add new user starts-->
+    <div class="modalsd modal-slide-in sdfade new-user-modal" id="modals-slide-in">
+        <div class="modal-dialog">''
+            <form class="add-new-user modal-content pt-0" (ngSubmit)="(newUserForm.form.valid)" #newUserForm="ngForm">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                    (click)="toggleSidebar('app-uploadmedia-sidebar')">
+                    ×
+                </button>
+                <div class="modal-header mb-1">
+                    <!-- <h5 class="modal-title" id="exampleModalLabel">New Device</h5> -->
+
+                    <div>
+                        <h3>Upload media</h3>
+                        <p>Max,video file size : 300MB</p>
+                        <p>Max,video file size : 30MB</p>
+                    </div>
+
+
+                </div>
+                <div class="modal-body flex-grow-1">
+
+                    <!-- <div class="header">
+                            <div class="headerleft">
+                               
+                            </div>
+                            <div class="headerleft">Close</div>
+                        </div> -->
+
+                    <div class="draganddrap">
+                        <img src="../../../../../../assets/images/icons/upload-new.svg" alt="">
+                        <p>Darg and drop a media file to upload</p>
+                        <p>or</p>
+                        <p> <input type="file" /> </p>
+                    </div>
+
+
+
+
+
+
+
+
+                    <div class="footerpopup">
+                        <button type="reset" class="btn btn-outline-secondary mr-1"
+                            (click)="toggleSidebar('app-uploadmedia-sidebar')" rippleEffect>
+                            Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)"
+                            *ngIf="isToUpdate" rippleEffect>Update</button>
+
+                        <button type="submit" class="btn btn-primary " (click)="submit(newUserForm)" *ngIf="!isToUpdate"
+                            rippleEffect>Add</button>
+
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Modal to add new user Ends-->
+</div>

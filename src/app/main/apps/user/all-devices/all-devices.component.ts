@@ -1,0 +1,393 @@
+import { CommonService } from './../common.service';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ColumnMode, DatatableComponent, SelectionType } from '@swimlane/ngx-datatable';
+
+import { Subject, async } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
+import { CoreConfigService } from '@core/services/config.service';
+import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MsalService } from '@azure/msal-angular';
+import { UserViewService } from '../user-view/user-view.service';
+import { GraphService, ProviderOptions } from '../sso/graph.service';
+import { InteractionType } from '@azure/msal-browser';
+import { protectedResources } from '../sso/auth-config';
+import { ToastrService } from 'ngx-toastr';
+
+@Component({
+  selector: 'app-all-devices',
+  templateUrl: './all-devices.component.html',
+  styleUrls: ['./all-devices.component.scss'],
+  encapsulation: ViewEncapsulation.None
+})
+export class AllDevicesComponent implements OnInit {
+
+  public sidebarToggleRef = false;
+  public modalRef;
+  public rows;
+  public selectedOption = 10;
+  public ColumnMode = ColumnMode;
+  public temp = [];
+  public previousRoleFilter = '';
+  public previousPlanFilter = '';
+  public previousStatusFilter = '';
+  public emailInvite = '';
+  public selectRole: any = [
+    { name: 'All', value: '' },
+    { name: 'School', value: 'School' },
+    { name: 'Teacher', value: 'Teacher' },
+    { name: 'Student', value: 'Student' },
+    { name: 'Class', value: 'Class' }
+  ];
+
+  public selectPlan: any = [
+    { name: 'All', value: '' },
+    { name: 'Basic', value: 'Basic' },
+    { name: 'Premium', value: 'Premium' },
+    { name: 'Enerprise', value: 'Enerprise' },
+  ];
+
+  public selectStatus: any = [
+    { name: 'All', value: '' },
+    // { name: 'Pending', value: 'Pending' },
+    { name: 'Active', value: 'Active' },
+    { name: 'Inactive', value: 'Inactive' }
+  ];
+
+  public selectedRole = [];
+  public selectedPlan = [];
+  public selectedStatus = [];
+  public searchValue = '';
+  public isDeviceSelected = false;
+
+  // Decorator
+  @ViewChild(DatatableComponent) table: DatatableComponent;
+
+  // Private
+  private tempData = [];
+  private _unsubscribeAll: Subject<any>;
+  public chkBoxSelected = [];
+  public SelectionType = SelectionType;
+
+  /**
+   * Constructor
+   *
+   * @param {CoreConfigService} _coreConfigService
+   * @param {UserListService} _userListService
+   * @param {CoreSidebarService} _coreSidebarService
+   */
+  constructor(
+    private _commonService: CommonService,
+    private modalService: NgbModal,
+    private _coreSidebarService: CoreSidebarService,
+    private _coreConfigService: CoreConfigService,
+    private authService: MsalService,
+    private userService: UserViewService,
+    private graphService: GraphService,
+    private _toastrService: ToastrService,
+
+  ) {
+    this._unsubscribeAll = new Subject();
+  }
+
+  // Public Methods
+  // -----------------------------------------------------------------------------------------------------
+
+  /**
+   * filterUpdate
+   *
+   * @param event
+   */
+  filterUpdate(event) {
+    // Reset ng-select on search
+    // this.selectedRole = this.selectRole[0];
+    // this.selectedPlan = this.selectPlan[0];
+    // this.selectedStatus = this.selectStatus[0];
+
+    const val = event.target.value.toLowerCase();
+
+    // Filter Our Data
+    const temp = this.tempData.filter(function (d) {
+      return d.device.toLowerCase().indexOf(val) !== -1 || !val;
+    });
+
+    // Update The Rows
+    this.rows = temp;
+    // Whenever The Filter Changes, Always Go Back To The First Page
+    this.table.offset = 0;
+  }
+
+  openInvite(modalForm) {
+    this.modalRef = this.modalService.open(modalForm);
+  }
+
+  sendInvite(modal, modalForm) {
+    console.log(this.modalRef);
+    let value = this.modalRef._contentRef;
+    console.log(this.emailInvite);
+    this._commonService.sendInvitationEmail(this.emailInvite);
+    modal.close('Accept click');
+    // // Display welcome toast!
+    setTimeout(() => {
+      this._toastrService.success(
+        'Successfully invited  🎉',
+        '👋 !',
+        { toastClass: 'toast ngx-toastr', closeButton: true }
+      );
+    }, 1000);
+  }
+
+  /**
+   * Toggle the sidebar
+   *
+   * @param name
+   */
+  toggleSidebar(name): void {
+    setTimeout(() => {
+      this._commonService.onUserEditListChanged.next(null);
+    }, 200);
+    this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
+  }
+
+  statusChange(id, status): void {
+    this._commonService.updateUserStatus(!status, id).then((response) => {
+      this._commonService.getDataTableRows();
+    });
+  }
+
+  deleteUser(id) {
+    this._commonService.deleteUser(id).then((response) => {
+      this._commonService.getDataTableRows();
+    });
+  }
+
+  changeSubscriptionType(plan, id) {
+    this._commonService.updateSchoolSubscription(plan, id).then((response) => {
+      this._commonService.getDataTableRows();
+    });
+  }
+
+  toggleSidebarEdit(name, id): void {
+    setTimeout(() => {
+      this._commonService.onUserEditListChanged.next(null);
+    }, 200);
+    this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
+    // console.log('id:', id);
+    // this._commonService.getDataTableRows().then((response: any) => {
+    //   response.map(row => {
+    //     if (row.userId == id) {
+    //       console.log('current row', row);
+    //       setTimeout(() => {
+    //         this._commonService.onUserEditListChanged.next(row);
+    //       }, 200);
+    //       this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
+    //     }
+    //   });
+    // }, (error) => {
+    //   console.log('res set error:', error);
+    // });
+  }
+
+  /**
+   * Filter By Roles
+   *
+   * @param event
+   */
+  filterByRole(event) {
+    const filter = event ? event.value : '';
+    this.previousRoleFilter = filter;
+    this.temp = this.filterRows(filter, this.previousPlanFilter, this.previousStatusFilter);
+    this.rows = this.temp;
+  }
+
+  /**
+   * Filter By Plan
+   *
+   * @param event
+   */
+  filterByPlan(event) {
+    const filter = event ? event.value : '';
+    this.previousPlanFilter = filter;
+    this.temp = this.filterRows(this.previousRoleFilter, filter, this.previousStatusFilter);
+    this.rows = this.temp;
+  }
+
+  /**
+   * Filter By Status
+   *
+   * @param event
+   */
+  filterByStatus(event) {
+    debugger
+    const filter = event ? event.value : '';
+    this.previousStatusFilter = filter;
+    this.temp = this.filterRows(this.previousRoleFilter, this.previousPlanFilter, filter);
+    this.rows = this.temp;
+  }
+
+  /**
+   * Filter Rows
+   *
+   * @param roleFilter
+   * @param planFilter
+   * @param statusFilter
+   */
+  filterRows(roleFilter, planFilter, statusFilter): any[] {
+    // Reset search on select change
+    this.searchValue = '';
+
+    roleFilter = roleFilter.toLowerCase();
+    planFilter = planFilter.toLowerCase();
+    statusFilter = statusFilter.toLowerCase();
+
+    return this.tempData.filter(row => {
+      // const isPartialNameMatch = row.role.toLowerCase().indexOf(roleFilter) !== -1 || !roleFilter;
+      // const isPartialGenderMatch = row.plan.toLowerCase().indexOf(planFilter) !== -1 || !planFilter;
+      const isPartialStatusMatch = row.status.toLowerCase().indexOf(statusFilter) !== -1 || !statusFilter;
+      // return isPartialNameMatch && isPartialGenderMatch && isPartialStatusMatch;
+      return isPartialStatusMatch;
+    });
+  }
+
+  // Lifecycle Hooks
+  // -----------------------------------------------------------------------------------------------------
+  /**
+   * On init
+   */
+  ngOnInit(): void {
+    this.rows = [
+      {
+        device: "IFP8650-2 BoardRoom",
+        serialno: "12134",
+        ipaddress: "69.89.31.226",
+        status: "active",
+        lastconnected: "2022/08/12 20:17:30"
+      },
+      {
+        device: "IFP8650ClassRoom",
+        serialno: "12134",
+        ipaddress: "69.89.31.226",
+        status: "active",
+        lastconnected: "2022/08/12 20:17:30"
+      },
+      {
+        device: "ViewSonicOffice",
+        serialno: "12134",
+        ipaddress: "69.89.31.226",
+        status: "active",
+        lastconnected: "2022/08/12 20:17:30"
+      }
+    ];
+    this.tempData = this.rows;
+    // Subscribe config change
+    // this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
+    //   //! If we have zoomIn route Transition then load datatable after 450ms(Transition will finish in 400ms)
+    //   if (config.layout.animation === 'zoomIn') {
+    //     setTimeout(() => {
+    //       this._commonService.onUserListChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
+    //         this.rows = response;
+    //         this.tempData = this.rows;
+    //       });
+    //     }, 450);
+    //   } else {
+    //     this._commonService.onUserListChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
+    //       this.rows = response;
+    //       this.tempData = this.rows;
+    //     });
+    //   }
+    // });
+
+    this.getUser();
+
+
+  }
+
+  doSync() {
+    // this._router.navigate(['/apps/user/profile']);
+    const providerOptions: ProviderOptions = {
+      account: this.authService.instance.getActiveAccount()!,
+      scopes: protectedResources.graphMe.scopes,
+      interactionType: InteractionType.Popup
+    };
+    this.getProfile(providerOptions);
+
+  }
+  setLoginDisplay() {
+    return this.authService.instance.getAllAccounts().length > 0;
+  }
+  getProfile(providerOptions: ProviderOptions) {
+    this.graphService.getGraphClient(providerOptions, this.authService)
+      .api('/users').get()
+      .then((profileResponse: any) => {
+        console.log('data', profileResponse);
+        profileResponse.value.forEach(element => {
+          if (!element.userPrincipalName.includes('admin')) {
+            const email = element.mail;
+            const username = element.displayName;
+            const firstName = element.displayName;
+            const lastName = element.displayName;
+            this.userService.setUser(email, username).then((resposne: any) => {
+              console.log('res set:', resposne);
+            }, (error) => {
+              console.log('res set error:', error);
+            }
+            );
+          }
+        });
+
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  customChkboxOnSelect({ selected }) {
+
+    if (selected.length > 0)
+      this.isDeviceSelected = true;
+    else
+      this.isDeviceSelected = false;
+    this.chkBoxSelected.splice(0, this.chkBoxSelected.length);
+    this.chkBoxSelected.push(...selected);
+  }
+
+  async getUser() {
+    // const client = new JWT({
+    //   email: privatekey.client_email,
+    //   key: privatekey.private_key,
+    //   scopes: ['https://www.googleapis.com/auth/cloud-platform'],
+    // });
+    // let url = "https://admin.googleapis.com/admin/directory/v1/users";
+    // const res = await client.request({ url });
+    // console.log(res.data);
+
+    // try {
+    //   const admin = await google.admin({
+    //     version: "directory_v1",
+    //     auth: client,
+    //   });
+    //   //get all users
+    //   const users = await admin.users.get({
+    //     userKey: email,
+    //   });
+    //   console.log(users, "users");
+    // } catch (error) {
+    //   console.log(
+    //     error.response ? error.response.data : error.message,
+    //     "error",
+    //     error.message ? error.errors : ""
+    //   );
+    // }
+  }
+
+  /**
+   * On destroy
+   */
+  ngOnDestroy(): void {
+    // Unsubscribe from all subscriptions
+    this._unsubscribeAll.next();
+    this._unsubscribeAll.complete();
+  }
+
+}

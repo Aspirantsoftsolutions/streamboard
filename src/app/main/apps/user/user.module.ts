@@ -82,7 +82,12 @@ import { IndSessionsListService } from './individual-sessions/ind-sessions-list.
 import { environment } from 'environments/environment';
 import { CommonService } from './common.service';
 import { LinkTeacherSidebarComponent } from './students/link-teacher-sidebar/link-teacher-sidebar.component';
-
+import { AllDevicesComponent } from './all-devices/all-devices.component';
+import { AllDeviceSidebarComponent } from './all-devices/all-device-sidebar/all-device-sidebar.component';
+import { NotificationSidebarComponent } from './all-devices/notification-sidebar/notification-sidebar.component';
+import { MediaComponent } from './media/media.component';
+import { UploadmediaComponent } from './media/uploadmedia/uploadmedia.component';
+import { MultimediaComponent } from './all-devices/multimedia/multimedia.component';
 /**
  * Here we pass the configuration parameters to create an MSAL instance.
  * For more info, visit: https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-angular/docs/v2-docs/configuration.md
@@ -182,6 +187,21 @@ const routes: Routes = [
     path: 'notifications',
     component: NotificationsComponent,
     data: { animation: 'NotificationsComponent' }
+  }, {
+    path: 'alldevices',
+    component: AllDevicesComponent,
+    resolve: {
+      uls: CommonService,
+    },
+    data: { animation: 'AllDevicesComponent' }
+  },
+  {
+    path: 'media',
+    component: MediaComponent,
+    resolve: {
+      uls: CommonService,
+    },
+    data: { animation: 'MediaComponent' }
   },
   {
     path: 'sessions-list',
@@ -285,7 +305,7 @@ const routes: Routes = [
     component: AppComponent,
     data: { animation: 'appazure' }
   },
- 
+
 ];
 
 @NgModule({
@@ -321,7 +341,13 @@ const routes: Routes = [
     NewClientSidebarComponent,
     NotificationsComponent,
     LinkTeacherSidebarComponent,
-    LinkClassSidebarComponent
+    LinkClassSidebarComponent,
+    AllDevicesComponent,
+    AllDeviceSidebarComponent,
+    NotificationSidebarComponent,
+    MediaComponent,
+    UploadmediaComponent,
+    MultimediaComponent
   ],
   imports: [
     ToastrModule,
@@ -405,4 +431,4 @@ const routes: Routes = [
   ],
   bootstrap: [AppComponent, MsalRedirectComponent]
 })
-export class UserModule {}
+export class UserModule { }
