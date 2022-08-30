@@ -52,10 +52,10 @@ export class NewSessionsSidebarComponent implements OnInit {
     private _groupListService: GroupsListService,
     private router: Router,
     private _userListService: SessionsListService,
-    private _authenticationService:AuthenticationService) {
-    
-     this.urlLastValue = this.url.substr(this.url.lastIndexOf('/') + 1);
-     }
+    private _authenticationService: AuthenticationService) {
+
+    this.urlLastValue = this.url.substr(this.url.lastIndexOf('/') + 1);
+  }
 
   /**
    * Toggle the sidebar
@@ -83,6 +83,10 @@ export class NewSessionsSidebarComponent implements OnInit {
     return false;
   }
 
+  getCurrentUser() {
+    return JSON.parse(localStorage.getItem('currentUser'));
+  }
+
   /**
    * Submit
    *
@@ -99,11 +103,11 @@ export class NewSessionsSidebarComponent implements OnInit {
         type = "liveSession";
       } else if (this.urlLastValue == 'scheduled_sessions') {
         type = "ScheduledSession";
-      form.value['start'] = this.startDatePicker.flatpickrElement.nativeElement.children[0].value;
-      form.value['end'] = this.endDatePicker.flatpickrElement.nativeElement.children[0].value;
+        form.value['start'] = this.startDatePicker.flatpickrElement.nativeElement.children[0].value;
+        form.value['end'] = this.endDatePicker.flatpickrElement.nativeElement.children[0].value;
       }
       form.value['type'] = type;
-      
+
       if (!form.value['group']) {
         form.value['group'] = "x";
       }
@@ -115,7 +119,7 @@ export class NewSessionsSidebarComponent implements OnInit {
           toastClass: 'toast ngx-toastr',
           closeButton: true
         });
-        this._userListService.getDataTableRows();
+        this._userListService.getDataTableRows(this.getCurrentUser().userId);
       }, (error) => {
         console.log('res set error:', error);
         let errorString = error;

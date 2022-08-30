@@ -42,6 +42,10 @@ export class NewIndSessionsSidebarComponent implements OnInit {
     this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
   }
 
+  getCurrentUser() {
+    return JSON.parse(localStorage.getItem('currentUser'));
+  }
+
   /**
    * Submit
    *
@@ -58,7 +62,7 @@ export class NewIndSessionsSidebarComponent implements OnInit {
           toastClass: 'toast ngx-toastr',
           closeButton: true
         });
-        this._userListService.getDataTableRows();
+        this._userListService.getDataTableRows(this.getCurrentUser().userId);
       }, (error) => {
         console.log('res set error:', error);
         let errorString = error;

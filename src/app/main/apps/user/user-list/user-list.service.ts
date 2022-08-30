@@ -42,7 +42,7 @@ export class UserListService implements Resolve<any> {
   getDataTableRows(): Promise<any[]> {
     let currentUser = this._commonService.getCurrentUser();
     return new Promise((resolve, reject) => {
-      this._httpClient.get(`${environment.apiUrl}/api/user/all`).subscribe((response: any) => {
+      this._httpClient.get(`${environment.apiUrl}/api/user/all/${currentUser.userId}`).subscribe((response: any) => {
         this.rows = response;
         let data = [];
         this.rows.data.forEach(element => {
@@ -63,7 +63,7 @@ export class UserListService implements Resolve<any> {
             });
           });
         }
-       
+
         console.log(this.rows);
         console.log(data);
         this.onUserListChanged.next(data);
@@ -170,6 +170,6 @@ export class UserListService implements Resolve<any> {
     });
   }
 
-  
+
 
 }

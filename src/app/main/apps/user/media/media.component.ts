@@ -33,6 +33,7 @@ export class MediaComponent implements OnInit {
   public previousRoleFilter = '';
   public previousPlanFilter = '';
   public previousStatusFilter = '';
+  public mediaList: any;
 
   constructor(
     private _commonService: CommonService,
@@ -60,10 +61,22 @@ export class MediaComponent implements OnInit {
       this._commonService.onUserEditListChanged.next(null);
     }, 200);
     this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
-     
+
   }
 
   ngOnInit(): void {
+    this.getMedia();
+  }
+
+  getMedia() {
+    this._commonService.getMediaList().subscribe(list => {
+      this.mediaList = list['data'];
+    });
+  }
+
+  closeUploadModal(msg) {
+    this._coreSidebarService.getSidebarRegistry('app-uploadmedia-sidebar').toggleOpen();
+    this.getMedia();
   }
 
 }

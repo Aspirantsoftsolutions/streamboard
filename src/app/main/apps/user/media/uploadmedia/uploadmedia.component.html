@@ -31,7 +31,7 @@
                         <img src="../../../../../../assets/images/icons/upload-new.svg" alt="">
                         <p>Darg and drop a media file to upload</p>
                         <p>or</p>
-                        <p> <input type="file" /> </p>
+                        <p> <input type="file" (change)="onImagePicked($event)" placeholder="Upload File" /> </p>
                     </div>
 
 
@@ -49,7 +49,7 @@
                         <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)"
                             *ngIf="isToUpdate" rippleEffect>Update</button>
 
-                        <button type="submit" class="btn btn-primary " (click)="submit(newUserForm)" *ngIf="!isToUpdate"
+                        <button type="submit" class="btn btn-primary " (click)="onImageUpload()" *ngIf="!isToUpdate"
                             rippleEffect>Add</button>
 
 

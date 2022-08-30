@@ -23,6 +23,10 @@ export class SessionsListService implements Resolve<any> {
 
   }
 
+  getCurrentUser() {
+    return JSON.parse(localStorage.getItem('currentUser'));
+  }
+
   /**
    * Resolver
    *
@@ -32,7 +36,7 @@ export class SessionsListService implements Resolve<any> {
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
     return new Promise<void>((resolve, reject) => {
-      Promise.all([this.getDataTableRows()]).then(() => {
+      Promise.all([this.getDataTableRows(this.getCurrentUser().userId)]).then(() => {
         resolve();
       }, reject);
     });
@@ -41,9 +45,9 @@ export class SessionsListService implements Resolve<any> {
   /**
    * Get rows
    */
-  getDataTableRows(): Promise<any[]> {
+  getDataTableRows(id: string): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      this._httpClient.get(`${environment.apiUrl}/api/session/all`).subscribe((response: any) => {
+      this._httpClient.get(`${environment.apiUrl}/api/session/${id}`).subscribe((response: any) => {
         this.rows = response;
         console.log(this.rows.data);
         this.onUserListChanged.next(this.rows.data);

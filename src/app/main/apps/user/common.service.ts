@@ -47,7 +47,7 @@ export class CommonService implements Resolve<any> {
    */
   getDataTableRows(): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      this._httpClient.get(`${environment.apiUrl}/api/user/all`).subscribe((response: any) => {
+      this._httpClient.get(`${environment.apiUrl}/api/user/all/${this.getCurrentUser().userId}`).subscribe((response: any) => {
         this.rows = response;
         console.log(this.rows.data);
         let user = [];
@@ -140,7 +140,7 @@ export class CommonService implements Resolve<any> {
 
   getAllTeachers(): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      this._httpClient.get(`${environment.apiUrl}/api/user/allTeachers/`+this.getCurrentUser().userId).subscribe((response: any) => {
+      this._httpClient.get(`${environment.apiUrl}/api/user/allTeachers/` + this.getCurrentUser().userId).subscribe((response: any) => {
         console.log(response.data);
         this.onUserListChanged.next(response.data);
         resolve(response.data);
@@ -148,18 +148,18 @@ export class CommonService implements Resolve<any> {
     });
   }
 
-   getAllUsers(): Promise<any[]> {
+  getAllUsers(): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      this._httpClient.get(`${environment.apiUrl}/api/user/all/`).subscribe((response: any) => {
+      this._httpClient.get(`${environment.apiUrl}/api/user/all/` + this.getCurrentUser().userId).subscribe((response: any) => {
         console.log(response.data);
         resolve(response.data);
       }, reject);
     });
-   }
-  
+  }
+
   getCount(userid): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      this._httpClient.get(`${environment.apiUrl}/api/user/getCounts/`+userid,).subscribe((response: any) => {
+      this._httpClient.get(`${environment.apiUrl}/api/user/getCounts/` + userid,).subscribe((response: any) => {
         console.log(response.data);
         resolve(response.data);
       }, reject);
@@ -180,9 +180,9 @@ export class CommonService implements Resolve<any> {
         'userId': userId,
         "status": val
       }, {
-          headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem('token')
-          },
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
       }).subscribe((response: any) => {
         console.log(response);
         resolve(response);
@@ -255,7 +255,7 @@ export class CommonService implements Resolve<any> {
   }
 
 
-  updateProfile(form,userid): Promise<any[]> { 
+  updateProfile(form, userid): Promise<any[]> {
     return new Promise((resolve, reject) => {
       this._httpClient.put(`${environment.apiUrl}/api/user/updateProfileData`, {
         'organisation': form['user-name'],
@@ -370,7 +370,7 @@ export class CommonService implements Resolve<any> {
     });
   }
 
-  register(form,role): Promise<any[]> {
+  register(form, role): Promise<any[]> {
     return new Promise((resolve, reject) => {
       this._httpClient.post(`${environment.apiUrl}/api/auth/register`, {
         'username': form['username'],
@@ -382,7 +382,7 @@ export class CommonService implements Resolve<any> {
         'plan': "Basic",
         'status': 'active',
         'location': form['location'],
-        'organisation':form['organisation']
+        'organisation': form['organisation']
       }).subscribe((response: any) => {
         console.log(response);
         resolve(response);
@@ -494,6 +494,18 @@ export class CommonService implements Resolve<any> {
         resolve(response);
       }, reject);
     });
+  }
+
+  fileUpload(imageForm: FormData) {
+    console.log('image uploading');
+    const currUser = this.getCurrentUser().userId;
+    return this._httpClient.post(`${environment.apiUrl}/api/multimedia/upload/${currUser}`, imageForm);
+  }
+
+  getMediaList() {
+    console.log('image uploading');
+    const currUser = this.getCurrentUser().userId;
+    return this._httpClient.get(`${environment.apiUrl}/api/multimedia/list/${currUser}`);
   }
 
   // deleteClass(id): Promise<any[]> {
