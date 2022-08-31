@@ -145,7 +145,7 @@ export class AllDevicesComponent implements OnInit {
    */
   toggleSidebar(name): void {
     setTimeout(() => {
-      this._commonService.onUserEditListChanged.next(null);
+      this._commonService.onUserEditListChanged.next(this.chkBoxSelected);
     }, 200);
     this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
   }
@@ -256,29 +256,32 @@ export class AllDevicesComponent implements OnInit {
    * On init
    */
   ngOnInit(): void {
-    this.rows = [
-      {
-        device: "IFP8650-2 BoardRoom",
-        serialno: "12134",
-        ipaddress: "69.89.31.226",
-        status: "active",
-        lastconnected: "2022/08/12 20:17:30"
-      },
-      {
-        device: "IFP8650ClassRoom",
-        serialno: "12134",
-        ipaddress: "69.89.31.226",
-        status: "active",
-        lastconnected: "2022/08/12 20:17:30"
-      },
-      {
-        device: "ViewSonicOffice",
-        serialno: "12134",
-        ipaddress: "69.89.31.226",
-        status: "active",
-        lastconnected: "2022/08/12 20:17:30"
-      }
-    ];
+    this._commonService.getDeviceList().subscribe(devices => {
+      this.rows = devices['data'];
+    });
+    // this.rows = [
+    //   {
+    //     device: "IFP8650-2 BoardRoom",
+    //     serialno: "12134",
+    //     ipaddress: "69.89.31.226",
+    //     status: "active",
+    //     lastconnected: "2022/08/12 20:17:30"
+    //   },
+    //   {
+    //     device: "IFP8650ClassRoom",
+    //     serialno: "12134",
+    //     ipaddress: "69.89.31.226",
+    //     status: "active",
+    //     lastconnected: "2022/08/12 20:17:30"
+    //   },
+    //   {
+    //     device: "ViewSonicOffice",
+    //     serialno: "12134",
+    //     ipaddress: "69.89.31.226",
+    //     status: "active",
+    //     lastconnected: "2022/08/12 20:17:30"
+    //   }
+    // ];
     this.tempData = this.rows;
     // Subscribe config change
     // this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {

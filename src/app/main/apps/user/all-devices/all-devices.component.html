@@ -129,7 +129,7 @@
                                     <div class="mdropdown">
                                         <button class="dropbtn btn btn-primary">Notification</button>
                                         <div class="mdropdown-content">
-                                            <a class="" rippleEffect (click)="toggleSidebar('notification-sidebar')" >
+                                            <a class="" rippleEffect (click)="toggleSidebar('notification-sidebar')">
                                                 <i data-feather="plus"
                                                     class="d-sm-none d-inline-block mr-0 mr-sm-1"></i><span
                                                     class="d-none d-sm-inline-block">Message</span>
@@ -174,7 +174,7 @@
                                         </ng-template>
                                     </ngx-datatable-column>
 
-                                    <ngx-datatable-column name="Device" prop="device" [width]="200">
+                                    <ngx-datatable-column name="Device" prop="deviceid" [width]="200">
                                         <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
                                             <div class="d-flex align-items-center">
 
@@ -188,24 +188,36 @@
                                             </div>
                                         </ng-template>
                                     </ngx-datatable-column>
-                                    <ngx-datatable-column name="Serial No" prop="serialno" [width]="200">
+                                    <ngx-datatable-column name="Serial No" prop="school_id" [width]="200">
+                                        <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
+                                            <div class="d-flex align-items-center">
+                                                <div class="cell-line-height">
+                                                    12344433
+                                                </div>
+                                            </div>
+                                        </ng-template>
                                     </ngx-datatable-column>
-                                    <ngx-datatable-column name="IP Address" prop="ipaddress" [width]="150">
+                                    <ngx-datatable-column name="IP Address" prop="ip" [width]="150">
                                     </ngx-datatable-column>
                                     <ngx-datatable-column name="Status" prop="status" [width]="100">
                                         <ng-template let-status="value" ngx-datatable-cell-template>
-                                            <div class="badge badge-pill" [ngClass]="{
+                                            <!-- <div class="badge badge-pill" [ngClass]="{
                             'badge-light-success': status == 'active',
                             'badge-light-secondary': status == 'inactive',
                             'badge-light-warning': status == 'pending'
                           }">
-                                                {{ status }}
+                                                active
+                                            </div>  -->
+                                            <div class="badge badge-pill badge-light-success">
+                                                active
                                             </div>
                                         </ng-template>
                                     </ngx-datatable-column>
                                     <ngx-datatable-column name="Last Connected" prop="lastconnected" [width]="150">
+                                        <ng-template let-status="value" ngx-datatable-cell-template>
+                                            2022/08/12 20:17:30
+                                        </ng-template>
                                     </ngx-datatable-column>
-
                                     <ngx-datatable-column name="Actions" [width]="40" [sortable]="false">
                                         <ng-template ngx-datatable-cell-template let-row="row">
                                             <div ngbDropdown container="body">

@@ -2,7 +2,6 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="pghead">
-
                 <h3>Media</h3>
                 <span class="addbtn" rippleEffect (click)="toggleSidebar('app-uploadmedia-sidebar')">
                     +
@@ -15,120 +14,47 @@
     </div>
     <div class="row">
         <div class="col-sm-4" *ngFor="let media of mediaList">
-            <div class="col-video">
-                <video width="100%" controls>
-                    <source [src]="media.location" [type]="media.type">
-                </video>
-                <div class="vdfooter">
-                    Create for creatives viewsonic colorpor
-                    <span>
-                        <img src="../../../../../assets/images/icons/more-vertical.svg" alt="">
-                    </span>
+            <div [ngSwitch]="getMediaType(media.type)">
+                <div *ngSwitchCase="'image'">
+                    <div class="col-video">
+                        <img [src]="media.location" alt="img" srcset="" width="100%">
+                        <div class="vdfooter">
+                            <span>
+                                <img src="../../../../../assets/images/icons/more-vertical.svg" alt="">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div *ngSwitchCase="'audio'">
+                    <div class="col-video">
+                        <audio width="100%" controls>
+                            <source [src]="media.location" [type]="media.type">
+                            Your browser does not support the audio tag.
+                        </audio>
+                        <div class="vdfooter">
+                            <span>
+                                <img src="../../../../../assets/images/icons/more-vertical.svg" alt="">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div *ngSwitchCase="'video'">
+                    <div class="col-video">
+                        <video width="100%" controls>
+                            <source [src]="media.location" [type]="media.type">
+                        </video>
+                        <div class="vdfooter">
+                            <span>
+                                <img src="../../../../../assets/images/icons/more-vertical.svg" alt="">
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
+
 
         </div>
-        <!-- <div class="col-sm-4">
-            <div class="col-video">
-                <video width="100%" controls>
-                    <source src="../../../../../assets/images/video/mov_bbb.mp4" type="video/mp4">
-                    <source src="../../../../../assets/images/video/mov_bbb.ogg" type="video/ogg">
-                    Your browser does not support HTML video.
-                </video>
-                <div class="vdfooter">
-                    Create for creatives viewsonic colorpor
-                    <span>
-                        <img src="../../../../../assets/images/icons/more-vertical.svg" alt="">
-                    </span>
-                </div>
-            </div>
-
-        </div>
-        <div class="col-sm-4">
-            <div class="col-video">
-                <video width="100%" controls>
-                    <source src="../../../../../assets/images/video/mov_bbb.mp4" type="video/mp4">
-                    <source src="../../../../../assets/images/video/mov_bbb.ogg" type="video/ogg">
-                    Your browser does not support HTML video.
-                </video>
-                <div class="vdfooter">
-                    Create for creatives viewsonic colorpor
-                    <span>
-                        <img src="../../../../../assets/images/icons/more-vertical.svg" alt="">
-                    </span>
-                </div>
-            </div>
-
-        </div> -->
-        <!-- <div class="col-sm-3">
-            <div class="col-video">
-                <video width="100%" controls>
-                    <source src="../../../../../assets/images/video/mov_bbb.mp4" type="video/mp4">
-                    <source src="../../../../../assets/images/video/mov_bbb.ogg" type="video/ogg">
-                    Your browser does not support HTML video.
-                </video>
-                <div class="vdfooter">
-                    Create for creatives viewsonic colorpor
-                    <span>
-                        <img src="../../../../../assets/images/icons/more-vertical.svg" alt="">
-                    </span>
-                </div>
-            </div>
-
-        </div> -->
     </div>
-    <!-- <div class="row">
-        <div class="col-sm-4">
-            <div class="col-video">
-                <video width="100%" controls>
-                    <source src="../../../../../assets/images/video/mov_bbb.mp4" type="video/mp4">
-                    <source src="../../../../../assets/images/video/mov_bbb.ogg" type="video/ogg">
-                    Your browser does not support HTML video.
-                </video>
-                <div class="vdfooter">
-                    Create for creatives viewsonic colorpor
-                    <span>
-                        <img src="../../../../../assets/images/icons/more-vertical.svg" alt="">
-                    </span>
-                </div>
-            </div>
-
-        </div>
-        <div class="col-sm-4">
-            <div class="col-video">
-                <video width="100%" controls>
-                    <source src="../../../../../assets/images/video/mov_bbb.mp4" type="video/mp4">
-                    <source src="../../../../../assets/images/video/mov_bbb.ogg" type="video/ogg">
-                    Your browser does not support HTML video.
-                </video>
-                <div class="vdfooter">
-                    Create for creatives viewsonic colorpor
-                    <span>
-                        <img src="../../../../../assets/images/icons/more-vertical.svg" alt="">
-                    </span>
-                </div>
-            </div>
-
-        </div>
-        <div class="col-sm-4">
-            <div class="col-video">
-                <video width="100%" controls>
-                    <source src="../../../../../assets/images/video/mov_bbb.mp4" type="video/mp4">
-                    <source src="../../../../../assets/images/video/mov_bbb.ogg" type="video/ogg">
-                    Your browser does not support HTML video.
-                </video>
-                <div class="vdfooter">
-                    Create for creatives viewsonic colorpor
-                    <span>
-                        <img src="../../../../../assets/images/icons/more-vertical.svg" alt="">
-                    </span>
-                </div>
-            </div>
-
-        </div>
-
-    </div> -->
-
     <core-sidebar class="modal modal-slide-in sidebar-todo-modal fade" name="app-uploadmedia-sidebar"
         overlayClass="modal-backdrop">
         <app-uploadmedia (uploadEve)="closeUploadModal($event)">

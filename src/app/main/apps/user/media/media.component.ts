@@ -34,7 +34,11 @@ export class MediaComponent implements OnInit {
   public previousPlanFilter = '';
   public previousStatusFilter = '';
   public mediaList: any;
-
+  public allowedmediaTypes = {
+    video: ['video/mp4', 'video/webm', 'video/ogg'],
+    audio: ['audio/mpeg', 'audio/ogg', 'audio/wav'],
+    image: ['image/jpeg', 'image/png', 'image/avif', 'image/bmp', 'image/gif', 'image/vnd.microsoft.icon', 'image/svg+xml', 'image/tiff', 'image/webp']
+  };
   constructor(
     private _commonService: CommonService,
     private modalService: NgbModal,
@@ -77,6 +81,20 @@ export class MediaComponent implements OnInit {
   closeUploadModal(msg) {
     this._coreSidebarService.getSidebarRegistry('app-uploadmedia-sidebar').toggleOpen();
     this.getMedia();
+  }
+
+  getMediaType(type) {
+    if (this.allowedmediaTypes.video.includes(type)) {
+      return 'video'
+    }
+
+    if (this.allowedmediaTypes.audio.includes(type)) {
+      return 'audio'
+    }
+
+    if (this.allowedmediaTypes.image.includes(type)) {
+      return 'image'
+    }
   }
 
 }

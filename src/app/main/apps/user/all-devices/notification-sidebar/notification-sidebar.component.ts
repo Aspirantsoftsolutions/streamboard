@@ -23,6 +23,7 @@ export class NotificationSidebarComponent implements OnInit {
   public address;
   public isToUpdate = false;
   public userId;
+  public devicesList = [];
   /**
    * Constructor
    *
@@ -32,8 +33,8 @@ export class NotificationSidebarComponent implements OnInit {
     private toastr: ToastrService,
     private _commonService: CommonService,) {
     this._commonService.onUserEditListChanged.subscribe(response => {
-      console.log('res cms', response);
       if (response != null) {
+        this.devicesList = response;
         this.isToUpdate = true;
         this.userId = response.userId;
         this.username = response.organisation;
@@ -71,46 +72,41 @@ export class NotificationSidebarComponent implements OnInit {
    */
   submit(form) {
     if (form.valid) {
-      console.log(form);
-      if (this.isToUpdate) {
-        this._commonService.updateProfile(form.value, this.userId).then((resposne) => {
-          console.log('res set:', resposne);
-          let successString = Response;
-          this.toastr.success('👋 updated Successfully.', 'Success!', {
-            toastClass: 'toast ngx-toastr',
-            closeButton: true
-          });
-          this._commonService.getDataTableRows();
-        }, (error) => {
-          console.log('res set error:', error);
-          let errorString = error;
-          this.toastr.error(errorString, 'Error!', {
-            toastClass: 'toast ngx-toastr',
-            closeButton: true
-          });
+      if (!this.devicesList) {
+        this.toastr.error('something bad happened', 'Error!', {
+          toastClass: 'toast ngx-toastr',
+          closeButton: true
+        });
+      }
+      const pushPayLoad = {
+        "data": {
+          "title": form.value.title,
+          "description": form.value.description
+        },
+        "to": this.devicesList.map(x => x._id),
+        "notification": {
+          "badge": 1
         }
-        );
-      } else {
-        this._commonService.setUser(form.value).then((resposne) => {
-          console.log('res set:', resposne);
-          let successString = Response;
-          this.toastr.success('👋 User Created Successfully.', 'Success!', {
-            toastClass: 'toast ngx-toastr',
-            closeButton: true
-          });
-          this._commonService.getDataTableRows();
-        }, (error) => {
-          console.log('res set error:', error);
-          let errorString = error;
-          this.toastr.error(errorString, 'Error!', {
-            toastClass: 'toast ngx-toastr',
-            closeButton: true
-          });
-        }
-        );
       }
 
-      this.toggleSidebar('all-device-sidebar');
+      this._commonService.sendPushNotifications(pushPayLoad).subscribe(data => {
+        console.log(data);
+        this.toastr.success('👋 notification sent successfully', 'Success!', {
+          toastClass: 'toast ngx-toastr',
+          closeButton: true
+        });
+        this._commonService.getDataTableRows();
+        this.toggleSidebar('notification-sidebar');
+      }, (error) => {
+        console.log('res set error:', error);
+        let errorString = error;
+        this.toastr.error(errorString, 'Error!', {
+          toastClass: 'toast ngx-toastr',
+          closeButton: true
+        });
+      });
+
+      // this.toggleSidebar('all-device-sidebar');
     }
   }
 

@@ -503,9 +503,19 @@ export class CommonService implements Resolve<any> {
   }
 
   getMediaList() {
-    console.log('image uploading');
     const currUser = this.getCurrentUser().userId;
     return this._httpClient.get(`${environment.apiUrl}/api/multimedia/list/${currUser}`);
+  }
+
+  getDeviceList() {
+    const currUser = this.getCurrentUser().userId;
+    const URL = currUser ? `${environment.apiUrl}/api/device/${currUser}` : `${environment.apiUrl}/api/device`;
+    return this._httpClient.get(URL);
+  }
+
+  sendPushNotifications(body) {
+    // const currUser = this.getCurrentUser().userId;
+    return this._httpClient.post(`${environment.apiUrl}/api/pushnotifications/add`, body);
   }
 
   // deleteClass(id): Promise<any[]> {
