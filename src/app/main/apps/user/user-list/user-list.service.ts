@@ -41,8 +41,9 @@ export class UserListService implements Resolve<any> {
    */
   getDataTableRows(): Promise<any[]> {
     let currentUser = this._commonService.getCurrentUser();
+    const url = currentUser ? `${environment.apiUrl}/api/user/all/${currentUser.userId}` : `${environment.apiUrl}/api/user/all`
     return new Promise((resolve, reject) => {
-      this._httpClient.get(`${environment.apiUrl}/api/user/all/${currentUser.userId}`).subscribe((response: any) => {
+      this._httpClient.get(url).subscribe((response: any) => {
         this.rows = response;
         let data = [];
         this.rows.data.forEach(element => {
