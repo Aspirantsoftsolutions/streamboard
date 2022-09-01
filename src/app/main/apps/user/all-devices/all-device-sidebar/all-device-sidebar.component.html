@@ -1,4 +1,4 @@
-<div class="slideout-content">
+<div class="newdevice">
     <!-- Modal to add new user starts-->
     <div class="modalsd modal-slide-in sdfade new-user-modal" id="modals-slide-in">
         <div class="modal-dialog">
@@ -42,7 +42,7 @@
                     <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" *ngIf="!isToUpdate"
                         rippleEffect>Submit</button>
                     <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" *ngIf="isToUpdate"
-                        rippleEffect>Update</button>
+                        rippleEffect (click)="toggleSidebar('all-device-sidebar')">Update</button>
                     <button type="reset" class="btn btn-outline-secondary" (click)="toggleSidebar('all-device-sidebar')"
                         rippleEffect>
                         Cancel
