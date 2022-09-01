@@ -83,7 +83,7 @@ export class NotificationSidebarComponent implements OnInit {
           "title": form.value.title,
           "description": form.value.description
         },
-        "to": this.devicesList.map(x => x._id),
+        "to": this.devicesList.map(x => x.deviceid),
         "notification": {
           "badge": 1
         }

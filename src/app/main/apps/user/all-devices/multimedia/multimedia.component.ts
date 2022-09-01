@@ -94,7 +94,7 @@ export class MultimediaComponent implements OnInit {
         "image_url": this.getMediaType(this.mediaType) === 'image' ? this.mediaURL : '',
         "video_url": this.getMediaType(this.mediaType) === 'video' ? this.mediaURL : '',
       },
-      "to": this.devicesList.map(x => x._id),
+      "to": this.devicesList.map(x => x.deviceid),
       "notification": {
         "badge": 1
       }
