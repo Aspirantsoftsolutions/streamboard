@@ -16,7 +16,7 @@ import { GroupsListService } from './groups-list.service';
   styleUrls: ['./groups-list.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-  
+
 export class GroupsListComponent implements OnInit {
   // Public
   public sidebarToggleRef = false;
@@ -75,7 +75,8 @@ export class GroupsListComponent implements OnInit {
     private _userListService: GroupsListService,
     private _coreSidebarService: CoreSidebarService,
     private _commonService: CommonService,
-    private _coreConfigService: CoreConfigService
+    private _coreConfigService: CoreConfigService,
+    private groupService: GroupsListService
   ) {
     this._unsubscribeAll = new Subject();
   }
@@ -124,14 +125,9 @@ export class GroupsListComponent implements OnInit {
 
   toggleSidebarEdit(name, id): void {
     console.log('id:', id);
-    this._commonService.getGroups().then((response: any) => {
-      response.map(row => {
-        if (row.userId == id) {
-          console.log('current row', row);
-          this._commonService.onUserEditListChanged.next(row);
-          this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
-        }
-      });
+    this.groupService.getGroupById(id).then((response: any) => {
+      this._commonService.onUserEditListChanged.next(response.data);
+      this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
     }, (error) => {
       console.log('res set error:', error);
     });

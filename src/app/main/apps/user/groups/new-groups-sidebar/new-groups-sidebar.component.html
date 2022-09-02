@@ -23,7 +23,7 @@
               class="form-control dt-full-name"
               id="basic-icon-default-fullname"
               placeholder="Group name"
-              name="user-fullname"
+              name="name"
               [(ngModel)]="fullname"
               [class.error]="newUserForm.submitted && FNameRef.invalid"
               #FNameRef="ngModel"
@@ -36,7 +36,7 @@
             </span>
           </div>
          
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label class="form-label" for="basic-icon-default-email">Group Email-id</label>
             <input
               type="text"
@@ -55,7 +55,7 @@
               <small class="form-text text-danger" *ngIf="FEmailRef.errors.required">This field is required!</small>
             </span>
             <small class="form-text text-muted"> You can use letters, numbers & periods </small>
-          </div>
+          </div> -->
         
           <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" rippleEffect>Submit</button>
           <button

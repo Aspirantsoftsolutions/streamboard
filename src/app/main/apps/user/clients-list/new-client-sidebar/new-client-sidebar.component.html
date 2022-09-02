@@ -142,6 +142,23 @@
             <small class="form-text text-muted"> You can use letters, numbers & periods </small>
           </div>
           
+          <div class="form-group">
+            <label class="form-label" for="basic-icon-default-email">Select Plan</label>
+            <fieldset class="form-group">
+              <ng-select
+                [items]="selectPlan"
+                [(ngModel)]="selectedPlan"
+                name="user-plan"
+                bindLabel="name"
+                placeholder="Select Plan"
+                #FPlanRef="ngModel"
+                required ></ng-select>
+            </fieldset>
+            <span *ngIf="newUserForm.submitted && FPlanRef.invalid" class="invalid-form">
+              <small class="form-text text-danger" *ngIf="FPlanRef.errors.required">This field is required!</small>
+            </span>
+            <small class="form-text text-muted"> Please select a plan </small>
+          </div>
           <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" *ngIf="!isToUpdate"
             rippleEffect>Submit</button>
             <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" *ngIf="isToUpdate"

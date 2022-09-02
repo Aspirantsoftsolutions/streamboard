@@ -45,7 +45,7 @@ export class AllDevicesComponent implements OnInit {
     { name: 'All', value: '' },
     { name: 'Basic', value: 'Basic' },
     { name: 'Premium', value: 'Premium' },
-    { name: 'Enerprise', value: 'Enerprise' },
+    { name: 'Enterprise', value: 'Enterprise' },
   ];
 
   public selectStatus: any = [

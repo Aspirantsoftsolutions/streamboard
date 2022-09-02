@@ -20,6 +20,14 @@ export class NewClientSidebarComponent implements OnInit {
   public address;
   public isToUpdate = false;
   public userId;
+  public selectedPlan = [];
+  public selectPlan: any = [
+    { name: 'All', value: '' },
+    { name: 'Basic', value: 'Basic' },
+    { name: 'Premium', value: 'Premium' },
+    { name: 'Enterprise', value: 'Enterprise' },
+  ];
+
   /**
    * Constructor
    *

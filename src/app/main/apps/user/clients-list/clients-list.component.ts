@@ -49,7 +49,7 @@ export class ClientsListComponent implements OnInit {
     { name: 'All', value: '' },
     { name: 'Basic', value: 'Basic' },
     { name: 'Premium', value: 'Premium' },
-    { name: 'Enerprise', value: 'Enerprise' },
+    { name: 'Enterprise', value: 'Enterprise' },
   ];
 
   public selectStatus: any = [
@@ -153,25 +153,25 @@ export class ClientsListComponent implements OnInit {
 
   statusChange(id,status): void {
     this._commonService.updateUserStatus(!status, id).then((response) => {
-      this._commonService.getDataTableRows();
+      this._commonService.getDataTableRowsAll();
     });
   }
 
   deleteUser(id) {
     this._commonService.deleteUser(id).then((response) => {
-      this._commonService.getDataTableRows();
+      this._commonService.getDataTableRowsAll();
     });
   }
 
   changeSubscriptionType(plan, id) {
     this._commonService.updateSchoolSubscription(plan, id).then((response) => {
-      this._commonService.getDataTableRows();
+      this._commonService.getDataTableRowsAll();
     });
   }
 
   toggleSidebarEdit(name, id): void {
     console.log('id:', id);
-    this._commonService.getDataTableRows().then((response:any) => {
+    this._commonService.getDataTableRowsAll().then((response:any) => {
       response.map(row => {
         if (row.userId == id) {
           console.log('current row', row);

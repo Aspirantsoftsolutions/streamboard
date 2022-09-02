@@ -35,6 +35,11 @@ export class UserEditService implements Resolve<any> {
     });
   }
 
+  
+  getCurrentUser() {
+    return JSON.parse(localStorage.getItem('currentUser'));
+  }
+  
   /**
    * Get API Data
    */

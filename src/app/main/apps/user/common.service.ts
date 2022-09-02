@@ -46,8 +46,32 @@ export class CommonService implements Resolve<any> {
    * Get rows
    */
   getDataTableRows(): Promise<any[]> {
+    const url = `${environment.apiUrl}/api/user/clients`
     return new Promise((resolve, reject) => {
-      this._httpClient.get(`${environment.apiUrl}/api/user/all/${this.getCurrentUser().userId}`).subscribe((response: any) => {
+      this._httpClient.get(url).subscribe((response: any) => {
+        this.rows = response;
+        console.log(this.rows.data);
+        let user = [];
+        this.rows.data.forEach(element => {
+          if (element.role == 'School' || element.role == 'Individual') {
+            user.push(element);
+          }
+        });
+        this.onUserListChanged.next(user);
+        this.onUserEditListChanged.next(user);
+
+        resolve(user);
+      }, reject);
+    });
+  }
+
+  /**
+  * Get rows
+  */
+  getDataTableRowsAll(): Promise<any[]> {
+    const url = `${environment.apiUrl}/api/user/all`;
+    return new Promise((resolve, reject) => {
+      this._httpClient.get(url).subscribe((response: any) => {
         this.rows = response;
         console.log(this.rows.data);
         let user = [];
@@ -264,6 +288,7 @@ export class CommonService implements Resolve<any> {
         'lastName': form['user-lastname'],
         'address': form['user-address'],
         'mobile': form['user-number'],
+        'plan': form['user-plan'].value,
         'userId': userid
       }, {
         headers: {
@@ -361,7 +386,7 @@ export class CommonService implements Resolve<any> {
         'mobile': form['user-number'],
         'countryCode': '+91',
         'role': 'School',
-        'plan': 'Free',
+        'plan': form['user-plan'].value,
         'status': 'active'
       }).subscribe((response: any) => {
         console.log(response);

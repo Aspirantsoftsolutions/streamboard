@@ -28,7 +28,8 @@ export class NewGradesSidebarComponent implements OnInit {
       this.username = response.username;
       this.fullname = response.fullName!;
       this.email = response.email;
-    }); }
+    });
+  }
 
   /**
    * Toggle the sidebar
@@ -49,25 +50,14 @@ export class NewGradesSidebarComponent implements OnInit {
     if (form.valid) {
       console.log(form);
 
-      this._userListService.setUser(form.value).then((resposne:any) => {
+      this._userListService.createGrade(form.value).then((resposne) => {
         console.log('res set:', resposne);
-        let successString = resposne;
-        // this._userListService.classRows.map(row => {
-        //   console.log('current rows id', row.userId);
-        //   this._userListService.setUserClass(resposne.data.userId, row.userId).then((response) => {
-        //     console.log('res udpate:', response);
-        //     // let successString = response;
-        //   }, (error) => {
-        //     console.log('res set error:', error);
-        //     let errorString = error;
-        //   });
-        // });
-
-        // this.toastr.success('👋 User Created Successfully.', 'Success!', {
-        //   toastClass: 'toast ngx-toastr',
-        //   closeButton: true
-        // });
-        if(this._userListService.classRows==null)
+        let successString = Response;
+        this.toastr.success('👋 updated Successfully.', 'Success!', {
+          toastClass: 'toast ngx-toastr',
+          closeButton: true
+        });
+        if (this._userListService.classRows == null)
           this._userListService.getDataTableRows();
       }, (error) => {
         console.log('res set error:', error);
@@ -82,5 +72,5 @@ export class NewGradesSidebarComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }

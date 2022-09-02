@@ -4,6 +4,7 @@ import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.s
 import { ToastrService } from 'ngx-toastr';
 import { GroupsListService } from '../groups-list.service';
 import { CommonService } from '../../common.service';
+import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 
 @Component({
   selector: 'app-new-groups-sidebar',
@@ -11,7 +12,7 @@ import { CommonService } from '../../common.service';
 })
 export class NewGroupsSidebarComponent implements OnInit {
   public fullname;
-  public email;
+  public id;
   public isToUpdate = false;
   public groupId;
   /**
@@ -21,15 +22,13 @@ export class NewGroupsSidebarComponent implements OnInit {
    */
   constructor(private _coreSidebarService: CoreSidebarService,
     private toastr: ToastrService,
-    private _userListService: GroupsListService,
+    private _groupService: GroupsListService,
     private _commonService: CommonService,) {
     this._commonService.onUserEditListChanged.subscribe(response => {
       if (response != null) {
         this.isToUpdate = true;
-        console.log(response);
-        this.fullname = response.username!;
-        this.email = response.email;
-        this.groupId = response.userId;
+        this.fullname = response.name;
+        this.id = response._id;
       } else {
         this.isToUpdate = false;
       }
@@ -43,7 +42,7 @@ export class NewGroupsSidebarComponent implements OnInit {
    * @param name
    */
   toggleSidebar(name): void {
-    // this._userListService.classRows = null;
+    // this._groupService.classRows = null;
     this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
   }
 
@@ -55,8 +54,8 @@ export class NewGroupsSidebarComponent implements OnInit {
   submit(form) {
     if (form.valid) {
       console.log(form);
-      if (this.isToUpdate) {
-        this._commonService.updateGroup(form.value, this.groupId).then((resposne) => {
+      if (!this.id) {
+        this._groupService.createGroup(form.value).then((resposne) => {
           console.log('res set:', resposne);
           let successString = Response;
           this.toastr.success('👋 updated Successfully.', 'Success!', {
@@ -74,13 +73,13 @@ export class NewGroupsSidebarComponent implements OnInit {
         }
         );
       } else {
-        this._userListService.setUser(form.value).then((resposne: any) => {
+        this._groupService.createGroup({ ...form.value, id: this.id }).then((resposne: any) => {
           console.log('res set:', resposne);
           let successString = resposne;
-          if (this._userListService.classRows != null) {
-            this._userListService.classRows.map(row => {
+          if (this._groupService.classRows != null) {
+            this._groupService.classRows.map(row => {
               console.log('current rows id', row.userId);
-              this._userListService.setUserClass(resposne.data.userId, row.userId).then((response) => {
+              this._groupService.setUserClass(resposne.data.userId, row.userId).then((response) => {
                 console.log('res udpate:', response);
                 // let successString = response;
               }, (error) => {
@@ -94,8 +93,8 @@ export class NewGroupsSidebarComponent implements OnInit {
             toastClass: 'toast ngx-toastr',
             closeButton: true
           });
-          if (this._userListService.classRows == null)
-            this._userListService.getDataTableRows();
+          if (this._groupService.classRows == null)
+            this._groupService.getDataTableRows();
         }, (error) => {
           console.log('res set error:', error);
           let errorString = error;
@@ -106,10 +105,10 @@ export class NewGroupsSidebarComponent implements OnInit {
         }
         );
       }
-      
+
       this.toggleSidebar('new-groups-sidebar');
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }
