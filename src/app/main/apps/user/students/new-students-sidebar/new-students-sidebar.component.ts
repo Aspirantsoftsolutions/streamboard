@@ -38,7 +38,7 @@ export class NewStudentsSidebarComponent implements OnInit {
     private _teacherService: TeachersListService,
     private _studentListService: StudentsListService,
     private _commonService: CommonService,) {
-    
+
     this._commonService.onUserEditListChanged.subscribe(response => {
       console.log(response);
       if (response != null) {
@@ -52,12 +52,12 @@ export class NewStudentsSidebarComponent implements OnInit {
       } else {
         this.isToUpdate = false;
       }
-      
+
     });
 
-    
+
     this._unsubscribeAll = new Subject();
-    }
+  }
 
   /**
    * Toggle the sidebar

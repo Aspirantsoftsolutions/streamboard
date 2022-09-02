@@ -43,9 +43,8 @@ export class GradesListService implements Resolve<any> {
     return new Promise((resolve, reject) => {
       this._httpClient.get(`${environment.apiUrl}/api/grades/${this.getCurrentUser().userId}`).subscribe((response: any) => {
         this.rows = response.data;
-        console.log(this.rows.data);
         this.onUserListChanged.next(this.rows);
-        resolve(this.rows.data);
+        resolve(this.rows);
       }, reject);
     });
   }

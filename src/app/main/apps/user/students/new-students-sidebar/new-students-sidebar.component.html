@@ -106,7 +106,7 @@
            <div class="form-group mb-2">
             <label class="form-label" for="class">Select Grade</label>
             <select id="grade" class="form-control" name='grade'  [(ngModel)]="grade">
-              <option value="{{item.userId}}" *ngFor="let item of grades">{{item.username}}</option>
+              <option value="{{item._id}}" *ngFor="let item of grades">{{item.name}}</option>
             </select>
           </div>
 
