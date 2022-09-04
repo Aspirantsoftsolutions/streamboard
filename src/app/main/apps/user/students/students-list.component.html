@@ -9,29 +9,17 @@
           <div class="users-list-filter">
             <form>
               <div class="row">
-               
+
                 <div class="col-12 col-md-4">
                   <fieldset class="form-group">
-                    <ng-select
-                      [items]="selectPlan"
-                      [(ngModel)]="selectedPlan"
-                      name="selectedPlan"
-                      bindLabel="name"
-                      placeholder="Select Plan"
-                      (change)="filterByPlan($event)"
-                    ></ng-select>
+                    <ng-select [items]="selectPlan" [(ngModel)]="selectedPlan" name="selectedPlan" bindLabel="name"
+                      placeholder="Select Plan" (change)="filterByPlan($event)"></ng-select>
                   </fieldset>
                 </div>
                 <div class="col-12 col-md-4">
                   <fieldset class="form-group">
-                    <ng-select
-                      [items]="selectStatus"
-                      [(ngModel)]="selectedStatus"
-                      name="selectedStatus"
-                      bindLabel="name"
-                      placeholder="Select Status"
-                      (change)="filterByStatus($event)"
-                    ></ng-select>
+                    <ng-select [items]="selectStatus" [(ngModel)]="selectedStatus" name="selectedStatus"
+                      bindLabel="name" placeholder="Select Status" (change)="filterByStatus($event)"></ng-select>
                   </fieldset>
                 </div>
               </div>
@@ -45,40 +33,33 @@
         <div class="row">
           <div class="col-md-6 col-12">
             <div class="d-flex justify-content-between align-items-center m-1">
-              <label class="d-flex align-items-center"
-                >Show
+              <label class="d-flex align-items-center">Show
                 <select class="form-control mx-25" [(ngModel)]="selectedOption">
                   <option value="10">10</option>
                   <option value="25">25</option>
                   <option value="50">50</option>
                   <option value="100">100</option>
                 </select>
-                entries</label
-              >
+                entries</label>
             </div>
           </div>
           <div class="col-md-6 col-12 d-flex justify-content-start justify-content-md-end">
             <div class="d-flex align-items-center justify-content-end pr-1 pb-1 pb-md-0">
-              <label class="d-flex align-items-center ml-1 ml-md-0"
-                >Search:<input
-                  [(ngModel)]="searchValue"
-                  name="searchValue"
-                  type="search"
-                  class="form-control ml-25"
-                  (keyup)="filterUpdate($event)"
-                  (search)="filterUpdate($event)"
-              /></label>
+              <label class="d-flex align-items-center ml-1 ml-md-0">Search:<input [(ngModel)]="searchValue"
+                  name="searchValue" type="search" class="form-control ml-25" (keyup)="filterUpdate($event)"
+                  (search)="filterUpdate($event)" /></label>
               <!-- <button class="btn btn-primary ml-1" rippleEffect (click)="toggleSidebar('new-classes-sidebar')">
                 <i data-feather="plus" class="d-sm-none d-inline-block mr-0 mr-sm-1"></i
                 ><span class="d-none d-sm-inline-block">Update Group</span>
               </button> -->
               <button class="btn btn-primary ml-1" rippleEffect (click)="toggleSidebar('new-groups-sidebar')">
-                <i data-feather="plus" class="d-sm-none d-inline-block mr-0 mr-sm-1"></i
-                ><span class="d-none d-sm-inline-block">Add Group</span>
+                <i data-feather="plus" class="d-sm-none d-inline-block mr-0 mr-sm-1"></i><span
+                  class="d-none d-sm-inline-block">Add Group</span>
               </button>
-              <button class="btn btn-primary ml-1" rippleEffect (click)="toggleSidebar('new-students-sidebar')" *ngIf="(currentUser.role == 'Admin') || (currentUser.role == 'School')" >
-                <i data-feather="plus" class="d-sm-none d-inline-block mr-0 mr-sm-1"></i
-                ><span class="d-none d-sm-inline-block">Add New Student</span>
+              <button class="btn btn-primary ml-1" rippleEffect (click)="toggleSidebar('new-students-sidebar')"
+                *ngIf="(currentUser.role == 'Admin') || (currentUser.role == 'School')">
+                <i data-feather="plus" class="d-sm-none d-inline-block mr-0 mr-sm-1"></i><span
+                  class="d-none d-sm-inline-block">Add New Student</span>
               </button>
               <!-- <button class="btn btn-primary ml-1" rippleEffect (click)="toggleSidebar('link-teacher-sidebar')" *ngIf="(currentUser.role == 'Admin') || (currentUser.role == 'School')" >
                 <i data-feather="plus" class="d-sm-none d-inline-block mr-0 mr-sm-1"></i
@@ -87,37 +68,27 @@
             </div>
           </div>
         </div>
-        <ngx-datatable
-          [rows]="rows"
-          [rowHeight]="50"
-          class="bootstrap core-bootstrap"
-          [limit]="selectedOption"
-          [columnMode]="ColumnMode.force"
-          [headerHeight]="50"
-          [footerHeight]="50"
-          [scrollbarH]="true"
-        >
+        <ngx-datatable [rows]="rows" [rowHeight]="50" class="bootstrap core-bootstrap" [limit]="selectedOption"
+          [columnMode]="ColumnMode.force" [headerHeight]="50" [footerHeight]="50" [scrollbarH]="true"
+          (select)="chekBoxSelect($event)" [selected]="chekBoxSelected" [selectionType]="SelectionType.checkbox">
           <ngx-datatable-column name="User" prop="fullName" [width]="200">
             <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
               <div class="d-flex align-items-center">
-       
+
                 <ng-template #customAvatar>
-                  <div
-                    class="avatar mr-1 ml-0"
-                    [ngClass]="{
+                  <div class="avatar mr-1 ml-0" [ngClass]="{
                       'bg-light-success': row.status == 'active',
                       'bg-light-secondary': row.status == 'inactive',
                       'bg-light-warning': row.status == 'pending'
-                    }"
-                  >
+                    }">
                     <div class="avatar-content">{{ name | initials }}</div>
                   </div>
                 </ng-template>
                 <div class="cell-line-height">
-                   <div class="custom-control custom-checkbox">
-                      <input type="checkbox" class="custom-control-input" [id]="row.userId" [(ngModel)]="row.checked"/>
-                      <label class="custom-control-label" [for]="row.userId">{{ row.username }}</label>
-                    </div>
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" [id]="row.userId" [(ngModel)]="row.checked" />
+                    <label class="custom-control-label" [for]="row.userId">{{ row.username }}</label>
+                  </div>
                   <!-- <span class="text-muted font-small-2"> {{ row.username }}</span> -->
                 </div>
               </div>
@@ -128,14 +99,11 @@
           <!-- <ngx-datatable-column name="Class" prop="class[0].className" [width]="100"></ngx-datatable-column> -->
           <ngx-datatable-column name="Status" prop="status" [width]="50">
             <ng-template let-status="value" ngx-datatable-cell-template>
-              <div
-                class="badge badge-pill"
-                [ngClass]="{
+              <div class="badge badge-pill" [ngClass]="{
                   'badge-light-success': status == 'active',
                   'badge-light-secondary': status == 'inactive',
                   'badge-light-warning': status == 'pending'
-                }"
-              >
+                }">
                 {{ status }}
               </div>
             </ng-template>
@@ -149,12 +117,12 @@
                 <div ngbDropdownMenu *ngIf="(currentUser.role == 'Admin') || (currentUser.role == 'School')">
                   <a (click)="statusChange(row.userId, row.isActive)" ngbDropdownItem *ngIf="row.isActive">
                     <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> InActive </a>
-                    <a (click)="statusChange(row.userId, row.isActive)" ngbDropdownItem *ngIf="!row.isActive">
-                      <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> Active </a>
+                  <a (click)="statusChange(row.userId, row.isActive)" ngbDropdownItem *ngIf="!row.isActive">
+                    <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> Active </a>
                   <a (click)="toggleSidebarEdit('new-students-sidebar',row.userId)" ngbDropdownItem>
-                      <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> Edit</a>
-                    <a (click)="deleteUser(row._id)" ngbDropdownItem>
-                      <span [data-feather]="'trash'" [size]="16" [class]="'mr-50'"></span> Delete</a> 
+                    <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> Edit</a>
+                  <a (click)="deleteUser(row._id)" ngbDropdownItem>
+                    <span [data-feather]="'trash'" [size]="16" [class]="'mr-50'"></span> Delete</a>
                 </div>
               </div>
             </ng-template>
@@ -166,25 +134,16 @@
   </div>
 
   <!-- New User Sidebar -->
-  <core-sidebar
-    class="modal modal-slide-in sidebar-todo-modal fade"
-    name="new-students-sidebar"
-    overlayClass="modal-backdrop"
-  >
+  <core-sidebar class="modal modal-slide-in sidebar-todo-modal fade" name="new-students-sidebar"
+    overlayClass="modal-backdrop">
     <app-new-students-sidebar></app-new-students-sidebar>
   </core-sidebar>
-  <core-sidebar
-    class="modal modal-slide-in sidebar-todo-modal fade"
-    name="new-groups-sidebar"
-    overlayClass="modal-backdrop"
-  >
+  <core-sidebar class="modal modal-slide-in sidebar-todo-modal fade" name="new-groups-sidebar"
+    overlayClass="modal-backdrop">
     <app-new-groups-sidebar></app-new-groups-sidebar>
   </core-sidebar>
-  <core-sidebar
-    class="modal modal-slide-in sidebar-todo-modal fade"
-    name="link-teacher-sidebar"
-    overlayClass="modal-backdrop"
-  >
+  <core-sidebar class="modal modal-slide-in sidebar-todo-modal fade" name="link-teacher-sidebar"
+    overlayClass="modal-backdrop">
     <link-teacher-sidebar></link-teacher-sidebar>
   </core-sidebar>
   <!--/ New User Sidebar -->

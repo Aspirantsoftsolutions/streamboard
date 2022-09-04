@@ -1,7 +1,7 @@
 import { CommonService } from './../common.service';
 import { ClassesListService } from './../classes/classes-list.service';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { ColumnMode, DatatableComponent } from '@swimlane/ngx-datatable';
+import { ColumnMode, DatatableComponent, SelectionType } from '@swimlane/ngx-datatable';
 
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -17,7 +17,7 @@ import { StudentsListService } from './students-list.service';
   styleUrls: ['./students-list.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-  
+
 export class StudentsListComponent implements OnInit {
   // Public
   public sidebarToggleRef = false;
@@ -58,7 +58,9 @@ export class StudentsListComponent implements OnInit {
   public selectedStatus = [];
   public searchValue = '';
   public currentUser;
-
+  public SelectionType = SelectionType;
+  public chekBoxSelected = [];
+  public isStudentSelected = false;
   // Decorator
   @ViewChild(DatatableComponent) table: DatatableComponent;
 
@@ -111,6 +113,19 @@ export class StudentsListComponent implements OnInit {
     this.table.offset = 0;
   }
 
+
+
+  chekBoxSelect({ selected }) {
+    console.log(selected);
+    if (selected.length > 0)
+    this.isStudentSelected = true;
+  else
+    this.isStudentSelected = false;
+  this.chekBoxSelected.splice(0, this.chekBoxSelected.length);
+  this.chekBoxSelected.push(...selected);
+  }
+
+
   /**
    * Toggle the sidebar
    *
@@ -121,7 +136,7 @@ export class StudentsListComponent implements OnInit {
       let isChecked = false;
       this.rows.forEach(element => {
         if (element.checked) {
-          isChecked = true; 
+          isChecked = true;
         }
       });
       if (isChecked) {
@@ -130,7 +145,7 @@ export class StudentsListComponent implements OnInit {
         this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
 
       }
-      
+
     } else {
       this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
 

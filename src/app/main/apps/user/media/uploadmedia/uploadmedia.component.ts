@@ -14,6 +14,7 @@ export class UploadmediaComponent implements OnInit {
   public isToUpdate = false;
   public fileObj: File;
   public imageUrl: string;
+  public loading = false;
   @Output() uploadEve = new EventEmitter<any>();
   constructor(private _coreSidebarService: CoreSidebarService,
     private toastr: ToastrService,
@@ -47,9 +48,11 @@ export class UploadmediaComponent implements OnInit {
 
   onImageUpload() {
     const fileForm = new FormData();
+    this.loading = true;
     fileForm.append('image', this.fileObj);
     this._commonService.fileUpload(fileForm).subscribe(res => {
       this.imageUrl = res['image'];
+      this.loading = false;
       this.uploadEve.emit('success');
     });
   }

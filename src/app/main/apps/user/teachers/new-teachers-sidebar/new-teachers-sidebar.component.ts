@@ -16,8 +16,11 @@ export class NewTeachersSidebarComponent implements OnInit {
   public email;
   public classRows;
   public class;
-  public isToUpdate:boolean = false;
+  public isToUpdate: boolean = false;
   public userId;
+  public classDropdownSettings;
+  public selectedClasses = [];
+
   /**
    * Constructor
    *
@@ -47,6 +50,16 @@ export class NewTeachersSidebarComponent implements OnInit {
       }
     });
 
+
+    this.classDropdownSettings = {
+      singleSelection: false,
+      idField: '_id',
+      textField: 'className',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: true
+    };
   }
 
   /**
@@ -58,6 +71,21 @@ export class NewTeachersSidebarComponent implements OnInit {
     this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
   }
 
+  onItemSelect(item: any) {
+    this.selectedClasses.push(item);
+  }
+  onSelectAll(items: any) {
+    console.log(items);
+    this.selectedClasses = items;
+  }
+  onDeselect(item: any) {
+    this.selectedClasses = this.selectedClasses.filter(x => x._id != item._id);
+    console.log(this.selectedClasses);
+  }
+
+  onDeselectAll(items: any) {
+    this.selectedClasses = items;
+  }
   /**
    * Submit
    *
@@ -87,7 +115,7 @@ export class NewTeachersSidebarComponent implements OnInit {
         );
       } else {
         let user = this._commonService.getCurrentUser();
-        this._teacherListService.setTeacher(form.value,user.userId).then((resposne) => {
+        this._teacherListService.setTeacher(form.value, user.userId).then((resposne) => {
           console.log('res set:', resposne);
           let successString = Response;
           this.toastr.success('👋 Teacher Created Successfully.', 'Success!', {
@@ -110,13 +138,13 @@ export class NewTeachersSidebarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      this._classListService.getDataTableRows().then((resposne) => {
-        console.log('res set teacher:', resposne);
-        this.classRows = resposne;
-        console.log('teachers:', this.classRows);
-      }, (error) => {
-        console.log('res set error:', error);
-      }
+    this._classListService.getDataTableRows().then((resposne) => {
+      console.log('res set teacher:', resposne);
+      this.classRows = resposne;
+      console.log('teachers:', this.classRows);
+    }, (error) => {
+      console.log('res set error:', error);
+    }
     );
   }
 

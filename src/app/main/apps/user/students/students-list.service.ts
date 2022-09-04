@@ -17,7 +17,7 @@ export class StudentsListService implements Resolve<any> {
    *
    * @param {HttpClient} _httpClient
    */
-  constructor(private _httpClient: HttpClient, private _commonService:CommonService) {
+  constructor(private _httpClient: HttpClient, private _commonService: CommonService) {
     // Set the defaults
     this.onUserListChanged = new BehaviorSubject({});
   }
@@ -43,7 +43,7 @@ export class StudentsListService implements Resolve<any> {
   getAllStudents(): Promise<any[]> {
     return new Promise((resolve, reject) => {
       var school = this._commonService.getCurrentUser();
-      this._httpClient.get(`${environment.apiUrl}/api/user/allStudents/`+school.userId).subscribe((response: any) => {
+      this._httpClient.get(`${environment.apiUrl}/api/user/allStudents/` + school.userId).subscribe((response: any) => {
         this.rows = response;
         console.log(this.rows.data);
         this.rows.data.map(row => {
@@ -74,7 +74,8 @@ export class StudentsListService implements Resolve<any> {
         'classId': form['class'],
         'grade': form['grade'],
         'teacherId': currentUser.userId,
-        'schoolId': currentUser.school[0].userId 
+        'schoolId': currentUser.school[0].userId,
+        'teachers': form['username']
       };
     } else {
       obj = {
@@ -87,7 +88,8 @@ export class StudentsListService implements Resolve<any> {
         'countryCode': '+91',
         'classId': form['class'],
         'grade': form['grade'],
-        'schoolId': currentUser.userId
+        'schoolId': currentUser.userId,
+        'teachers': form['username']
       };
     }
 

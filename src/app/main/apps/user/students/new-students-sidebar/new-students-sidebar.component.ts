@@ -26,6 +26,9 @@ export class NewStudentsSidebarComponent implements OnInit {
   public userId;
   public teachers;
   teacher;
+  public teacherDropdownSettings;
+  public selectedTeachers = [];
+
   /**
    * Constructor
    *
@@ -55,7 +58,15 @@ export class NewStudentsSidebarComponent implements OnInit {
 
     });
 
-
+    this.teacherDropdownSettings = {
+      singleSelection: false,
+      idField: '_id',
+      textField: 'username',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: true
+    };
     this._unsubscribeAll = new Subject();
   }
 
@@ -118,6 +129,24 @@ export class NewStudentsSidebarComponent implements OnInit {
       this.toggleSidebar('new-students-sidebar');
     }
   }
+
+
+  onItemSelect(item: any) {
+    this.selectedTeachers.push(item);
+  }
+  onSelectAll(items: any) {
+    console.log(items);
+    this.selectedTeachers = items;
+  }
+  onDeselect(item: any) {
+    this.selectedTeachers = this.selectedTeachers.filter(x => x._id != item._id);
+    console.log(this.selectedTeachers);
+  }
+
+  onDeselectAll(items: any) {
+    this.selectedTeachers = items;
+  }
+
 
   ngOnInit(): void {
     this._classListService.getDataTableRows().then((resposne) => {

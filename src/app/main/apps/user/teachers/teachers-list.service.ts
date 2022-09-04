@@ -16,7 +16,7 @@ export class TeachersListService implements Resolve<any> {
    *
    * @param {HttpClient} _httpClient
    */
-  constructor(private _httpClient: HttpClient, private _commonService:CommonService) {
+  constructor(private _httpClient: HttpClient, private _commonService: CommonService) {
     // Set the defaults
     this.onUserListChanged = new BehaviorSubject({});
   }
@@ -54,7 +54,7 @@ export class TeachersListService implements Resolve<any> {
   /**
   * Get rows
   */
-  setTeacher(form,schoolid): Promise<any[]> {
+  setTeacher(form, schoolid): Promise<any[]> {
     return new Promise((resolve, reject) => {
       this._httpClient.post(`${environment.apiUrl}/api/auth/registerTeacher`, {
         'username': form['user-firstName'] + form['user-lastName'],
@@ -65,7 +65,8 @@ export class TeachersListService implements Resolve<any> {
         'mobile': form['user-number'],
         'countryCode': '+91',
         'classId': form['class'],
-        'schoolId': schoolid
+        'schoolId': schoolid,
+        'classes': form['className']
       }).subscribe((response: any) => {
         console.log(response);
         resolve(response);

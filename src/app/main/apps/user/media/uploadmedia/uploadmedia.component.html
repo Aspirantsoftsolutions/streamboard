@@ -50,7 +50,8 @@
                             *ngIf="isToUpdate" rippleEffect>Update</button>
 
                         <button type="submit" class="btn btn-primary " (click)="onImageUpload()" *ngIf="!isToUpdate"
-                            rippleEffect>Add</button>
+                            rippleEffect [disabled]="loading"> <span *ngIf="loading"
+                                class="spinner-border spinner-border-sm mr-1"></span>Add</button>
 
 
                     </div>
