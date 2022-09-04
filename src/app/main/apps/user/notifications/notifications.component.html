@@ -2,21 +2,16 @@
   <div class="auth-inner row m-0">
     <!-- Brand logo--><a class="brand-logo" href="javascript:void(0);">
       <img src="{{ coreConfig.app.appLogoImage }}" alt="brand-logo" width="260" />
-      </a
-    >
+    </a>
     <!-- /Brand logo-->
     <!-- Left Text-->
     <div class="d-none d-lg-flex col-lg-8 align-items-center p-5">
       <div class="w-100 d-lg-flex align-items-center justify-content-center px-5">
-        <img
-          [src]="
+        <img [src]="
             coreConfig.layout.skin === 'dark'
               ? 'assets/images/pages/reset-password-v2-dark.svg'
               : 'assets/images/pages/reset-password-v2.svg'
-          "
-          img-fluid="img-fluid"
-          alt="Register V2"
-        />
+          " img-fluid="img-fluid" alt="Register V2" />
       </div>
     </div>
     <!-- /Left Text-->
@@ -31,68 +26,59 @@
               <label for="reset-password-new">Notification Title</label>
             </div>
             <div class="input-group input-group-merge form-password-toggle">
-              <input
-                 type="text"
-                formControlName="title"
-                class="form-control form-control-merge"
-                placeholder="············"
-                aria-describedby="reset-password-new"
-                tabindex="1"
-                autofocus
-                [ngClass]="{ 'is-invalid error': submitted && f.title.errors }"
-              />
-            
+              <input type="text" formControlName="title" class="form-control form-control-merge"
+                placeholder="············" aria-describedby="reset-password-new" tabindex="1" autofocus
+                [ngClass]="{ 'is-invalid error': submitted && f.title.errors }" />
+
             </div>
-           
+
           </div>
           <div class="form-group">
             <div class="d-flex justify-content-between">
               <label for="reset-password-confirm">Notification Body</label>
             </div>
             <div class="input-group input-group-merge form-password-toggle">
-              <input
-                 type="text"
-                formControlName="body"
-                class="form-control form-control-merge"
-                placeholder="············"
-                aria-describedby="reset-password-confirm"
-                tabindex="2"
-                [ngClass]="{ 'is-invalid error': submitted && f.body.errors }"
-              />
-            
+              <textarea rows="4" cols="10" formControlName="body" class="form-control form-control-merge"
+                placeholder="············" aria-describedby="reset-password-confirm" tabindex="2"
+                [ngClass]="{ 'is-invalid error': submitted && f.body.errors }"></textarea>
+
             </div>
             <div class="form-group" style="margin-top: 20px;">
               <form class="event-form needs-validation" (ngSubmit)="(eventForm.form.valid); eventForm.reset()"
                 #eventForm="ngForm">
-               
-                <div style="margin-top: 20px;">
+
+                <!-- <div style="margin-top: 20px;">
                   <ng-multiselect-dropdown [placeholder]="'All Users'" [settings]="dropdownSettings"
                     [data]="allUsers" [(ngModel)]="selectedItems" (onSelect)="onItemSelect($event)"
                     (onSelectAll)="onSelectAll($event)">
                   </ng-multiselect-dropdown>
-                 </div>
-                 <div style="margin-top: 20px;">
-                  <ng-multiselect-dropdown [placeholder]="'All Schools'" [settings]="dropdownSettings" [data]="allSchools" *ngIf="isAdmin()"
-                    [(ngModel)]="selectedItems" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+                 </div> -->
+                <div style="margin-top: 20px;">
+                  <ng-multiselect-dropdown [placeholder]="'All Schools'" [settings]="dropdownSettings"
+                    [data]="allSchools" *ngIf="isAdmin()" [(ngModel)]="selectedItems" (onSelect)="onItemSelect($event)"
+                    (onSelectAll)="onSelectAll($event)">
                   </ng-multiselect-dropdown>
                 </div>
                 <div style="margin-top: 20px;">
-                  <ng-multiselect-dropdown [placeholder]="'All Teachers'" [settings]="dropdownSettings" [data]="allTeachers"
-                    [(ngModel)]="selectedItems" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
-                  </ng-multiselect-dropdown>
-                  </div>
-                <div style="margin-top: 20px;">
-                  <ng-multiselect-dropdown [placeholder]="'All Students'" [settings]="dropdownSettings" [data]="allStudents"
-                    [(ngModel)]="selectedItems" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+                  <ng-multiselect-dropdown [placeholder]="'All Teachers'" [settings]="dropdownSettings"
+                    [data]="allTeachers" *ngIf="isSchool()" [(ngModel)]="selectedItems"
+                    (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
                   </ng-multiselect-dropdown>
                 </div>
-                </form>
+
+                <div style="margin-top: 20px;">
+                  <ng-multiselect-dropdown [placeholder]="'All Students'" [settings]="dropdownSettings"
+                    [data]="allStudents" *ngIf="isSchool()" [(ngModel)]="selectedItems"
+                    (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+                  </ng-multiselect-dropdown>
+                </div>
+              </form>
             </div>
-        
+
           </div>
           <button class="btn btn-primary btn-block" tabindex="3" rippleEffect>Send Notification</button>
         </form>
-        
+
       </div>
     </div>
     <!-- /Reset password-->

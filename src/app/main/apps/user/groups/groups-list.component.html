@@ -11,26 +11,14 @@
               <div class="row">
                 <div class="col-12 col-md-4">
                   <fieldset class="form-group">
-                    <ng-select
-                      [items]="selectPlan"
-                      [(ngModel)]="selectedPlan"
-                      name="selectedPlan"
-                      bindLabel="name"
-                      placeholder="Select Plan"
-                      (change)="filterByPlan($event)"
-                    ></ng-select>
+                    <ng-select [items]="selectPlan" [(ngModel)]="selectedPlan" name="selectedPlan" bindLabel="name"
+                      placeholder="Select Plan" (change)="filterByPlan($event)"></ng-select>
                   </fieldset>
                 </div>
                 <div class="col-12 col-md-4">
                   <fieldset class="form-group">
-                    <ng-select
-                      [items]="selectStatus"
-                      [(ngModel)]="selectedStatus"
-                      name="selectedStatus"
-                      bindLabel="name"
-                      placeholder="Select Status"
-                      (change)="filterByStatus($event)"
-                    ></ng-select>
+                    <ng-select [items]="selectStatus" [(ngModel)]="selectedStatus" name="selectedStatus"
+                      bindLabel="name" placeholder="Select Status" (change)="filterByStatus($event)"></ng-select>
                   </fieldset>
                 </div>
               </div>
@@ -44,46 +32,30 @@
         <div class="row">
           <div class="col-md-6 col-12">
             <div class="d-flex justify-content-between align-items-center m-1">
-              <label class="d-flex align-items-center"
-                >Show
+              <label class="d-flex align-items-center">Show
                 <select class="form-control mx-25" [(ngModel)]="selectedOption">
                   <option value="10">10</option>
                   <option value="25">25</option>
                   <option value="50">50</option>
                   <option value="100">100</option>
                 </select>
-                entries</label
-              >
+                entries</label>
             </div>
           </div>
           <div class="col-md-6 col-12 d-flex justify-content-start justify-content-md-end">
             <div class="d-flex align-items-center justify-content-end pr-1 pb-1 pb-md-0">
-              <label class="d-flex align-items-center ml-1 ml-md-0"
-                >Search:<input
-                  [(ngModel)]="searchValue"
-                  name="searchValue"
-                  type="search"
-                  class="form-control ml-25"
-                  (keyup)="filterUpdate($event)"
-                  (search)="filterUpdate($event)"
-              /></label>
-              <button class="btn btn-primary ml-1" rippleEffect (click)="toggleSidebar('new-groups-sidebar')">
+              <label class="d-flex align-items-center ml-1 ml-md-0">Search:<input [(ngModel)]="searchValue"
+                  name="searchValue" type="search" class="form-control ml-25" (keyup)="filterUpdate($event)"
+                  (search)="filterUpdate($event)" /></label>
+              <!-- <button class="btn btn-primary ml-1" rippleEffect (click)="toggleSidebar('new-groups-sidebar')">
                 <i data-feather="plus" class="d-sm-none d-inline-block mr-0 mr-sm-1"></i
                 ><span class="d-none d-sm-inline-block">Add New Group</span>
-              </button>
+              </button> -->
             </div>
           </div>
         </div>
-        <ngx-datatable
-          [rows]="rows"
-          [rowHeight]="50"
-          class="bootstrap core-bootstrap"
-          [limit]="selectedOption"
-          [columnMode]="ColumnMode.force"
-          [headerHeight]="50"
-          [footerHeight]="50"
-          [scrollbarH]="true"
-        >
+        <ngx-datatable [rows]="rows" [rowHeight]="50" class="bootstrap core-bootstrap" [limit]="selectedOption"
+          [columnMode]="ColumnMode.force" [headerHeight]="50" [footerHeight]="50" [scrollbarH]="true">
           <ngx-datatable-column name="User" prop="name" [width]="200">
             <!-- <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
               <div class="d-flex align-items-center">
@@ -157,10 +129,10 @@
                   <span [data-feather]="'more-vertical'" [class]="'cursor-pointer'"></span>
                 </button>
                 <div ngbDropdownMenu>
-                    <a (click)="toggleSidebarEdit('new-groups-sidebar',row._id)" ngbDropdownItem>
-                      <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> Edit</a>
-                    <a (click)="deleteUser(row.userId)" ngbDropdownItem>
-                      <span [data-feather]="'trash'" [size]="16" [class]="'mr-50'"></span> Delete</a>
+                  <a (click)="toggleSidebarEdit('new-groups-sidebar',row._id)" ngbDropdownItem>
+                    <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> Edit</a>
+                  <a (click)="deleteUser(row.userId)" ngbDropdownItem>
+                    <span [data-feather]="'trash'" [size]="16" [class]="'mr-50'"></span> Delete</a>
                 </div>
               </div>
             </ng-template>
@@ -172,11 +144,8 @@
   </div>
 
   <!-- New User Sidebar -->
-  <core-sidebar
-    class="modal modal-slide-in sidebar-todo-modal fade"
-    name="new-groups-sidebar"
-    overlayClass="modal-backdrop"
-  >
+  <core-sidebar class="modal modal-slide-in sidebar-todo-modal fade" name="new-groups-sidebar"
+    overlayClass="modal-backdrop">
     <app-new-groups-sidebar></app-new-groups-sidebar>
   </core-sidebar>
   <!--/ New User Sidebar -->

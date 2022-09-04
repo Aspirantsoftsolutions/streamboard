@@ -106,14 +106,14 @@ export const menu: CoreMenu[] = [
         translate: "WhiteBoard",
         type: "item",
         icon: "home",
-        role: ["School", "Admin"],
+        role: ["School"],
         url: "apps/user/ind-sessions-list",
       },
       {
         id: "sso",
         title: "SSO",
         type: "item",
-        role: ["School", "Admin"], //  for school
+        role: ["School"], //  for school
         icon: "user",
         url: "apps/user/starterSSO",
       },

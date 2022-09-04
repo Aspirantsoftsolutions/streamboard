@@ -88,6 +88,10 @@ export class NotificationsComponent implements OnInit {
   isAdmin() {
     return this._commonService.getCurrentUser().role == 'Admin';
   }
+
+  isSchool() {
+    return this._commonService.getCurrentUser().role == 'School';
+  }
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------
 
@@ -107,7 +111,7 @@ export class NotificationsComponent implements OnInit {
     this._commonService.getAllUsers().then((resposne) => {
       this.allUsers = resposne;
     }, (error) => {
-        
+
     });
 
     this._commonService.getAllTeachers().then((resposne) => {
