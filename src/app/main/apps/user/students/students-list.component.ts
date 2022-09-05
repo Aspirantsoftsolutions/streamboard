@@ -78,12 +78,9 @@ export class StudentsListComponent implements OnInit {
   constructor(
     private _studentListService: StudentsListService,
     private _coreSidebarService: CoreSidebarService,
-    private _coreConfigService: CoreConfigService,
-    private _commonService: CommonService,
-    private _classListService: ClassesListService
-  ) {
+    private _coreConfigService: CoreConfigService) {
     this._unsubscribeAll = new Subject();
-    this.currentUser = this._commonService.getCurrentUser();
+    this.currentUser = this._studentListService.getCurrentUser();
   }
 
   // Public Methods
@@ -118,11 +115,11 @@ export class StudentsListComponent implements OnInit {
   chekBoxSelect({ selected }) {
     console.log(selected);
     if (selected.length > 0)
-    this.isStudentSelected = true;
-  else
-    this.isStudentSelected = false;
-  this.chekBoxSelected.splice(0, this.chekBoxSelected.length);
-  this.chekBoxSelected.push(...selected);
+      this.isStudentSelected = true;
+    else
+      this.isStudentSelected = false;
+    this.chekBoxSelected.splice(0, this.chekBoxSelected.length);
+    this.chekBoxSelected.push(...selected);
   }
 
 
@@ -150,25 +147,25 @@ export class StudentsListComponent implements OnInit {
       this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
 
       setTimeout(() => {
-        this._commonService.onUserEditListChanged.next(null);
+        this._studentListService.onStudentListChanged.next(null);
       }, 200);
     }
   }
 
   deleteUser(id) {
-    this._commonService.deleteStudent(id).then((response) => {
+    this._studentListService.deleteStudent(id).then(() => {
       this._studentListService.getAllStudents();
     });
   }
 
   toggleSidebarEdit(name, id): void {
     console.log('id:', id);
-    this._commonService.getAllStudents().then((response: any) => {
+    this._studentListService.getAllStudents().then((response: any) => {
       response.map(row => {
         if (row.userId == id) {
           console.log('current row', row);
           setTimeout(() => {
-            this._commonService.onUserEditListChanged.next(row);
+            this._studentListService.onStudentListChanged.next(row);
           }, 200);
           this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
         }
@@ -239,7 +236,7 @@ export class StudentsListComponent implements OnInit {
   }
 
   statusChange(id, status): void {
-    this._commonService.updateStudentStatus(!status, id).then((response) => {
+    this._studentListService.updateStudentStatus(!status, id).then(() => {
       this._studentListService.getAllStudents();
     });
   }

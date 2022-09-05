@@ -58,7 +58,7 @@
           <div class="form-group mb-2">
             <label class="form-label" for="class">Select Class</label>
             <select id="class" class="form-control" name='class' [(ngModel)]="class">
-              <option value="{{itemp.userId}}" *ngFor="let itemp of classes">{{itemp.className}}</option>
+              <option value="{{itemp._id}}" *ngFor="let itemp of classes">{{itemp.className}}</option>
             </select>
           </div>
 
@@ -71,12 +71,8 @@
 
           <div class="form-group mb-2">
             <label class="form-label" for="class">Select Teachers</label>
-            <!-- <select id="teacher" class="form-control" name='teacher' [(ngModel)]="teacher">
-              <option value="{{itemp.userId}}" *ngFor="let itemp of teachers">{{itemp.username}}</option>
-            </select> -->
-
             <ng-multiselect-dropdown id="class" name='username' [placeholder]="'Teachers'"
-              [settings]="teacherDropdownSettings" [data]="teachers" [(ngModel)]="teacher"
+              [settings]="teacherDropdownSettings" [data]="teachers" [(ngModel)]="selectedTeachers"
               (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" (onDeSelect)="onDeselect($event)"
               (onDeSelectAll)="onDeselectAll($event)">
             </ng-multiselect-dropdown>

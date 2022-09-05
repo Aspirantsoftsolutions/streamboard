@@ -29,9 +29,8 @@ export class NewTeachersSidebarComponent implements OnInit {
   constructor(private _coreSidebarService: CoreSidebarService,
     private toastr: ToastrService,
     private _teacherListService: TeachersListService,
-    private _classListService: ClassesListService,
-    private _commonService: CommonService,) {
-    this._commonService.onUserEditListChanged.subscribe(response => {
+    private _classListService: ClassesListService,) {
+    this._teacherListService.onTeacherListChanged.subscribe(response => {
       console.log(response);
       if (response != null) {
         this.isToUpdate = true;
@@ -40,6 +39,7 @@ export class NewTeachersSidebarComponent implements OnInit {
         this.firstName = response.firstName!;
         this.lastName = response.lastName!;
         this.mobileNumber = response.mobile;
+        this.selectedClasses = response.classes;
       } else {
         this.isToUpdate = false;
         this.userId = '';
@@ -72,7 +72,10 @@ export class NewTeachersSidebarComponent implements OnInit {
   }
 
   onItemSelect(item: any) {
-    this.selectedClasses.push(item);
+    const classes = this.selectedClasses.filter(x => x._id === item._id);
+    if (!classes) {
+      this.selectedClasses.push(item);
+    }
   }
   onSelectAll(items: any) {
     console.log(items);
@@ -92,11 +95,10 @@ export class NewTeachersSidebarComponent implements OnInit {
    * @param form
    */
   submit(form) {
-    var school = this._commonService.getCurrentUser();
     if (form.valid) {
       console.log(form);
       if (this.isToUpdate) {
-        this._commonService.updateProfile(form.value, this.userId).then((resposne) => {
+        this._teacherListService.updateProfile(form.value, this.userId).then((resposne) => {
           console.log('res set:', resposne);
           let successString = Response;
           this.toastr.success('👋 updated Successfully.', 'Success!', {
@@ -114,7 +116,7 @@ export class NewTeachersSidebarComponent implements OnInit {
         }
         );
       } else {
-        let user = this._commonService.getCurrentUser();
+        let user = this._teacherListService.getCurrentUser();
         this._teacherListService.setTeacher(form.value, user.userId).then((resposne) => {
           console.log('res set:', resposne);
           let successString = Response;

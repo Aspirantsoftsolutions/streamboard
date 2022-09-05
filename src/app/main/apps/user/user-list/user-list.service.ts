@@ -87,6 +87,8 @@ export class UserListService implements Resolve<any> {
     return new Promise((resolve, reject) => {
       this._httpClient.post(url, {
         'username': form['user-name'],
+        'firstName': form['user-firstName'],
+        'lastName': form['user-lastName'],
         'email': form['user-email'],
         'password': 'Test@123',
         'mobile': form['user-number'],

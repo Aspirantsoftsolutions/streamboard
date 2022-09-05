@@ -57,7 +57,7 @@
 
           <!-- <ngb-timepicker [(ngModel)]="basicTP"></ngb-timepicker> -->
           <div class="form-group mb-2" *ngIf="isToInvite()">
-            <label class="form-label" for="group">Groups</label>
+            <label class="form-label" for="group">Participants</label>
             <select id="group" class="form-control" name='group' [(ngModel)]="group">
               <option value="{{item._id}}" *ngFor="let item of groupRows">{{item.name}}</option>
             </select>
@@ -67,7 +67,7 @@
             <label class="form-label" for="basic-icon-default-description">Invite participants by email</label>
             <input type="text" class="form-control dt-full-name" id="basic-icon-default-fullname"
               placeholder="Participants email ids" name="user-emailids" [(ngModel)]="emailids"
-              [class.error]="newUserForm.submitted && FNameRef.invalid" #FNameRef="ngModel" required
+              [class.error]="newUserForm.submitted && FNameRef.invalid" #FNameRef="ngModel"
               aria-label="Participants email ids" aria-describedby="basic-icon-default-fullname2" />
             <span *ngIf="newUserForm.submitted && FNameRef.invalid" class="invalid-form">
               <small class="form-text text-danger" *ngIf="FNameRef.errors.required">This field is required!</small>

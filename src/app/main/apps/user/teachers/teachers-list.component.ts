@@ -130,25 +130,25 @@ export class TeachersListComponent implements OnInit {
       this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
 
       setTimeout(() => {
-        this._commonService.onUserEditListChanged.next(null);
+        this._teacherListService.onTeacherListChanged.next(null);
       }, 200);
     }
   }
 
   deleteUser(id) {
-    this._commonService.deleteTeacher(id).then((response) => {
+    this._teacherListService.deleteTeacher(id).then((response) => {
       this._teacherListService.getAllTeachers();
     });
   }
 
   toggleSidebarEdit(name, id): void {
     console.log('id:', id);
-    this._commonService.getAllTeachers().then((response: any) => {
+    this._teacherListService.getAllTeachers().then((response: any) => {
       response.map(row => {
         if (row.userId == id) {
           console.log('current row', row);
           setTimeout(() => {
-            this._commonService.onUserEditListChanged.next(row);
+            this._teacherListService.onTeacherListChanged.next(row);
           }, 200);
           this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
         }
@@ -218,7 +218,7 @@ export class TeachersListComponent implements OnInit {
   }
 
   statusChange(id, status): void {
-    this._commonService.updateTeacherStatus(!status, id).then((response) => {
+    this._teacherListService.updateTeacherStatus(!status, id).then((response) => {
       this._teacherListService.getAllTeachers();
     });
   }

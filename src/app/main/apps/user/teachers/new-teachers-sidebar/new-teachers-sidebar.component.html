@@ -68,7 +68,7 @@
               <option value="{{item.userId}}" *ngFor="let item of classRows">{{item.className}}</option>
             </select> -->
             <ng-multiselect-dropdown id="class" name='className' [placeholder]="'Classes'"
-              [settings]="classDropdownSettings" [data]="classRows" [(ngModel)]="class"
+              [settings]="classDropdownSettings" [data]="classRows" [(ngModel)]="selectedClasses"
               (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" (onDeSelect)="onDeselect($event)"
               (onDeSelectAll)="onDeselectAll($event)">
             </ng-multiselect-dropdown>

@@ -25,7 +25,6 @@ export class NewStudentsSidebarComponent implements OnInit {
   public isToUpdate = false;
   public userId;
   public teachers;
-  teacher;
   public teacherDropdownSettings;
   public selectedTeachers = [];
 
@@ -39,19 +38,19 @@ export class NewStudentsSidebarComponent implements OnInit {
     private _classListService: ClassesListService,
     private _gradeListService: GradesListService,
     private _teacherService: TeachersListService,
-    private _studentListService: StudentsListService,
-    private _commonService: CommonService,) {
+    private _studentListService: StudentsListService,) {
 
-    this._commonService.onUserEditListChanged.subscribe(response => {
-      console.log(response);
+    this._studentListService.onStudentListChanged.subscribe(response => {
       if (response != null) {
         this.isToUpdate = true;
         this.userId = response.userId;
-
         this.email = response.email;
         this.firstName = response.firstName!;
         this.lastName = response.lastName!;
         this.userNumber = response.mobile;
+        this.class = response.classes;
+        this.grade = response.grades;
+        this.selectedTeachers = response.teachers;
       } else {
         this.isToUpdate = false;
       }
@@ -89,7 +88,7 @@ export class NewStudentsSidebarComponent implements OnInit {
       console.log(form);
       if (this.isToUpdate) {
         console.log('class,', this.class);
-        this._commonService.updateStudentProfile(form.value, this.userId, this.class).then((resposne) => {
+        this._studentListService.updateStudentProfile(form.value, this.userId, this.class).then((resposne) => {
           console.log('res set:', resposne);
           let successString = Response;
           this.toastr.success('👋 updated Successfully.', 'Success!', {
@@ -107,7 +106,7 @@ export class NewStudentsSidebarComponent implements OnInit {
         }
         );
       } else {
-        var school = this._commonService.getCurrentUser();
+        var school = this._studentListService.getCurrentUser();
         this._studentListService.setStudent(form.value, school.userId).then((resposne) => {
           console.log('res set:', resposne);
           let successString = Response;
@@ -132,7 +131,10 @@ export class NewStudentsSidebarComponent implements OnInit {
 
 
   onItemSelect(item: any) {
-    this.selectedTeachers.push(item);
+    const teacher = this.selectedTeachers.filter(x => x._id === item._id);
+    if (!teacher) {
+      this.selectedTeachers.push(item);
+    }
   }
   onSelectAll(items: any) {
     console.log(items);

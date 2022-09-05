@@ -10,8 +10,8 @@ import { CommonService } from '../../common.service';
   templateUrl: './new-user-sidebar.component.html'
 })
 export class NewUserSidebarComponent implements OnInit {
-  public fullname;
-  public username;
+  public firstName;
+  public lastName;
   public email;
   public mobilenumber;
   public role = "Organisation";
@@ -32,16 +32,17 @@ export class NewUserSidebarComponent implements OnInit {
       if (response != null) {
         this.isToUpdate = true;
         this.userId = response.userId;
-        this.username = response.username;
-        this.fullname = response.fullName!;
+        this.firstName = response.firstName;
+        this.lastName = response.lastName;
         this.email = response.email;
         this.mobilenumber = response.mobile;
+        this.role = response.role;
       } else {
         this.isToUpdate = false;
       }
-      
+
     });
-     }
+  }
 
   /**
    * Toggle the sidebar
@@ -101,5 +102,5 @@ export class NewUserSidebarComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }

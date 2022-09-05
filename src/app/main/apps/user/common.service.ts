@@ -284,11 +284,10 @@ export class CommonService implements Resolve<any> {
       this._httpClient.put(`${environment.apiUrl}/api/user/updateProfileData`, {
         'organisation': form['user-name'],
         'fullName': form['user-fullname'],
-        'firstName': form['user-firstname'],
-        'lastName': form['user-lastname'],
+        'firstName': form['user-firstName'],
+        'lastName': form['user-lastName'],
         'address': form['user-address'],
         'mobile': form['user-number'],
-        'plan': form['user-plan'].value,
         'userId': userid
       }, {
         headers: {
@@ -301,24 +300,6 @@ export class CommonService implements Resolve<any> {
     });
   }
 
-  updateStudentProfile(form, userid, classId): Promise<any[]> {
-    return new Promise((resolve, reject) => {
-      this._httpClient.put(`${environment.apiUrl}/api/user/updateStudentProfileData`, {
-        'classId': classId,
-        'firstName': form['user-firstName'],
-        'lastName': form['user-lastName'],
-        'mobile': form['user-number'],
-        'userId': userid
-      }, {
-        headers: {
-          'Authorization': 'Bearer ' + localStorage.getItem('token')
-        },
-      }).subscribe((response: any) => {
-        console.log(response);
-        resolve(response);
-      }, reject);
-    });
-  }
 
   linkTeachers(userIds, teacherId): Promise<any[]> {
     return new Promise((resolve, reject) => {

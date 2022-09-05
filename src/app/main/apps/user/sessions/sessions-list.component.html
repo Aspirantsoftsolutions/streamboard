@@ -7,59 +7,40 @@
         <div class="row">
           <div class="col-md-6 col-12">
             <div class="d-flex justify-content-between align-items-center m-1">
-              <label class="d-flex align-items-center"
-                >Show
+              <label class="d-flex align-items-center">Show
                 <select class="form-control mx-25" [(ngModel)]="selectedOption">
                   <option value="10">10</option>
                   <option value="25">25</option>
                   <option value="50">50</option>
                   <option value="100">100</option>
                 </select>
-                entries</label
-              >
+                entries</label>
             </div>
           </div>
           <div class="col-md-6 col-12 d-flex justify-content-start justify-content-md-end">
             <div class="d-flex align-items-center justify-content-end pr-1 pb-1 pb-md-0">
-              <label class="d-flex align-items-center ml-1 ml-md-0"
-                >Search:<input
-                  [(ngModel)]="searchValue"
-                  name="searchValue"
-                  type="search"
-                  class="form-control ml-25"
-                  (keyup)="filterUpdate($event)"
-                  (search)="filterUpdate($event)"
-              /></label>
+              <label class="d-flex align-items-center ml-1 ml-md-0">Search:<input [(ngModel)]="searchValue"
+                  name="searchValue" type="search" class="form-control ml-25" (keyup)="filterUpdate($event)"
+                  (search)="filterUpdate($event)" /></label>
               <button class="btn btn-primary ml-1" rippleEffect (click)="toggleSidebar('new-sessions-sidebar')">
-                <i data-feather="plus" class="d-sm-none d-inline-block mr-0 mr-sm-1"></i
-                ><span class="d-none d-sm-inline-block">Add New Session</span>
+                <i data-feather="plus" class="d-sm-none d-inline-block mr-0 mr-sm-1"></i><span
+                  class="d-none d-sm-inline-block">Add New Session</span>
               </button>
             </div>
           </div>
         </div>
-        <ngx-datatable
-          [rows]="rows"
-          [rowHeight]="50"
-          class="bootstrap core-bootstrap"
-          [limit]="selectedOption"
-          [columnMode]="ColumnMode.force"
-          [headerHeight]="50"
-          [footerHeight]="50"
-          [scrollbarH]="true"
-        >
+        <ngx-datatable [rows]="rows" [rowHeight]="50" class="bootstrap core-bootstrap" [limit]="selectedOption"
+          [columnMode]="ColumnMode.force" [headerHeight]="50" [footerHeight]="50" [scrollbarH]="true">
           <ngx-datatable-column name="Date" prop="fullName" [width]="200">
             <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
               <div class="d-flex align-items-center">
-              
+
                 <ng-template #customAvatar>
-                  <div
-                    class="avatar mr-1 ml-0"
-                    [ngClass]="{
+                  <div class="avatar mr-1 ml-0" [ngClass]="{
                       'bg-light-success': row.status == 'active',
                       'bg-light-secondary': row.status == 'inactive',
                       'bg-light-warning': row.status == 'pending'
-                    }"
-                  >
+                    }">
                     <div class="avatar-content">{{ name | initials }}</div>
                   </div>
                 </ng-template>
@@ -73,31 +54,32 @@
           <ngx-datatable-column name="Title" prop="fullName" [width]="200">
             <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
               <div class="cell-line-height" style=" display: flex; flex-wrap: wrap;">
-                  <span class="text-muted font-small-2" style=" display: flex; flex-wrap: wrap;"> {{ row.title }}</span>
-                </div>
+                <span class="text-muted font-small-2" style=" display: flex; flex-wrap: wrap;"> {{ row.title }}</span>
+              </div>
             </ng-template>
           </ngx-datatable-column>
 
-           <ngx-datatable-column name="Description" prop="fullName" [width]="200">
+          <ngx-datatable-column name="Description" prop="fullName" [width]="200">
             <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
               <div class="cell-line-height">
-                  <span class="text-muted font-small-2" style=" display: flex; flex-wrap: wrap;"> {{ row.description }}</span>
-                </div>
+                <span class="text-muted font-small-2" style=" display: flex; flex-wrap: wrap;"> {{ row.description
+                  }}</span>
+              </div>
             </ng-template>
           </ngx-datatable-column>
 
-           <ngx-datatable-column name="Session Link" prop="fullName" [width]="200">
+          <ngx-datatable-column name="Session Link" prop="fullName" [width]="200">
             <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
               <div class="d-flex align-items-center">
                 <div class="cell-line-height">
                   <!-- <span class="text-muted font-small-2"> {{ row.sessionLink }}</span> -->
-                  <a href="{{row.sessionLink}}" target="_blank" >
+                  <a href="{{row.sessionLink}}" target="_blank">
                     <span [size]="16" [class]="'mr-50'"></span> Start Session </a>
                 </div>
               </div>
             </ng-template>
           </ngx-datatable-column>
-
+          <!-- 
        <ngx-datatable-column name="Status" prop="status" [width]="100">
             <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
               <div class="d-flex align-items-center">
@@ -107,9 +89,9 @@
                 </div>
               </div>
             </ng-template>
-          </ngx-datatable-column>
-          
-        <!-- <ngx-datatable-column name="Status" prop="status" [width]="50">
+          </ngx-datatable-column> -->
+
+          <!-- <ngx-datatable-column name="Status" prop="status" [width]="50">
             <ng-template let-status="value" ngx-datatable-cell-template>
               <div
               >
@@ -138,11 +120,8 @@
   </div>
 
   <!-- New User Sidebar -->
-  <core-sidebar
-    class="modal modal-slide-in sidebar-todo-modal fade"
-    name="new-sessions-sidebar"
-    overlayClass="modal-backdrop"
-  >
+  <core-sidebar class="modal modal-slide-in sidebar-todo-modal fade" name="new-sessions-sidebar"
+    overlayClass="modal-backdrop">
     <app-new-sessions-sidebar></app-new-sessions-sidebar>
   </core-sidebar>
   <!--/ New User Sidebar -->
