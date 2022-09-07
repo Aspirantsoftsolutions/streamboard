@@ -188,7 +188,7 @@
                                             </div>
                                         </ng-template>
                                     </ngx-datatable-column>
-                                    <ngx-datatable-column name="Serial No" prop="school_id" [width]="200">
+                                    <!-- <ngx-datatable-column name="Serial No" prop="school_id" [width]="200">
                                         <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
                                             <div class="d-flex align-items-center">
                                                 <div class="cell-line-height">
@@ -196,7 +196,7 @@
                                                 </div>
                                             </div>
                                         </ng-template>
-                                    </ngx-datatable-column>
+                                    </ngx-datatable-column> -->
                                     <ngx-datatable-column name="IP Address" prop="ip" [width]="150">
                                     </ngx-datatable-column>
                                     <ngx-datatable-column name="Status" prop="status" [width]="100">
@@ -319,8 +319,8 @@
     </div>
 
     <!-- New User Sidebar -->
- 
-     
+
+
 
 
     <core-sidebar class="modal modal-slide-in sidebar-todo-modal fade" name="app-multimedia-sidebar"
@@ -333,9 +333,9 @@
         <app-notification-sidebar>
         </app-notification-sidebar>
     </core-sidebar>
-    
+
     <core-sidebar class="modal modal-slide-in sidebar-todo-modal fade" name="all-device-sidebar"
-    overlayClass="modal-backdrop">
-    <app-all-device-sidebar></app-all-device-sidebar>
-</core-sidebar>
+        overlayClass="modal-backdrop">
+        <app-all-device-sidebar></app-all-device-sidebar>
+    </core-sidebar>
 </div>

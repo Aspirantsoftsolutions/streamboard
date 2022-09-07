@@ -59,12 +59,13 @@ export class GroupsListService implements Resolve<any> {
   /**
   * Get rows
   */
-  createGroup(form): Promise<any[]> {
+  createGroup(form, selectedUsers): Promise<any[]> {
     return new Promise((resolve, reject) => {
       this._httpClient.post(`${environment.apiUrl}/api/groups/create`, {
         'name': form.name,
         'school_id': this.getCurrentUser().userId,
-        'id': form.id
+        'id': form.id,
+        'students': selectedUsers
       }).subscribe((response: any) => {
         console.log(response);
         resolve(response);

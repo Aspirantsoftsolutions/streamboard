@@ -35,8 +35,9 @@ export class SessionsListService implements Resolve<any> {
    * @returns {Observable<any> | Promise<any> | any}
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
+
     return new Promise<void>((resolve, reject) => {
-      Promise.all([this.getDataTableRows(this.getCurrentUser().userId)]).then(() => {
+      Promise.all([this.getDataTableRows()]).then(() => {
         resolve();
       }, reject);
     });
@@ -45,9 +46,11 @@ export class SessionsListService implements Resolve<any> {
   /**
    * Get rows
    */
-  getDataTableRows(id: string): Promise<any[]> {
+  getDataTableRows(): Promise<any[]> {
+    const currUser = this.getCurrentUser();
+    const URL = currUser.role === 'Student' ? `${environment.apiUrl}/api/session/students/${currUser._id}` : `${environment.apiUrl}/api/session/${currUser.userId}`
     return new Promise((resolve, reject) => {
-      this._httpClient.get(`${environment.apiUrl}/api/session/${id}`).subscribe((response: any) => {
+      this._httpClient.get(URL).subscribe((response: any) => {
         this.rows = response;
         console.log(this.rows.data);
         this.onUserListChanged.next(this.rows.data);

@@ -71,28 +71,22 @@
         <ngx-datatable [rows]="rows" [rowHeight]="50" class="bootstrap core-bootstrap" [limit]="selectedOption"
           [columnMode]="ColumnMode.force" [headerHeight]="50" [footerHeight]="50" [scrollbarH]="true"
           (select)="chekBoxSelect($event)" [selected]="chekBoxSelected" [selectionType]="SelectionType.checkbox">
-          <ngx-datatable-column name="User" prop="fullName" [width]="200">
-            <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
-              <div class="d-flex align-items-center">
 
-                <ng-template #customAvatar>
-                  <div class="avatar mr-1 ml-0" [ngClass]="{
-                      'bg-light-success': row.status == 'active',
-                      'bg-light-secondary': row.status == 'inactive',
-                      'bg-light-warning': row.status == 'pending'
-                    }">
-                    <div class="avatar-content">{{ name | initials }}</div>
-                  </div>
-                </ng-template>
-                <div class="cell-line-height">
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" [id]="row.userId" [(ngModel)]="row.checked" />
-                    <label class="custom-control-label" [for]="row.userId">{{ row.username }}</label>
-                  </div>
-                  <!-- <span class="text-muted font-small-2"> {{ row.username }}</span> -->
-                </div>
+          <ngx-datatable-column [width]="50" [sortable]="false" [canAutoResize]="false" [draggable]="false"
+            [resizeable]="false">
+
+            <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value"
+              let-isSelected="isSelected" let-onCheckboxChangeFn="onCheckboxChangeFn">
+              <div class="custom-control custom-control-primary custom-checkbox">
+                <input type="checkbox" class="custom-control-input" [checked]="isSelected"
+                  (change)="onCheckboxChangeFn($event)" id="rowCustomChkbxRef{{ rowIndex }}" />
+                <label class="custom-control-label" for="rowCustomChkbxRef{{ rowIndex }}"></label>
               </div>
             </ng-template>
+          </ngx-datatable-column>
+
+
+          <ngx-datatable-column name="User" prop="username" [width]="200">
           </ngx-datatable-column>
           <ngx-datatable-column name="Email" prop="email" [width]="200"></ngx-datatable-column>
           <ngx-datatable-column name="Mobile" prop="mobile" [width]="100"></ngx-datatable-column>

@@ -230,7 +230,7 @@ export const menu: CoreMenu[] = [
             id: "grades_list",
             title: "Grades",
             type: "item",
-            role: ["Teacher", "School"],
+            role: ["School"],
             icon: "user",
             url: "apps/user/grades-list",
           }

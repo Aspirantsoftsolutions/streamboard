@@ -15,6 +15,7 @@ export class NewGroupsSidebarComponent implements OnInit {
   public id;
   public isToUpdate = false;
   public groupId;
+  public selectedUsers = [];
   /**
    * Constructor
    *
@@ -31,6 +32,12 @@ export class NewGroupsSidebarComponent implements OnInit {
         this.id = response._id;
       } else {
         this.isToUpdate = false;
+      }
+    });
+
+    this._commonService.onStudentsSelected.subscribe(resp => {
+      if (Array.isArray(resp)) {
+        this.selectedUsers = resp.map(x => x._id);
       }
     });
 
@@ -55,7 +62,7 @@ export class NewGroupsSidebarComponent implements OnInit {
     if (form.valid) {
       console.log(form);
       if (!this.id) {
-        this._groupService.createGroup(form.value).then((resposne) => {
+        this._groupService.createGroup(form.value, this.selectedUsers).then((resposne) => {
           console.log('res set:', resposne);
           let successString = Response;
           this.toastr.success('👋 updated Successfully.', 'Success!', {
@@ -73,7 +80,7 @@ export class NewGroupsSidebarComponent implements OnInit {
         }
         );
       } else {
-        this._groupService.createGroup({ ...form.value, id: this.id }).then((resposne: any) => {
+        this._groupService.createGroup({ ...form.value, id: this.id }, this.selectedUsers).then((resposne: any) => {
           console.log('res set:', resposne);
           let successString = resposne;
           if (this._groupService.classRows != null) {

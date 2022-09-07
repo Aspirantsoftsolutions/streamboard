@@ -51,7 +51,7 @@ export class NewSessionsSidebarComponent implements OnInit {
     private toastr: ToastrService,
     private _groupListService: GroupsListService,
     private router: Router,
-    private _userListService: SessionsListService,
+    private SessionsListService: SessionsListService,
     private _authenticationService: AuthenticationService) {
 
     this.urlLastValue = this.url.substr(this.url.lastIndexOf('/') + 1);
@@ -112,14 +112,14 @@ export class NewSessionsSidebarComponent implements OnInit {
         form.value['group'] = "x";
       }
       console.log(form);
-      this._userListService.createSession(form.value).then((resposne) => {
+      this.SessionsListService.createSession(form.value).then((resposne) => {
         console.log('res set:', resposne);
         let successString = Response;
         this.toastr.success('👋 User Created Successfully.', 'Success!', {
           toastClass: 'toast ngx-toastr',
           closeButton: true
         });
-        this._userListService.getDataTableRows(this.getCurrentUser().userId);
+        this.SessionsListService.getDataTableRows();
       }, (error) => {
         console.log('res set error:', error);
         let errorString = error;

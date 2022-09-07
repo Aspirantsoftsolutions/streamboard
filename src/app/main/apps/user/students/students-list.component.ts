@@ -78,7 +78,8 @@ export class StudentsListComponent implements OnInit {
   constructor(
     private _studentListService: StudentsListService,
     private _coreSidebarService: CoreSidebarService,
-    private _coreConfigService: CoreConfigService) {
+    private _coreConfigService: CoreConfigService,
+    private _commonService: CommonService) {
     this._unsubscribeAll = new Subject();
     this.currentUser = this._studentListService.getCurrentUser();
   }
@@ -148,6 +149,7 @@ export class StudentsListComponent implements OnInit {
 
       setTimeout(() => {
         this._studentListService.onStudentListChanged.next(null);
+        this._commonService.onStudentsSelected.next(this.chekBoxSelected);
       }, 200);
     }
   }

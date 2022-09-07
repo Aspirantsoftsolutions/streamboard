@@ -10,6 +10,7 @@ export class CommonService implements Resolve<any> {
   public rows: any;
   public onUserListChanged: BehaviorSubject<any>;
   public onUserEditListChanged: BehaviorSubject<any>;
+  public onStudentsSelected: BehaviorSubject<any>;
   public static teacherGetList;
   public onTeacherEditListChanged = null;
 
@@ -22,6 +23,7 @@ export class CommonService implements Resolve<any> {
     // Set the defaults
     this.onUserListChanged = new BehaviorSubject({});
     this.onUserEditListChanged = new BehaviorSubject({});
+    this.onStudentsSelected = new BehaviorSubject({});
   }
 
   getCurrentUser() {
