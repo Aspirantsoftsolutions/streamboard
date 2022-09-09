@@ -31,21 +31,23 @@
         </div>
         <ngx-datatable [rows]="rows" [rowHeight]="50" class="bootstrap core-bootstrap" [limit]="selectedOption"
           [columnMode]="ColumnMode.force" [headerHeight]="50" [footerHeight]="50" [scrollbarH]="true">
-          <ngx-datatable-column name="Date" prop="fullName" [width]="200">
+          <ngx-datatable-column name="Start Date" prop="fullName" [width]="200">
             <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
               <div class="d-flex align-items-center">
-
-                <ng-template #customAvatar>
-                  <div class="avatar mr-1 ml-0" [ngClass]="{
-                      'bg-light-success': row.status == 'active',
-                      'bg-light-secondary': row.status == 'inactive',
-                      'bg-light-warning': row.status == 'pending'
-                    }">
-                    <div class="avatar-content">{{ name | initials }}</div>
-                  </div>
-                </ng-template>
                 <div class="cell-line-height">
-                  <span class="text-muted font-small-2"> {{ row.createdAt }}</span>
+                  <span class="text-muted font-small-2"> {{ urlLastValue == 'scheduled_sessions' ? row.start :
+                    row.createdAt }}</span>
+                </div>
+              </div>
+            </ng-template>
+          </ngx-datatable-column>
+
+          <ngx-datatable-column *ngIf="urlLastValue == 'scheduled_sessions'" name="End Date" prop="fullName"
+            [width]="200">
+            <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
+              <div class="d-flex align-items-center">
+                <div class="cell-line-height">
+                  <span class="text-muted font-small-2"> {{ row.end}}</span>
                 </div>
               </div>
             </ng-template>

@@ -63,6 +63,7 @@ export class ClientsListComponent implements OnInit {
   public selectedPlan = [];
   public selectedStatus = [];
   public searchValue = '';
+  public selectedUser = {};
 
   // Decorator
   @ViewChild(DatatableComponent) table: DatatableComponent;
@@ -129,14 +130,14 @@ export class ClientsListComponent implements OnInit {
     console.log(this.emailInvite);
     this._commonService.sendInvitationEmail(this.emailInvite);
     modal.close('Accept click');
-     // // Display welcome toast!
-            setTimeout(() => {
-              this._toastrService.success(
-                'Successfully invited  🎉',
-                '👋 !',
-                { toastClass: 'toast ngx-toastr', closeButton: true }
-              );
-            }, 1000);
+    // // Display welcome toast!
+    setTimeout(() => {
+      this._toastrService.success(
+        'Successfully invited  🎉',
+        '👋 !',
+        { toastClass: 'toast ngx-toastr', closeButton: true }
+      );
+    }, 1000);
   }
 
   /**
@@ -151,14 +152,21 @@ export class ClientsListComponent implements OnInit {
     this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
   }
 
-  statusChange(id,status): void {
+  statusChange(id, status): void {
     this._commonService.updateUserStatus(!status, id).then((response) => {
       this._commonService.getDataTableRowsAll();
     });
   }
 
-  deleteUser(id) {
-    this._commonService.deleteUser(id).then((response) => {
+  deleteUserPopUp(id, name, modal) {
+    this.selectedUser['id'] = id;
+    this.selectedUser['name'] = name;
+    this.modalRef = this.modalService.open(modal);
+  }
+
+  deleteUser() {
+    this._commonService.deleteUser(this.selectedUser['id']).then((response) => {
+      this.modalService.dismissAll();
       this._commonService.getDataTableRowsAll();
     });
   }
@@ -171,7 +179,7 @@ export class ClientsListComponent implements OnInit {
 
   toggleSidebarEdit(name, id): void {
     console.log('id:', id);
-    this._commonService.getDataTableRowsAll().then((response:any) => {
+    this._commonService.getDataTableRowsAll().then((response: any) => {
       response.map(row => {
         if (row.userId == id) {
           console.log('current row', row);
@@ -323,24 +331,24 @@ export class ClientsListComponent implements OnInit {
     // const res = await client.request({ url });
     // console.log(res.data);
 
-  // try {
-  //   const admin = await google.admin({
-  //     version: "directory_v1",
-  //     auth: client,
-  //   });
-  //   //get all users
-  //   const users = await admin.users.get({
-  //     userKey: email,
-  //   });
-  //   console.log(users, "users");
-  // } catch (error) {
-  //   console.log(
-  //     error.response ? error.response.data : error.message,
-  //     "error",
-  //     error.message ? error.errors : ""
-  //   );
-  // }
-}
+    // try {
+    //   const admin = await google.admin({
+    //     version: "directory_v1",
+    //     auth: client,
+    //   });
+    //   //get all users
+    //   const users = await admin.users.get({
+    //     userKey: email,
+    //   });
+    //   console.log(users, "users");
+    // } catch (error) {
+    //   console.log(
+    //     error.response ? error.response.data : error.message,
+    //     "error",
+    //     error.message ? error.errors : ""
+    //   );
+    // }
+  }
 
   /**
    * On destroy

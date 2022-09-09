@@ -8,6 +8,7 @@ import { takeUntil } from 'rxjs/operators';
 import { CoreConfigService } from '@core/services/config.service';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 import { GroupsListService } from './groups-list.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -56,6 +57,8 @@ export class GroupsListComponent implements OnInit {
   public selectedPlan = [];
   public selectedStatus = [];
   public searchValue = '';
+  public allStudents = [];
+  public SelectedStudentsGroup = [];
 
   // Decorator
   @ViewChild(DatatableComponent) table: DatatableComponent;
@@ -63,6 +66,7 @@ export class GroupsListComponent implements OnInit {
   // Private
   private tempData = [];
   private _unsubscribeAll: Subject<any>;
+  private groupUsers = [];
 
   /**
    * Constructor
@@ -76,7 +80,8 @@ export class GroupsListComponent implements OnInit {
     private _coreSidebarService: CoreSidebarService,
     private _commonService: CommonService,
     private _coreConfigService: CoreConfigService,
-    private groupService: GroupsListService
+    private groupService: GroupsListService,
+    private modalService: NgbModal,
   ) {
     this._unsubscribeAll = new Subject();
   }
@@ -215,6 +220,15 @@ export class GroupsListComponent implements OnInit {
         });
       }
     });
+    this._commonService.getAllStudents().then(resp => {
+      this.allStudents = resp;
+    });
+  }
+
+  viewGroup(group, modal) {
+    this.SelectedStudentsGroup = this.allStudents.filter(student => group['students'].includes(student._id));
+    console.log('From group students', this.SelectedStudentsGroup);
+    this.modalService.open(modal);
   }
 
   /**

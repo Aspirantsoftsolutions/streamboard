@@ -49,13 +49,14 @@ export class NewClientSidebarComponent implements OnInit {
         this.address = response.address!;
         this.itemail = response.itemail!;
         this.mobilenumber = response.mobile;
+        this.selectedPlan = this.selectPlan.find(plan => plan.value === response.plan);
       } else {
         this.isToUpdate = false;
       }
-      if (response != null && response.data!=null && response.data.length==0) {
+      if (response != null && response.data != null && response.data.length == 0) {
         this.isToUpdate = false;
-      } 
-      
+      }
+
     });
 
   }
@@ -78,7 +79,7 @@ export class NewClientSidebarComponent implements OnInit {
     if (form.valid) {
       console.log(form);
       if (this.isToUpdate) {
-        this._commonService.updateProfile(form.value,this.userId).then((resposne) => {
+        this._commonService.updateProfile(form.value, this.userId).then((resposne) => {
           console.log('res set:', resposne);
           let successString = Response;
           this.toastr.success('👋 updated Successfully.', 'Success!', {
@@ -114,10 +115,10 @@ export class NewClientSidebarComponent implements OnInit {
         }
         );
       }
-     
+
       this.toggleSidebar('new-client-sidebar');
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }

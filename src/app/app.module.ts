@@ -125,7 +125,7 @@ const appRoutes: Routes = [
             id: MicrosoftLoginProvider.PROVIDER_ID,
             provider: new MicrosoftLoginProvider('96b6652e-a952-4991-9b27-02e578e89a9f', {
               redirect_uri: `${environment.redirectUrl}/apps/user/appazure`,
-              logout_redirect_uri: 'https://localhost:4200/logout'
+              logout_redirect_uri: `${environment.redirectUrl}/logout`
             }),
           }
         ],

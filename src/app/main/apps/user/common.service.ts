@@ -286,11 +286,17 @@ export class CommonService implements Resolve<any> {
       this._httpClient.put(`${environment.apiUrl}/api/user/updateProfileData`, {
         'organisation': form['user-name'],
         'fullName': form['user-fullname'],
-        'firstName': form['user-firstName'],
-        'lastName': form['user-lastName'],
+        'firstName': form['user-firstname'],
+        'lastName': form['user-lastname'],
         'address': form['user-address'],
         'mobile': form['user-number'],
-        'userId': userid
+        'userId': userid,
+        'username': form['user-name'],
+        'email': form['user-email'],
+        'itemail': form['user-it-email'],
+        'countryCode': '+91',
+        'role': 'School',
+        'plan': form['user-plan'].value,
       }, {
         headers: {
           'Authorization': 'Bearer ' + localStorage.getItem('token')
