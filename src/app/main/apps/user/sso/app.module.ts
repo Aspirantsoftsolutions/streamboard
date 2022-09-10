@@ -19,6 +19,8 @@ import { msalConfig, loginRequest, protectedResources } from './auth-config';
 import { GraphService } from './graph.service';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
+import { CsvModule } from '@ctrl/ngx-csv';
+import { ToastrModule } from 'ngx-toastr';
 
 /**
  * Here we pass the configuration parameters to create an MSAL instance.
@@ -72,7 +74,9 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     // MatTableModule,
     // MatCardModule,
     HttpClientModule,
-    MsalModule
+    MsalModule,
+    CsvModule,
+    ToastrModule
   ],
   providers: [
     {
