@@ -118,10 +118,12 @@
           <div class="divider-text">or</div>
         </div>
         <div class="auth-footer-btn d-flex justify-content-center">
-          <a class="btn btn-facebook" href="javascript:void(0)"><i data-feather="facebook"></i></a
-          ><a class="btn btn-twitter white" href="javascript:void(0)"><i data-feather="twitter"></i></a
-          ><a class="btn btn-google" (click)="googleLogin()"><i data-feather="mail"></i></a
-          ><a class="btn btn-github" (click)="microSoftLogin()"><i data-feather="github"></i></a>
+          <!-- <a class="btn btn-facebook" href="javascript:void(0)"><i data-feather="facebook"></i></a -->
+          <!-- ><a class="btn btn-twitter white" href="javascript:void(0)"><i data-feather="twitter"></i></a -->
+          <!-- ><a class="btn btn-google" (click)="googleLogin()"><i data-feather="mail"></i></a -->
+          <!-- ><a class="btn btn-github" (click)="microSoftLogin()"><i data-feather="github"></i></a> -->
+		  <a (click)="googleLogin()"><img src="https://class.thestreamboard.com/tools/svg/google.png" width="30"></a>
+		  <a (click)="microSoftLogin()"><img src="https://class.thestreamboard.com/tools/svg/microsoft.png" width="30" style="margin-left: 15px;"></a>
         </div>
       </div>
     </div>

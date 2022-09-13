@@ -13,16 +13,16 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-4" *ngFor="let media of mediaList">
+        <div class="col-sm-3" *ngFor="let media of mediaList">
             <div [ngSwitch]="getMediaType(media.type)">
                 <div *ngSwitchCase="'image'">
                     <div class="col-video">
                         <img [src]="media.location" alt="img" srcset="" width="100%">
-                        <div class="vdfooter">
-                            <span>
-                                <img src="../../../../../assets/images/icons/more-vertical.svg" alt="">
-                            </span>
-                        </div>
+                        <!-- <div class="vdfooter"> -->
+                            <!-- <span> -->
+                                <!-- <img src="../../../../../assets/images/icons/more-vertical.svg" alt=""> -->
+                            <!-- </span> -->
+                        <!-- </div> -->
                     </div>
                 </div>
                 <div *ngSwitchCase="'audio'">
@@ -31,11 +31,11 @@
                             <source [src]="media.location" [type]="media.type">
                             Your browser does not support the audio tag.
                         </audio>
-                        <div class="vdfooter">
-                            <span>
-                                <img src="../../../../../assets/images/icons/more-vertical.svg" alt="">
-                            </span>
-                        </div>
+                        <!-- <div class="vdfooter"> -->
+                            <!-- <span> -->
+                                <!-- <img src="../../../../../assets/images/icons/more-vertical.svg" alt=""> -->
+                            <!-- </span> -->
+                        <!-- </div> -->
                     </div>
                 </div>
                 <div *ngSwitchCase="'video'">
@@ -43,11 +43,11 @@
                         <video width="100%" controls>
                             <source [src]="media.location" [type]="media.type">
                         </video>
-                        <div class="vdfooter">
-                            <span>
-                                <img src="../../../../../assets/images/icons/more-vertical.svg" alt="">
-                            </span>
-                        </div>
+                        <!-- <div class="vdfooter"> -->
+                            <!-- <span> -->
+                                <!-- <img src="../../../../../assets/images/icons/more-vertical.svg" alt=""> -->
+                            <!-- </span> -->
+                        <!-- </div> -->
                     </div>
                 </div>
             </div>

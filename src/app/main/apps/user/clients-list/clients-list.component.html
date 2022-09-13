@@ -23,14 +23,26 @@
                 </div> -->
                 <div class="col-12 col-md-4">
                   <fieldset class="form-group">
-                    <ng-select [items]="selectPlan" [(ngModel)]="selectedPlan" name="selectedPlan" bindLabel="name"
-                      placeholder="Select Plan" (change)="filterByPlan($event)"></ng-select>
+                    <ng-select
+                      [items]="selectPlan"
+                      [(ngModel)]="selectedPlan"
+                      name="selectedPlan"
+                      bindLabel="name"
+                      placeholder="Select Plan"
+                      (change)="filterByPlan($event)"
+                    ></ng-select>
                   </fieldset>
                 </div>
                 <div class="col-12 col-md-4">
                   <fieldset class="form-group">
-                    <ng-select [items]="selectStatus" [(ngModel)]="selectedStatus" name="selectedStatus"
-                      bindLabel="name" placeholder="Select Status" (change)="filterByStatus($event)"></ng-select>
+                    <ng-select
+                      [items]="selectStatus"
+                      [(ngModel)]="selectedStatus"
+                      name="selectedStatus"
+                      bindLabel="name"
+                      placeholder="Select Status"
+                      (change)="filterByStatus($event)"
+                    ></ng-select>
                   </fieldset>
                 </div>
               </div>
@@ -41,78 +53,63 @@
       <!-- users filter end -->
 
       <!-- Modal -->
-      <ng-template #modalForm let-modal>
-        <div class="modal-header">
-          <h4 class="modal-title" id="myModalLabel1">Send Invitation</h4>
-          <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body" tabindex="0" ngbAutofocus>
-          <form action="#">
-            <label>Email: </label>
-            <div class="form-group">
-              <input id="idemail" type="email" name="inviteEmail" placeholder="Email Address" class="form-control"
-                [(ngModel)]="emailInvite" />
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" (click)="sendInvite(modal,modalForm)" rippleEffect>
-            Send Invitation
-          </button>
-        </div>
-      </ng-template>
-      <!-- / Modal -->
-
-      <!-- Modal -->
-      <ng-template #deleteModal let-modal>
-        <div class="modal-header">
-          <h4 class="modal-title" id="myModalLabel1">Delete Client</h4>
-          <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body" tabindex="0" ngbAutofocus>
-          <p>Are you sure want to delete the client {{selectedUser.name}}?</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" (click)="modal.dismiss('Cross click')" rippleEffect>
-            Cancel
-          </button>
-          <button type="button" class="btn btn-primary" (click)="deleteUser()" rippleEffect>
-            Delete
-          </button>
-        </div>
-      </ng-template>
-      <!-- / Modal -->
+                  <ng-template #modalForm let-modal>
+                    <div class="modal-header">
+                      <h4 class="modal-title" id="myModalLabel1">Send Invitation</h4>
+                      <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body" tabindex="0" ngbAutofocus>
+                      <form action="#">
+                        <label>Email: </label>
+                        <div class="form-group">
+                          <input id="idemail" type="email" name="inviteEmail" placeholder="Email Address" class="form-control" [(ngModel)]="emailInvite"/>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" (click)="sendInvite(modal,modalForm)" rippleEffect>
+                        Send Invitation
+                      </button>
+                    </div>
+                  </ng-template>
+                  <!-- / Modal -->
 
       <div class="card">
         <div class="row">
           <div class="col-md-6 col-12">
             <div class="d-flex justify-content-between align-items-center m-1">
-              <label class="d-flex align-items-center">Show
+              <label class="d-flex align-items-center"
+                >Show
                 <select class="form-control mx-25" [(ngModel)]="selectedOption">
                   <option value="10">10</option>
                   <option value="25">25</option>
                   <option value="50">50</option>
                   <option value="100">100</option>
                 </select>
-                entries</label>
+                entries</label
+              >
             </div>
           </div>
           <div class="col-md-6 col-12 d-flex justify-content-start justify-content-md-end">
             <div class="d-flex align-items-center justify-content-end pr-1 pb-1 pb-md-0">
-              <label class="d-flex align-items-center ml-1 ml-md-0">Search:<input [(ngModel)]="searchValue"
-                  name="searchValue" type="search" class="form-control ml-25" (keyup)="filterUpdate($event)"
-                  (search)="filterUpdate($event)" /></label>
+              <label class="d-flex align-items-center ml-1 ml-md-0"
+                >Search:<input
+                  [(ngModel)]="searchValue"
+                  name="searchValue"
+                  type="search"
+                  class="form-control ml-25"
+                  (keyup)="filterUpdate($event)"
+                  (search)="filterUpdate($event)"
+              /></label>
               <button class="btn btn-primary ml-2" rippleEffect (click)="openInvite(modalForm)">
-                <i data-feather="plus" class="d-sm-none d-inline-block mr-0 mr-sm-1"></i><span
-                  class="d-none d-sm-inline-block">Send Invite</span>
+                <i data-feather="plus" class="d-sm-none d-inline-block mr-0 mr-sm-1"></i
+                ><span class="d-none d-sm-inline-block">Send Invite</span>
               </button>
-              <button class="btn btn-primary ml-2" rippleEffect (click)="toggleSidebar('new-client-sidebar')">
-                <i data-feather="plus" class="d-sm-none d-inline-block mr-0 mr-sm-1"></i><span
-                  class="d-none d-sm-inline-block">Add New User</span>
+               <button class="btn btn-primary ml-2" rippleEffect (click)="toggleSidebar('new-client-sidebar')">
+                <i data-feather="plus" class="d-sm-none d-inline-block mr-0 mr-sm-1"></i
+                ><span class="d-none d-sm-inline-block">Add New User</span>
               </button>
               <button type="submit" *ngIf="setLoginDisplay()" (click)="doSync()"
                 class="btn btn-primary m1-2 mb-sm-0 mr-0 mr-sm-1" rippleEffect>
@@ -121,27 +118,44 @@
             </div>
           </div>
         </div>
-        <ngx-datatable [rows]="rows" [rowHeight]="50" class="bootstrap core-bootstrap" [limit]="selectedOption"
-          [columnMode]="ColumnMode.force" [headerHeight]="50" [footerHeight]="50" [scrollbarH]="true">
+        <ngx-datatable
+          [rows]="rows"
+          [rowHeight]="50"
+          class="bootstrap core-bootstrap"
+          [limit]="selectedOption"
+          [columnMode]="ColumnMode.force"
+          [headerHeight]="50"
+          [footerHeight]="50"
+          [scrollbarH]="true"
+        >
           <ngx-datatable-column name="Customers" prop="fullName" [width]="200">
             <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
               <div class="d-flex align-items-center">
                 <div *ngIf="row.profile_pic.length > 0; else customAvatar">
-                  <img class="rounded-circle mr-1" src="{{ row.profile_pic }}" height="32" width="32"
-                    alt="datatable-avatar" />
+                  <img
+                    class="rounded-circle mr-1"
+                    src="{{ row.profile_pic }}"
+                    height="32"
+                    width="32"
+                    alt="datatable-avatar"
+                  />
                 </div>
                 <ng-template #customAvatar>
-                  <div class="avatar mr-1 ml-0" [ngClass]="{
+                  <div
+                    class="avatar mr-1 ml-0"
+                    [ngClass]="{
                       'bg-light-success': row.status == 'active',
                       'bg-light-secondary': row.status == 'inactive',
                       'bg-light-warning': row.status == 'pending'
-                    }">
+                    }"
+                  >
                     <div class="avatar-content">{{ name | initials }}</div>
                   </div>
                 </ng-template>
                 <div class="cell-line-height">
-                  <a routerLink="/apps/user/user-view/{{ row.id }}" class="font-medium-1 d-block"><span
-                      class="font-weight-bold">{{ name }}</span></a>
+                  <a routerLink="/apps/user/user-view/{{ row.id }}" class="font-medium-1 d-block"
+                    ><span class="font-weight-bold">{{ name }}</span></a
+                  >
                   <span class="text-muted font-small-2"> {{ row.organisation }}</span>
                 </div>
               </div>
@@ -152,11 +166,14 @@
           <ngx-datatable-column name="Plan" prop="plan" [width]="100"></ngx-datatable-column>
           <ngx-datatable-column name="Status" prop="status" [width]="50">
             <ng-template let-status="value" ngx-datatable-cell-template>
-              <div class="badge badge-pill" [ngClass]="{
+              <div
+                class="badge badge-pill"
+                [ngClass]="{
                   'badge-light-success': status == 'active',
                   'badge-light-secondary': status == 'inactive',
                   'badge-light-warning': status == 'pending'
-                }">
+                }"
+              >
                 {{ status }}
               </div>
             </ng-template>
@@ -167,24 +184,24 @@
                 <button ngbDropdownToggle type="button" class="btn icon-btn btn-sm hide-arrow" rippleEffect>
                   <span [data-feather]="'more-vertical'" [class]="'cursor-pointer'"></span>
                 </button>
-                <div ngbDropdownMenu>
+                <div ngbDropdownMenu> 
                   <a (click)="statusChange(row.userId, row.isActive)" ngbDropdownItem *ngIf="row.isActive">
-                    <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> InActive </a>
-                  <a (click)="statusChange(row.userId, row.isActive)" ngbDropdownItem *ngIf="!row.isActive">
-                    <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> Active </a>
-                  <a (click)="toggleSidebarEdit('new-client-sidebar',row.userId)" ngbDropdownItem>
-                    <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> Edit</a>
-                  <a (click)="deleteUserPopUp(row.userId, row.fullName,deleteModal)" ngbDropdownItem>
-                    <span [data-feather]="'trash'" [size]="16" [class]="'mr-50'"></span> Delete</a>
-                  <a (click)="changeSubscriptionType('Basic',row.userId)" ngbDropdownItem>
-                    <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> Basic</a>
-                  <a (click)="changeSubscriptionType('Premium',row.userId)" ngbDropdownItem>
-                    <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> Premium</a>
-                  <a (click)="changeSubscriptionType('Enterprise',row.userId)" ngbDropdownItem>
-                    <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> Enterprise</a>
+                    <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span>  InActive </a>
+                    <a (click)="statusChange(row.userId, row.isActive)" ngbDropdownItem *ngIf="!row.isActive">
+                      <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> Active </a>
+                    <a (click)="toggleSidebarEdit('new-client-sidebar',row.userId)" ngbDropdownItem>
+                      <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> Edit</a>
+                    <a (click)="deleteUser(row.userId)" ngbDropdownItem>
+                      <span [data-feather]="'trash'" [size]="16" [class]="'mr-50'"></span> Delete</a>
+                    <a (click)="changeSubscriptionType('Basic',row.userId)" ngbDropdownItem>
+                      <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> Basic</a>
+                    <a (click)="changeSubscriptionType('Premium',row.userId)" ngbDropdownItem>
+                      <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> Premium</a>
+                    <a (click)="changeSubscriptionType('Enterprise',row.userId)" ngbDropdownItem>
+                      <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> Enterprise</a>
 
                 </div>
-              </div>
+              </div> 
             </ng-template>
           </ngx-datatable-column>
         </ngx-datatable>
@@ -194,8 +211,11 @@
   </div>
 
   <!-- New User Sidebar -->
-  <core-sidebar class="modal modal-slide-in sidebar-todo-modal fade" name="new-client-sidebar"
-    overlayClass="modal-backdrop">
+  <core-sidebar
+    class="modal modal-slide-in sidebar-todo-modal fade"
+    name="new-client-sidebar"
+    overlayClass="modal-backdrop"
+  >
     <app-new-client-sidebar></app-new-client-sidebar>
   </core-sidebar>
   <!--/ New User Sidebar -->

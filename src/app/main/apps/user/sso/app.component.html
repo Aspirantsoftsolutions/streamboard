@@ -10,64 +10,41 @@
     <div class="content-body">
       <div class="card">
         <div class="card-body" *ngIf="currentUser.plan=='Basic'">
-          <h2> Please contact Administrator</h2>
-        </div>
-        <div class="card-body" *ngIf="currentUser.plan!='Basic'">
-          <h2>Social SSO </h2>
-          <p>
-            You must be a Global Administrator in your Azure AD & Google Account.<br>
+         <h2 > Please contact Administrator</h2>
+           </div>
+          <div class="card-body" *ngIf="currentUser.plan!='Basic'">
+               <h2>Social SSO </h2>
+               <p>
+                   You must be a Global Administrator in your Azure AD & Google Account.<br>
 
-            To install onboarding application, use the sign in button to proceed.
-          </p>
-          <div class="col-12 d-flex flex-sm-row flex-column mt-2">
+                    To install onboarding application, use the sign in button to proceed.
+                 </p>
+               <div class="col-12 d-flex flex-sm-row flex-column mt-2">
+                 
+                  <button type="submit" (click)="microSoftLogin()" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"
+                          rippleEffect *ngIf="!loginDisplay" >
+                          SignIn with Microsoft
+                  </button>
+                  <button type="submit" (click)="logout()" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"
+                            rippleEffect *ngIf="loginDisplay" >
+                            SignOut with Microsoft
+                  </button> 
+                </div>
 
-            <button type="submit" (click)="microSoftLogin()" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"
-              rippleEffect *ngIf="!loginDisplay">
-              SignIn with Microsoft
-            </button>
-            <button type="submit" (click)="logout()" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1" rippleEffect
-              *ngIf="loginDisplay">
-              SignOut with Microsoft
-            </button>
-
+                 <div class="col-12 d-flex flex-sm-row flex-column mt-2">
+                  <button type="submit" (click)="googleLogin()" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"
+                          rippleEffect *ngIf="!gloginDisplay" >
+                          SignIn with Google Workspace
+                  </button>
+                  <button type="submit" (click)="googleLogout()" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"
+                            rippleEffect *ngIf="gloginDisplay" >
+                            Signout from Google Workspace
+                  </button>
+                </div>
+               
           </div>
-
-          <div class="col-12 d-flex flex-sm-row flex-column mt-2">
-            <button type="submit" (click)="googleLogin()" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1" rippleEffect
-              *ngIf="!gloginDisplay">
-              SignIn with Google Workspace
-            </button>
-            <button type="submit" (click)="googleLogout()" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"
-              rippleEffect *ngIf="gloginDisplay">
-              Signout from Google Workspace
-            </button>
-          </div>
-
-
-          <div class="col-12 d-flex flex-sm-row flex-xolumn mt-2">
-            <button type="submit" (click)="download('teacher')" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"
-              rippleEffect>
-              <span [data-feather]="'download'"></span>
-              Teachers Template
-            </button>
-            <label for="teachersFileUpload">Upload teachers template</label>
-            <input type="file" #csvReader name="Upload CSV" id="teachersFileUpload"
-              (change)="uploadListener($event,'teacher')" accept=".csv" />
-
-          </div>
-          <div class="col-12 d-flex flex-sm-row flex-xolumn mt-2">
-            <button type="submit" (click)="download('student')" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"
-              rippleEffect>
-              <span [data-feather]="'download'"></span>
-              Student Template
-            </button>
-            <label for="StudentsFileUpload">Upload students Template</label>
-            <input type="file" #csvReader name="Upload CSV" id="StudentsFileUpload"
-              (change)="uploadListener($event,'student')" accept=".csv" />
-          </div>
-        </div>
       </div>
-
+      
     </div>
   </div>
 </div>
