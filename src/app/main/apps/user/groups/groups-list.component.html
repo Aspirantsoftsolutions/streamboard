@@ -134,7 +134,7 @@
                     <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> Edit</a>
                   <a (click)="viewGroup(row, GroupMembersModal)" ngbDropdownItem>
                     <span [data-feather]="'eye'" [size]="16" [class]="'mr-50'"></span> View</a>
-                  <a (click)="deleteUser(row.userId)" ngbDropdownItem>
+                  <a (click)="deleteUser(row._id)" ngbDropdownItem>
                     <span [data-feather]="'trash'" [size]="16" [class]="'mr-50'"></span> Delete</a>
                 </div>
               </div>

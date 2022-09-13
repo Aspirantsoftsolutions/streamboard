@@ -108,4 +108,13 @@ export class GroupsListService implements Resolve<any> {
     });
   }
 
+  deleteGroup(id) {
+    return new Promise((resolve, reject) => {
+      this._httpClient.delete(`${environment.apiUrl}/api/groups/group/${id}`).subscribe((response: any) => {
+        console.log(response);
+        resolve(response);
+      }, reject);
+    });
+  }
+
 }

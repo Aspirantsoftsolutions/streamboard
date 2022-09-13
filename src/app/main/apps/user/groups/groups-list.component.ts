@@ -123,7 +123,7 @@ export class GroupsListComponent implements OnInit {
   }
 
   deleteUser(id) {
-    this._commonService.deleteUser(id).then((response) => {
+    this.groupService.deleteGroup(id).then((response) => {
       this._userListService.getDataTableRows();
     });
   }
