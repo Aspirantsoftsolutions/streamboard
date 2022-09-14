@@ -9,6 +9,6 @@ export interface Ienvironment {
 export const environment: Ienvironment = {
   production: false,
   hmr: true,
-  apiUrl: 'http://localhost:9001',
-  redirectUrl: 'http://localhost:4200'
+  apiUrl: 'https://backend.thestreamboard.com',
+  redirectUrl: 'https://backend.thestreamboard.com'
 };
