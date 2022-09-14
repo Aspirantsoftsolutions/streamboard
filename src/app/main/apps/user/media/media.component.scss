@@ -57,7 +57,29 @@
     border-radius: 8px;
     padding: 10px;
     margin-bottom:12px;
-   
+
+    .imgblk{
+      img{
+        width: 100%;
+        height: 150px;
+        object-fit: contain;
+       }
+    }
+    .delicon{
+      position: absolute;
+      right: 2px;
+      z-index: 9;
+      background: #fff;
+      height: 25px;
+      border-radius: 100px;
+      width: 25px;
+      text-align: center;
+      top: -8px;
+     img{
+      width: 20px;
+     }
+    }
+  
   }
   .pghead{
     display: flex;

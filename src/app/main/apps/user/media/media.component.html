@@ -17,37 +17,38 @@
             <div [ngSwitch]="getMediaType(media.type)">
                 <div *ngSwitchCase="'image'">
                     <div class="col-video">
-                        <img [src]="media.location" alt="img" srcset="" width="100%">
-                        <div class="vdfooter">
-                            <span>
-                                <img src="../../../../../assets/images/icons/more-vertical.svg" alt="">
-                            </span>
+                       
+                        <div class="delicon"><span>                            
+                            <img src="../../../../../assets/images/icons/trash-2.jpg" alt="">
+                        </span></div>
+                        <div class="imgblk">
+                            <img [src]="media.location" alt="img" srcset="" width="100%">
                         </div>
+                        
+                        
                     </div>
                 </div>
                 <div *ngSwitchCase="'audio'">
                     <div class="col-video">
+                        <div class="delicon"><span>                            
+                            <img src="../../../../../assets/images/icons/trash-2.jpg" alt="">
+                        </span></div>
                         <audio width="100%" controls>
                             <source [src]="media.location" [type]="media.type">
                             Your browser does not support the audio tag.
                         </audio>
-                        <div class="vdfooter">
-                            <span>
-                                <img src="../../../../../assets/images/icons/more-vertical.svg" alt="">
-                            </span>
-                        </div>
+                     
                     </div>
                 </div>
                 <div *ngSwitchCase="'video'">
                     <div class="col-video">
+                        <div class="delicon"><span>                            
+                            <img src="../../../../../assets/images/icons/trash-2.jpg" alt="">
+                        </span></div>
                         <video width="100%" controls>
                             <source [src]="media.location" [type]="media.type">
                         </video>
-                        <div class="vdfooter">
-                            <span>
-                                <img src="../../../../../assets/images/icons/more-vertical.svg" alt="">
-                            </span>
-                        </div>
+                       
                     </div>
                 </div>
             </div>
