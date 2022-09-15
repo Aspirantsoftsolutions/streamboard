@@ -14,7 +14,7 @@ import { GraphService, ProviderOptions } from '../sso/graph.service';
 import { InteractionType } from '@azure/msal-browser';
 import { protectedResources } from '../sso/auth-config';
 import { ToastrService } from 'ngx-toastr';
-
+import { startWith } from "rxjs/operators";
 @Component({
   selector: 'app-all-devices',
   templateUrl: './all-devices.component.html',
@@ -145,7 +145,7 @@ export class AllDevicesComponent implements OnInit {
    */
   toggleSidebar(name): void {
     setTimeout(() => {
-      this._commonService.onUserEditListChanged.next(this.chkBoxSelected);
+      this._commonService.onUserEditListChanged.next(null);
     }, 200);
     this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
   }
@@ -169,9 +169,9 @@ export class AllDevicesComponent implements OnInit {
     });
   }
 
-  toggleSidebarEdit(name, id): void {
+  toggleSidebarEdit(name, row): void {
     setTimeout(() => {
-      this._commonService.onUserEditListChanged.next(null);
+      this._commonService.onUserEditListChanged.next(row);
     }, 200);
     this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
     // console.log('id:', id);
@@ -257,7 +257,9 @@ export class AllDevicesComponent implements OnInit {
    * On init
    */
   ngOnInit(): void {
-    this.getDevices();
+    this._commonService.onDevicesUpdates.pipe(startWith([])).subscribe((res) => {
+      this.getDevices();
+    });
   }
 
   getDevices() {

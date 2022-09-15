@@ -4,6 +4,7 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/r
 import { environment } from 'environments/environment';
 
 import { BehaviorSubject, Observable } from 'rxjs';
+import { tap } from "rxjs/operators";
 
 @Injectable()
 export class CommonService implements Resolve<any> {
@@ -11,6 +12,7 @@ export class CommonService implements Resolve<any> {
   public onUserListChanged: BehaviorSubject<any>;
   public onUserEditListChanged: BehaviorSubject<any>;
   public onStudentsSelected: BehaviorSubject<any>;
+  public onDevicesUpdates: BehaviorSubject<any>;
   public static teacherGetList;
   public onTeacherEditListChanged = null;
 
@@ -24,6 +26,7 @@ export class CommonService implements Resolve<any> {
     this.onUserListChanged = new BehaviorSubject({});
     this.onUserEditListChanged = new BehaviorSubject({});
     this.onStudentsSelected = new BehaviorSubject({});
+    this.onDevicesUpdates = new BehaviorSubject({});
   }
 
   getCurrentUser() {
@@ -534,6 +537,18 @@ export class CommonService implements Resolve<any> {
 
   deleteDevice(id) {
     return this._httpClient.delete(`${environment.apiUrl}/api/device/${id}`);
+  }
+
+  deleteMedia(id) {
+    return this._httpClient.delete(`${environment.apiUrl}/api/multimedia/${id}`)
+  }
+
+  updateDevice(id, body) {
+    return this._httpClient.post(`${environment.apiUrl}/api/device/${id}`, body).pipe(tap(x => { this.onDevicesUpdates.next(x) }));
+  }
+
+  createDevice(body) {
+    return this._httpClient.post(`${environment.apiUrl}/api/device`, body);
   }
 
   // deleteClass(id): Promise<any[]> {

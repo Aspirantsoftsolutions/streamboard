@@ -83,6 +83,12 @@ export class MediaComponent implements OnInit {
     this.getMedia();
   }
 
+  deleteMedia(media) {
+    this._commonService.deleteMedia(media._id).subscribe(() => {
+      this.getMedia();
+    })
+  }
+
   getMediaType(type) {
     if (this.allowedmediaTypes.video.includes(type)) {
       return 'video'

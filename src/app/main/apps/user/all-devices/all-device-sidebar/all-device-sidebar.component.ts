@@ -12,16 +12,9 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./all-device-sidebar.component.scss']
 })
 export class AllDeviceSidebarComponent implements OnInit {
-  public fullname;
-  public username;
-  public email;
-  public mobilenumber;
-  public itemail;
-  public firstname;
-  public lastname;
-  public address;
   public isToUpdate = false;
-  public userId;
+  public deviceName = '';
+  public _id;
   /**
    * Constructor
    *
@@ -31,25 +24,18 @@ export class AllDeviceSidebarComponent implements OnInit {
     private toastr: ToastrService,
     private _commonService: CommonService,) {
     this._commonService.onUserEditListChanged.subscribe(response => {
-      console.log('res cms', response);
+      console.log('row', response);
       if (response != null) {
         this.isToUpdate = true;
-        this.userId = response.userId;
-        this.username = response.organisation;
-        this.fullname = response.fullName!;
-        this.email = response.email;
-        this.firstname = response.firstName!;
-        this.lastname = response.lastName!;
-        this.address = response.address!;
-        this.itemail = response.itemail!;
-        this.mobilenumber = response.mobile;
+        this._id = response._id;
+        this.deviceName = response.deviceName;
       } else {
         this.isToUpdate = false;
       }
-      if (response != null && response.data!=null && response.data.length==0) {
+      if (response != null && response.data != null && response.data.length == 0) {
         this.isToUpdate = false;
-      } 
-      
+      }
+
     });
 
   }
@@ -72,14 +58,12 @@ export class AllDeviceSidebarComponent implements OnInit {
     if (form.valid) {
       console.log(form);
       if (this.isToUpdate) {
-        this._commonService.updateProfile(form.value,this.userId).then((resposne) => {
+        this._commonService.updateDevice(this._id, form.value).subscribe((resposne) => {
           console.log('res set:', resposne);
-          let successString = Response;
-          this.toastr.success('👋 updated Successfully.', 'Success!', {
+          this.toastr.success('👋 device name updated Successfully.', 'Success!', {
             toastClass: 'toast ngx-toastr',
             closeButton: true
           });
-          this._commonService.getDataTableRows();
         }, (error) => {
           console.log('res set error:', error);
           let errorString = error;
@@ -90,10 +74,9 @@ export class AllDeviceSidebarComponent implements OnInit {
         }
         );
       } else {
-        this._commonService.setUser(form.value).then((resposne) => {
+        this._commonService.createDevice(form.value).subscribe((resposne) => {
           console.log('res set:', resposne);
-          let successString = Response;
-          this.toastr.success('👋 User Created Successfully.', 'Success!', {
+          this.toastr.success('👋 device Created Successfully.', 'Success!', {
             toastClass: 'toast ngx-toastr',
             closeButton: true
           });
@@ -108,11 +91,11 @@ export class AllDeviceSidebarComponent implements OnInit {
         }
         );
       }
-     
+
       this.toggleSidebar('all-device-sidebar');
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
 }
