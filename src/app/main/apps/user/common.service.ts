@@ -532,6 +532,10 @@ export class CommonService implements Resolve<any> {
     return this._httpClient.post(`${environment.apiUrl}/api/pushnotifications/add`, body);
   }
 
+  deleteDevice(id) {
+    return this._httpClient.delete(`${environment.apiUrl}/api/device/${id}`);
+  }
+
   // deleteClass(id): Promise<any[]> {
   //   return new Promise((resolve, reject) => {
   //     this._httpClient.delete(`${environment.apiUrl}/api/user/${id}`, {

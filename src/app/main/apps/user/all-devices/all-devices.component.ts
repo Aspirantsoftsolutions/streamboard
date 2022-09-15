@@ -152,19 +152,20 @@ export class AllDevicesComponent implements OnInit {
 
   statusChange(id, status): void {
     this._commonService.updateUserStatus(!status, id).then((response) => {
-      this._commonService.getDataTableRows();
+      this.getDevices();
     });
   }
 
-  deleteUser(id) {
-    this._commonService.deleteUser(id).then((response) => {
-      this._commonService.getDataTableRows();
+  deleteDevice(id) {
+    this._commonService.deleteDevice(id).subscribe((response) => {
+      console.log(response);
+      this.getDevices();
     });
   }
 
   changeSubscriptionType(plan, id) {
     this._commonService.updateSchoolSubscription(plan, id).then((response) => {
-      this._commonService.getDataTableRows();
+      this.getDevices();
     });
   }
 
@@ -256,54 +257,14 @@ export class AllDevicesComponent implements OnInit {
    * On init
    */
   ngOnInit(): void {
+    this.getDevices();
+  }
+
+  getDevices() {
     this._commonService.getDeviceList().subscribe(devices => {
       this.rows = devices['data'];
     });
-    // this.rows = [
-    //   {
-    //     device: "IFP8650-2 BoardRoom",
-    //     serialno: "12134",
-    //     ipaddress: "69.89.31.226",
-    //     status: "active",
-    //     lastconnected: "2022/08/12 20:17:30"
-    //   },
-    //   {
-    //     device: "IFP8650ClassRoom",
-    //     serialno: "12134",
-    //     ipaddress: "69.89.31.226",
-    //     status: "active",
-    //     lastconnected: "2022/08/12 20:17:30"
-    //   },
-    //   {
-    //     device: "ViewSonicOffice",
-    //     serialno: "12134",
-    //     ipaddress: "69.89.31.226",
-    //     status: "active",
-    //     lastconnected: "2022/08/12 20:17:30"
-    //   }
-    // ];
     this.tempData = this.rows;
-    // Subscribe config change
-    // this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
-    //   //! If we have zoomIn route Transition then load datatable after 450ms(Transition will finish in 400ms)
-    //   if (config.layout.animation === 'zoomIn') {
-    //     setTimeout(() => {
-    //       this._commonService.onUserListChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
-    //         this.rows = response;
-    //         this.tempData = this.rows;
-    //       });
-    //     }, 450);
-    //   } else {
-    //     this._commonService.onUserListChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
-    //       this.rows = response;
-    //       this.tempData = this.rows;
-    //     });
-    //   }
-    // });
-
-    this.getUser();
-
-
   }
 
   doSync() {
@@ -314,11 +275,12 @@ export class AllDevicesComponent implements OnInit {
       interactionType: InteractionType.Popup
     };
     this.getProfile(providerOptions);
-
   }
+
   setLoginDisplay() {
     return this.authService.instance.getAllAccounts().length > 0;
   }
+
   getProfile(providerOptions: ProviderOptions) {
     this.graphService.getGraphClient(providerOptions, this.authService)
       .api('/users').get()
@@ -353,35 +315,6 @@ export class AllDevicesComponent implements OnInit {
       this.isDeviceSelected = false;
     this.chkBoxSelected.splice(0, this.chkBoxSelected.length);
     this.chkBoxSelected.push(...selected);
-  }
-
-  async getUser() {
-    // const client = new JWT({
-    //   email: privatekey.client_email,
-    //   key: privatekey.private_key,
-    //   scopes: ['https://www.googleapis.com/auth/cloud-platform'],
-    // });
-    // let url = "https://admin.googleapis.com/admin/directory/v1/users";
-    // const res = await client.request({ url });
-    // console.log(res.data);
-
-    // try {
-    //   const admin = await google.admin({
-    //     version: "directory_v1",
-    //     auth: client,
-    //   });
-    //   //get all users
-    //   const users = await admin.users.get({
-    //     userKey: email,
-    //   });
-    //   console.log(users, "users");
-    // } catch (error) {
-    //   console.log(
-    //     error.response ? error.response.data : error.message,
-    //     "error",
-    //     error.message ? error.errors : ""
-    //   );
-    // }
   }
 
   /**
