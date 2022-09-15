@@ -71,7 +71,7 @@ export class studentTemplateData {
 })
 export class AppComponent implements OnInit, OnDestroy {
   @ViewChild('csvReader') csvReader: any;
-  title = 'Microsoft identity platform';
+  //title = 'Microsoft identity platform';
   isIframe = false;
   loginDisplay = false;
   gloginDisplay = false;
