@@ -57,15 +57,15 @@
 
           <div class="form-group mb-2">
             <label class="form-label" for="class">Select Class</label>
-            <select id="class" class="form-control" name='class' [(ngModel)]="class">
-              <option value="{{itemp._id}}" *ngFor="let itemp of classes">{{itemp.className}}</option>
+            <select id="class" class="form-control" name='class' [(ngModel)]="selectedClass">
+              <option *ngFor="let itemp of classes" [value]="itemp._id">{{itemp.className}}</option>
             </select>
           </div>
 
           <div class="form-group mb-2">
             <label class="form-label" for="class">Select Grade</label>
             <select id="grade" class="form-control" name='grade' [(ngModel)]="grade">
-              <option value="{{item._id}}" *ngFor="let item of grades">{{item.name}}</option>
+              <option *ngFor="let item of grades" [value]="item._id">{{item.name}}</option>
             </select>
           </div>
 

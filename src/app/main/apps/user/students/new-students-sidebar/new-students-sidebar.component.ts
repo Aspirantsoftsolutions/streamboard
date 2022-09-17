@@ -20,7 +20,7 @@ export class NewStudentsSidebarComponent implements OnInit {
   private _unsubscribeAll: Subject<any>;
   public classes;
   public grades;
-  public class;
+  public selectedClass;
   public grade;
   public isToUpdate = false;
   public userId;
@@ -48,7 +48,7 @@ export class NewStudentsSidebarComponent implements OnInit {
         this.firstName = response.firstName!;
         this.lastName = response.lastName!;
         this.userNumber = response.mobile;
-        this.class = response.classes;
+        this.selectedClass = response.classes;
         this.grade = response.grades;
         this.selectedTeachers = response.teachers;
       } else {
@@ -87,8 +87,8 @@ export class NewStudentsSidebarComponent implements OnInit {
     if (form.valid) {
       console.log(form);
       if (this.isToUpdate) {
-        console.log('class,', this.class);
-        this._studentListService.updateStudentProfile(form.value, this.userId, this.class).then((resposne) => {
+        console.log('selectedClass,', this.selectedClass);
+        this._studentListService.updateStudentProfile(form.value, this.userId, this.selectedClass).then((resposne) => {
           console.log('res set:', resposne);
           let successString = Response;
           this.toastr.success('👋 updated Successfully.', 'Success!', {
