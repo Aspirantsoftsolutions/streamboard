@@ -7,7 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-uploadmedia',
   templateUrl: './uploadmedia.component.html',
-  styleUrls: ['./uploadmedia.component.scss'],
+ // styleUrls: ['./uploadmedia.component.scss'],
 })
 export class UploadmediaComponent implements OnInit {
 

@@ -10,7 +10,7 @@ import { DatePickerI18nComponent } from 'app/main/forms/form-elements/date-time-
 @Component({
   selector: 'app-multimedia',
   templateUrl: './multimedia.component.html',
-  styleUrls: ['./multimedia.component.scss']
+ // styleUrls: ['./multimedia.component.scss']
 })
 export class MultimediaComponent implements OnInit {
 
