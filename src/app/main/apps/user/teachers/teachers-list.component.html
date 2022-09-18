@@ -101,20 +101,7 @@
             </ng-template>
           </ngx-datatable-column>
           <ngx-datatable-column name="Email" prop="email" [width]="200"></ngx-datatable-column>
-          <ngx-datatable-column name="Role" prop="role" [width]="100">
-            <ng-template let-role="value" ngx-datatable-cell-template>
-              <div>
-                <i class="feather font-medium-3" [ngClass]="{
-                    'icon-edit-2 text-info': role == 'Organisation',
-                    'icon-settings text-warning': role == 'Franchise',
-                    'icon-database text-success': role == 'School',
-                    'icon-user text-primary': role == 'Teacher',
-                    'icon-slack text-danger': role == 'Student'
-                  }"></i>
-                {{ role }}
-              </div>
-            </ng-template>
-          </ngx-datatable-column>
+          <ngx-datatable-column name="ShortId" prop="shortId" [width]="100"> </ngx-datatable-column>
           <!-- <ngx-datatable-column name="Plan" prop="plan" [width]="100"></ngx-datatable-column> -->
           <ngx-datatable-column name="Status" prop="status" [width]="50">
             <ng-template let-status="value" ngx-datatable-cell-template>

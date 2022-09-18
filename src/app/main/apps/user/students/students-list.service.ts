@@ -94,7 +94,7 @@ export class StudentsListService implements Resolve<any> {
         'firstName': form['user-firstName'],
         'lastName': form['user-lastName'],
         'mobile': form['user-number'],
-        'grades': form['grades'],
+        'grades': form['grade'],
         'teachers': form['username'],
         'schoolId': currentUser.userId,
         'userId': userid

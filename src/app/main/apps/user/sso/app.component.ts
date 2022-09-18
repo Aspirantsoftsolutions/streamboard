@@ -38,7 +38,7 @@ export class CSVRecord {
 }
 
 export class teacherTemplateData {
-  classes: string;
+  classes: string[];
   countryCode: string;
   email: string;
   firstName: string;
@@ -60,7 +60,7 @@ export class studentTemplateData {
   classes: string;
   grades: string;
   schoolId: string;
-  teachers: string;
+  teachers: string[];
 }
 
 
@@ -88,28 +88,28 @@ export class AppComponent implements OnInit, OnDestroy {
   isPhet = false;
   currentUser;
   teacherTemplateData = {
-    classes: '',
-    countryCode: '',
-    email: '',
     firstName: '',
     lastName: '',
+    email: '',
+    countryCode: '',
     mobile: '',
-    password: '',
-    schoolId: '',
-    username: ''
+    classes: '',
+    username: '',
+    password: 'Test@123',
+    schoolId: JSON.parse(localStorage.getItem('currentUser')).userId
   };
   studentTemplateData = {
-    username: '',
     firstName: '',
     lastName: '',
     email: '',
-    password: '',
-    mobile: '',
     countryCode: '',
+    mobile: '',
     classes: '',
     grades: '',
-    schoolId: '',
     teachers: '',
+    username: '',
+    password: 'Test@123',
+    schoolId: JSON.parse(localStorage.getItem('currentUser')).userId,
   }
   jsonData = [];
 
@@ -128,18 +128,26 @@ export class AppComponent implements OnInit, OnDestroy {
     private _toastrService: ToastrService
   ) {
     this.currentUser = this._commonService.getCurrentUser();
-    this.teacherTemplateData.schoolId = this.currentUser.userId;
-    this.studentTemplateData.schoolId = this.currentUser.userId;
+    // this.teacherTemplateData.schoolId = this.currentUser.userId;
+    // this.studentTemplateData.schoolId = this.currentUser.userId;
   }
 
 
   download(profileType) {
     if (profileType === 'teacher') {
-      this.jsonData.push(this.teacherTemplateData);
-      this.csvService.setCSVHeaders(this.teacherTemplateData);
+      let temp = { ...this.teacherTemplateData };
+      delete temp['username'];
+      delete temp['password'];
+      delete temp['schoolId'];
+      this.jsonData.push(temp);
+      this.csvService.setCSVHeaders(temp);
     } else {
-      this.jsonData.push(this.studentTemplateData);
-      this.csvService.setCSVHeaders(this.studentTemplateData);
+      const temp = { ...this.studentTemplateData };
+      delete temp['username'];
+      delete temp['password'];
+      delete temp['schoolId'];
+      this.jsonData.push(temp);
+      this.csvService.setCSVHeaders(temp);
     }
     this.csvService.downloadFile(this.jsonData, `${profileType}template${Date.now()}`);
     this.fileReset();
@@ -203,32 +211,31 @@ export class AppComponent implements OnInit, OnDestroy {
       if (curruntRecord.length == headerLength) {
         if (profileType === 'teacher') {
           let csvRecord: teacherTemplateData = new teacherTemplateData();
-          csvRecord.classes = '';
-          csvRecord.countryCode = curruntRecord[2].trim();
+          csvRecord.firstName = curruntRecord[1].trim();
+          csvRecord.lastName = curruntRecord[2].trim();
           csvRecord.email = curruntRecord[3].trim();
-          csvRecord.firstName = curruntRecord[4].trim();
-          csvRecord.lastName = curruntRecord[5].trim();
-          csvRecord.mobile = curruntRecord[6].trim();
-          csvRecord.password = curruntRecord[7].trim();
-          csvRecord.schoolId = curruntRecord[8].trim();
-          csvRecord.username = curruntRecord[9].trim();
+          csvRecord.countryCode = curruntRecord[4].trim();
+          csvRecord.mobile = curruntRecord[5].trim();
+          csvRecord.classes = curruntRecord[6].trim().split(' ');
+          csvRecord.password = 'Test@123';
+          csvRecord.schoolId = this.currentUser.userId;
+          csvRecord.username = csvRecord.firstName + csvRecord.lastName;
           csvArr.push(csvRecord);
         } else if (profileType === 'student') {
           let csvRecord: studentTemplateData = new studentTemplateData();
-          csvRecord.username = curruntRecord[1].trim();;
-          csvRecord.firstName = curruntRecord[2].trim();
-          csvRecord.lastName = curruntRecord[3].trim();
-          csvRecord.email = curruntRecord[4].trim();
-          csvRecord.password = curruntRecord[5].trim();
-          csvRecord.mobile = curruntRecord[6].trim();
-          csvRecord.countryCode = curruntRecord[7].trim();
-          csvRecord.classes = '';
-          csvRecord.grades = '';
-          csvRecord.schoolId = curruntRecord[10].trim();
-          csvRecord.teachers = '';
+          csvRecord.firstName = curruntRecord[1].trim();
+          csvRecord.lastName = curruntRecord[2].trim();
+          csvRecord.email = curruntRecord[3].trim();
+          csvRecord.countryCode = curruntRecord[4].trim();
+          csvRecord.mobile = curruntRecord[5].trim();
+          csvRecord.classes = curruntRecord[6].trim();
+          csvRecord.grades = curruntRecord[7].trim();
+          csvRecord.teachers = curruntRecord[8].trim().split(' ');
+          csvRecord.username = csvRecord.firstName + csvRecord.lastName;
+          csvRecord.password = 'Test@123';
+          csvRecord.schoolId = this.currentUser.userId;
           csvArr.push(csvRecord);
         }
-
       }
     }
     return csvArr;
