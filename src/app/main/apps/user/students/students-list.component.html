@@ -106,10 +106,10 @@
             <ng-template ngx-datatable-cell-template let-row="row">
 
               <div class="actionicon d-flex"> 
-                <a (click)="statusChange(row.userId, row.isActive)" ngbDropdownItem *ngIf="row.isActive">
+                <!-- <a (click)="statusChange(row.userId, row.isActive)" ngbDropdownItem *ngIf="row.isActive">
                   <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span>  </a>
                 <a (click)="statusChange(row.userId, row.isActive)" ngbDropdownItem *ngIf="!row.isActive">
-                  <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> </a>
+                  <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> </a> -->
                 <a (click)="toggleSidebarEdit('new-students-sidebar',row.userId)" ngbDropdownItem>
                   <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> </a>
                 <a (click)="deleteUser(row._id)" ngbDropdownItem>
