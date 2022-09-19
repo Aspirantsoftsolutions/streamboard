@@ -93,7 +93,7 @@
           <ngx-datatable-column name="User" prop="fullName" [width]="200">
             <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
               <div class="d-flex align-items-center">
-                <div *ngIf="row.profile_pic.length > 0; else customAvatar">
+                <!-- <div *ngIf="row.profile_pic.length > 0; else customAvatar">
                   <img
                     class="rounded-circle mr-1"
                     src="{{ row.profile_pic }}"
@@ -101,7 +101,7 @@
                     width="32"
                     alt="datatable-avatar"
                   />
-                </div>
+                </div> -->
                 <ng-template #customAvatar>
                   <div
                     class="avatar mr-1 ml-0"
@@ -158,7 +158,19 @@
           </ngx-datatable-column>
           <ngx-datatable-column name="Actions" [width]="40" [sortable]="false">
             <ng-template ngx-datatable-cell-template let-row="row">
-              <div ngbDropdown container="body">
+
+              <div class="actionicon d-flex">
+              <!-- <a (click)="statusChange(row.userId, row.isActive)" ngbDropdownItem *ngIf="row.isActive">
+                <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span>  </a>
+              <a (click)="statusChange(row.userId, row.isActive)" ngbDropdownItem *ngIf="!row.isActive">
+                <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span>  </a> -->
+                <a (click)="toggleSidebarEdit('new-user-sidebar',row.userId)" ngbDropdownItem>
+                  <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> </a>
+                <a (click)="deleteUser(row.userId)" ngbDropdownItem>
+                  <span [data-feather]="'trash'" [size]="16" [class]="'mr-50'"></span> </a>
+                </div>
+
+              <!-- <div ngbDropdown container="body">
                 <button ngbDropdownToggle type="button" class="btn icon-btn btn-sm hide-arrow" rippleEffect>
                   <span [data-feather]="'more-vertical'" [class]="'cursor-pointer'"></span>
                 </button>
@@ -171,10 +183,10 @@
                       <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> Edit</a>
                     <a (click)="deleteUser(row.userId)" ngbDropdownItem>
                       <span [data-feather]="'trash'" [size]="16" [class]="'mr-50'"></span> Delete</a>
-                    <!-- <a routerLink="/apps/user/appazure" ngbDropdownItem>
-                     <span [data-feather]="'trash'" [size]="16" [class]="'mr-50'"></span>SSO</a> -->
+                    <a routerLink="/apps/user/appazure" ngbDropdownItem>
+                     <span [data-feather]="'trash'" [size]="16" [class]="'mr-50'"></span>SSO</a>
                 </div>
-              </div>
+              </div> -->
             </ng-template>
           </ngx-datatable-column>
         </ngx-datatable>

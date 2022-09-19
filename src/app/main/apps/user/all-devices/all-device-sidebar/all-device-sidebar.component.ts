@@ -9,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-all-device-sidebar',
   templateUrl: './all-device-sidebar.component.html',
-  styleUrls: ['./all-device-sidebar.component.scss']
+  //styleUrls: ['./all-device-sidebar.component.scss']
 })
 export class AllDeviceSidebarComponent implements OnInit {
   public isToUpdate = false;

@@ -8,7 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-notification-sidebar',
   templateUrl: './notification-sidebar.component.html',
-  styleUrls: ['./notification-sidebar.component.scss']
+  //styleUrls: ['./notification-sidebar.component.scss']
 })
 export class NotificationSidebarComponent implements OnInit {
 
