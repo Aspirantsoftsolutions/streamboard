@@ -8,6 +8,7 @@ import { takeUntil } from 'rxjs/operators';
 import { CoreConfigService } from '@core/services/config.service';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 import { GradesListService } from './grades-list.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -16,7 +17,7 @@ import { GradesListService } from './grades-list.service';
   styleUrls: ['./grades-list.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-  
+
 export class GradesListComponent implements OnInit {
   // Public
   public sidebarToggleRef = false;
@@ -68,14 +69,14 @@ export class GradesListComponent implements OnInit {
    * Constructor
    *
    * @param {CoreConfigService} _coreConfigService
-   * @param {UserListService} _userListService
+   * @param {UserListService} _gradesListService
    * @param {CoreSidebarService} _coreSidebarService
    */
   constructor(
-    private _userListService: GradesListService,
+    private _gradesListService: GradesListService,
     private _coreSidebarService: CoreSidebarService,
     private _commonService: CommonService,
-    private _coreConfigService: CoreConfigService
+    private toastr: ToastrService
   ) {
     this._unsubscribeAll = new Subject();
     this.currentUser = this._commonService.getCurrentUser();
@@ -111,24 +112,19 @@ export class GradesListComponent implements OnInit {
 
 
   deleteUser(id) {
-    this._commonService.deleteUser(id).then((response) => {
-      this._userListService.getDataTableRows();
+    this._gradesListService.deleteGrade(id).then(() => {
+      this.toastr.success('👋 updated Successfully.', 'Success!', {
+        toastClass: 'toast ngx-toastr',
+        closeButton: true
+      });
     });
   }
 
-  toggleSidebarEdit(name, id): void {
-    console.log('id:', id);
-    this._commonService.getGrades().then((response: any) => {
-      response.map(row => {
-        if (row.userId == id) {
-          console.log('current row', row);
-          this._commonService.onUserEditListChanged.next(row);
-          this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
-        }
-      });
-    }, (error) => {
-      console.log('res set error:', error);
-    });
+  toggleSidebarEdit(name, row): void {
+    this.toggleSidebar(name);
+    setTimeout(() => {
+      this._gradesListService.onGradeListChanged.next(row);
+    }, 0);
   }
 
   /**
@@ -205,23 +201,13 @@ export class GradesListComponent implements OnInit {
    * On init
    */
   ngOnInit(): void {
-    // Subscribe config change
-    this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
-      //! If we have zoomIn route Transition then load datatable after 450ms(Transition will finish in 400ms)
-      if (config.layout.animation === 'zoomIn') {
-        setTimeout(() => {
-          this._userListService.onUserListChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
-            this.rows = response;
-            this.tempData = this.rows;
-          });
-        }, 450);
-      } else {
-        this._userListService.onUserListChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
-          this.rows = response;
-          this.tempData = this.rows;
-        });
-      }
-    });
+    this._gradesListService.list.subscribe(() => {
+      this._gradesListService.getDataTableRows().then(response => {
+        this.rows = response;
+        this.tempData = this.rows;
+      });
+
+    })
   }
 
   /**

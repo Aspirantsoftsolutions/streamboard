@@ -8,7 +8,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 @Injectable()
 export class GradesListService implements Resolve<any> {
   public rows: any;
-  public onUserListChanged: BehaviorSubject<any>;
+  public onGradeListChanged: BehaviorSubject<any>;
+  public list: BehaviorSubject<any>;
   public classRows: any;
 
   /**
@@ -18,7 +19,8 @@ export class GradesListService implements Resolve<any> {
    */
   constructor(private _httpClient: HttpClient) {
     // Set the defaults
-    this.onUserListChanged = new BehaviorSubject({});
+    this.onGradeListChanged = new BehaviorSubject({});
+    this.list = new BehaviorSubject({});
   }
 
   /**
@@ -30,9 +32,7 @@ export class GradesListService implements Resolve<any> {
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
     return new Promise<void>((resolve, reject) => {
-      Promise.all([this.getDataTableRows()]).then(() => {
-        resolve();
-      }, reject);
+      resolve();
     });
   }
 
@@ -43,36 +43,10 @@ export class GradesListService implements Resolve<any> {
     return new Promise((resolve, reject) => {
       this._httpClient.get(`${environment.apiUrl}/api/grades/${this.getCurrentUser().userId}`).subscribe((response: any) => {
         this.rows = response.data;
-        this.onUserListChanged.next(this.rows);
         resolve(this.rows);
       }, reject);
     });
   }
-
-  /**
-  * Get rows
-  */
-  setUser(form): Promise<any[]> {
-    return new Promise((resolve, reject) => {
-      this._httpClient.post(`${environment.apiUrl}/api/auth/register`, {
-        'username': form['user-fullname'],
-        'email': form['user-fullname'] + "@gmail.om",
-        'password': 'Test@123',
-        'mobile': '123456789',
-        'countryCode': '+91',
-        'role': "Grade",
-        'plan': "Basic",
-        'status': 'active',
-      }).subscribe((response: any) => {
-        console.log(response);
-        resolve(response);
-      }, reject);
-    });
-  }
-
-
-
-
 
   getCurrentUser() {
     return JSON.parse(localStorage.getItem('currentUser'));
@@ -87,9 +61,29 @@ export class GradesListService implements Resolve<any> {
         'name': form.name,
         'school_id': this.getCurrentUser().userId
       }).subscribe((response: any) => {
-        console.log(response);
-        resolve(response);
         this.getDataTableRows().then(() => { });
+        resolve(response);
+      }, reject);
+    });
+  }
+
+  updateGrade(form, id): Promise<any[]> {
+    return new Promise((resolve, reject) => {
+      this._httpClient.post(`${environment.apiUrl}/api/grades/${id}`, {
+        'name': form.name,
+      }).subscribe((response: any) => {
+        this.list.next(null);
+        resolve(response);
+      }, reject);
+    });
+  }
+
+  deleteGrade(id): Promise<any[]> {
+    return new Promise((resolve, reject) => {
+      this._httpClient.delete(`${environment.apiUrl}/api/grades/${id}`).subscribe((response: any) => {
+        console.log(response);
+        this.list.next(null);
+        resolve(response);
       }, reject);
     });
   }
@@ -99,7 +93,6 @@ export class GradesListService implements Resolve<any> {
       this._httpClient.get(`${environment.apiUrl}/api/grades/grade/${id}`).subscribe((response: any) => {
         console.log(response);
         resolve(response);
-        this.getDataTableRows().then(() => { });
       }, reject);
     });
   }
