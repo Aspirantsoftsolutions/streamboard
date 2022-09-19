@@ -87,6 +87,18 @@
 
           <ngx-datatable-column name="ShortId" prop="shortId" [width]="100"> </ngx-datatable-column>
 
+          <ngx-datatable-column name="Actions" [width]="40" [sortable]="false">
+            <ng-template ngx-datatable-cell-template let-row="row">
+
+              <div class="actionicon d-flex">
+                <a (click)="toggleSidebarEdit('new-classes-sidebar',row.userId)" ngbDropdownItem>
+                  <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span></a>
+                <a (click)="deleteUser(row.userId)" ngbDropdownItem>
+                  <span [data-feather]="'trash'" [size]="16" [class]="'mr-50'"></span> </a>  
+              </div>
+
+            </ng-template>
+          </ngx-datatable-column>
         </ngx-datatable>
       </div>
     </section>

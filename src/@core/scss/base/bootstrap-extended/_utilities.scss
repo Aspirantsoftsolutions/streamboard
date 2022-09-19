@@ -26,8 +26,7 @@ $sizes-px: (
   650: 650px,
   700: 700px,
   750: 750px,
-  800: 800px
-) !default;
+  800: 800px) !default;
 
 $sizes-per: (
   // in %
@@ -49,8 +48,7 @@ $sizes-per: (
   80: 80%,
   85: 85%,
   90: 90%,
-  95: 95%
-) !default;
+  95: 95%) !default;
 
 //--------------- Text ---------------
 //------------------------------------
@@ -58,6 +56,13 @@ $sizes-per: (
 // Font Size
 //----------
 //small
+
+.tableFont {
+  font-size: 1rem !important;
+  font-weight: 500;
+  color: #000000 !important;
+}
+
 .font-small-1 {
   font-size: 0.7rem !important;
 
@@ -67,94 +72,120 @@ $sizes-per: (
     width: 0.7rem !important;
   }
 }
+
 .font-small-2 {
   font-size: 0.8rem !important;
+
   @at-root svg#{&} {
     height: 0.8rem !important;
     width: 0.8rem !important;
   }
 }
+
 .font-small-3 {
   font-size: 0.9rem !important;
+
   @at-root svg#{&} {
     height: 0.9rem !important;
     width: 0.9rem !important;
   }
 }
+
 .font-small-4 {
   font-size: 1rem !important;
+
   @at-root svg#{&} {
     height: 1rem !important;
     width: 1rem !important;
   }
 }
+
 //medium
 .font-medium-1 {
   font-size: 1.1rem !important;
+
   @at-root svg#{&} {
     height: 1.1rem !important;
     width: 1.1rem !important;
   }
 }
+
 .font-medium-2 {
   font-size: 1.2rem !important;
+
   @at-root svg#{&} {
     height: 1.2rem !important;
     width: 1.2rem !important;
   }
 }
+
 .font-medium-3 {
   font-size: 1.3rem !important;
+
   @at-root svg#{&} {
     height: 1.3rem !important;
     width: 1.3rem !important;
   }
 }
+
 .font-medium-4 {
   font-size: 1.4rem !important;
+
   @at-root svg#{&} {
     height: 1.4rem !important;
     width: 1.4rem !important;
   }
 }
+
 .font-medium-5 {
   font-size: 1.5rem !important;
+
   @at-root svg#{&} {
     height: 1.5rem !important;
     width: 1.5rem !important;
   }
 }
+
 //large
 .font-large-1 {
   font-size: 2rem !important;
+
   @at-root svg#{&} {
     height: 2rem !important;
     width: 2rem !important;
   }
 }
+
 .font-large-2 {
   font-size: 3rem !important;
+
   @at-root svg#{&} {
     height: 3rem !important;
     width: 3rem !important;
   }
 }
+
 .font-large-3 {
   font-size: 4rem !important;
+
   @at-root svg#{&} {
     height: 4rem !important;
     width: 4rem !important;
   }
 }
+
 .font-large-4 {
   font-size: 5rem !important;
+
   @at-root svg#{&} {
     height: 5rem !important;
     width: 5rem !important;
   }
 }
+
 .font-large-5 {
   font-size: 6rem !important;
+
   @at-root svg#{&} {
     height: 6rem !important;
     width: 6rem !important;
@@ -166,9 +197,11 @@ $sizes-per: (
 .line-height-1 {
   line-height: 1 !important;
 }
+
 .line-height-condensed {
   line-height: 1.5 !important;
 }
+
 .line-height-inherit {
   line-height: inherit !important;
 }
@@ -176,20 +209,26 @@ $sizes-per: (
 // Transform
 //----------
 .rotate-45 {
-  transform: rotate(45deg);
+  transform: rotate(45deg
+  );
 }
+
 .rotate-45-inverse {
   transform: rotate(-45deg);
 }
+
 .rotate-90 {
   transform: rotate(90deg);
 }
+
 .rotate-90-inverse {
   transform: rotate(-90deg);
 }
+
 .rotate-180 {
   transform: rotate(180deg);
 }
+
 .rotate-180-inverse {
   transform: rotate(-180deg);
 }
@@ -201,15 +240,19 @@ $sizes-per: (
 .border-2 {
   border-width: 2px !important;
 }
+
 .border-top-2 {
   border-top-width: 2px !important;
 }
+
 .border-bottom-2 {
   border-bottom-width: 2px !important;
 }
+
 .border-left-2 {
   border-left-width: 2px !important;
 }
+
 .border-right-2 {
   border-right-width: 2px !important;
 }
@@ -218,15 +261,19 @@ $sizes-per: (
 .border-3 {
   border-width: 3px !important;
 }
+
 .border-top-3 {
   border-top-width: 3px !important;
 }
+
 .border-bottom-3 {
   border-bottom-width: 3px !important;
 }
+
 .border-left-3 {
   border-left-width: 3px !important;
 }
+
 .border-right-3 {
   border-right-width: 3px !important;
 }
@@ -235,6 +282,7 @@ $sizes-per: (
 .round {
   @include border-radius(1.5rem);
 }
+
 .square {
   @include border-radius(0);
 }
@@ -246,35 +294,40 @@ $sizes-per: (
 .fit {
   max-width: 100% !important;
 }
+
 .half-width {
   width: 50% !important;
 }
+
 .full-width {
   width: 100% !important;
 }
+
 .full-height {
   height: 100% !important;
 }
 
 // height & width in PX
-@each $name, $size in $sizes-px {
+@each $name,
+$size in $sizes-px {
   .height-#{$name} {
-    height: $size !important;
+    height: $size  !important;
   }
 
   .width-#{$name} {
-    width: $size !important;
+    width: $size  !important;
   }
 }
 
 // height & width in %
-@each $name, $size in $sizes-per {
+@each $name,
+$size in $sizes-per {
   .height-#{$name}-per {
-    height: $size !important;
+    height: $size  !important;
   }
 
   .width-#{$name}-per {
-    width: $size !important;
+    width: $size  !important;
   }
 }
 
@@ -283,12 +336,15 @@ $sizes-per: (
 .position-top-0 {
   top: 0;
 }
+
 .position-right-0 {
   right: 0;
 }
+
 .position-bottom-0 {
   bottom: 0;
 }
+
 .position-left-0 {
   left: 0;
 }
@@ -298,12 +354,15 @@ $sizes-per: (
 .overflow-visible {
   overflow: visible;
 }
+
 .overflow-scroll {
   overflow: scroll;
 }
+
 .overflow-x-scroll {
   overflow: scroll;
 }
+
 .overflow-y-scroll {
   overflow: scroll;
 }
@@ -313,15 +372,19 @@ $sizes-per: (
 .cursor-pointer {
   cursor: pointer;
 }
+
 .cursor-move {
   cursor: move;
 }
+
 .cursor-default {
   cursor: default;
 }
+
 .cursor-progress {
   cursor: progress;
 }
+
 .cursor-not-allowed {
   cursor: not-allowed;
 }
@@ -331,27 +394,35 @@ $sizes-per: (
 .zindex-1 {
   z-index: 1 !important;
 }
+
 .zindex-2 {
   z-index: 2 !important;
 }
+
 .zindex-3 {
   z-index: 3 !important;
 }
+
 .zindex-4 {
   z-index: 4 !important;
 }
+
 .zindex-0 {
   z-index: 0 !important;
 }
+
 .zindex-minus-1 {
   z-index: -1 !important;
 }
+
 .zindex-minus-2 {
   z-index: -2 !important;
 }
+
 .zindex-minus-3 {
   z-index: -3 !important;
 }
+
 .zindex-minus-4 {
   z-index: -4 !important;
 }
@@ -361,21 +432,27 @@ $sizes-per: (
 .box-shadow-0 {
   box-shadow: none !important;
 }
+
 .box-shadow-1 {
   box-shadow: 0 2px 5px 0 rgba($black, 0.16), 0 2px 10px 0 rgba($black, 0.12);
 }
+
 .box-shadow-2 {
   box-shadow: 0 8px 17px 0 rgba($black, 0.2), 0 6px 20px 0 rgba($black, 0.19);
 }
+
 .box-shadow-3 {
   box-shadow: 0 12px 15px 0 rgba($black, 0.24), 0 17px 50px 0 rgba($black, 0.19);
 }
+
 .box-shadow-4 {
   box-shadow: 0 16px 28px 0 rgba($black, 0.22), 0 25px 55px 0 rgba($black, 0.21);
 }
+
 .box-shadow-5 {
   box-shadow: 0 27px 24px 0 rgba($black, 0.2), 0 40px 77px 0 rgba($black, 0.22);
 }
+
 .box-shadow-6 {
   box-shadow: 0 4px 8px 0 rgba($black, 0.12), 0 2px 4px 0 rgba($black, 0.08);
 }
@@ -391,9 +468,11 @@ $sizes-per: (
 .list-style-inside {
   list-style: inside;
 }
+
 .list-style-circle {
   list-style: circle;
 }
+
 .list-style-square {
   list-style: square;
 }
@@ -403,9 +482,11 @@ $sizes-per: (
 .bg-cover {
   background-size: cover !important;
 }
+
 .background-repeat {
   background-repeat: repeat !important;
 }
+
 .background-no-repeat {
   background-repeat: no-repeat !important;
 }
@@ -417,9 +498,11 @@ $sizes-per: (
   padding: 0.5rem;
   border-radius: 50%;
 }
+
 .icon-left {
   margin-right: 0.5rem;
 }
+
 .icon-right {
   margin-right: 0.5rem;
 }
@@ -428,6 +511,7 @@ $sizes-per: (
 .blockOverlay {
   z-index: 1050 !important;
 }
+
 .blockElement,
 .blockPage {
   z-index: 1051 !important;
