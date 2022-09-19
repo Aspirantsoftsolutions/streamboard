@@ -15,6 +15,7 @@ export class CommonService implements Resolve<any> {
   public onDevicesUpdates: BehaviorSubject<any>;
   public static teacherGetList;
   public onTeacherEditListChanged = null;
+  public devicesSelected = [];
 
   /**
    * Constructor

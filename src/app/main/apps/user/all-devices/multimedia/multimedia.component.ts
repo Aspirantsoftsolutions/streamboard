@@ -40,9 +40,10 @@ export class MultimediaComponent implements OnInit {
     private _toastrService: ToastrService,
 
   ) {
-    this._commonService.onUserEditListChanged.subscribe(response => {
-      this.devicesList = response;
-    });
+    // this._commonService.getDeviceList().subscribe(response => {
+    //   this.devicesList = response['data'];
+    // });
+    // this.devicesList = this._commonService.devicesSelected;
   }
 
   toggleSidebar(name): void {
@@ -94,7 +95,7 @@ export class MultimediaComponent implements OnInit {
         "image_url": this.getMediaType(this.mediaType) === 'image' ? this.mediaURL : '',
         "video_url": this.getMediaType(this.mediaType) === 'video' ? this.mediaURL : '',
       },
-      "to": this.devicesList.map(x => x.deviceid),
+      "to": this._commonService.devicesSelected.map(x => x.deviceid),
       "notification": {
         "badge": 1
       }

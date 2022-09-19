@@ -257,7 +257,7 @@ export class AllDevicesComponent implements OnInit {
    * On init
    */
   ngOnInit(): void {
-    this._commonService.onDevicesUpdates.pipe(startWith([])).subscribe((res) => {
+    this._commonService.onDevicesUpdates.pipe(startWith(1)).subscribe((res) => {
       this.getDevices();
     });
   }
@@ -317,6 +317,7 @@ export class AllDevicesComponent implements OnInit {
       this.isDeviceSelected = false;
     this.chkBoxSelected.splice(0, this.chkBoxSelected.length);
     this.chkBoxSelected.push(...selected);
+    this._commonService.devicesSelected = this.chkBoxSelected;
   }
 
   /**

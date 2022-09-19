@@ -32,27 +32,16 @@ export class NotificationSidebarComponent implements OnInit {
   constructor(private _coreSidebarService: CoreSidebarService,
     private toastr: ToastrService,
     private _commonService: CommonService,) {
-    this._commonService.onUserEditListChanged.subscribe(response => {
-      if (response != null) {
-        this.devicesList = response;
-        this.isToUpdate = true;
-        this.userId = response.userId;
-        this.username = response.organisation;
-        this.fullname = response.fullName!;
-        this.email = response.email;
-        this.firstname = response.firstName!;
-        this.lastname = response.lastName!;
-        this.address = response.address!;
-        this.itemail = response.itemail!;
-        this.mobilenumber = response.mobile;
-      } else {
-        this.isToUpdate = false;
-      }
-      if (response != null && response.data != null && response.data.length == 0) {
-        this.isToUpdate = false;
-      }
-
-    });
+    // this._commonService.getDeviceList().subscribe(response => {
+    //   if (response != null) {
+    //     this.devicesList = response['data'];
+    //   } else {
+    //     this.isToUpdate = false;
+    //   }
+    //   if (response != null && response['data'] != null && response['data'] == 0) {
+    //     this.isToUpdate = false;
+    //   }
+    // });
 
   }
 
@@ -72,18 +61,18 @@ export class NotificationSidebarComponent implements OnInit {
    */
   submit(form) {
     if (form.valid) {
-      if (!this.devicesList) {
-        this.toastr.error('something bad happened', 'Error!', {
-          toastClass: 'toast ngx-toastr',
-          closeButton: true
-        });
-      }
+      // if (!this.devicesList) {
+      //   this.toastr.error('something bad happened', 'Error!', {
+      //     toastClass: 'toast ngx-toastr',
+      //     closeButton: true
+      //   });
+      // }
       const pushPayLoad = {
         "data": {
           "title": form.value.title,
           "description": form.value.description
         },
-        "to": this.devicesList.map(x => x.deviceid),
+        "to": this._commonService.devicesSelected.map(x => x.deviceid),
         "notification": {
           "badge": 1
         }
