@@ -168,9 +168,10 @@
                   <span [data-feather]="'more-vertical'" [class]="'cursor-pointer'"></span>
                 </button>
                 <div ngbDropdownMenu>
-                  <a (click)="statusChange(row.userId, row.isActive)" ngbDropdownItem *ngIf="row.isActive">
+                  <a (click)="statusChange(row.userId, false)" ngbDropdownItem
+                    *ngIf="(row.isActive && row.status != 'pending')">
                     <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> InActive </a>
-                  <a (click)="statusChange(row.userId, row.isActive)" ngbDropdownItem *ngIf="!row.isActive">
+                  <a (click)="statusChange(row.userId, true)" ngbDropdownItem *ngIf="!row.isActive || row.status == 'pending'">
                     <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> Active </a>
                   <a (click)="toggleSidebarEdit('new-client-sidebar',row.userId)" ngbDropdownItem>
                     <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> Edit</a>

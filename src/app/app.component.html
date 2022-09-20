@@ -3,13 +3,17 @@
   <vertical-layout></vertical-layout>
 </ng-container>
 <!-- / vertical-layout -->
-
-<!-- horizontal-layout -->
-<ng-container *ngIf="coreConfig.layout.type === 'horizontal'">
-  <horizontal-layout></horizontal-layout>
-</ng-container>
+<ng-template id="showcontent" #showcontent>
+  <!-- horizontal-layout -->
+  <ng-container *ngIf="coreConfig.layout.type === 'horizontal'">
+    <horizontal-layout></horizontal-layout>
+  </ng-container>
+</ng-template>
 <!-- / horizontal-layout -->
-
+<div class="loading-overlay" *ngIf="loading;else showcontent">
+  <!-- show something fancy here, here with Angular 2 Material's loading bar or circle -->
+  <img src="./../assets/images/book-gif-image-samll.gif" alt="" srcset="">
+</div>
 <!-- theme customizer -->
 <!-- <core-sidebar
   name="themeCustomizer"

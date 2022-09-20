@@ -18,6 +18,7 @@ import { locale as menuEnglish } from 'app/menu/i18n/en';
 import { locale as menuFrench } from 'app/menu/i18n/fr';
 import { locale as menuGerman } from 'app/menu/i18n/de';
 import { locale as menuPortuguese } from 'app/menu/i18n/pt';
+import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -30,6 +31,8 @@ export class AppComponent implements OnInit, OnDestroy {
   defaultLanguage: 'en'; // This language will be used as a fallback when a translation isn't found in the current language
   appLanguage: 'en'; // Set application default language i.e fr
 
+  // Sets initial value to true to show loading spinner on first load
+  loading = true
   // Private
   private _unsubscribeAll: Subject<any>;
 
@@ -57,7 +60,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private _coreLoadingScreenService: CoreLoadingScreenService,
     private _coreMenuService: CoreMenuService,
     private _coreTranslationService: CoreTranslationService,
-    private _translateService: TranslateService
+    private _translateService: TranslateService,
+    private router: Router
   ) {
     // Get the application main menu
     this.menu = menu;
@@ -79,6 +83,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
     // Set the private defaults
     this._unsubscribeAll = new Subject();
+
+    this.router.events.subscribe((e : RouterEvent) => {
+      this.navigationInterceptor(e);
+    })
   }
 
   // Lifecycle hooks
@@ -258,5 +266,23 @@ export class AppComponent implements OnInit, OnDestroy {
    */
   toggleSidebar(key): void {
     this._coreSidebarService.getSidebarRegistry(key).toggleOpen();
+  }
+
+  // Shows and hides the loading spinner during RouterEvent changes
+  navigationInterceptor(event: RouterEvent): void {
+    if (event instanceof NavigationStart) {
+      this.loading = true
+    }
+    if (event instanceof NavigationEnd) {
+      this.loading = false
+    }
+
+    // Set loading state to false in both of the below events to hide the spinner in case a request fails
+    if (event instanceof NavigationCancel) {
+      this.loading = false
+    }
+    if (event instanceof NavigationError) {
+      this.loading = false
+    }
   }
 }

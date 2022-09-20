@@ -153,7 +153,7 @@ export class ClientsListComponent implements OnInit {
   }
 
   statusChange(id, status): void {
-    this._commonService.updateUserStatus(!status, id).then((response) => {
+    this._commonService.updateUserStatus(status, id).then((response) => {
       this._commonService.getDataTableRowsAll();
     });
   }
