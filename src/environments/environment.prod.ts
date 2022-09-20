@@ -11,5 +11,5 @@ export const environment: Ienvironment = {
   production: true,
   hmr: false,
   apiUrl: 'https://backend.thestreamboard.com',
-  redirectUrl: 'https://admin.thestreamboard.com/'
+  redirectUrl: 'https://admin.thestreamboard.com'
 };

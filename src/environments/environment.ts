@@ -13,7 +13,6 @@ export interface Ienvironment {
 export const environment: Ienvironment = {
   production: false,
   hmr: false,
-  // apiUrl: 'http://65.108.95.12:9001',
   apiUrl: 'https://backend.thestreamboard.com',
   redirectUrl: 'https://backend.thestreamboard.com'
 };
