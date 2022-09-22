@@ -17,6 +17,7 @@ export class AuthenticationService {
 
   //private
   private currentUserSubject: BehaviorSubject<User>;
+  public destroy$: Subject<any>;
 
   /**
    *
@@ -26,9 +27,10 @@ export class AuthenticationService {
   constructor(private _http: HttpClient, private _toastrService: ToastrService,
     private _sauthService: SocialAuthService,
     private _router: Router,
-) {
+  ) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
+    this.destroy$ = new Subject();
   }
 
   // getter: currentUserValue
@@ -50,10 +52,10 @@ export class AuthenticationService {
     return this.currentUser && this.currentUserSubject.value.role === Role.Client;
   }
 
-  getCurrentUser(token,id) {
+  getCurrentUser(token, id) {
     localStorage.setItem('token', token);
     return this._http
-      .get<any>(`${environment.apiUrl}/api/user/profile/`+id)
+      .get<any>(`${environment.apiUrl}/api/user/profile/` + id)
       .pipe(
         map(user => {
           console.log('logged in user:', user);
@@ -68,7 +70,7 @@ export class AuthenticationService {
                 'You have successfully logged in as an ' +
                 user.data.role +
                 ' user to Streamboard. Now you can start to explore. Enjoy! 🎉',
-                '👋 Welcome, ' + user.data.username+'!',
+                '👋 Welcome, ' + user.data.username + '!',
                 { toastClass: 'toast ngx-toastr', closeButton: true }
               );
             }, 2500);
@@ -82,9 +84,9 @@ export class AuthenticationService {
       );
   }
 
-  getUsers(bearerToken,idToken, domainName) {
+  getUsers(bearerToken, idToken, domainName) {
     return this._http
-      .get<any>('https://content-admin.googleapis.com/admin/directory/v1/users?domain='+domainName+'&key='+idToken,
+      .get<any>('https://content-admin.googleapis.com/admin/directory/v1/users?domain=' + domainName + '&key=' + idToken,
         {
           headers: {
             'Authorization': 'Bearer ' + bearerToken
@@ -133,9 +135,9 @@ export class AuthenticationService {
       );
   }
 
-  getCalendarEventsList(bearerToken,calendarId) {
+  getCalendarEventsList(bearerToken, calendarId) {
     return this._http
-      .get<any>('https://www.googleapis.com/calendar/v3/calendars/'+calendarId+'/events',
+      .get<any>('https://www.googleapis.com/calendar/v3/calendars/' + calendarId + '/events',
         {
           headers: {
             'Authorization': 'Bearer ' + bearerToken
@@ -149,7 +151,7 @@ export class AuthenticationService {
       );
   }
 
-  
+
   /**
    * User login
    *
@@ -159,14 +161,14 @@ export class AuthenticationService {
    */
   login(email: string, password: string) {
     return this._http
-      .post<any>(`${environment.apiUrl}/api/auth/login`, { 'identity':email,'password': password })
+      .post<any>(`${environment.apiUrl}/api/auth/login`, { 'identity': email, 'password': password })
       .pipe(
         map(user => {
           console.log('logged in user:', user);
           // login successful if there's a jwt token in the response
           if (user && user.data.token) {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
-          //  localStorage.setItem('currentUser', JSON.stringify(user));
+            //  localStorage.setItem('currentUser', JSON.stringify(user));
 
             // // Display welcome toast!
             // setTimeout(() => {
@@ -181,7 +183,39 @@ export class AuthenticationService {
 
             // notify
             // this.currentUserSubject.next(user);
-           
+
+          }
+
+          return user;
+        })
+      );
+  }
+
+  loginSocial(email: string) {
+    return this._http
+      .post<any>(`${environment.apiUrl}/api/auth/social-login`, { 'identity': email })
+      .pipe(
+        map(user => {
+          console.log('logged in user:', user);
+          // login successful if there's a jwt token in the response
+          if (user && user.data.token) {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            //  localStorage.setItem('currentUser', JSON.stringify(user));
+
+            // // Display welcome toast!
+            // setTimeout(() => {
+            //   this._toastrService.success(
+            //     'You have successfully logged in as an ' +
+            //       user.role +
+            //       ' user to Streamboard. Now you can start to explore. Enjoy! 🎉',
+            //     '👋 Welcome, !',
+            //     { toastClass: 'toast ngx-toastr', closeButton: true }
+            //   );
+            // }, 2500);
+
+            // notify
+            // this.currentUserSubject.next(user);
+
           }
 
           return user;
@@ -194,7 +228,9 @@ export class AuthenticationService {
    *
    */
   logout() {
-    this._sauthService.signOut();
+    this.destroy$.next();
+    this.destroy$.complete();
+    this._sauthService.signOut(true);
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
     // notify

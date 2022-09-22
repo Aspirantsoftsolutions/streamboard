@@ -37,7 +37,7 @@ export class AuthLoginV2Component implements OnInit {
     private _coreConfigService: CoreConfigService,
     private _formBuilder: FormBuilder,
     private _route: ActivatedRoute,
-    private authService: SocialAuthService,
+    private socialAuthService: SocialAuthService,
     private userService: UserListService,
     private _router: Router,
     private _authenticationService: AuthenticationService
@@ -84,7 +84,7 @@ export class AuthLoginV2Component implements OnInit {
     // const googleLoginOptions = {
     //   scope: 'https://www.googleapis.com/auth/admin.directory.user.readonly'
     // }
-    // this.authService.signIn(GoogleLoginProvider.PROVIDER_ID, googleLoginOptions);
+    // this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID, googleLoginOptions);
 
     // stop here if form is invalid
     if (this.loginForm.invalid) {
@@ -98,7 +98,7 @@ export class AuthLoginV2Component implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          this._authenticationService.getCurrentUser(data.data.token,data.data.user.userId)
+          this._authenticationService.getCurrentUser(data.data.token, data.data.user.userId)
             .subscribe(
               data => {
                 this._router.navigate(['/']);
@@ -133,17 +133,15 @@ export class AuthLoginV2Component implements OnInit {
     this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
       this.coreConfig = config;
     });
-    this.authService.authState.subscribe((user) => {
+    this.socialAuthService.authState.pipe(takeUntil(this._authenticationService.destroy$)).subscribe((user) => {
       if (user == null) {
         this._router.navigate(['/pages/authentication/login-v2']);
       }
-      console.log('user:', user);
       localStorage.setItem('currentUser', JSON.stringify(user));
-
       if ((user?.provider == 'GOOGLE') || (user?.provider == 'MICROSOFT')) {
-        this.loginH(user);
+        this.loginSocial(user);
       }
-      
+
       // this.userSocial = user;
       this.submitted = true;
       // this._authenticationService.getUsers(this.userSocial.response.access_token, this.userSocial.response.id_token);
@@ -160,9 +158,9 @@ export class AuthLoginV2Component implements OnInit {
     });
   }
 
-  loginH(user) {
+  loginSocial(user) {
     this._authenticationService
-      .login(user.email, 'Test@123')
+      .loginSocial(user.email)
       .pipe(first())
       .subscribe(
         data => {
@@ -185,7 +183,8 @@ export class AuthLoginV2Component implements OnInit {
   }
 
   register(user) {
-    
+    console.log('calling from register', user);
+
     let form = {
       'username': user.firstName,
       'email': user.email,
@@ -195,10 +194,10 @@ export class AuthLoginV2Component implements OnInit {
     }
     this.userService.register(form, 'Individual').then((resposne) => {
       console.log('res set:', resposne);
-      this.loginH(user);
+      this.loginSocial(user);
     }, (error) => {
       console.log('res set error:', error);
-      
+
     }
     );
   }
@@ -207,7 +206,7 @@ export class AuthLoginV2Component implements OnInit {
     const googleLoginOptions = {
       scope: 'https://www.googleapis.com/auth/admin.directory.user.readonly https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/calendar.events.readonly'
     }
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID, googleLoginOptions);
+    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID, googleLoginOptions);
   }
 
   microSoftLogin() {
@@ -215,7 +214,7 @@ export class AuthLoginV2Component implements OnInit {
     const microsoftLoginOptions = {
       scope: 'User.Read'
     }
-    this.authService.signIn(MicrosoftLoginProvider.PROVIDER_ID, microsoftLoginOptions);
+    this.socialAuthService.signIn(MicrosoftLoginProvider.PROVIDER_ID, microsoftLoginOptions);
   }
 
   /**

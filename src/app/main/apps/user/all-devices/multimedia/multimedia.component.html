@@ -26,10 +26,15 @@
                         <p>Max,video file size : 300MB</p>
                         <p>Max,video file size : 30MB</p>
                     </div>
-                    <ng-select [items]="mediaList" [(ngModel)]="selectedStatus" name="selectedStatus" bindLabel="name"
-                        placeholder="Select Status" (change)="selectedMedia($event)"></ng-select>
-                    <br>
-                    <div class="footerpopup">
+                    <ng-select class="mb-2" [items]="mediaList" [(ngModel)]="selectedStatus" name="selectedStatus"
+                        bindLabel="name" placeholder="Select Media" (change)="selectedMedia($event)"></ng-select>
+                    <ng-multiselect-dropdown class="mb-2" id="devices" name='groupName' [placeholder]="'Select Device Group'"
+                        [settings]="classDropdownSettings" [data]="deviceGroupList" [(ngModel)]="selectedDevices"
+                        (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"
+                        (onDeSelect)="onDeselect($event)" (onDeSelectAll)="onDeselectAll($event)">
+                    </ng-multiselect-dropdown>
+
+                    <div class="footerpopup" class="mt-2">
                         <button type="reset" class="btn btn-outline-secondary mr-1"
                             (click)="toggleSidebar('app-multimedia-sidebar')" rippleEffect>
                             Cancel

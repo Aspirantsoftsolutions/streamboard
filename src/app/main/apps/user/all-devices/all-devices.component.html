@@ -125,7 +125,7 @@
                                             class="d-none d-sm-inline-block">Multimedia</span>
                                     </button> -->
 
-
+                                    <button class="dropbtn btn btn-primary" *ngIf="chkBoxSelected.length" (click)="addToGroup()">Group</button>
                                     <div class="mdropdown">
                                         <button class="dropbtn btn btn-primary">Broadcasting</button>
                                         <div class="mdropdown-content">
@@ -337,5 +337,9 @@
     <core-sidebar class="modal modal-slide-in sidebar-todo-modal fade" name="all-device-sidebar"
         overlayClass="modal-backdrop">
         <app-all-device-sidebar></app-all-device-sidebar>
+    </core-sidebar>
+    <core-sidebar class="modal modal-slide-in sidebar-todo-modal fade" name="device-groups-sidebar"
+        overlayClass="modal-backdrop">
+        <app-device-groups-sidebar></app-device-groups-sidebar>
     </core-sidebar>
 </div>

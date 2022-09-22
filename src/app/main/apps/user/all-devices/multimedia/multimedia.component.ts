@@ -10,7 +10,7 @@ import { DatePickerI18nComponent } from 'app/main/forms/form-elements/date-time-
 @Component({
   selector: 'app-multimedia',
   templateUrl: './multimedia.component.html',
- // styleUrls: ['./multimedia.component.scss']
+  // styleUrls: ['./multimedia.component.scss']
 })
 export class MultimediaComponent implements OnInit {
 
@@ -23,15 +23,18 @@ export class MultimediaComponent implements OnInit {
   public previousPlanFilter = '';
   public previousStatusFilter = '';
   public selectedStatus = [];
+  public selectedDevices = [];
   public mediaURL = "";
   public mediaType = "";
   public mediaList: any;
+  public deviceGroupList: any;
   public allowedmediaTypes = {
     video: ['video/mp4', 'video/webm', 'video/ogg'],
     audio: ['audio/mpeg', 'audio/ogg', 'audio/wav'],
     image: ['image/jpeg', 'image/png', 'image/avif', 'image/bmp', 'image/gif', 'image/vnd.microsoft.icon', 'image/svg+xml', 'image/tiff', 'image/webp']
   };
   public devicesList = [];
+  public classDropdownSettings;
   constructor(
     private _commonService: CommonService,
 
@@ -44,6 +47,32 @@ export class MultimediaComponent implements OnInit {
     //   this.devicesList = response['data'];
     // });
     // this.devicesList = this._commonService.devicesSelected;
+    this.classDropdownSettings = {
+      singleSelection: false,
+      idField: '_id',
+      textField: 'groupName',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: true
+    };
+  }
+
+  onItemSelect(item: any) {
+    const devices = this.selectedDevices.filter(x => x._id === item._id);
+    if (!devices) {
+      this.selectedDevices.push(item);
+    }
+  }
+  onSelectAll(items: any) {
+    this.selectedDevices = items;
+  }
+  onDeselect(item: any) {
+    this.selectedDevices = this.selectedDevices.filter(x => x._id != item._id);
+  }
+
+  onDeselectAll(items: any) {
+    this.selectedDevices = items;
   }
 
   toggleSidebar(name): void {
@@ -54,6 +83,12 @@ export class MultimediaComponent implements OnInit {
   }
 
   selectedMedia(event) {
+    this.mediaURL = event.location;
+    this.mediaType = event.type;
+  }
+
+
+  selectedDeviceGroups(event) {
     this.mediaURL = event.location;
     this.mediaType = event.type;
   }
@@ -87,6 +122,12 @@ export class MultimediaComponent implements OnInit {
     });
   }
 
+  getDeviceGroup() {
+    this._commonService.getDeviceGroup().subscribe(list => {
+      this.deviceGroupList = list['data'];
+    });
+  }
+
   broadcastMedia() {
     const pushPayLoad = {
       "data": {
@@ -98,10 +139,10 @@ export class MultimediaComponent implements OnInit {
       "to": this._commonService.devicesSelected.map(x => x.deviceid),
       "notification": {
         "badge": 1
-      }
+      },
+      "deviceGroups": this.selectedDevices
     }
     this._commonService.sendPushNotifications(pushPayLoad).subscribe(resp => {
-      console.log(resp);
       this._toastrService.success('👋 notification sent successfully', 'Success!', {
         toastClass: 'toast ngx-toastr',
         closeButton: true
@@ -118,5 +159,6 @@ export class MultimediaComponent implements OnInit {
 
   ngOnInit(): void {
     this.getMedia();
+    this.getDeviceGroup();
   }
 }

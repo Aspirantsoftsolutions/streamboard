@@ -13,6 +13,7 @@ export class CommonService implements Resolve<any> {
   public onUserEditListChanged: BehaviorSubject<any>;
   public onStudentsSelected: BehaviorSubject<any>;
   public onDevicesUpdates: BehaviorSubject<any>;
+  public onDevicesSelected: BehaviorSubject<any>;
   public static teacherGetList;
   public onTeacherEditListChanged = null;
   public devicesSelected = [];
@@ -28,6 +29,7 @@ export class CommonService implements Resolve<any> {
     this.onUserEditListChanged = new BehaviorSubject({});
     this.onStudentsSelected = new BehaviorSubject({});
     this.onDevicesUpdates = new BehaviorSubject({});
+    this.onDevicesSelected = new BehaviorSubject({});
   }
 
   getCurrentUser() {
@@ -550,6 +552,20 @@ export class CommonService implements Resolve<any> {
 
   createDevice(body) {
     return this._httpClient.post(`${environment.apiUrl}/api/device`, body);
+  }
+
+  createDeviceGroup(devices, groupName) {
+    const body = {
+      devices,
+      groupName,
+      school_id: this.getCurrentUser().userId
+    };
+    return this._httpClient.post(`${environment.apiUrl}/api/device/groups`, body);
+  }
+
+  getDeviceGroup() {
+    const schoolId = this.getCurrentUser().userId;
+    return this._httpClient.get(`${environment.apiUrl}/api/device/groups/${schoolId}`);
   }
 
   // deleteClass(id): Promise<any[]> {

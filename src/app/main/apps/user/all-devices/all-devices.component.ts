@@ -320,6 +320,13 @@ export class AllDevicesComponent implements OnInit {
     this._commonService.devicesSelected = this.chkBoxSelected;
   }
 
+  addToGroup() {
+    this.toggleSidebar('device-groups-sidebar');
+    setTimeout(() => {
+      this._commonService.onDevicesSelected.next(this.chkBoxSelected);
+    }, 200);
+  }
+
   /**
    * On destroy
    */
