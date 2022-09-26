@@ -109,7 +109,7 @@ export class NewSessionsSidebarComponent implements OnInit {
       form.value['type'] = type;
 
       if (!form.value['group']) {
-        form.value['group'] = "x";
+        form.value['group'] = "";
       }
       console.log(form);
       this.SessionsListService.createSession(form.value).then((resposne) => {
