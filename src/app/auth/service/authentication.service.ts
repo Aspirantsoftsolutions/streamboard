@@ -182,7 +182,7 @@ export class AuthenticationService {
             // }, 2500);
 
             // notify
-            // this.currentUserSubject.next(user);
+            this.currentUserSubject.next(user);
 
           }
 
@@ -214,7 +214,7 @@ export class AuthenticationService {
             // }, 2500);
 
             // notify
-            // this.currentUserSubject.next(user);
+            this.currentUserSubject.next(user);
 
           }
 

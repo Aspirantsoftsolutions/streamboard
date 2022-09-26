@@ -17,6 +17,7 @@ export class CommonService implements Resolve<any> {
   public static teacherGetList;
   public onTeacherEditListChanged = null;
   public devicesSelected = [];
+  public deviceGroups = [];
 
   /**
    * Constructor
@@ -29,7 +30,7 @@ export class CommonService implements Resolve<any> {
     this.onUserEditListChanged = new BehaviorSubject({});
     this.onStudentsSelected = new BehaviorSubject({});
     this.onDevicesUpdates = new BehaviorSubject({});
-    this.onDevicesSelected = new BehaviorSubject({});
+    this.onDevicesSelected = new BehaviorSubject([]);
   }
 
   getCurrentUser() {
@@ -538,6 +539,11 @@ export class CommonService implements Resolve<any> {
     return this._httpClient.post(`${environment.apiUrl}/api/pushnotifications/add`, body);
   }
 
+  schedulePushNotifications(body) {
+    // const currUser = this.getCurrentUser().userId;
+    return this._httpClient.post(`${environment.apiUrl}/api/pushnotifications/schedule`, body);
+  }
+
   deleteDevice(id) {
     return this._httpClient.delete(`${environment.apiUrl}/api/device/${id}`);
   }
@@ -565,8 +571,24 @@ export class CommonService implements Resolve<any> {
 
   getDeviceGroup() {
     const schoolId = this.getCurrentUser().userId;
-    return this._httpClient.get(`${environment.apiUrl}/api/device/groups/${schoolId}`);
+    return this._httpClient.get(`${environment.apiUrl}/api/device/groups/${schoolId}`).pipe(tap(resp => this.deviceGroups = resp['data']));
   }
+
+  sendCommandToDeviceGroup(devices, command) {
+    const body = {
+      command,
+      to: devices,
+      "notification": {
+        "badge": 1
+      }
+    };
+    return this._httpClient.post(`${environment.apiUrl}/api/pushnotifications/command`, body)
+  }
+
+  deleteDeviceFromGroup(groupId, deviceId) {
+    return this._httpClient.delete(`${environment.apiUrl}/api/device/group/${groupId}`, { body: { deviceId } });
+  }
+
 
   // deleteClass(id): Promise<any[]> {
   //   return new Promise((resolve, reject) => {

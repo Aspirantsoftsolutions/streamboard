@@ -3,7 +3,7 @@ import { DOCUMENT } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, map, tap } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import * as Waves from 'node-waves';
 
@@ -19,6 +19,9 @@ import { locale as menuFrench } from 'app/menu/i18n/fr';
 import { locale as menuGerman } from 'app/menu/i18n/de';
 import { locale as menuPortuguese } from 'app/menu/i18n/pt';
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent } from '@angular/router';
+import { CommonService } from './main/apps/user/common.service';
+import { CoreMenu } from '@core/types';
+import { AuthenticationService } from './auth/service';
 
 @Component({
   selector: 'app-root',
@@ -35,6 +38,7 @@ export class AppComponent implements OnInit, OnDestroy {
   loading = true
   // Private
   private _unsubscribeAll: Subject<any>;
+  deviceGroups = [];
 
   /**
    * Constructor
@@ -59,19 +63,12 @@ export class AppComponent implements OnInit, OnDestroy {
     private _coreSidebarService: CoreSidebarService,
     private _coreLoadingScreenService: CoreLoadingScreenService,
     private _coreMenuService: CoreMenuService,
+    private _commonService: CommonService,
     private _coreTranslationService: CoreTranslationService,
     private _translateService: TranslateService,
-    private router: Router
+    private router: Router,
+    private authenticationService: AuthenticationService
   ) {
-    // Get the application main menu
-    this.menu = menu;
-
-    // Register the menu to the menu service
-    this._coreMenuService.register('main', this.menu);
-
-    // Set the main menu as our current menu
-    this._coreMenuService.setCurrentMenu('main');
-
     // Add languages to the translation service
     this._translateService.addLangs(['en', 'fr', 'de', 'pt']);
 
@@ -84,7 +81,7 @@ export class AppComponent implements OnInit, OnDestroy {
     // Set the private defaults
     this._unsubscribeAll = new Subject();
 
-    this.router.events.subscribe((e : RouterEvent) => {
+    this.router.events.subscribe((e: RouterEvent) => {
       this.navigationInterceptor(e);
     })
   }
@@ -95,7 +92,7 @@ export class AppComponent implements OnInit, OnDestroy {
   /**
    * On init
    */
-  ngOnInit(): void {
+  async ngOnInit() {
     // Init wave effect (Ripple effect)
     Waves.init();
 
@@ -243,6 +240,26 @@ export class AppComponent implements OnInit, OnDestroy {
       }
     });
 
+    this.authenticationService.currentUser.subscribe(async (data) => {
+
+      const childGrouteRoutes = await this.getDeviceGroups();
+
+      // Get the application main menu
+
+      menu[1].children.find(item => {
+        if (item.id === "Devicemanagement") {
+          item.children[2].children = childGrouteRoutes;
+        }
+      })
+
+      this.menu = menu;
+
+      // Register the menu to the menu service
+      this._coreMenuService.register('main', this.menu);
+
+      // Set the main menu as our current menu
+      this._coreMenuService.setCurrentMenu('main');
+    })
     // Set the application page title
     this._title.setTitle(this.coreConfig.app.appTitle);
   }
@@ -284,5 +301,30 @@ export class AppComponent implements OnInit, OnDestroy {
     if (event instanceof NavigationError) {
       this.loading = false
     }
+  }
+
+  getDeviceGroups(): Promise<CoreMenu[]> {
+    return new Promise((resolve, reject) => {
+      try {
+        const childGroups: CoreMenu[] = [];
+        this._commonService.getDeviceGroup().pipe(
+          map(resp => resp['data']),
+          tap(groups => {
+            groups.forEach(group => {
+              childGroups.push({
+                id: "deviceGroups",
+                title: `${group.groupName}`,
+                type: "item",
+                icon: "airplay",
+                url: `apps/user/alldevices/${group._id}`,
+              })
+            })
+          })).subscribe(devicesGroups => {
+            resolve(childGroups);
+          });
+      } catch (error) {
+        reject(error);
+      }
+    });
   }
 }

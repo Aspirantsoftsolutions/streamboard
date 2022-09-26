@@ -318,6 +318,7 @@ export class AllDevicesComponent implements OnInit {
     this.chkBoxSelected.splice(0, this.chkBoxSelected.length);
     this.chkBoxSelected.push(...selected);
     this._commonService.devicesSelected = this.chkBoxSelected;
+    this._commonService.onDevicesSelected.next(this.chkBoxSelected);
   }
 
   addToGroup() {

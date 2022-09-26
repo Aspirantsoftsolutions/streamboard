@@ -1,55 +1,347 @@
-<div class="newdevice">
-    <!-- Modal to add new user starts-->
-    <div class="modalsd modal-slide-in sdfade new-user-modal" id="modals-slide-in">
-        <div class="modal-dialog">
-            <form class="add-new-user modal-content pt-0" (ngSubmit)="(newUserForm.form.valid)" #newUserForm="ngForm">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                    (click)="toggleSidebar('device-groups-sidebar')">
-                    ×
-                </button>
-                <div class="modal-header mb-1">
-                    <h5 class="modal-title" id="exampleModalLabel">Device Group</h5>
-                </div>
-                <div class="modal-body flex-grow-1">
+<div class="content-wrapper container-xxl p-0">
+    <div class="content-body">
+        <!-- User List -->
+        <section class="users-list-wrapper">
+            <!-- users filter start -->
+            <div class="card">
+                <h5 class="card-header">Search Filter</h5>
+                <div class="card-body">
+                    <div class="users-list-filter">
+                        <form>
+                            <div class="row">
+                                <!-- <div class="col-12 col-md-4">
+                    <fieldset class="form-group">
+                      <ng-select
+                        [items]="selectRole"
+                        [(ngModel)]="selectedRole"
+                        name="selectedRole"
+                        bindLabel="name"
+                        placeholder="Select Role"
+                        (change)="filterByRole($event)"
+                      ></ng-select>
+                    </fieldset>
+                  </div> -->
+                                <div class="col-12 col-md-4">
+                                    <fieldset class="form-group">
+                                        <input type="text" id="basic-icon-default-uname" class="form-control dt-uname"
+                                            placeholder="Search" aria-label="jdoe1"
+                                            aria-describedby="basic-icon-default-uname2" name="user-name"
+                                            [(ngModel)]="searchValue" name="searchValue" type="search"
+                                            class="form-control ml-25" (keyup)="filterUpdate($event)"
+                                            (search)="filterUpdate($event)" />
+                                    </fieldset>
+                                </div>
+                                <div class="col-12 col-md-3">
+                                    <fieldset class="form-group">
+                                        <ng-select [items]="selectStatus" [(ngModel)]="selectedStatus"
+                                            name="selectedStatus" bindLabel="name" placeholder="Select Status"
+                                            (change)="filterByStatus($event)"></ng-select>
+                                    </fieldset>
+                                </div>
+                                <div class="col-12 col-md-5">
+                                    <fieldset class="form-group totalactive">
 
-                    <!-- <div class="form-group">
-                        <label class="form-label" for="basic-icon-default-uname">Serial Number</label>
-                        <input type="text" id="basic-icon-default-uname" class="form-control dt-uname"
-                            placeholder="Serial Number" aria-label="jdoe1" aria-describedby="basic-icon-default-uname2"
-                            name="user-name" [(ngModel)]="username"
-                            [class.error]="newUserForm.submitted && FUserNameRef.invalid" #FUserNameRef="ngModel"
-                            required />
-                        <span *ngIf="newUserForm.submitted && FUserNameRef.invalid" class="invalid-form">
-                            <small class="form-text text-danger" *ngIf="FUserNameRef.errors.required">This field is
-                                required!</small>
-                        </span>
-                    </div> -->
+                                        <div>
+                                            <label>Total active devices :</label>
+                                            10
+                                        </div>
+                                        |
+                                        <div>
+                                            <label> Total inactive devices :</label>
+                                            5
 
-                    <div class="form-group">
-                        <label class="form-label" for="basic-icon-default-groupName">Group Name</label>
-                        <input type="text" class="form-control dt-full-name" id="basic-icon-default-groupName"
-                            placeholder="Device" name="groupName" [(ngModel)]="groupName"
-                            [class.error]="newUserForm.submitted && FNameRef.invalid" #FNameRef="ngModel" required
-                            aria-label="Device" aria-describedby="basic-icon-default-deviceName2" />
-                        <span *ngIf="newUserForm.submitted && FNameRef.invalid" class="invalid-form">
-                            <small class="form-text text-danger" *ngIf="FNameRef.errors.required">This field is
-                                required!</small>
-                        </span>
+                                        </div>
+                                    </fieldset>
+
+                                </div>
+                            </div>
+                        </form>
                     </div>
+                </div>
+            </div>
+            <!-- users filter end -->
 
-
-
-                    <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" *ngIf="!isToUpdate"
-                        rippleEffect>Submit</button>
-                    <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" *ngIf="isToUpdate"
-                        rippleEffect>Update</button>
-                    <button type="reset" class="btn btn-outline-secondary" (click)="toggleSidebar('device-groups-sidebar')"
-                        rippleEffect>
-                        Cancel
+            <!-- Modal -->
+            <ng-template #modalForm let-modal>
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel1">Send Invitation</h4>
+                    <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-            </form>
-        </div>
+                <div class="modal-body" tabindex="0" ngbAutofocus>
+                    <form action="#">
+                        <label>Email: </label>
+                        <div class="form-group">
+                            <input id="idemail" type="email" name="inviteEmail" placeholder="Email Address"
+                                class="form-control" [(ngModel)]="emailInvite" />
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="sendInvite(modal,modalForm)" rippleEffect>
+                        Send Invitation
+                    </button>
+                </div>
+            </ng-template>
+            <!-- / Modal -->
+
+            <!-- <div class="card"> -->
+
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="card">
+                        <div class="row">
+                            <div class="col-md-4 col-12">
+                                <div class="d-flex justify-content-between align-items-center m-1">
+                                    <label class="d-flex align-items-center">Show
+                                        <select class="form-control mx-25" [(ngModel)]="selectedOption">
+                                            <option value="10">10</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                        </select>
+                                        entries</label>
+                                </div>
+                            </div>
+                            <div class="col-md-5 col-4 d-flex justify-content-start justify-content-md-end">
+                                <div class="d-flex align-items-center justify-content-end pr-1 pb-1 pb-md-0">
+
+                                    <!-- <button class="btn btn-primary ml-3" rippleEffect
+                                        (click)="toggleSidebar('all-device-sidebar')">
+                                        <i data-feather="plus" class="d-sm-none d-inline-block mr-0 mr-sm-1"></i><span
+                                            class="d-none d-sm-inline-block">Add Device</span>
+                                    </button> -->
+
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-4 d-flex justify-content-start justify-content-md-end">
+                                <div class="d-flex align-items-center justify-content-end pr-1 pb-1 pb-md-0">
+
+
+                                    <!-- <button class="btn btn-primary ml-2" rippleEffect
+                                        (click)="toggleSidebar('app-multimedia-sidebar')">
+                                        <i data-feather="plus" class="d-sm-none d-inline-block mr-0 mr-sm-1"></i><span
+                                            class="d-none d-sm-inline-block">Multimedia</span>
+                                    </button> -->
+
+                                    <!-- <button class="dropbtn btn btn-primary" *ngIf="chkBoxSelected.length"
+                                        (click)="addToGroup()">Group</button> -->
+                                    <div class="mdropdown">
+                                        <button class="dropbtn btn btn-primary"
+                                            [disabled]="disabled">Broadcasting</button>
+                                        <div class="mdropdown-content" *ngIf="!disabled">
+                                            <a class="" rippleEffect (click)="toggleSidebar('notification-sidebar')">
+                                                <i data-feather="plus"
+                                                    class="d-sm-none d-inline-block mr-0 mr-sm-1"></i><span
+                                                    class="d-none d-sm-inline-block">Message</span>
+                                            </a>
+
+                                            <a class="" rippleEffect (click)="toggleSidebar('app-multimedia-sidebar')">
+                                                <i data-feather="plus"
+                                                    class="d-sm-none d-inline-block mr-0 mr-sm-1"></i><span
+                                                    class="d-none d-sm-inline-block">Multimedia</span>
+                                            </a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-12">
+                                <ngx-datatable [rows]="rows" [rowHeight]="50" class="bootstrap core-bootstrap"
+                                    [limit]="selectedOption" [columnMode]="ColumnMode.force" [headerHeight]="50"
+                                    [footerHeight]="50" [scrollbarH]="true" [selected]="chkBoxSelected"
+                                    [selectionType]="SelectionType.checkbox" (select)="customChkboxOnSelect($event)">
+
+                                    <ngx-datatable-column [width]="50" [sortable]="false" [canAutoResize]="false"
+                                        [draggable]="false" [resizeable]="false">
+                                        <!-- let-allRowsSelected="allRowsSelected" -->
+                                        <!-- <ng-template ngx-datatable-header-template let-value="value" let-selectFn="selectFn">
+                                        <div class="custom-control custom-control-primary custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" [checked]="allRowsSelected"
+                                                (change)="selectFn(!allRowsSelected)" id="headerCustomChkbxRef" />
+                                            <label class="custom-control-label" for="headerCustomChkbxRef"></label>
+                                        </div>
+                                    </ng-template> -->
+                                        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex"
+                                            let-value="value" let-isSelected="isSelected"
+                                            let-onCheckboxChangeFn="onCheckboxChangeFn">
+                                            <div class="custom-control custom-control-primary custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input"
+                                                    [checked]="isSelected" (change)="onCheckboxChangeFn($event)"
+                                                    id="rowCustomChkbxRef{{ rowIndex }}" />
+                                                <label class="custom-control-label"
+                                                    for="rowCustomChkbxRef{{ rowIndex }}"></label>
+                                            </div>
+                                        </ng-template>
+                                    </ngx-datatable-column>
+
+                                    <ngx-datatable-column name="Device" prop="deviceName" [width]="200">
+                                        <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
+                                            <div class="d-flex align-items-center">
+
+
+                                                <div class="cell-line-height">
+                                                    <a routerLink="/apps/user/user-view/{{ row.id }}"
+                                                        class="font-medium-1 d-block"><span class="font-weight-bold">{{
+                                                            name
+                                                            }}</span></a>
+                                                </div>
+                                            </div>
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                                    <!-- <ngx-datatable-column name="Serial No" prop="school_id" [width]="200">
+                                        <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
+                                            <div class="d-flex align-items-center">
+                                                <div class="cell-line-height">
+                                                    12344433
+                                                </div>
+                                            </div>
+                                        </ng-template>
+                                    </ngx-datatable-column> -->
+                                    <ngx-datatable-column name="IP Address" prop="ip" [width]="150">
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="Status" prop="status" [width]="100">
+                                        <ng-template let-status="value" ngx-datatable-cell-template>
+                                            <!-- <div class="badge badge-pill" [ngClass]="{
+                            'badge-light-success': status == 'active',
+                            'badge-light-secondary': status == 'inactive',
+                            'badge-light-warning': status == 'pending'
+                          }">
+                                                active
+                                            </div>  -->
+                                            <div class="badge badge-pill badge-light-success">
+                                                active
+                                            </div>
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="Last Connected" prop="lastconnected" [width]="150">
+                                        <ng-template let-status="value" ngx-datatable-cell-template>
+                                            2022/08/12 20:17:30
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="Actions" [width]="40" [sortable]="false">
+                                        <ng-template ngx-datatable-cell-template let-row="row">
+                                            <div ngbDropdown container="body">
+                                                <button ngbDropdownToggle type="button"
+                                                    class="btn icon-btn btn-sm hide-arrow" rippleEffect>
+                                                    <span [data-feather]="'more-vertical'"
+                                                        [class]="'cursor-pointer'"></span>
+                                                </button>
+                                                <div ngbDropdownMenu>
+                                                    <a (click)="toggleSidebarEdit('all-device-sidebar',row)"
+                                                        ngbDropdownItem>
+                                                        <span [data-feather]="'edit'" [size]="16"
+                                                            [class]="'mr-50'"></span>
+                                                        Edit</a>
+                                                    <a (click)="deleteDeviceFromGroup(row._id)" ngbDropdownItem>
+                                                        <span [data-feather]="'trash'" [size]="16"
+                                                            [class]="'mr-50'"></span>
+                                                        Delete</a>
+                                                </div>
+                                            </div>
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                                </ngx-datatable>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col-sm-4">
+                    <div class="card">
+                        <div class="col-md-12 col-12">
+                            <div class="div-devicepanel">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <h4>Remote Control</h4>
+                                        <hr />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="colbox" (click)="sendCommand('PowerOff')">
+                                            <p>Power Off</p>
+                                            <img src="../../../../../assets/images/icons/power.png" alt="" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 restart" (click)="sendCommand('Restart')">
+                                        <div class="colbox">
+                                            <p>Restart</p>
+                                            <img src="../../../../../assets/images/icons/restart.png" alt="" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="colbox " (click)="sendCommand('Sleep')">
+                                            <p>Lock</p>
+                                            <img src="../../../../../assets/images/icons/lock.png" alt="" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="colbox video" (click)="sendCommand('WakeUp')">
+                                            <p>Play Video</p>
+                                            <img src="../../../../../assets/images/icons/play.png" alt="" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 pause" (click)="sendCommand('PowerOff')">
+                                        <div class="colbox">
+                                            <p>Pause Video</p>
+                                            <img src="../../../../../assets/images/icons/close-icon.png" alt="" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="colbox">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control" />
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <button class="btn primary-btn">Submit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+        <!--/ User List -->
     </div>
-    <!-- Modal to add new user Ends-->
+
+    <!-- New User Sidebar -->
+
+
+
+
+    <core-sidebar class="modal modal-slide-in sidebar-todo-modal fade" name="app-multimedia-sidebar"
+        overlayClass="modal-backdrop">
+        <app-multimedia>
+        </app-multimedia>
+    </core-sidebar>
+    <core-sidebar class="modal modal-slide-in sidebar-todo-modal fade" name="notification-sidebar"
+        overlayClass="modal-backdrop">
+        <app-notification-sidebar>
+        </app-notification-sidebar>
+    </core-sidebar>
+
+    <core-sidebar class="modal modal-slide-in sidebar-todo-modal fade" name="all-device-sidebar"
+        overlayClass="modal-backdrop">
+        <app-all-device-sidebar></app-all-device-sidebar>
+    </core-sidebar>
+    <core-sidebar class="modal modal-slide-in sidebar-todo-modal fade" name="device-groups-sidebar"
+        overlayClass="modal-backdrop">
+        <app-device-groups-sidebar></app-device-groups-sidebar>
+    </core-sidebar>
 </div>

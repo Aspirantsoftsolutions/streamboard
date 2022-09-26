@@ -1,0 +1,55 @@
+<div class="newdevice">
+    <!-- Modal to add new user starts-->
+    <div class="modalsd modal-slide-in sdfade new-user-modal" id="modals-slide-in">
+        <div class="modal-dialog">
+            <form class="add-new-user modal-content pt-0" (ngSubmit)="(newUserForm.form.valid)" #newUserForm="ngForm">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                    (click)="toggleSidebar('device-groups-sidebar')">
+                    ×
+                </button>
+                <div class="modal-header mb-1">
+                    <h5 class="modal-title" id="exampleModalLabel">Device Group</h5>
+                </div>
+                <div class="modal-body flex-grow-1">
+
+                    <!-- <div class="form-group">
+                        <label class="form-label" for="basic-icon-default-uname">Serial Number</label>
+                        <input type="text" id="basic-icon-default-uname" class="form-control dt-uname"
+                            placeholder="Serial Number" aria-label="jdoe1" aria-describedby="basic-icon-default-uname2"
+                            name="user-name" [(ngModel)]="username"
+                            [class.error]="newUserForm.submitted && FUserNameRef.invalid" #FUserNameRef="ngModel"
+                            required />
+                        <span *ngIf="newUserForm.submitted && FUserNameRef.invalid" class="invalid-form">
+                            <small class="form-text text-danger" *ngIf="FUserNameRef.errors.required">This field is
+                                required!</small>
+                        </span>
+                    </div> -->
+
+                    <div class="form-group">
+                        <label class="form-label" for="basic-icon-default-groupName">Group Name</label>
+                        <input type="text" class="form-control dt-full-name" id="basic-icon-default-groupName"
+                            placeholder="Device" name="groupName" [(ngModel)]="groupName"
+                            [class.error]="newUserForm.submitted && FNameRef.invalid" #FNameRef="ngModel" required
+                            aria-label="Device" aria-describedby="basic-icon-default-deviceName2" />
+                        <span *ngIf="newUserForm.submitted && FNameRef.invalid" class="invalid-form">
+                            <small class="form-text text-danger" *ngIf="FNameRef.errors.required">This field is
+                                required!</small>
+                        </span>
+                    </div>
+
+
+
+                    <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" *ngIf="!isToUpdate"
+                        rippleEffect>Submit</button>
+                    <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" *ngIf="isToUpdate"
+                        rippleEffect>Update</button>
+                    <button type="reset" class="btn btn-outline-secondary" (click)="toggleSidebar('device-groups-sidebar')"
+                        rippleEffect>
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Modal to add new user Ends-->
+</div>

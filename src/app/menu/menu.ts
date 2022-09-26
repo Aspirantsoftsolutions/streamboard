@@ -169,7 +169,7 @@ export const menu: CoreMenu[] = [
             type: "item",
             icon: "user",
             url: "apps/invoice/preview",
-          }
+          },
           // {
           //   id: "invoiceEdit",
           //   title: "Invoice Edit",
@@ -233,10 +233,10 @@ export const menu: CoreMenu[] = [
             role: ["School"],
             icon: "user",
             url: "apps/user/grades-list",
-          }
+          },
         ],
-      }
-      , {
+      },
+      {
         id: "notifications",
         title: "Notifications",
         translate: "Notifications",
@@ -265,6 +265,13 @@ export const menu: CoreMenu[] = [
             type: "item",
             icon: "upload",
             url: "apps/user/media",
+          },
+          {
+            id: "device_groups",
+            title: "Device Groups",
+            type: "collapsible",
+            icon: "airplay",
+            children: [],
           },
         ],
       },

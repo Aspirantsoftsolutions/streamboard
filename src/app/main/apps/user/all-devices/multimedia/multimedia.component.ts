@@ -1,19 +1,19 @@
 import { CommonService } from './../../common.service';
-import { UserEditService } from 'app/main/apps/user/user-edit/user-edit.service';
-import { ToastService } from 'app/main/components/toasts/toasts.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 import { ToastrService } from 'ngx-toastr';
-import { DatePickerI18nComponent } from 'app/main/forms/form-elements/date-time-picker/date-picker-i18n/date-picker-i18n.component';
-
+import { Subject } from "rxjs";
+import { takeUntil } from "rxjs/operators";
+import { NgbDateStruct, NgbCalendar, NgbDate, NgbDateParserFormatter, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-multimedia',
   templateUrl: './multimedia.component.html',
-  // styleUrls: ['./multimedia.component.scss']
+  styleUrls: ['./multimedia.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class MultimediaComponent implements OnInit {
-
+  private _unsubscribeAll: Subject<any> = new Subject();
   public sidebarToggleRef = false;
   public modalRef;
   public rows;
@@ -28,6 +28,7 @@ export class MultimediaComponent implements OnInit {
   public mediaType = "";
   public mediaList: any;
   public deviceGroupList: any;
+  public devices = [];
   public allowedmediaTypes = {
     video: ['video/mp4', 'video/webm', 'video/ogg'],
     audio: ['audio/mpeg', 'audio/ogg', 'audio/wav'],
@@ -35,6 +36,23 @@ export class MultimediaComponent implements OnInit {
   };
   public devicesList = [];
   public classDropdownSettings;
+  public startDateOptions = {
+    altInput: true,
+    mode: 'single',
+    altInputClass: 'form-control flat-picker flatpickr-input invoice-edit-input',
+    enableTime: true
+  };
+  public endDateOptions = {
+    altInput: true,
+    mode: 'single',
+    altInputClass: 'form-control flat-picker flatpickr-input invoice-edit-input',
+    enableTime: true
+  };
+  scheduleTime: any;
+  startDate = new Date().toISOString();
+  endDate = new Date().toISOString();
+  @ViewChild('startDatePicker') startDatePicker;
+  @ViewChild('endDatePicker') endDatePicker;
   constructor(
     private _commonService: CommonService,
 
@@ -56,6 +74,7 @@ export class MultimediaComponent implements OnInit {
       itemsShowLimit: 3,
       allowSearchFilter: true
     };
+
   }
 
   onItemSelect(item: any) {
@@ -86,13 +105,6 @@ export class MultimediaComponent implements OnInit {
     this.mediaURL = event.location;
     this.mediaType = event.type;
   }
-
-
-  selectedDeviceGroups(event) {
-    this.mediaURL = event.location;
-    this.mediaType = event.type;
-  }
-
 
   toggleSidebarEdit(name, id): void {
     setTimeout(() => {
@@ -128,7 +140,17 @@ export class MultimediaComponent implements OnInit {
     });
   }
 
+  clearFields() {
+    setTimeout(() => {
+      this.startDatePicker.flatpickr.clear();
+      this.endDatePicker.flatpickr.clear();
+      this.scheduleTime = "";
+      this.selectedStatus = [];
+    }, 100);
+  }
+
   broadcastMedia() {
+
     const pushPayLoad = {
       "data": {
         "title": '',
@@ -140,25 +162,71 @@ export class MultimediaComponent implements OnInit {
       "notification": {
         "badge": 1
       },
-      "deviceGroups": this.selectedDevices
+      "deviceGroups": this.selectedDevices,
+      "startDate": this.startDatePicker.flatpickrElement.nativeElement.children[0].value,
+      "endDate": this.endDatePicker.flatpickrElement.nativeElement.children[0].value,
+      "triggerTime": this.scheduleTime
     }
-    this._commonService.sendPushNotifications(pushPayLoad).subscribe(resp => {
-      this._toastrService.success('👋 notification sent successfully', 'Success!', {
-        toastClass: 'toast ngx-toastr',
-        closeButton: true
-      });
-      this.toggleSidebar('app-multimedia-sidebar');
-    }, err => {
-      console.log(err);
-      this._toastrService.error('something bad happened', 'Error!', {
-        toastClass: 'toast ngx-toastr',
-        closeButton: true
-      });
-    })
+
+    if (this.startDate && this.endDate && this.scheduleTime) {
+      this._commonService.schedulePushNotifications(pushPayLoad).subscribe(resp => {
+        this._toastrService.success('👋 notification sent successfully', 'Success!', {
+          toastClass: 'toast ngx-toastr',
+          closeButton: true
+        });
+        this.toggleSidebar('app-multimedia-sidebar');
+      }, err => {
+        console.log(err);
+        this._toastrService.error('something bad happened', 'Error!', {
+          toastClass: 'toast ngx-toastr',
+          closeButton: true
+        });
+      })
+    } else {
+
+      this._commonService.sendPushNotifications(pushPayLoad).subscribe(resp => {
+        this._toastrService.success('👋 notification sent successfully', 'Success!', {
+          toastClass: 'toast ngx-toastr',
+          closeButton: true
+        });
+        this.toggleSidebar('app-multimedia-sidebar');
+      }, err => {
+        console.log(err);
+        this._toastrService.error('something bad happened', 'Error!', {
+          toastClass: 'toast ngx-toastr',
+          closeButton: true
+        });
+      })
+    }
+
+    this.clearFields();
   }
 
   ngOnInit(): void {
+
+    this._commonService.onDevicesSelected.asObservable().pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
+      if (response != null && response.length) {
+        // this.isToUpdate = true;
+        // this._id = response._id;
+        // this.groupName = response.groupName;
+        this.devices = response.map(x => x._id);
+        console.log(response, 'From device group sidebar');
+
+      } else {
+        this.devices = [];
+      }
+    });
+
     this.getMedia();
     this.getDeviceGroup();
+  }
+
+  /**
+ * On destroy
+ */
+  ngOnDestroy(): void {
+    // Unsubscribe from all subscriptions
+    this._unsubscribeAll.next();
+    this._unsubscribeAll.complete();
   }
 }

@@ -1,17 +1,17 @@
 import { CommonService } from './../../common.service';
-import { UserEditService } from 'app/main/apps/user/user-edit/user-edit.service';
-import { ToastService } from 'app/main/components/toasts/toasts.service';
 import { Component, OnInit } from '@angular/core';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 import { ToastrService } from 'ngx-toastr';
-
+import { Subject } from "rxjs";
+import { takeUntil } from "rxjs/operators";
 @Component({
   selector: 'app-notification-sidebar',
   templateUrl: './notification-sidebar.component.html',
   //styleUrls: ['./notification-sidebar.component.scss']
 })
 export class NotificationSidebarComponent implements OnInit {
-
+  private _unsubscribeAll: Subject<any> = new Subject();
+  public devices = [];
   public fullname;
   public username;
   public title;
@@ -24,6 +24,9 @@ export class NotificationSidebarComponent implements OnInit {
   public isToUpdate = false;
   public userId;
   public devicesList = [];
+  public deviceGroupList = [];
+  public classDropdownSettings;
+  public selectedDevices = [];
   /**
    * Constructor
    *
@@ -32,6 +35,15 @@ export class NotificationSidebarComponent implements OnInit {
   constructor(private _coreSidebarService: CoreSidebarService,
     private toastr: ToastrService,
     private _commonService: CommonService,) {
+    this.classDropdownSettings = {
+      singleSelection: false,
+      idField: '_id',
+      textField: 'groupName',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: true
+    };
     // this._commonService.getDeviceList().subscribe(response => {
     //   if (response != null) {
     //     this.devicesList = response['data'];
@@ -43,6 +55,31 @@ export class NotificationSidebarComponent implements OnInit {
     //   }
     // });
 
+  }
+
+
+  onItemSelect(item: any) {
+    const devices = this.selectedDevices.filter(x => x._id === item._id);
+    if (!devices) {
+      this.selectedDevices.push(item);
+    }
+  }
+  onSelectAll(items: any) {
+    this.selectedDevices = items;
+  }
+  onDeselect(item: any) {
+    this.selectedDevices = this.selectedDevices.filter(x => x._id != item._id);
+  }
+
+  onDeselectAll(items: any) {
+    this.selectedDevices = items;
+  }
+
+
+  getDeviceGroup() {
+    this._commonService.getDeviceGroup().subscribe(list => {
+      this.deviceGroupList = list['data'];
+    });
   }
 
   /**
@@ -75,7 +112,8 @@ export class NotificationSidebarComponent implements OnInit {
         "to": this._commonService.devicesSelected.map(x => x.deviceid),
         "notification": {
           "badge": 1
-        }
+        },
+        "deviceGroups": this.selectedDevices
       }
 
       this._commonService.sendPushNotifications(pushPayLoad).subscribe(data => {
@@ -99,6 +137,28 @@ export class NotificationSidebarComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.getDeviceGroup();
+    this._commonService.onDevicesSelected.asObservable().pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
+      if (response != null && response.length) {
+        // this.isToUpdate = true;
+        // this._id = response._id;
+        // this.groupName = response.groupName;
+        this.devices = response.map(x => x._id);
+        console.log(response, 'From device group sidebar');
+
+      } else {
+        this.devices = [];
+      }
+    });
+  }
+  /**
+* On destroy
+*/
+  ngOnDestroy(): void {
+    // Unsubscribe from all subscriptions
+    this._unsubscribeAll.next();
+    this._unsubscribeAll.complete();
+  }
 
 }
