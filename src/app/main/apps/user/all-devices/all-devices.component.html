@@ -260,18 +260,18 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-4">
-                                        <div class="colbox">
+                                        <div class="colbox" (click)="sendCommand('PowerOff')">
                                             <p>Power Off</p>
                                             <img src="../../../../../assets/images/icons/power.png" alt="" />
                                         </div>
                                     </div>
-                                    <div class="col-sm-4 restart">
+                                    <div class="col-sm-4 restart" (click)="sendCommand('Restart')">
                                         <div class="colbox">
                                             <p>Restart</p>
                                             <img src="../../../../../assets/images/icons/restart.png" alt="" />
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-4" (click)="sendCommand('Sleep')">
                                         <div class="colbox ">
                                             <p>Lock</p>
                                             <img src="../../../../../assets/images/icons/lock.png" alt="" />
@@ -279,14 +279,14 @@
                                     </div>
                                 </div>
 
-                                <div class="row">
+                                <div class="row" (click)="sendCommand('WakeUp')">
                                     <div class="col-sm-6">
                                         <div class="colbox video">
                                             <p>Play Video</p>
                                             <img src="../../../../../assets/images/icons/play.png" alt="" />
                                         </div>
                                     </div>
-                                    <div class="col-sm-6 pause">
+                                    <div class="col-sm-6 pause" (click)="sendCommand('PowerOff')">
                                         <div class="colbox">
                                             <p>Pause Video</p>
                                             <img src="../../../../../assets/images/icons/close-icon.png" alt="" />

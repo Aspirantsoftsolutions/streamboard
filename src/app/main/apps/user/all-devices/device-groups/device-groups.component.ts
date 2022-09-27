@@ -344,12 +344,16 @@ export class DeviceGroups implements OnInit {
     }
 
     sendCommand(command) {
-        const devices = this.devices.map(device => device.deviceid);
-        this._commonService.sendCommandToDeviceGroup(devices, command).subscribe((resp) => {
+        const devices = this.chkBoxSelected.map(device => device.deviceid);
+        if (devices.length) {
+          this._commonService.sendCommandToDeviceGroup(devices, command).subscribe((resp) => {
             this._toastrService.success('Command sent');
-        }, err => {
+          }, err => {
             this._toastrService.error('Sending command failed');
-        })
+          })
+        } else{
+          this._toastrService.error('Please select a device');
+        }
     }
 
 

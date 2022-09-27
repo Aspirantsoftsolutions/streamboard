@@ -328,6 +328,21 @@ export class AllDevicesComponent implements OnInit {
     }, 200);
   }
 
+
+  sendCommand(command) {
+    const devices = this.chkBoxSelected.map(device => device.deviceid);
+    if (devices.length) {
+      this._commonService.sendCommandToDeviceGroup(devices, command).subscribe((resp) => {
+        this._toastrService.success('Command sent');
+      }, err => {
+        this._toastrService.error('Sending command failed');
+      })
+    } else{
+      this._toastrService.error('Please select a device');
+    }
+
+  }
+
   /**
    * On destroy
    */
