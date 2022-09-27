@@ -279,17 +279,17 @@
                                     </div>
                                 </div>
 
-                                <div class="row" (click)="sendCommand('WakeUp')">
-                                    <div class="col-sm-6">
+                                <div class="row">
+                                    <div class="col-sm-6" (click)="sendCommand('Sleep')">
                                         <div class="colbox video">
-                                            <p>Play Video</p>
-                                            <img src="../../../../../assets/images/icons/play.png" alt="" />
+                                            <p>Sleep</p>
+                                            <img src="../../../../../assets/images/icons/sleep.png" alt="" />
                                         </div>
                                     </div>
-                                    <div class="col-sm-6 pause" (click)="sendCommand('PowerOff')">
+                                    <div class="col-sm-6 pause" (click)="sendCommand('WakeUp')">
                                         <div class="colbox">
-                                            <p>Pause Video</p>
-                                            <img src="../../../../../assets/images/icons/close-icon.png" alt="" />
+                                            <p>Wake Up</p>
+                                            <img src="../../../../../assets/images/icons/wakeup.png" alt="" />
                                         </div>
                                     </div>
                                 </div>
