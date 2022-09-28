@@ -152,17 +152,12 @@
                                     [limit]="selectedOption" [columnMode]="ColumnMode.force" [headerHeight]="50"
                                     [footerHeight]="50" [scrollbarH]="true" [selected]="chkBoxSelected"
                                     [selectionType]="SelectionType.checkbox" (select)="customChkboxOnSelect($event)">
-
-                                    <ngx-datatable-column [width]="50" [sortable]="false" [canAutoResize]="false"
+                                    <ngx-datatable-column class="custom-control custom-control-primary custom-checkbox" [width]="30" [sortable]="false" [canAutoResize]="false"
+                                        [draggable]="false" [resizeable]="false" [headerCheckboxable]="true"
+                                        [checkboxable]="true">
+                                    </ngx-datatable-column>
+                                    <!-- <ngx-datatable-column [width]="50" [sortable]="false" [canAutoResize]="false"
                                         [draggable]="false" [resizeable]="false">
-                                        <!-- let-allRowsSelected="allRowsSelected" -->
-                                        <!-- <ng-template ngx-datatable-header-template let-value="value" let-selectFn="selectFn">
-                                        <div class="custom-control custom-control-primary custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" [checked]="allRowsSelected"
-                                                (change)="selectFn(!allRowsSelected)" id="headerCustomChkbxRef" />
-                                            <label class="custom-control-label" for="headerCustomChkbxRef"></label>
-                                        </div>
-                                    </ng-template> -->
                                         <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex"
                                             let-value="value" let-isSelected="isSelected"
                                             let-onCheckboxChangeFn="onCheckboxChangeFn">
@@ -174,7 +169,7 @@
                                                     for="rowCustomChkbxRef{{ rowIndex }}"></label>
                                             </div>
                                         </ng-template>
-                                    </ngx-datatable-column>
+                                    </ngx-datatable-column> -->
 
                                     <ngx-datatable-column name="Device" prop="deviceName" [width]="200">
                                         <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>

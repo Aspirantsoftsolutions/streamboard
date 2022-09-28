@@ -64,6 +64,7 @@ export class DeviceGroupSideBar implements OnInit {
         const devicesList = this._commonService.devicesSelected.map(x => x._id);
         this._commonService.createDeviceGroup(devicesList, this.groupName).subscribe((resposne) => {
           console.log('res set:', resposne);
+          this._commonService.updateSideMenu.next(true);
           this.toastr.success('👋 device group Created Successfully.', 'Success!', {
             toastClass: 'toast ngx-toastr',
             closeButton: true
@@ -101,6 +102,13 @@ export class DeviceGroupSideBar implements OnInit {
       }
 
     });
+  }
+
+  ngOnDestroy() {
+    this.isToUpdate = false;
+    this.groupName = '';
+    this.devices = [];
+    this._id = '';
   }
 
 }

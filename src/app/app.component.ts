@@ -83,7 +83,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.router.events.subscribe((e: RouterEvent) => {
       this.navigationInterceptor(e);
-    })
+    });
+    this._commonService.updateSideMenu.asObservable().subscribe(() => { this.setMenu() });
   }
 
   // Lifecycle hooks
@@ -241,27 +242,31 @@ export class AppComponent implements OnInit, OnDestroy {
     });
 
     this.authenticationService.currentUser.subscribe(async (data) => {
-
-      const childGrouteRoutes = await this.getDeviceGroups();
-
-      // Get the application main menu
-
-      menu[1].children.find(item => {
-        if (item.id === "Devicemanagement") {
-          item.children[2].children = childGrouteRoutes;
-        }
-      })
-
-      this.menu = menu;
-
-      // Register the menu to the menu service
-      this._coreMenuService.register('main', this.menu);
-
-      // Set the main menu as our current menu
-      this._coreMenuService.setCurrentMenu('main');
+      this.setMenu();
     })
     // Set the application page title
     this._title.setTitle(this.coreConfig.app.appTitle);
+  }
+
+  async setMenu() {
+
+    const childGrouteRoutes = await this.getDeviceGroups();
+
+    // Get the application main menu
+
+    menu[1].children.find(item => {
+      if (item.id === "Devicemanagement") {
+        item.children[2].children = childGrouteRoutes;
+      }
+    })
+
+    this.menu = menu;
+
+    // Register the menu to the menu service
+    this._coreMenuService.register('main', this.menu);
+
+    // Set the main menu as our current menu
+    this._coreMenuService.setCurrentMenu('main');
   }
 
   /**

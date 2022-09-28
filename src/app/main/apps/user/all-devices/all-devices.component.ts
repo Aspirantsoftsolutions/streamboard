@@ -257,6 +257,9 @@ export class AllDevicesComponent implements OnInit {
    * On init
    */
   ngOnInit(): void {
+    this._commonService.updateSideMenu.asObservable().subscribe(() => {
+      this.chkBoxSelected = [];
+    });
     this._commonService.onDevicesUpdates.pipe(startWith(1)).subscribe((res) => {
       this.getDevices();
     });
@@ -337,7 +340,7 @@ export class AllDevicesComponent implements OnInit {
       }, err => {
         this._toastrService.error('Sending command failed');
       })
-    } else{
+    } else {
       this._toastrService.error('Please select a device');
     }
 

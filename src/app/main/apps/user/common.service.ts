@@ -14,6 +14,7 @@ export class CommonService implements Resolve<any> {
   public onStudentsSelected: BehaviorSubject<any>;
   public onDevicesUpdates: BehaviorSubject<any>;
   public onDevicesSelected: BehaviorSubject<any>;
+  public updateSideMenu: BehaviorSubject<any>;
   public static teacherGetList;
   public onTeacherEditListChanged = null;
   public devicesSelected = [];
@@ -31,6 +32,7 @@ export class CommonService implements Resolve<any> {
     this.onStudentsSelected = new BehaviorSubject({});
     this.onDevicesUpdates = new BehaviorSubject({});
     this.onDevicesSelected = new BehaviorSubject([]);
+    this.updateSideMenu = new BehaviorSubject(false);
   }
 
   getCurrentUser() {

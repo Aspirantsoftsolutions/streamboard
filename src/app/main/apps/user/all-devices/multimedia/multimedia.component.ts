@@ -40,13 +40,13 @@ export class MultimediaComponent implements OnInit {
     altInput: true,
     mode: 'single',
     altInputClass: 'form-control flat-picker flatpickr-input invoice-edit-input',
-    enableTime: true
+    // enableTime: true
   };
   public endDateOptions = {
     altInput: true,
     mode: 'single',
     altInputClass: 'form-control flat-picker flatpickr-input invoice-edit-input',
-    enableTime: true
+    // enableTime: true
   };
   scheduleTime: any;
   startDate = new Date().toISOString();

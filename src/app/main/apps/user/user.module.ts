@@ -395,7 +395,6 @@ const routes: Routes = [
     GradesListService,
     SubjectsListService,
     IndSessionsListService,
-    CommonService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: MsalInterceptor,
