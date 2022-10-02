@@ -90,6 +90,7 @@ import { UploadmediaComponent } from './media/uploadmedia/uploadmedia.component'
 import { MultimediaComponent } from './all-devices/multimedia/multimedia.component';
 import { DeviceGroupSideBar } from './all-devices/device-group-sidebar/device-group-sidebar.component';
 import { DeviceGroups } from './all-devices/device-groups/device-groups.component';
+import { InvitationsComponent } from './invitations/invitations.component';
 /**
  * Here we pass the configuration parameters to create an MSAL instance.
  * For more info, visit: https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-angular/docs/v2-docs/configuration.md
@@ -184,6 +185,14 @@ const routes: Routes = [
       uls: CommonService,
     },
     data: { animation: 'ClientsListComponent' }
+  },
+  {
+    path: 'invites',
+    component: InvitationsComponent,
+    resolve: {
+      uls: CommonService,
+    },
+    data: { animation: 'InvitationsComponent' }
   },
   {
     path: 'notifications',
@@ -359,7 +368,8 @@ const routes: Routes = [
     UploadmediaComponent,
     MultimediaComponent,
     DeviceGroupSideBar,
-    DeviceGroups
+    DeviceGroups,
+    InvitationsComponent
   ],
   imports: [
     ToastrModule,

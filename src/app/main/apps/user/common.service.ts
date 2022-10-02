@@ -591,6 +591,10 @@ export class CommonService implements Resolve<any> {
     return this._httpClient.delete(`${environment.apiUrl}/api/device/group/${groupId}`, { body: { deviceId } });
   }
 
+  getInviteList() {
+    return this._httpClient.get(`${environment.apiUrl}/api/user/invites`);
+  }
+
 
   // deleteClass(id): Promise<any[]> {
   //   return new Promise((resolve, reject) => {

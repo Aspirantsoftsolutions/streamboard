@@ -45,14 +45,14 @@
               placeholder="John Doe"
               name="user-fullname"
               [(ngModel)]="fullname"
-              [class.error]="newUserForm.submitted && FNameRef.invalid"
-              #FNameRef="ngModel"
+              [class.error]="newUserForm.submitted && OwnerNameRef.invalid"
+              #OwnerNameRef="ngModel"
               required
               aria-label="John Doe"
               aria-describedby="basic-icon-default-fullname2"
             />
-            <span *ngIf="newUserForm.submitted && FNameRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="FNameRef.errors.required">This field is required!</small>
+            <span *ngIf="newUserForm.submitted && OwnerNameRef.invalid" class="invalid-form">
+              <small class="form-text text-danger" *ngIf="OwnerNameRef.errors.required">This field is required!</small>
             </span>
           </div>
           
@@ -90,11 +90,11 @@
             <label class="form-label" for="basic-icon-default-address">Address</label>
             <input type="text" class="form-control dt-full-name" id="basic-icon-default-address"
               placeholder="Address" name="user-address" [(ngModel)]="address"
-              [class.error]="newUserForm.submitted && FNameRef.invalid"
-              #FNameRef="ngModel" required aria-label="John Doe"
+              [class.error]="newUserForm.submitted && addressRef.invalid"
+              #addressRef="ngModel" required aria-label="John Doe"
               aria-describedby="basic-icon-default-fullname2" />
-            <span *ngIf="newUserForm.submitted && FNameRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="FNameRef.errors.required">This field is required!</small>
+            <span *ngIf="newUserForm.submitted && addressRef.invalid" class="invalid-form">
+              <small class="form-text text-danger" *ngIf="addressRef.errors.required">This field is required!</small>
             </span>
           </div>
 
@@ -102,11 +102,11 @@
             <label class="form-label" for="basic-icon-default-firstname">First Name</label>
             <input type="text" class="form-control dt-full-name" id="basic-icon-default-firstname"
               placeholder="firstname" name="user-firstname" [(ngModel)]="firstname"
-              [class.error]="newUserForm.submitted && FNameRef.invalid"
-              #FNameRef="ngModel" required aria-label="John Doe"
+              [class.error]="newUserForm.submitted && firstNameRef.invalid"
+              #firstNameRef="ngModel" required aria-label="John Doe"
               aria-describedby="basic-icon-default-fullname2" />
-            <span *ngIf="newUserForm.submitted && FNameRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="FNameRef.errors.required">This field is required!</small>
+            <span *ngIf="newUserForm.submitted && firstNameRef.invalid" class="invalid-form">
+              <small class="form-text text-danger" *ngIf="firstNameRef.errors.required">This field is required!</small>
             </span>
           </div>
 
@@ -114,11 +114,11 @@
             <label class="form-label" for="basic-icon-default-lastname">Last Name</label>
             <input type="text" class="form-control dt-full-name" id="basic-icon-default-lastname"
               placeholder="lastname" name="user-lastname" [(ngModel)]="lastname"
-              [class.error]="newUserForm.submitted && FNameRef.invalid"
-              #FNameRef="ngModel" required aria-label="John Doe"
+              [class.error]="newUserForm.submitted && LNameRef.invalid"
+              #LNameRef="ngModel" required aria-label="John Doe"
               aria-describedby="basic-icon-default-fullname2" />
-            <span *ngIf="newUserForm.submitted && FNameRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="FNameRef.errors.required">This field is required!</small>
+            <span *ngIf="newUserForm.submitted && LNameRef.invalid" class="invalid-form">
+              <small class="form-text text-danger" *ngIf="LNameRef.errors.required">This field is required!</small>
             </span>
           </div>
 

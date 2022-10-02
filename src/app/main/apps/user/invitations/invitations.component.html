@@ -1,0 +1,19 @@
+<div class="content-wrapper container-xxl p-0">
+    <div class="content-body">
+        <!-- User List -->
+        <section class="users-list-wrapper">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <ngx-datatable [rows]="invites" [rowHeight]="50" class="bootstrap core-bootstrap"
+                            [limit]="selectedOption" [columnMode]="ColumnMode.force" [headerHeight]="50"
+                            [footerHeight]="50" [scrollbarH]="true" [selectionType]="SelectionType.checkbox"
+                            (select)="customChkboxOnSelect($event)">
+                            <ngx-datatable-column name="User" prop="email" [width]="200"> </ngx-datatable-column>
+                        </ngx-datatable>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

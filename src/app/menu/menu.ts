@@ -101,6 +101,14 @@ export const menu: CoreMenu[] = [
         url: "apps/user/clients-list",
       },
       {
+        id: "invitations",
+        title: "Invitations",
+        type: "item",
+        role: ["Admin"],
+        icon: "user",
+        url: "apps/user/invites",
+      },
+      {
         id: "whiteBoard",
         title: "WhiteBoard",
         translate: "WhiteBoard",
