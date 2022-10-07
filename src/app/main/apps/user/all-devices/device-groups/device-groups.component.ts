@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from '../../common.service';
 import { ViewChild, ViewEncapsulation } from '@angular/core';
 import { ColumnMode, DatatableComponent, SelectionType } from '@swimlane/ngx-datatable';
@@ -90,6 +90,7 @@ export class DeviceGroups implements OnInit {
         private graphService: GraphService,
         private _toastrService: ToastrService,
         private route: ActivatedRoute,
+        private router: Router
     ) {
         this._unsubscribeAll = new Subject();
         this.route.params.subscribe((params) => {
@@ -343,16 +344,24 @@ export class DeviceGroups implements OnInit {
         this._unsubscribeAll.complete();
     }
 
+
+    deleteGroup() {
+        this._commonService.deleteGroup(this.id).subscribe(() => {
+            this._commonService.updateSideMenu.next(true);
+            this.router.navigate(['apps/user/alldevices']);
+        });
+    }
+
     sendCommand(command) {
         const devices = this.chkBoxSelected.map(device => device.deviceid);
         if (devices.length) {
-          this._commonService.sendCommandToDeviceGroup(devices, command).subscribe((resp) => {
-            this._toastrService.success('Command sent');
-          }, err => {
-            this._toastrService.error('Sending command failed');
-          })
-        } else{
-          this._toastrService.error('Please select a device');
+            this._commonService.sendCommandToDeviceGroup(devices, command).subscribe((resp) => {
+                this._toastrService.success('Command sent');
+            }, err => {
+                this._toastrService.error('Sending command failed');
+            })
+        } else {
+            this._toastrService.error('Please select a device');
         }
     }
 

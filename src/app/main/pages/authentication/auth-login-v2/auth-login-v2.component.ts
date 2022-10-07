@@ -177,7 +177,7 @@ export class AuthLoginV2Component implements OnInit {
           this.error = error;
           this.loading = false;
           console.log('login eror:', error);
-          this.register(user);
+          // this.register(user);
         }
       );
   }

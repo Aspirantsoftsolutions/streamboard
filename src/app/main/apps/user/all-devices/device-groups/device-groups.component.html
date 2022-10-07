@@ -124,8 +124,7 @@
                                             class="d-none d-sm-inline-block">Multimedia</span>
                                     </button> -->
 
-                                    <!-- <button class="dropbtn btn btn-primary" *ngIf="chkBoxSelected.length"
-                                        (click)="addToGroup()">Group</button> -->
+                                    <button class="dropbtn btn btn-primary" (click)="deleteGroup()">Delete Group</button>
                                     <div class="mdropdown">
                                         <button class="dropbtn btn btn-primary"
                                             [disabled]="disabled">Broadcasting</button>
@@ -209,9 +208,9 @@
                                             </div>
                                         </ng-template>
                                     </ngx-datatable-column>
-                                    <ngx-datatable-column name="Last Connected" prop="lastconnected" [width]="150">
-                                        <ng-template let-status="value" ngx-datatable-cell-template>
-                                            2022/08/12 20:17:30
+                                    <ngx-datatable-column name="Last Connected" prop="createdAt" [width]="150">
+                                        <ng-template let-name="value" ngx-datatable-cell-template>
+                                            {{name | date : 'dd/MM/yyyy HH:MM'}}
                                         </ng-template>
                                     </ngx-datatable-column>
                                     <ngx-datatable-column name="Actions" [width]="40" [sortable]="false">

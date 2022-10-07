@@ -346,6 +346,7 @@ export class AllDevicesComponent implements OnInit {
 
   }
 
+
   /**
    * On destroy
    */
