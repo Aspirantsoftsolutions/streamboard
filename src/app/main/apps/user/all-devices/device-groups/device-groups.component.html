@@ -43,13 +43,12 @@
 
                                         <div>
                                             <label>Total active devices :</label>
-                                            10
+                                            {{rows.length}}
                                         </div>
                                         |
                                         <div>
                                             <label> Total inactive devices :</label>
-                                            5
-
+                                            0
                                         </div>
                                     </fieldset>
 
@@ -152,9 +151,9 @@
                                     [limit]="selectedOption" [columnMode]="ColumnMode.force" [headerHeight]="50"
                                     [footerHeight]="50" [scrollbarH]="true" [selected]="chkBoxSelected"
                                     [selectionType]="SelectionType.checkbox" (select)="customChkboxOnSelect($event)">
-                                    <ngx-datatable-column class="custom-control custom-control-primary custom-checkbox" [width]="30" [sortable]="false" [canAutoResize]="false"
-                                        [draggable]="false" [resizeable]="false" [headerCheckboxable]="true"
-                                        [checkboxable]="true">
+                                    <ngx-datatable-column class="custom-control custom-control-primary custom-checkbox"
+                                        [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false"
+                                        [resizeable]="false" [headerCheckboxable]="true" [checkboxable]="true">
                                     </ngx-datatable-column>
                                     <!-- <ngx-datatable-column [width]="50" [sortable]="false" [canAutoResize]="false"
                                         [draggable]="false" [resizeable]="false">

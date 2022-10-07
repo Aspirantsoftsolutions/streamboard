@@ -216,7 +216,7 @@ export class AppComponent implements OnInit, OnDestroy {
           csvRecord.email = curruntRecord[3].trim();
           csvRecord.countryCode = curruntRecord[4].trim();
           csvRecord.mobile = curruntRecord[5].trim();
-          csvRecord.classes = curruntRecord[6].trim().split(' ');
+          csvRecord.classes = curruntRecord[6].trim().split(';');
           csvRecord.password = 'Test@123';
           csvRecord.schoolId = this.currentUser.userId;
           csvRecord.username = csvRecord.firstName + csvRecord.lastName;
@@ -230,7 +230,7 @@ export class AppComponent implements OnInit, OnDestroy {
           csvRecord.mobile = curruntRecord[5].trim();
           csvRecord.classes = curruntRecord[6].trim();
           csvRecord.grades = curruntRecord[7].trim();
-          csvRecord.teachers = curruntRecord[8].trim().split(' ');
+          csvRecord.teachers = curruntRecord[8].trim().split(';');
           csvRecord.username = csvRecord.firstName + csvRecord.lastName;
           csvRecord.password = 'Test@123';
           csvRecord.schoolId = this.currentUser.userId;

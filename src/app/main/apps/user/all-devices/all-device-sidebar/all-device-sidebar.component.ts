@@ -13,7 +13,10 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AllDeviceSidebarComponent implements OnInit {
   public isToUpdate = false;
+  public deviceUserName = '';
   public deviceName = '';
+  public devicePass = '';
+
   public _id;
   /**
    * Constructor
@@ -29,6 +32,8 @@ export class AllDeviceSidebarComponent implements OnInit {
         this.isToUpdate = true;
         this._id = response._id;
         this.deviceName = response.deviceName;
+        this.deviceUserName = response.deviceUserName;
+        this.devicePass = response.devicePass;
       } else {
         this.isToUpdate = false;
       }
