@@ -322,7 +322,7 @@ const routes: Routes = [
   {
     path: 'starterSSO',
     component: AppComponent,
-    data: { animation: 'appazure' }
+    data: { animation: 'starterSSO' }
   },
 
 ];

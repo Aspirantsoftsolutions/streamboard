@@ -115,7 +115,7 @@ export class UserListService implements Resolve<any> {
         'countryCode': '+91',
         'role': role,
         'plan': "Free",
-        'status': 'pending',
+        'status': 'active',
         'location': form['location'],
         'organisation': form['username']
       }).subscribe((response: any) => {
