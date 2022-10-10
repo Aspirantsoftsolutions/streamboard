@@ -326,6 +326,11 @@ const routes: Routes = [
     component: AppComponent,
     data: { animation: 'starterSSO' }
   },
+  {
+    // Dedicated route for redirects
+    path: 'auth', 
+    component: MsalRedirectComponent
+}
 
 ];
 
@@ -440,10 +445,9 @@ const routes: Routes = [
           },
           {
             id: MicrosoftLoginProvider.PROVIDER_ID,
-            provider: new MicrosoftLoginProvider('96b6652e-a952-4991-9b27-02e578e89a9f', {
-              redirect_uri: `${environment.redirectUrl}/apps/user/appazure`,
-            }),
-          }
+            provider: new MicrosoftLoginProvider('96b6652e-a952-4991-9b27-02e578e89a9f',{
+            redirect_uri: `${environment.redirectUrl}/#/dashboard/ecommerce`
+          })}
         ],
         onError: (err) => {
           console.error(err);

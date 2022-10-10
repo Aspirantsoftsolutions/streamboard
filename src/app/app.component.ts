@@ -242,7 +242,9 @@ export class AppComponent implements OnInit, OnDestroy {
     });
 
     this.authenticationService.currentUser.subscribe(async (data) => {
-      this.setMenu();
+      if (data) {
+        this.setMenu();
+      }
     })
     // Set the application page title
     this._title.setTitle(this.coreConfig.app.appTitle);

@@ -2,7 +2,7 @@
   <div class="content-body">
     <div class="row match-height" *ngIf="isAdmin || isClient">
       <!-- Medal Card -->
-      <div class="col-xl-4 col-md-6 col-12" *ngIf="currentUser.role == 'School'">
+      <div class="col-xl-4 col-md-6 col-12" *ngIf="currentUser?.role == 'School'">
         <div class="card card-congratulation-medal">
           <div class="card-body">
             <h3>You are in <b>{{ currentUser?.plan }} Plan</b>🎉</h3>
@@ -15,7 +15,7 @@
       <!--/ Medal Card -->
 
       <!-- Statistics Card -->
-      <div class="col-xl-12 col-md-12 col-12" *ngIf="currentUser.role == 'Teacher'">
+      <div class="col-xl-12 col-md-12 col-12" *ngIf="currentUser?.role == 'Teacher'">
         <div class="card card-statistics">
           <div class="card-header">
             <h4 class="card-title">Statistics</h4>
@@ -74,7 +74,7 @@
 
 
       <!-- Statistics Card -->
-      <div class="col-xl-12 col-md-6 col-12" *ngIf="currentUser.role == 'Admin'">
+      <div class="col-xl-12 col-md-6 col-12" *ngIf="currentUser?.role == 'Admin'">
         <div class="card card-statistics">
           <div class="card-header">
             <h4 class="card-title">Statistics</h4>
@@ -158,7 +158,7 @@
       <!--/ Statistics Card -->
 
       <!-- Statistics Card -->
-      <div class="col-xl-8 col-md-6 col-12" *ngIf="currentUser.role == 'School'">
+      <div class="col-xl-8 col-md-6 col-12" *ngIf="currentUser?.role == 'School'">
         <div class="card card-statistics">
           <div class="card-header">
             <h4 class="card-title">Statistics</h4>

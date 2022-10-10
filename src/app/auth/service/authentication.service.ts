@@ -13,10 +13,11 @@ import { Router } from '@angular/router';
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
   //public
-  public currentUser: Observable<User>;
+  public currentUser: Observable<User | null>;
+  public isSocialLogin = false;
 
   //private
-  private currentUserSubject: BehaviorSubject<User>;
+  public currentUserSubject: BehaviorSubject<User>;
   public destroy$: Subject<any>;
 
   /**
@@ -228,12 +229,12 @@ export class AuthenticationService {
    *
    */
   logout() {
-    this.destroy$.next();
-    this.destroy$.complete();
-    this._sauthService.signOut(true);
     // remove user from local storage to log user out
-    localStorage.removeItem('currentUser');
+    localStorage.clear();
     // notify
+    if (this.isSocialLogin) {
+      this._sauthService.signOut(true);
+    }
     this.currentUserSubject.next(null);
   }
 }

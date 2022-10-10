@@ -460,11 +460,11 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   microSoftLogin() {
-    this._router.navigate(['/apps/user/appazure']);
-    // const microsoftLoginOptions = {
-    //   scope: 'User.Read User.Read.All'
-    // }
-    // this._sauthService.signIn(MicrosoftLoginProvider.PROVIDER_ID, microsoftLoginOptions);
+    this._router.navigate(['/apps/user/starterSSO']);
+    const microsoftLoginOptions = {
+      scope: 'User.Read User.Read.All'
+    }
+    this._sauthService.signIn(MicrosoftLoginProvider.PROVIDER_ID, microsoftLoginOptions);
   }
 
   googleLogout() {

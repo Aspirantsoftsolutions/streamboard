@@ -98,6 +98,7 @@ export class AuthLoginV2Component implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
+          this._authenticationService.isSocialLogin = false;
           this._authenticationService.getCurrentUser(data.data.token, data.data.user.userId)
             .subscribe(
               data => {
@@ -134,27 +135,20 @@ export class AuthLoginV2Component implements OnInit {
       this.coreConfig = config;
     });
     this.socialAuthService.authState.pipe(takeUntil(this._authenticationService.destroy$)).subscribe((user) => {
-      if (user == null) {
+      if (user) {
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        if ((user?.provider == 'GOOGLE') || (user?.provider == 'MICROSOFT')) {
+          this._authenticationService.isSocialLogin = true;
+          this.loginSocial(user);
+        }
+        this.submitted = true;
+      } else {
         this._router.navigate(['/pages/authentication/login-v2']);
       }
-      localStorage.setItem('currentUser', JSON.stringify(user));
-      if ((user?.provider == 'GOOGLE') || (user?.provider == 'MICROSOFT')) {
-        this.loginSocial(user);
-      }
 
-      // this.userSocial = user;
-      this.submitted = true;
-      // this._authenticationService.getUsers(this.userSocial.response.access_token, this.userSocial.response.id_token);
-      // console.log('user token:', this.userSocial.response.access_token);
-      // this._authenticationService.getUsers(this.userSocial.response.access_token, 'e851b52adce04eb4597101ccd7dd6167acc65f46')
-      //       .subscribe(
-      //         data => {
-      //           console.log("data c:", data);
-      //           // this._router.navigate(['/']);
-      //         },
-      //         error => {
-      //         }
-      //       );
+      if (!this._authenticationService.currentUserValue) {
+        this._router.navigate(['/pages/authentication/login-v2']);
+      }
     });
   }
 
