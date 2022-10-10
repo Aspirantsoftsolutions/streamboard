@@ -335,6 +335,10 @@ export class DeviceGroups implements OnInit {
         this._commonService.onDevicesSelected.next(this.chkBoxSelected);
     }
 
+    addBulkCreds() {
+        this._coreSidebarService.getSidebarRegistry('credentials-groups-sidebar').toggleOpen();
+    }
+
     /**
      * On destroy
      */

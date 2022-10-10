@@ -126,6 +126,8 @@
                                     </button> -->
                                     <button class="dropbtn btn btn-primary" *ngIf="chkBoxSelected.length"
                                         (click)="addToGroup()">Group</button>
+                                    <button class="dropbtn btn btn-primary" *ngIf="chkBoxSelected.length"
+                                        (click)="addBulkCreds()">Add Credentials</button>
                                     <div class="mdropdown">
                                         <button class="dropbtn btn btn-primary">Broadcasting</button>
                                         <div class="mdropdown-content">
@@ -337,5 +339,10 @@
     <core-sidebar class="modal modal-slide-in sidebar-todo-modal fade" name="device-groups-sidebar"
         overlayClass="modal-backdrop">
         <app-device-groups-sidebar></app-device-groups-sidebar>
+    </core-sidebar>
+
+    <core-sidebar class="modal modal-slide-in sidebar-todo-modal fade" name="credentials-groups-sidebar"
+        overlayClass="modal-backdrop">
+        <credentials-groups-sidebar></credentials-groups-sidebar>
     </core-sidebar>
 </div>

@@ -599,6 +599,10 @@ export class CommonService implements Resolve<any> {
     return this._httpClient.delete(`${environment.apiUrl}/api/device/groups/${id}`);
   }
 
+  bulkUpdateCreds(body) {
+    return this._httpClient.post(`${environment.apiUrl}/api/device/creds`, body);
+  }
+
 
   // deleteClass(id): Promise<any[]> {
   //   return new Promise((resolve, reject) => {

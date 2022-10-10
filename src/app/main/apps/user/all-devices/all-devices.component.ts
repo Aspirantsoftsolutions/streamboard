@@ -346,6 +346,10 @@ export class AllDevicesComponent implements OnInit {
 
   }
 
+  addBulkCreds() {
+    this._coreSidebarService.getSidebarRegistry('credentials-groups-sidebar').toggleOpen();
+  }
+
 
   /**
    * On destroy
