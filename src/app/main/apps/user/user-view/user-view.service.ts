@@ -56,17 +56,23 @@ export class UserViewService implements Resolve<any> {
     });
   }
 
+  getCurrentUser() {
+    return localStorage.getItem('currentUser') ? JSON.parse(localStorage.getItem('currentUser')) : null;
+  }
+
   setUser(email, username): Promise<any[]> {
+    const school_id = this.getCurrentUser().userId;
     return new Promise((resolve, reject) => {
       this._httpClient.post(`${environment.apiUrl}/api/auth/register`, {
         'username': username,
         'email': email,
         'password': 'Test@123',
-        'mobile': '123456789',
+        'mobile': '',
         'countryCode': '+91',
         'role': "Individual",
         'plan': "Basic",
         'status': 'active',
+        'schoolId': school_id
       }).subscribe((response: any) => {
         console.log(response);
         resolve(response);

@@ -14,10 +14,11 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "serve": "ng serve --proxy-config proxy.conf.json"
+    "serve": "set NODE_OPTIONS=--max_old_space_size=8192 & ng serve --proxy-config proxy.conf.json"
   },
   "private": true,
   "dependencies": {
+    "@abacritt/angularx-social-login": "^1.2.5",
     "@angular/animations": "13.0.2",
     "@angular/cdk": "12.0.4",
     "@angular/common": "13.0.2",
@@ -91,10 +92,11 @@
     "@angular/compiler-cli": "13.0.2",
     "@angular/language-service": "13.0.2",
     "@angularclass/hmr": "3.0.0",
+    "@microsoft/microsoft-graph-types": "^2.25.0",
     "@types/jasmine": "3.6.3",
     "@types/node": "12.11.1",
-    "jasmine-core": "3.7.0",
     "codelyzer": "6.0.1",
+    "jasmine-core": "3.7.0",
     "karma": "6.3.0",
     "karma-chrome-launcher": "3.1.0",
     "karma-coverage": "2.0.3",

@@ -134,22 +134,6 @@ export class AuthLoginV2Component implements OnInit {
     this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
       this.coreConfig = config;
     });
-    this.socialAuthService.authState.pipe(takeUntil(this._authenticationService.destroy$)).subscribe((user) => {
-      if (user) {
-        localStorage.setItem('currentUser', JSON.stringify(user));
-        if ((user?.provider == 'GOOGLE') || (user?.provider == 'MICROSOFT')) {
-          this._authenticationService.isSocialLogin = true;
-          this.loginSocial(user);
-        }
-        this.submitted = true;
-      } else {
-        this._router.navigate(['/pages/authentication/login-v2']);
-      }
-
-      if (!this._authenticationService.currentUserValue) {
-        this._router.navigate(['/pages/authentication/login-v2']);
-      }
-    });
   }
 
   loginSocial(user) {
@@ -200,7 +184,22 @@ export class AuthLoginV2Component implements OnInit {
     const googleLoginOptions = {
       scope: 'https://www.googleapis.com/auth/admin.directory.user.readonly https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/calendar.events.readonly'
     }
-    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID, googleLoginOptions);
+    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID, googleLoginOptions).then((user)=>{
+      if (user) {
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        if ((user?.provider == 'GOOGLE') || (user?.provider == 'MICROSOFT')) {
+          this._authenticationService.isSocialLogin = true;
+          this.loginSocial(user);
+        }
+        this.submitted = true;
+      } else {
+        this._router.navigate(['/pages/authentication/login-v2']);
+      }
+
+      if (!this._authenticationService.currentUserValue) {
+        this._router.navigate(['/pages/authentication/login-v2']);
+      }
+    });
   }
 
   microSoftLogin() {
@@ -208,7 +207,22 @@ export class AuthLoginV2Component implements OnInit {
     const microsoftLoginOptions = {
       scope: 'User.Read'
     }
-    this.socialAuthService.signIn(MicrosoftLoginProvider.PROVIDER_ID, microsoftLoginOptions);
+    this.socialAuthService.signIn(MicrosoftLoginProvider.PROVIDER_ID, microsoftLoginOptions).then((user)=>{
+      if (user) {
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        if ((user?.provider == 'GOOGLE') || (user?.provider == 'MICROSOFT')) {
+          this._authenticationService.isSocialLogin = true;
+          this.loginSocial(user);
+        }
+        this.submitted = true;
+      } else {
+        this._router.navigate(['/pages/authentication/login-v2']);
+      }
+
+      if (!this._authenticationService.currentUserValue) {
+        this._router.navigate(['/pages/authentication/login-v2']);
+      }
+    });;
   }
 
   /**

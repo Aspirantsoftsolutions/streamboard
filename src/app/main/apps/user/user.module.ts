@@ -324,13 +324,13 @@ const routes: Routes = [
   {
     path: 'starterSSO',
     component: AppComponent,
-    data: { animation: 'starterSSO' }
+    data: { animation: 'appazure' }
   },
-  {
-    // Dedicated route for redirects
-    path: 'auth', 
-    component: MsalRedirectComponent
-}
+    {
+      // Dedicated route for redirects
+      path: 'auth', 
+      component: MsalRedirectComponent
+  }
 
 ];
 
@@ -440,14 +440,20 @@ const routes: Routes = [
           {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
-              '1006808174045-uau5ftqjstt8metd8nohhe6v4480gvjl.apps.googleusercontent.com'
+              '1006808174045-uau5ftqjstt8metd8nohhe6v4480gvjl.apps.googleusercontent.com',
+              {
+                plugin_name: 'angularx-social-login',
+                scope: 'profile email'
+              }
             )
           },
           {
             id: MicrosoftLoginProvider.PROVIDER_ID,
-            provider: new MicrosoftLoginProvider('96b6652e-a952-4991-9b27-02e578e89a9f',{
-            redirect_uri: `${environment.redirectUrl}/#/dashboard/ecommerce`
-          })}
+            provider: new MicrosoftLoginProvider('96b6652e-a952-4991-9b27-02e578e89a9f', {
+              redirect_uri: `${environment.redirectUrl}/#/dashboard/ecommerce`,
+              authority:'8773e58d-09ef-48e3-97f0-63ab901bcee0'
+            })
+          }
         ],
         onError: (err) => {
           console.error(err);

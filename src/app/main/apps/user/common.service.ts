@@ -4,7 +4,7 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/r
 import { environment } from 'environments/environment';
 
 import { BehaviorSubject, Observable } from 'rxjs';
-import { tap } from "rxjs/operators";
+import { tap,map } from "rxjs/operators";
 
 @Injectable()
 export class CommonService implements Resolve<any> {
@@ -601,6 +601,16 @@ export class CommonService implements Resolve<any> {
 
   bulkUpdateCreds(body) {
     return this._httpClient.post(`${environment.apiUrl}/api/device/creds`, body);
+  }
+
+  getMicroSoftUsers(bearerToken) {
+    return this._httpClient.get(`https://graph.microsoft.com/v1.0/users`, { headers: { 'Authorization': `Bearer ${bearerToken}` } })
+      .pipe(map(user => {
+        console.log('logged in users here:', user);
+        // login successful if there's a jwt token in the response
+        return user;
+      })
+      );
   }
 
 

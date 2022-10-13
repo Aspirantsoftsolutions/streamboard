@@ -103,21 +103,7 @@ export class AuthenticationService {
   }
 
   getMicroSoftUsers(bearerToken) {
-    return this._http
-      .get<any>('https://graph.microsoft.com/v1.0/users',
-        {
-          headers: {
-            'Authorization': 'Bearer ' + bearerToken,
-            'client-request-id': 'f8c7ff0f-98ea-4837-a34e-f08bc92a7a5b'
-          }
-        })
-      .pipe(
-        map(user => {
-          console.log('logged in users here:', user);
-          // login successful if there's a jwt token in the response
-          return user;
-        })
-      );
+    return this._http.get(`https://graph.microsoft.com/v1.0/users`, { headers: { 'Authorization': `Bearer ${bearerToken}` } });
   }
 
   getCalendarEvents(bearerToken) {

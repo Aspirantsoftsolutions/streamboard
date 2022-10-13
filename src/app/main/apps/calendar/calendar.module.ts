@@ -57,7 +57,11 @@ const routes: Routes = [
         {
           id: GoogleLoginProvider.PROVIDER_ID,
           provider: new GoogleLoginProvider(
-            '1006808174045-uau5ftqjstt8metd8nohhe6v4480gvjl.apps.googleusercontent.com'
+            '1006808174045-uau5ftqjstt8metd8nohhe6v4480gvjl.apps.googleusercontent.com',
+            {
+              plugin_name:'angularx-social-login',
+              scope: 'profile email'
+            }
           )
         },
       ],

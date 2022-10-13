@@ -38,6 +38,10 @@ import { BasicCustomContextMenuComponent } from './main/extensions/context-menu/
 import { SubMenuCustomContextMenuComponent } from './main/extensions/context-menu/custom-context-menu/sub-menu-custom-context-menu/sub-menu-custom-context-menu.component';
 import { environment } from 'environments/environment';
 import { CommonService } from './main/apps/user/common.service';
+import { MsalModule } from '@azure/msal-angular';
+import { PublicClientApplication } from '@azure/msal-browser';
+const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;
+
 
 const appRoutes: Routes = [
   {
@@ -90,6 +94,13 @@ const appRoutes: Routes = [
       relativeLinkResolution: 'legacy',
       useHash: true
     }),
+    MsalModule.forRoot( new PublicClientApplication({
+      auth: {
+        clientId: '96b6652e-a952-4991-9b27-02e578e89a9f', // Application (client) ID from the app registration
+        authority: '8773e58d-09ef-48e3-97f0-63ab901bcee0', // The Azure cloud instance and the app's sign-in audience (tenant ID, common, organizations, or consumers)
+        redirectUri: 'http://localhost:4200/#/apps/user/starterSSO'// This is your redirect URI
+      }
+    }), null, null),
     NgbModule,
     ToastrModule.forRoot(),
     TranslateModule.forRoot(),
@@ -119,14 +130,17 @@ const appRoutes: Routes = [
           {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
-              '1006808174045-uau5ftqjstt8metd8nohhe6v4480gvjl.apps.googleusercontent.com',
+              '1006808174045-uau5ftqjstt8metd8nohhe6v4480gvjl.apps.googleusercontent.com',{
+                plugin_name:'angularx-social-login',
+                scope: 'profile email'
+              }
             )
           },
           {
             id: MicrosoftLoginProvider.PROVIDER_ID,
             provider: new MicrosoftLoginProvider('96b6652e-a952-4991-9b27-02e578e89a9f', {
               redirect_uri: `${environment.redirectUrl}/apps/user/appazure`,
-              logout_redirect_uri: `${environment.redirectUrl}/logout`
+              logout_redirect_uri: '${environment.redirectUrl}/logout'
             }),
           }
         ],

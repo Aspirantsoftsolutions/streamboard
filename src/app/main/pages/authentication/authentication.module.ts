@@ -70,14 +70,18 @@ const routes: Routes = [
           {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
-              'http://1006808174045-1v6vmmc17rpodiauhqngi21cavel02ft.apps.googleusercontent.com'
+              'http://1006808174045-1v6vmmc17rpodiauhqngi21cavel02ft.apps.googleusercontent.com',
+              {
+                plugin_name: 'angularx-social-login',
+                scope: 'profile email'
+              }
             )
           },
           {
             id: MicrosoftLoginProvider.PROVIDER_ID,
             provider: new MicrosoftLoginProvider('96b6652e-a952-4991-9b27-02e578e89a9f', {
-              redirect_uri: `${environment.redirectUrl}/#/dashboard/ecommerce`,
-              logout_redirect_uri: '${environment.redirectUrl}/#/pages/authentication/login-v2'
+              redirect_uri: `${environment.redirectUrl}/apps/user/appazure`,
+              logout_redirect_uri: '${environment.redirectUrl}/logout'
             }),
           }
         ],
@@ -87,6 +91,6 @@ const routes: Routes = [
       } as SocialAuthServiceConfig,
     }
   ],
-  imports: [ToastrModule,CommonModule, RouterModule.forChild(routes), NgbModule, FormsModule, ReactiveFormsModule, CoreCommonModule]
+  imports: [ToastrModule, CommonModule, RouterModule.forChild(routes), NgbModule, FormsModule, ReactiveFormsModule, CoreCommonModule]
 })
-export class AuthenticationModule {}
+export class AuthenticationModule { }

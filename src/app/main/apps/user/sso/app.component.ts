@@ -13,6 +13,9 @@ import { Router } from '@angular/router';
 import { CsvService } from './csv.service';
 import { BulkUploadService } from './bulkUpload.service';
 import { ToastrService } from 'ngx-toastr';
+import { PublicClientApplication, AccountInfo } from "@azure/msal-browser";
+import { AuthCodeMSALBrowserAuthenticationProvider, AuthCodeMSALBrowserAuthenticationProviderOptions } from "@microsoft/microsoft-graph-client/authProviders/authCodeMsalBrowser";
+import { Client } from "@microsoft/microsoft-graph-client";
 // const { google } = require('googleapis');
 // const { authenticate } = require('@google-cloud/local-auth');
 // const people = google.people('v1');
@@ -23,6 +26,17 @@ type ProfileType = {
   userPrincipalName?: string,
   id?: string
 }
+import * as msal from "@azure/msal-browser";
+
+const msalConfig = {
+  auth: {
+    clientId: '96b6652e-a952-4991-9b27-02e578e89a9f',
+    authority: 'https://login.microsoftonline.com/8773e58d-09ef-48e3-97f0-63ab901bcee0', // The Azure cloud instance and the app's sign-in audience (tenant ID, common, organizations, or consumers)
+    redirectUri: 'http://localhost:4200/apps/user/starterSSO'
+  }
+};
+
+const msalInstance = new msal.PublicClientApplication(msalConfig);
 
 
 export class CSVRecord {
@@ -130,6 +144,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.currentUser = this._commonService.getCurrentUser();
     // this.teacherTemplateData.schoolId = this.currentUser.userId;
     // this.studentTemplateData.schoolId = this.currentUser.userId;
+
   }
 
 
@@ -283,30 +298,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this._sauthService.authState.subscribe((user) => {
       console.log('user:', user);
       if (user.provider == "MICROSOFT") {
-        // this.login();
-        this._authenticationService.getMicroSoftUsers(user.response.access_token)
-          .subscribe(
-            profileResponse => {
-              console.log('profileResponse', profileResponse);
-              profileResponse.value.forEach(element => {
-                if (!element.userPrincipalName.includes('admin')) {
-                  const email = element.mail;
-                  const username = element.displayName;
-                  const firstName = element.displayName;
-                  const lastName = element.displayName;
-                  this.userService.setUser(email, username).then((resposne: any) => {
-                    console.log('res set:', resposne);
-                  }, (error) => {
-                    console.log('res set error:', error);
-                  }
-                  );
-                }
-              });
-              // this._router.navigate(['/']);
-            },
-            error => {
-            }
-          );
       } else {
         this.gloginDisplay = true;
         // this.userSocial = user;
@@ -460,11 +451,45 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   microSoftLogin() {
-    this._router.navigate(['/apps/user/starterSSO']);
-    const microsoftLoginOptions = {
-      scope: 'User.Read User.Read.All'
-    }
-    this._sauthService.signIn(MicrosoftLoginProvider.PROVIDER_ID, microsoftLoginOptions);
+    msalInstance.loginPopup().then(async (user) => {
+      console.log('Auth Value', user);
+      const authProvider = new AuthCodeMSALBrowserAuthenticationProvider(msalInstance, {
+        account: user.account,
+        interactionType: InteractionType.Popup, // msal-browser InteractionType
+        scopes: user.scopes
+      });
+      // Initialize the Graph client
+      const graphClient = Client.initWithMiddleware({
+        authProvider
+      });
+
+      let userDetails = await graphClient.api('/users').get();
+      console.log("from MSAL ===>>>>>", userDetails);
+      userDetails['value'].forEach(element => {
+        if (!element.userPrincipalName.includes('admin')) {
+          const email = element.mail;
+          const username = element.displayName;
+          const firstName = element.displayName;
+          const lastName = element.displayName;
+          this.userService.setUser(email, username).then((resposne: any) => {
+            console.log('res set:', resposne);
+            this._toastrService.success(
+              `Successfully created users`,
+              '👋 !',
+              { toastClass: 'toast ngx-toastr', closeButton: true, newestOnTop: true }
+            );
+          }, (error) => {
+            console.log('res set error:', error);
+            this._toastrService.error(
+              `Failed to created users`,
+              '👋 !',
+              { toastClass: 'toast ngx-toastr', closeButton: true, newestOnTop: true }
+            );
+          }
+          );
+        }
+      });
+    })
   }
 
   googleLogout() {
