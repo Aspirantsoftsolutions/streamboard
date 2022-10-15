@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { takeUntil, first } from 'rxjs/operators';
@@ -8,6 +8,8 @@ import { AuthenticationService } from 'app/auth/service';
 import { CoreConfigService } from '@core/services/config.service';
 import { SocialAuthService, GoogleLoginProvider, MicrosoftLoginProvider } from 'angularx-social-login';
 import { UserListService } from 'app/main/apps/user/user-list/user-list.service';
+import { MSAL_INSTANCE } from '@azure/msal-angular';
+import { PublicClientApplication } from '@azure/msal-browser';
 
 @Component({
   selector: 'app-auth-login-v2',
@@ -40,7 +42,8 @@ export class AuthLoginV2Component implements OnInit {
     private socialAuthService: SocialAuthService,
     private userService: UserListService,
     private _router: Router,
-    private _authenticationService: AuthenticationService
+    private _authenticationService: AuthenticationService,
+    @Inject(MSAL_INSTANCE) private msalInstance: PublicClientApplication,
   ) {
     // redirect to home if already logged in
     if (this._authenticationService.currentUserValue) {
@@ -137,8 +140,9 @@ export class AuthLoginV2Component implements OnInit {
   }
 
   loginSocial(user) {
+    const email = user.email ? user.email : user.preferred_username.includes('@') ? user.preferred_username : '';
     this._authenticationService
-      .loginSocial(user.email)
+      .loginSocial(email)
       .pipe(first())
       .subscribe(
         data => {
@@ -184,11 +188,12 @@ export class AuthLoginV2Component implements OnInit {
     const googleLoginOptions = {
       scope: 'https://www.googleapis.com/auth/admin.directory.user.readonly https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/calendar.events.readonly'
     }
-    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID, googleLoginOptions).then((user)=>{
+    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID, googleLoginOptions).then((user) => {
       if (user) {
         localStorage.setItem('currentUser', JSON.stringify(user));
         if ((user?.provider == 'GOOGLE') || (user?.provider == 'MICROSOFT')) {
           this._authenticationService.isSocialLogin = true;
+          localStorage.setItem('loginSSO', 'GOOGLE');
           this.loginSocial(user);
         }
         this.submitted = true;
@@ -203,26 +208,21 @@ export class AuthLoginV2Component implements OnInit {
   }
 
   microSoftLogin() {
-    // this.googleLogout();
-    const microsoftLoginOptions = {
-      scope: 'User.Read'
-    }
-    this.socialAuthService.signIn(MicrosoftLoginProvider.PROVIDER_ID, microsoftLoginOptions).then((user)=>{
+    this.msalInstance.loginPopup({ scopes: ['Application.Read.All', 'Application.ReadWrite.All', 'Directory.Read.All', 'Directory.ReadWrite.All', 'email', 'openid', 'profile', 'User.Read', 'User.Read.All', 'User.ReadBasic.All', 'User.ReadWrite', 'User.ReadWrite.All'] }).then((user) => {
+      console.log("&&&&&&&&&&&&&&&&&", user);
       if (user) {
         localStorage.setItem('currentUser', JSON.stringify(user));
-        if ((user?.provider == 'GOOGLE') || (user?.provider == 'MICROSOFT')) {
-          this._authenticationService.isSocialLogin = true;
-          this.loginSocial(user);
-        }
+        localStorage.setItem('loginSSO', 'MICROSOFT');
+        this._authenticationService.isSocialLogin = true;
+        this.loginSocial(user.account.idTokenClaims);
         this.submitted = true;
       } else {
         this._router.navigate(['/pages/authentication/login-v2']);
       }
-
       if (!this._authenticationService.currentUserValue) {
         this._router.navigate(['/pages/authentication/login-v2']);
       }
-    });;
+    })
   }
 
   /**

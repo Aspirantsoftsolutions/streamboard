@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, HostBinding, HostListener, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit, HostBinding, HostListener, ViewEncapsulation, Inject } from '@angular/core';
 import { MediaObserver } from '@angular/flex-layout';
 
 import * as _ from 'lodash';
@@ -15,6 +15,9 @@ import { User } from 'app/auth/models';
 
 import { coreConfig } from 'app/app-config';
 import { Router } from '@angular/router';
+import { MSAL_INSTANCE } from '@azure/msal-angular';
+import { PublicClientApplication } from '@azure/msal-browser';
+import { SocialAuthService } from 'angularx-social-login';
 
 @Component({
   selector: 'app-navbar',
@@ -81,7 +84,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private _coreMediaService: CoreMediaService,
     private _coreSidebarService: CoreSidebarService,
     private _mediaObserver: MediaObserver,
-    public _translateService: TranslateService
+    public _translateService: TranslateService,
+    @Inject(MSAL_INSTANCE) private msalInstance: PublicClientApplication,
+    private _sauthService: SocialAuthService
   ) {
     this._authenticationService.currentUser.subscribe(x => (this.currentUser = x));
 
@@ -165,10 +170,16 @@ export class NavbarComponent implements OnInit, OnDestroy {
    * Logout method
    */
   logout() {
-    this._authenticationService.logout();
-    if (!this._authenticationService.isSocialLogin) {
-      this._router.navigate(['/pages/authentication/login-v2']);
+    const sso = localStorage.getItem('loginSSO');
+    if (sso === 'MICROSOFT') {
+      this.msalInstance.logoutPopup().then((resp) => {
+        console.log("logout from msal", resp);
+      });
+    } else if (sso === 'GOOGLE') {
+      this._sauthService.signOut(true);
     }
+    this._authenticationService.logout();
+    this._router.navigate(['/pages/authentication/login-v2']);
   }
 
   // Lifecycle Hooks

@@ -5,7 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MSAL_GUARD_CONFIG, MsalGuardConfiguration} from '@azure/msal-angular';
 import { InteractionType } from '@azure/msal-browser';
 
-import { msalConfig } from './auth-config';
+import { msalConfig } from '../../../../auth-config';
 import { AppComponent } from './app.component';
 import { AppModule } from './app.module';
 

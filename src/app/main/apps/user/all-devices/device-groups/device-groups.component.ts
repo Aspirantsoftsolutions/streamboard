@@ -11,7 +11,7 @@ import { MsalService } from '@azure/msal-angular';
 import { InteractionType } from '@azure/msal-browser';
 import { ToastrService } from 'ngx-toastr';
 import { startWith } from "rxjs/operators";
-import { protectedResources } from '../../sso/auth-config';
+import { protectedResources } from '../../../../../auth-config';
 import { UserViewService } from '../../user-view/user-view.service';
 import { GraphService, ProviderOptions } from '../../sso/graph.service';
 @Component({

@@ -13,7 +13,7 @@ import { MsalService } from '@azure/msal-angular';
 import { UserViewService } from '../user-view/user-view.service';
 import { GraphService, ProviderOptions } from '../sso/graph.service';
 import { InteractionType } from '@azure/msal-browser';
-import { protectedResources } from '../sso/auth-config';
+import { protectedResources } from '../../../../auth-config';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({

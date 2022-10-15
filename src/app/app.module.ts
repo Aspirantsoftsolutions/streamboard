@@ -38,8 +38,9 @@ import { BasicCustomContextMenuComponent } from './main/extensions/context-menu/
 import { SubMenuCustomContextMenuComponent } from './main/extensions/context-menu/custom-context-menu/sub-menu-custom-context-menu/sub-menu-custom-context-menu.component';
 import { environment } from 'environments/environment';
 import { CommonService } from './main/apps/user/common.service';
-import { MsalModule } from '@azure/msal-angular';
-import { PublicClientApplication } from '@azure/msal-browser';
+import { MsalBroadcastService, MsalGuard, MsalGuardConfiguration, MsalInterceptor, MsalInterceptorConfiguration, MsalModule, MsalRedirectComponent, MsalService, MSAL_GUARD_CONFIG, MSAL_INSTANCE, MSAL_INTERCEPTOR_CONFIG } from '@azure/msal-angular';
+import { InteractionType, IPublicClientApplication, PublicClientApplication } from '@azure/msal-browser';
+import { loginRequest, msalConfig, protectedResources } from './auth-config';
 const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;
 
 
@@ -73,6 +74,44 @@ const appRoutes: Routes = [
   }
 ];
 
+/**
+ * Here we pass the configuration parameters to create an MSAL instance.
+ * For more info, visit: https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-angular/docs/v2-docs/configuration.md
+ */
+
+export function MSALInstanceFactory(): IPublicClientApplication {
+  return new PublicClientApplication(msalConfig);
+}
+
+/**
+ * MSAL Angular will automatically retrieve tokens for resources 
+ * added to protectedResourceMap. For more info, visit: 
+ * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-angular/docs/v2-docs/initialization.md#get-tokens-for-web-api-calls
+ */
+export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
+  const protectedResourceMap = new Map<string, Array<string>>();
+
+  protectedResourceMap.set(protectedResources.graphMe.endpoint, protectedResources.graphMe.scopes);
+  protectedResourceMap.set(protectedResources.armTenants.endpoint, protectedResources.armTenants.scopes);
+
+  return {
+    interactionType: InteractionType.Redirect,
+    protectedResourceMap
+  };
+}
+
+/**
+ * Set your default interaction type for MSALGuard here. If you have any
+ * additional scopes you want the user to consent upon login, add them here as well.
+ */
+export function MSALGuardConfigFactory(): MsalGuardConfiguration {
+  return {
+    interactionType: InteractionType.Redirect,
+    authRequest: loginRequest
+  };
+}
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -94,7 +133,7 @@ const appRoutes: Routes = [
       relativeLinkResolution: 'legacy',
       useHash: true
     }),
-    MsalModule.forRoot( new PublicClientApplication({
+    MsalModule.forRoot(new PublicClientApplication({
       auth: {
         clientId: '96b6652e-a952-4991-9b27-02e578e89a9f', // Application (client) ID from the app registration
         authority: '8773e58d-09ef-48e3-97f0-63ab901bcee0', // The Azure cloud instance and the app's sign-in audience (tenant ID, common, organizations, or consumers)
@@ -117,6 +156,26 @@ const appRoutes: Routes = [
 
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: MsalInterceptor,
+      multi: true
+    },
+    {
+      provide: MSAL_INSTANCE,
+      useFactory: MSALInstanceFactory
+    },
+    {
+      provide: MSAL_GUARD_CONFIG,
+      useFactory: MSALGuardConfigFactory
+    },
+    {
+      provide: MSAL_INTERCEPTOR_CONFIG,
+      useFactory: MSALInterceptorConfigFactory
+    },
+    MsalService,
+    MsalGuard,
+    MsalBroadcastService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 
@@ -130,18 +189,11 @@ const appRoutes: Routes = [
           {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
-              '1006808174045-uau5ftqjstt8metd8nohhe6v4480gvjl.apps.googleusercontent.com',{
-                plugin_name:'angularx-social-login',
-                scope: 'profile email'
-              }
+              '1006808174045-uau5ftqjstt8metd8nohhe6v4480gvjl.apps.googleusercontent.com', {
+              plugin_name: 'angularx-social-login',
+              scope: 'profile email'
+            }
             )
-          },
-          {
-            id: MicrosoftLoginProvider.PROVIDER_ID,
-            provider: new MicrosoftLoginProvider('96b6652e-a952-4991-9b27-02e578e89a9f', {
-              redirect_uri: `${environment.redirectUrl}/apps/user/appazure`,
-              logout_redirect_uri: '${environment.redirectUrl}/logout'
-            }),
           }
         ],
         onError: (err) => {
@@ -152,6 +204,6 @@ const appRoutes: Routes = [
     CommonService
   ],
   entryComponents: [BasicCustomContextMenuComponent, AnimatedCustomContextMenuComponent],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent, MsalRedirectComponent]
 })
 export class AppModule { }

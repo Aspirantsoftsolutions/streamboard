@@ -217,10 +217,6 @@ export class AuthenticationService {
   logout() {
     // remove user from local storage to log user out
     localStorage.clear();
-    // notify
-    if (this.isSocialLogin) {
-      this._sauthService.signOut(true);
-    }
     this.currentUserSubject.next(null);
   }
 }

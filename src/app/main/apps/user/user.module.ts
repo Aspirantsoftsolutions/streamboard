@@ -73,7 +73,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { IPublicClientApplication, PublicClientApplication, InteractionType } from '@azure/msal-browser';
 import { MsalGuard, MsalInterceptor, MsalBroadcastService, MsalInterceptorConfiguration, MsalModule, MsalService, MSAL_GUARD_CONFIG, MSAL_INSTANCE, MSAL_INTERCEPTOR_CONFIG, MsalGuardConfiguration, MsalRedirectComponent } from '@azure/msal-angular';
 
-import { msalConfig, loginRequest, protectedResources } from './sso/auth-config';
+import { msalConfig, loginRequest, protectedResources } from '../../../auth-config';
 import { NewSubjectsSidebarComponent } from './subjects/new-subjects-sidebar/new-subjects-sidebar.component';
 import { GoogleLoginProvider, MicrosoftLoginProvider, SocialAuthServiceConfig } from 'angularx-social-login';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
@@ -93,42 +93,6 @@ import { DeviceGroups } from './all-devices/device-groups/device-groups.componen
 import { InvitationsComponent } from './invitations/invitations.component';
 import { CredentialsSideBar } from './all-devices/credentials-sidebar/credentials-sidebar.component';
 
-/**
- * Here we pass the configuration parameters to create an MSAL instance.
- * For more info, visit: https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-angular/docs/v2-docs/configuration.md
- */
-
-export function MSALInstanceFactory(): IPublicClientApplication {
-  return new PublicClientApplication(msalConfig);
-}
-
-/**
- * MSAL Angular will automatically retrieve tokens for resources 
- * added to protectedResourceMap. For more info, visit: 
- * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-angular/docs/v2-docs/initialization.md#get-tokens-for-web-api-calls
- */
-export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
-  const protectedResourceMap = new Map<string, Array<string>>();
-
-  protectedResourceMap.set(protectedResources.graphMe.endpoint, protectedResources.graphMe.scopes);
-  protectedResourceMap.set(protectedResources.armTenants.endpoint, protectedResources.armTenants.scopes);
-
-  return {
-    interactionType: InteractionType.Redirect,
-    protectedResourceMap
-  };
-}
-
-/**
- * Set your default interaction type for MSALGuard here. If you have any
- * additional scopes you want the user to consent upon login, add them here as well.
- */
-export function MSALGuardConfigFactory(): MsalGuardConfiguration {
-  return {
-    interactionType: InteractionType.Redirect,
-    authRequest: loginRequest
-  };
-}
 
 // routing
 const routes: Routes = [
@@ -326,10 +290,10 @@ const routes: Routes = [
     component: AppComponent,
     data: { animation: 'appazure' }
   },
-    {
-      // Dedicated route for redirects
-      path: 'auth', 
-      component: MsalRedirectComponent
+  {
+    // Dedicated route for redirects
+    path: 'auth',
+    component: MsalRedirectComponent
   }
 
 ];
@@ -412,54 +376,6 @@ const routes: Routes = [
     GradesListService,
     SubjectsListService,
     IndSessionsListService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: MsalInterceptor,
-      multi: true
-    },
-    {
-      provide: MSAL_INSTANCE,
-      useFactory: MSALInstanceFactory
-    },
-    {
-      provide: MSAL_GUARD_CONFIG,
-      useFactory: MSALGuardConfigFactory
-    },
-    {
-      provide: MSAL_INTERCEPTOR_CONFIG,
-      useFactory: MSALInterceptorConfigFactory
-    },
-    MsalService,
-    MsalGuard,
-    MsalBroadcastService,
-    {
-      provide: 'SocialAuthServiceConfig',
-      useValue: {
-        autoLogin: false,
-        providers: [
-          {
-            id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider(
-              '1006808174045-uau5ftqjstt8metd8nohhe6v4480gvjl.apps.googleusercontent.com',
-              {
-                plugin_name: 'angularx-social-login',
-                scope: 'profile email'
-              }
-            )
-          },
-          {
-            id: MicrosoftLoginProvider.PROVIDER_ID,
-            provider: new MicrosoftLoginProvider('96b6652e-a952-4991-9b27-02e578e89a9f', {
-              redirect_uri: `${environment.redirectUrl}/#/dashboard/ecommerce`,
-              authority:'8773e58d-09ef-48e3-97f0-63ab901bcee0'
-            })
-          }
-        ],
-        onError: (err) => {
-          console.error(err);
-        }
-      } as SocialAuthServiceConfig,
-    }
   ],
   bootstrap: [AppComponent, MsalRedirectComponent]
 })

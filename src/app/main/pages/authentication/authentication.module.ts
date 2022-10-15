@@ -16,10 +16,9 @@ import { AuthLoginV2Component } from 'app/main/pages/authentication/auth-login-v
 import { AuthRegisterV2Component } from 'app/main/pages/authentication/auth-register-v2/auth-register-v2.component';
 
 import { AuthResetPasswordV2Component } from 'app/main/pages/authentication/auth-reset-password-v2/auth-reset-password-v2.component';
-import { SocialAuthServiceConfig, FacebookLoginProvider, GoogleLoginProvider, SocialLoginModule, MicrosoftLoginProvider } from 'angularx-social-login';
 import { ToastrModule } from 'ngx-toastr';
 import { UserListService } from 'app/main/apps/user/user-list/user-list.service';
-import { environment } from 'environments/environment';
+import { GoogleLoginProvider, SocialAuthServiceConfig } from 'angularx-social-login';
 
 // routing
 const routes: Routes = [
@@ -62,34 +61,6 @@ const routes: Routes = [
   providers: [
     UserListService,
     CommonService,
-    {
-      provide: 'SocialAuthServiceConfig',
-      useValue: {
-        autoLogin: false,
-        providers: [
-          {
-            id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider(
-              'http://1006808174045-1v6vmmc17rpodiauhqngi21cavel02ft.apps.googleusercontent.com',
-              {
-                plugin_name: 'angularx-social-login',
-                scope: 'profile email'
-              }
-            )
-          },
-          {
-            id: MicrosoftLoginProvider.PROVIDER_ID,
-            provider: new MicrosoftLoginProvider('96b6652e-a952-4991-9b27-02e578e89a9f', {
-              redirect_uri: `${environment.redirectUrl}/apps/user/appazure`,
-              logout_redirect_uri: '${environment.redirectUrl}/logout'
-            }),
-          }
-        ],
-        onError: (err) => {
-          console.error(err);
-        }
-      } as SocialAuthServiceConfig,
-    }
   ],
   imports: [ToastrModule, CommonModule, RouterModule.forChild(routes), NgbModule, FormsModule, ReactiveFormsModule, CoreCommonModule]
 })

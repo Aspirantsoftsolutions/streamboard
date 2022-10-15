@@ -9,7 +9,7 @@ import { CoreConfigService } from '@core/services/config.service';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 
 import { UserListService } from 'app/main/apps/user/user-list/user-list.service';
-import { protectedResources } from '../sso/auth-config';
+import { protectedResources } from '../../../../auth-config';
 import { InteractionType } from '@azure/msal-browser';
 import { ProviderOptions, GraphService } from '../sso/graph.service';
 import { MsalService } from '@azure/msal-angular';
