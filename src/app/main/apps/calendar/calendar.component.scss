@@ -3,7 +3,10 @@
 @import '@core/scss/angular/libs/select.component.scss';
 
 @import '@core/scss/base/bootstrap-extended/include.scss'; // Bootstrap includes
-@import '~@fullcalendar/daygrid/main.css';
+@import '../../../../../node_modules/@fullcalendar/daygrid/main.css';
+@import '../../../../../node_modules/@fullcalendar/common/main.css';
+@import '../../../../../node_modules/@fullcalendar/list/main.css';
+@import '../../../../../node_modules/@fullcalendar/timegrid/main.css';
 
 //  Main Sidebar
 app-calendar-main-sidebar {

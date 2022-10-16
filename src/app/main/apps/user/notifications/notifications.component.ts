@@ -34,7 +34,10 @@ export class NotificationsComponent implements OnInit {
   guestList;
 
   dropdownList = [];
+  selectedTeachers = [];
+  selectedSchools = [];
   selectedItems = [];
+
   dropdownSettings: IDropdownSettings = {};
 
   /**
@@ -63,8 +66,6 @@ export class NotificationsComponent implements OnInit {
    */
   onSubmit() {
     this.submitted = true;
-
-
     this._commonService.sendNotifications(this.notificationsForm.value).then((resposne) => {
       console.log('res set:', resposne);
 
@@ -73,6 +74,7 @@ export class NotificationsComponent implements OnInit {
         toastClass: 'toast ngx-toastr',
         closeButton: true
       });
+      this.submitted = false;
     }, (error) => {
       console.log('res set error:', error);
       let errorString = error;
@@ -82,7 +84,11 @@ export class NotificationsComponent implements OnInit {
       });
     }
     );
-
+    this.notificationsForm.reset();
+    // this.notificationsForm.updateValueAndValidity();
+    this.selectedTeachers = [];
+    this.selectedItems = [];
+    this.selectedSchools = [];
   }
 
   isAdmin() {
