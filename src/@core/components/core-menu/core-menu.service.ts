@@ -152,7 +152,7 @@ export class CoreMenuService {
    * @param key
    */
   setCurrentMenu(key): void {
-    console.log('Key ====>', key);
+    // console.log('Key ====>', key);
 
     // Confirm if the sidebar exists
     if (!this._registry[key]) {

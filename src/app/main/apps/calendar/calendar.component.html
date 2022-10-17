@@ -27,7 +27,7 @@
               </button>
             </div>
             <div class="card-body pb-0">
-              <full-calendar [options]="calendarOptions"></full-calendar>
+              <full-calendar #calendar [options]="calendarOptions"></full-calendar>
             </div>
           </div>
         </div>
@@ -36,13 +36,13 @@
     </div>
 
     <!-- calendar event sidebar -->
-    <core-sidebar
-      class="modal modal-slide-in fade event-sidebar"
-      name="calendar-event-sidebar"
-      overlayClass="modal-backdrop"
-      hideOnEsc="true"
-    >
+    <core-sidebar class="modal modal-slide-in fade event-sidebar" name="calendar-event-sidebar"
+      overlayClass="modal-backdrop" hideOnEsc="true">
       <app-calendar-event-sidebar></app-calendar-event-sidebar>
+    </core-sidebar>
+    <core-sidebar class="modal modal-slide-in sidebar-todo-modal fade" name="new-sessions-sidebar"
+      overlayClass="modal-backdrop">
+      <app-new-sessions-sidebar></app-new-sessions-sidebar>
     </core-sidebar>
     <!--/ calendar event sidebar -->
   </div>

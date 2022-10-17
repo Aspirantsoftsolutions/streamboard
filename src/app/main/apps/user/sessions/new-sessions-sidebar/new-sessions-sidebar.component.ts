@@ -71,13 +71,13 @@ export class NewSessionsSidebarComponent implements OnInit {
       return false;
     } else if (this.urlLastValue == 'live_sessions') {
       return false;
-    } else if (this.urlLastValue == 'scheduled_sessions') {
+    } else if (this.urlLastValue == 'scheduled_sessions' || this.urlLastValue =='calendar') {
       return true;
     }
   }
 
   isToInvite() {
-    if ((this.urlLastValue == 'live_sessions') || (this.urlLastValue == 'scheduled_sessions')) {
+    if ((this.urlLastValue == 'live_sessions') || (this.urlLastValue == 'scheduled_sessions') || (this.urlLastValue == 'calendar')) {
       return true;
     }
     return false;
@@ -101,7 +101,7 @@ export class NewSessionsSidebarComponent implements OnInit {
         type = "quickSession";
       } else if (this.urlLastValue == 'live_sessions') {
         type = "liveSession";
-      } else if (this.urlLastValue == 'scheduled_sessions') {
+      } else if (this.urlLastValue == 'scheduled_sessions' || 'calendar') {
         type = "ScheduledSession";
         form.value['start'] = this.startDatePicker.flatpickrElement.nativeElement.children[0].value;
         form.value['end'] = this.endDatePicker.flatpickrElement.nativeElement.children[0].value;
@@ -111,9 +111,9 @@ export class NewSessionsSidebarComponent implements OnInit {
       if (!form.value['group']) {
         form.value['group'] = "";
       }
-      console.log(form);
+      //console.log(form);
       this.SessionsListService.createSession(form.value).then((resposne) => {
-        console.log('res set:', resposne);
+        //console.log('res set:', resposne);
         let successString = Response;
         this.toastr.success('👋 User Created Successfully.', 'Success!', {
           toastClass: 'toast ngx-toastr',
@@ -121,7 +121,7 @@ export class NewSessionsSidebarComponent implements OnInit {
         });
         this.SessionsListService.getDataTableRows();
       }, (error) => {
-        console.log('res set error:', error);
+        //console.log('res set error:', error);
         let errorString = error;
         this.toastr.error(errorString, 'Error!', {
           toastClass: 'toast ngx-toastr',
@@ -135,16 +135,16 @@ export class NewSessionsSidebarComponent implements OnInit {
 
   ngOnInit(): void {
     this._authenticationService.currentUser.subscribe(x => {
-      console.log('current user here:', x);
+      //console.log('current user here:', x);
       this.currentUser = x;
     });
 
     this._groupListService.getDataTableRows().then((resposne) => {
-      console.log('res set groupRows:', resposne);
+      //console.log('res set groupRows:', resposne);
       this.groupRows = resposne;
-      console.log('groupRows:', this.groupRows);
+      //console.log('groupRows:', this.groupRows);
     }, (error) => {
-      console.log('res set error:', error);
+      //console.log('res set error:', error);
 
     }
     );

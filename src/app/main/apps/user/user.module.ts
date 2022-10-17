@@ -377,6 +377,7 @@ const routes: Routes = [
     SubjectsListService,
     IndSessionsListService,
   ],
-  bootstrap: [AppComponent, MsalRedirectComponent]
+  bootstrap: [AppComponent, MsalRedirectComponent],
+  exports:[NewSessionsSidebarComponent]
 })
 export class UserModule { }

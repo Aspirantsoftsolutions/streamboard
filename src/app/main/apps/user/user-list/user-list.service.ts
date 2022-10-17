@@ -62,6 +62,9 @@ export class UserListService implements Resolve<any> {
             element.student.forEach(students => {
               data.push(students);
             });
+            element.individuals.forEach(individual => {
+              data.push(individual);
+            });
           });
         }
 
