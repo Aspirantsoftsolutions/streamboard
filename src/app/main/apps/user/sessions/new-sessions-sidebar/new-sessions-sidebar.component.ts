@@ -6,6 +6,7 @@ import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.s
 import { ToastrService } from 'ngx-toastr';
 import { NgbDateStruct, NgbCalendar, NgbDate, NgbDateParserFormatter, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
+import { CommonService } from '../../common.service';
 
 @Component({
   selector: 'app-new-sessions-sidebar',
@@ -41,6 +42,8 @@ export class NewSessionsSidebarComponent implements OnInit {
     altInputClass: 'form-control flat-picker flatpickr-input invoice-edit-input',
     enableTime: true
   };
+  public hosts;
+  public host;
 
   /**
    * Constructor
@@ -52,7 +55,9 @@ export class NewSessionsSidebarComponent implements OnInit {
     private _groupListService: GroupsListService,
     private router: Router,
     private SessionsListService: SessionsListService,
-    private _authenticationService: AuthenticationService) {
+    private _authenticationService: AuthenticationService,
+    private _commonService: CommonService
+  ) {
 
     this.urlLastValue = this.url.substr(this.url.lastIndexOf('/') + 1);
   }
@@ -71,7 +76,7 @@ export class NewSessionsSidebarComponent implements OnInit {
       return false;
     } else if (this.urlLastValue == 'live_sessions') {
       return false;
-    } else if (this.urlLastValue == 'scheduled_sessions' || this.urlLastValue =='calendar') {
+    } else if (this.urlLastValue == 'scheduled_sessions' || this.urlLastValue == 'calendar') {
       return true;
     }
   }
@@ -148,6 +153,9 @@ export class NewSessionsSidebarComponent implements OnInit {
 
     }
     );
+    this._commonService.getAllTeachers().then((resp) => {
+      this.hosts = resp;
+    }).catch(console.error)
     setTimeout(() => {
       this.startDatePicker.flatpickr.clear();
       this.endDatePicker.flatpickr.clear();

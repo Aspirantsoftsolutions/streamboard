@@ -63,6 +63,13 @@
             </select>
           </div>
 
+          <div class="form-group mb-2" *ngIf="isToInvite()">
+            <label class="form-label" for="group">Host</label>
+            <select id="host" class="form-control" name='host' [(ngModel)]="host">
+              <option value="{{host.userId}}" *ngFor="let host of hosts">{{host.username}}</option>
+            </select>
+          </div>
+
           <div class="form-group" *ngIf="isToInvite()">
             <label class="form-label" for="basic-icon-default-description">Invite participants by email</label>
             <input type="text" class="form-control dt-full-name" id="basic-icon-default-fullname"

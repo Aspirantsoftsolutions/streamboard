@@ -9,6 +9,7 @@ import { CoreConfigService } from '@core/services/config.service';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 import { GroupsListService } from './groups-list.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -82,6 +83,7 @@ export class GroupsListComponent implements OnInit {
     private _coreConfigService: CoreConfigService,
     private groupService: GroupsListService,
     private modalService: NgbModal,
+    private toaster: ToastrService
   ) {
     this._unsubscribeAll = new Subject();
   }
@@ -125,13 +127,16 @@ export class GroupsListComponent implements OnInit {
   deleteUser(id) {
     this.groupService.deleteGroup(id).then((response) => {
       this._userListService.getDataTableRows();
+      this.toastMessage('success', 'deleted group');
+    }, error => {
+      this.toastMessage('error', error.message || 'failed to delete group');
     });
   }
 
   toggleSidebarEdit(name, id): void {
     console.log('id:', id);
     this.groupService.getGroupById(id).then((response: any) => {
-      this._commonService.onUserEditListChanged.next(response.data);
+      this._commonService.onUserEditListChanged.next({ groupinfo: response.data, allStudents: this.allStudents });
       this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
     }, (error) => {
       console.log('res set error:', error);
@@ -228,7 +233,21 @@ export class GroupsListComponent implements OnInit {
   viewGroup(group, modal) {
     this.SelectedStudentsGroup = this.allStudents.filter(student => group['students'].includes(student._id));
     console.log('From group students', this.SelectedStudentsGroup);
-    this.modalService.open(modal);
+    this.modalService.open(modal, { size: 'lg' });
+  }
+
+  toastMessage(type, msg) {
+    if (type === 'success') {
+      this.toaster.success(msg, 'Success!', {
+        toastClass: 'toast ngx-toastr',
+        closeButton: true
+      });
+    } else if (type = 'error') {
+      this.toaster.error(msg, 'Error!', {
+        toastClass: 'toast ngx-toastr',
+        closeButton: true
+      });
+    }
   }
 
   /**

@@ -68,11 +68,13 @@ export class SessionsListService implements Resolve<any> {
         'title': form['user-title'],
         'groupId': form['group'],
         'description': form['user-description'],
-        'teacherId': form['teacherId'],
+        'teacherId': form['host'] ? form['host'] : form['teacherId'],
         'type': form['type'],
         'start': form['start'],
         'end': form['end'],
-        'participants': form['user-emailids']
+        'participants': form['user-emailids'],
+        'scheduledBy': form['host'] ? 'school' : 'teacher',
+        'school_id': this.getCurrentUser().userId
       }).subscribe((response: any) => {
         console.log(response);
         resolve(response);

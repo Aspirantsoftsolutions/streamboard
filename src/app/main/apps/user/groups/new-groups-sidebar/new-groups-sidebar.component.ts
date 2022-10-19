@@ -16,6 +16,8 @@ export class NewGroupsSidebarComponent implements OnInit {
   public isToUpdate = false;
   public groupId;
   public selectedUsers = [];
+  public classDropdownSettings;
+  public users = [];
   /**
    * Constructor
    *
@@ -25,21 +27,36 @@ export class NewGroupsSidebarComponent implements OnInit {
     private toastr: ToastrService,
     private _groupService: GroupsListService,
     private _commonService: CommonService,) {
+    this.classDropdownSettings = {
+      singleSelection: false,
+      idField: '_id',
+      textField: 'username',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: true
+    };
     this._commonService.onUserEditListChanged.subscribe(response => {
-      if (response != null) {
+      if (response.groupinfo != null) {
         this.isToUpdate = true;
-        this.fullname = response.name;
-        this.id = response._id;
+        this.fullname = response.groupinfo.name;
+        this.id = response.groupinfo._id;
+        if (Array.isArray(response.groupinfo.students)) {
+          this.selectedUsers = response.groupinfo.students;
+        }
+        if (Array.isArray(response.allStudents)) {
+          this.users = response.allStudents;
+        }
       } else {
         this.isToUpdate = false;
       }
     });
 
-    this._commonService.onStudentsSelected.subscribe(resp => {
-      if (Array.isArray(resp)) {
-        this.selectedUsers = resp.map(x => x._id);
-      }
-    });
+    // this._commonService.onStudentsSelected.subscribe(resp => {
+    //   if (Array.isArray(resp)) {
+    //     this.selectedUsers = resp.map(x => x._id);
+    //   }
+    // });
 
   }
 
@@ -51,6 +68,24 @@ export class NewGroupsSidebarComponent implements OnInit {
   toggleSidebar(name): void {
     // this._groupService.classRows = null;
     this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
+  }
+
+
+  onItemSelect(item: any) {
+    const devices = this.selectedUsers.filter(x => x._id === item._id);
+    if (!devices) {
+      this.selectedUsers.push(item);
+    }
+  }
+  onSelectAll(items: any) {
+    this.selectedUsers = items;
+  }
+  onDeselect(item: any) {
+    this.selectedUsers = this.selectedUsers.filter(x => x._id != item._id);
+  }
+
+  onDeselectAll(items: any) {
+    this.selectedUsers = items;
   }
 
   /**
@@ -89,9 +124,11 @@ export class NewGroupsSidebarComponent implements OnInit {
               this._groupService.setUserClass(resposne.data.userId, row.userId).then((response) => {
                 console.log('res udpate:', response);
                 // let successString = response;
+                this.toastMessage('success', 'updated Successfully.');
               }, (error) => {
                 console.log('res set error:', error);
                 let errorString = error;
+                this.toastMessage('error', error.message || Error!);
               });
             });
           }
@@ -114,6 +151,20 @@ export class NewGroupsSidebarComponent implements OnInit {
       }
 
       this.toggleSidebar('new-groups-sidebar');
+    }
+  }
+
+  toastMessage(type, msg) {
+    if (type === 'success') {
+      this.toastr.success(msg, 'Success!', {
+        toastClass: 'toast ngx-toastr',
+        closeButton: true
+      });
+    } else if (type = 'error') {
+      this.toastr.error(msg, 'Error!', {
+        toastClass: 'toast ngx-toastr',
+        closeButton: true
+      });
     }
   }
 

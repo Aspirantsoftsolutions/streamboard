@@ -127,12 +127,12 @@
             <ng-template ngx-datatable-cell-template let-row="row">
 
               <div class="actionicon d-flex">
-               
+
                 <a (click)="viewGroup(row, GroupMembersModal)" ngbDropdownItem>
                   <span [data-feather]="'eye'" [size]="16" [class]="'mr-50'"></span></a>
                 <a (click)="toggleSidebarEdit('new-groups-sidebar',row._id)" ngbDropdownItem>
                   <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span></a>
-               
+
                 <a (click)="deleteUser(row._id)" ngbDropdownItem>
                   <span [data-feather]="'trash'" [size]="16" [class]="'mr-50'"></span></a>
               </div>
@@ -166,9 +166,14 @@
       </button>
     </div>
     <div class="modal-body" tabindex="0" ngbAutofocus>
-      <ul *ngFor="let student of SelectedStudentsGroup">
-        <li>{{student.username}}</li>
-      </ul>
+      <ngx-datatable [rows]="SelectedStudentsGroup" [rowHeight]="50" class="bootstrap core-bootstrap"
+        [limit]="selectedOption" [columnMode]="ColumnMode.force" [headerHeight]="50" [footerHeight]="50"
+        [scrollbarH]="true">
+        <ngx-datatable-column name="name" prop="username" [width]="200">
+        </ngx-datatable-column>
+        <ngx-datatable-column name="email" prop="email" [width]="200">
+        </ngx-datatable-column>
+      </ngx-datatable>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-primary" (click)="modal.dismiss('Cross click')" rippleEffect>
