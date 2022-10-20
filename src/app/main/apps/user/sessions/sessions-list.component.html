@@ -70,11 +70,24 @@
             </ng-template>
           </ngx-datatable-column>
 
-          <ngx-datatable-column name="Host" prop="Host" [width]="200">
+          <ngx-datatable-column *ngIf="getCurrentUser().role === 'School'" name="Host" prop="Host" [width]="200">
             <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
               <div class="cell-line-height">
-                <span class="text-muted font-small-2" style=" display: flex; flex-wrap: wrap;"> {{ row?.teacher ? row.teacher.username : getCurrentUser().username
+                <span class="text-muted font-small-2" style=" display: flex; flex-wrap: wrap;"> {{ row?.teacher ?
+                  row.teacher.username : getCurrentUser().username
                   }}</span>
+              </div>
+            </ng-template>
+          </ngx-datatable-column>
+
+          <ngx-datatable-column name="Session Link" prop="fullName" [width]="200">
+            <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
+              <div class="d-flex align-items-center">
+                <div class="cell-line-height">
+                  <!-- <span class="text-muted font-small-2"> {{ row.sessionLink }}</span> -->
+                  <a href="{{row.sessionLink}}" target="_blank">
+                    <span [size]="16" [class]="'mr-50'"></span> Start Session </a>
+                </div>
               </div>
             </ng-template>
           </ngx-datatable-column>
