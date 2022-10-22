@@ -72,10 +72,13 @@
 
           <div class="form-group" *ngIf="isToInvite()">
             <label class="form-label" for="basic-icon-default-description">Invite participants by email</label>
-            <input type="text" class="form-control dt-full-name" id="basic-icon-default-fullname"
-              placeholder="Participants email ids" name="user-emailids" [(ngModel)]="emailids"
-              [class.error]="newUserForm.submitted && FNameRef.invalid" #FNameRef="ngModel"
-              aria-label="Participants email ids" aria-describedby="basic-icon-default-fullname2" />
+            <ng-multiselect-dropdown class="mb-2" id="_id" name='username'
+              [placeholder]="'Select students'" [settings]="classDropdownSettings" [data]="users"
+              [(ngModel)]="selectedUsers" name="user-emailids" (onSelect)="onItemSelect($event)"
+              (onSelectAll)="onSelectAll($event)" (onDeSelect)="onDeselect($event)"
+              (onDeSelectAll)="onDeselectAll($event)" (onFilterChange)="search($event)"
+              [class.error]="newUserForm.submitted && FNameRef.invalid" #FNameRef="ngModel">
+            </ng-multiselect-dropdown>
             <span *ngIf="newUserForm.submitted && FNameRef.invalid" class="invalid-form">
               <small class="form-text text-danger" *ngIf="FNameRef.errors.required">This field is required!</small>
             </span>

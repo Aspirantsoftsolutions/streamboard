@@ -25,7 +25,7 @@
             <ng-multiselect-dropdown class="mb-2" id="_id" name='username' [placeholder]="'Select students'"
               [settings]="classDropdownSettings" [data]="users" [(ngModel)]="selectedUsers"
               (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" (onDeSelect)="onDeselect($event)"
-              (onDeSelectAll)="onDeselectAll($event)">
+              (onDeSelectAll)="onDeselectAll($event)" (onFilterChange)="search($event)">
             </ng-multiselect-dropdown>
           </div>
           <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" rippleEffect>Submit</button>

@@ -154,6 +154,10 @@ export class NewGroupsSidebarComponent implements OnInit {
     }
   }
 
+  search($event) {
+    console.log($event);
+  }
+
   toastMessage(type, msg) {
     if (type === 'success') {
       this.toastr.success(msg, 'Success!', {

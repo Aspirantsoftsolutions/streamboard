@@ -72,7 +72,7 @@ export class SessionsListService implements Resolve<any> {
         'type': form['type'],
         'start': form['start'],
         'end': form['end'],
-        'participants': form['user-emailids'],
+        'participants': form['user-emailids'].map(x => x.email).join(','),
         'scheduledBy': form['host'] ? 'school' : 'teacher',
         'school_id': this.getCurrentUser().userId
       }).subscribe((response: any) => {
