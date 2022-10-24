@@ -7,6 +7,7 @@ import { takeUntil } from 'rxjs/operators';
 import { CoreConfigService } from '@core/services/config.service';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 import { PaymentsListService } from './payments-list.service';
+import { CommonService } from '../common.service';
 
 
 @Component({
@@ -72,9 +73,13 @@ export class PaymentsListComponent implements OnInit {
   constructor(
     private _userListService: PaymentsListService,
     private _coreSidebarService: CoreSidebarService,
-    private _coreConfigService: CoreConfigService
+    private _coreConfigService: CoreConfigService,
+    private _commonService: CommonService
   ) {
     this._unsubscribeAll = new Subject();
+    this._commonService.onPaymentsChanged.subscribe(() => {
+      this.init();
+    });
   }
 
   // Public Methods
@@ -179,22 +184,30 @@ export class PaymentsListComponent implements OnInit {
    */
   ngOnInit(): void {
     // Subscribe config change
+    this.init();
+  }
+
+  init() {
     this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
       //! If we have zoomIn route Transition then load datatable after 450ms(Transition will finish in 400ms)
       if (config.layout.animation === 'zoomIn') {
         setTimeout(() => {
-          this._userListService.onUserListChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
-            this.rows = response;
+          this._commonService.getPaymentHistory().pipe(takeUntil(this._unsubscribeAll)).subscribe((resp) => {
+            this.rows = resp['data'];
             this.tempData = this.rows;
           });
         }, 450);
       } else {
-        this._userListService.onUserListChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
-          this.rows = response;
+        this._commonService.getPaymentHistory().pipe(takeUntil(this._unsubscribeAll)).subscribe((resp) => {
+          this.rows = resp['data'];
           this.tempData = this.rows;
         });
       }
     });
+  }
+
+  addPayment() {
+    this.toggleSidebar('new-payment-sidebar');
   }
 
   /**

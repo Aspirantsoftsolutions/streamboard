@@ -4,12 +4,13 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/r
 import { environment } from 'environments/environment';
 
 import { BehaviorSubject, Observable } from 'rxjs';
-import { tap,map } from "rxjs/operators";
+import { tap, map } from "rxjs/operators";
 
 @Injectable()
 export class CommonService implements Resolve<any> {
   public rows: any;
   public onUserListChanged: BehaviorSubject<any>;
+  public onPaymentsChanged: BehaviorSubject<any>;
   public onUserEditListChanged: BehaviorSubject<any>;
   public onStudentsSelected: BehaviorSubject<any>;
   public onDevicesUpdates: BehaviorSubject<any>;
@@ -28,6 +29,7 @@ export class CommonService implements Resolve<any> {
   constructor(private _httpClient: HttpClient) {
     // Set the defaults
     this.onUserListChanged = new BehaviorSubject({});
+    this.onPaymentsChanged = new BehaviorSubject({});
     this.onUserEditListChanged = new BehaviorSubject({});
     this.onStudentsSelected = new BehaviorSubject({});
     this.onDevicesUpdates = new BehaviorSubject({});
@@ -611,6 +613,14 @@ export class CommonService implements Resolve<any> {
         return user;
       })
       );
+  }
+
+  savePayment(paymentInfo) {
+    return this._httpClient.post(`${environment.apiUrl}/api/payments`, paymentInfo);
+  }
+
+  getPaymentHistory() {
+    return this._httpClient.get(`${environment.apiUrl}/api/payments`);
   }
 
 

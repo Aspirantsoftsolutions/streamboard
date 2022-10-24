@@ -3,103 +3,91 @@
   <div class="modalsd modal-slide-in sdfade new-user-modal" id="modals-slide-in">
     <div class="modal-dialog">
       <form class="add-new-user modal-content pt-0" (ngSubmit)="(newUserForm.form.valid)" #newUserForm="ngForm">
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-          (click)="toggleSidebar('new-user-sidebar')"
-        >
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+          (click)="toggleSidebar('new-payment-sidebar')">
           ×
         </button>
         <div class="modal-header mb-1">
           <h5 class="modal-title" id="exampleModalLabel">New User</h5>
         </div>
         <div class="modal-body flex-grow-1">
+          <div class="form-group mb-2">
+            <label class="form-label" for="user-plan">Select Client</label>
+            <select id="user-plan" class="form-control" (change)="updateClient($event.target.value)" name="email">
+              <option *ngFor="let client of clients" [value]="client.email">{{client.email}}</option>
+            </select>
+          </div>
           <div class="form-group">
-            <label class="form-label" for="basic-icon-default-fullname">Full Name</label>
-            <input
-              type="text"
-              class="form-control dt-full-name"
-              id="basic-icon-default-fullname"
-              placeholder="John Doe"
-              name="user-fullname"
-              [(ngModel)]="fullname"
-              [class.error]="newUserForm.submitted && FNameRef.invalid"
-              #FNameRef="ngModel"
-              required
-              aria-label="John Doe"
-              aria-describedby="basic-icon-default-fullname2"
-            />
+            <label class="form-label" for="basic-icon-default-fullName">Full Name</label>
+            <input type="text" class="form-control dt-full-name" id="basic-icon-default-fullName" name="user-fullName"
+              [(ngModel)]="fullName" [class.error]="newUserForm.submitted && FNameRef.invalid" #FNameRef="ngModel"
+              required aria-label="John Doe" aria-describedby="basic-icon-default-fullName2" [disabled]="disableFields"
+              name="fullName" />
             <span *ngIf="newUserForm.submitted && FNameRef.invalid" class="invalid-form">
               <small class="form-text text-danger" *ngIf="FNameRef.errors.required">This field is required!</small>
             </span>
           </div>
           <div class="form-group">
             <label class="form-label" for="basic-icon-default-uname">Username</label>
-            <input
-              type="text"
-              id="basic-icon-default-uname"
-              class="form-control dt-uname"
-              placeholder="Web Developer"
-              aria-label="jdoe1"
-              aria-describedby="basic-icon-default-uname2"
-              name="user-name"
-              [(ngModel)]="username"
-              [class.error]="newUserForm.submitted && FUserNameRef.invalid"
-              #FUserNameRef="ngModel"
-              required
-            />
+            <input type="text" id="basic-icon-default-uname" class="form-control dt-uname" aria-label="jdoe1"
+              aria-describedby="basic-icon-default-uname2" name="user-name" [(ngModel)]="username"
+              [class.error]="newUserForm.submitted && FUserNameRef.invalid" #FUserNameRef="ngModel" required
+              [disabled]="disableFields" name="username" />
             <span *ngIf="newUserForm.submitted && FUserNameRef.invalid" class="invalid-form">
               <small class="form-text text-danger" *ngIf="FUserNameRef.errors.required">This field is required!</small>
             </span>
           </div>
           <div class="form-group">
             <label class="form-label" for="basic-icon-default-email">Email</label>
-            <input
-              type="text"
-              id="basic-icon-default-email"
-              class="form-control dt-email"
-              placeholder="john.doe@example.com"
-              aria-label="john.doe@example.com"
-              aria-describedby="basic-icon-default-email2"
-              name="user-email"
-              [(ngModel)]="email"
-              [class.error]="newUserForm.submitted && FEmailRef.invalid"
-              #FEmailRef="ngModel"
-              required
-            />
+            <input type="text" id="basic-icon-default-email" class="form-control dt-email"
+              aria-label="john.doe@example.com" aria-describedby="basic-icon-default-email2" name="user-email"
+              [(ngModel)]="email" name="email" [class.error]="newUserForm.submitted && FEmailRef.invalid"
+              #FEmailRef="ngModel" required [disabled]="disableFields" />
             <span *ngIf="newUserForm.submitted && FEmailRef.invalid" class="invalid-form">
               <small class="form-text text-danger" *ngIf="FEmailRef.errors.required">This field is required!</small>
             </span>
             <small class="form-text text-muted"> You can use letters, numbers & periods </small>
           </div>
           <div class="form-group">
-            <label class="form-label" for="user-role">User Role</label>
-            <select id="user-role" class="form-control">
-              <option value="subscriber">Subscriber</option>
-              <option value="editor">Editor</option>
-              <option value="maintainer">Maintainer</option>
-              <option value="author">Author</option>
-              <option value="admin">Admin</option>
-            </select>
+            <label class="form-label" for="basic-icon-default-amount">Amount</label>
+            <input type="number" id="basic-icon-default-amount" class="form-control dt-amount"
+              aria-describedby="basic-icon-default-amount2" name="amount" [(ngModel)]="amount"
+              [class.error]="newUserForm.submitted && FamountRef.invalid" #FamountRef="ngModel" required />
+            <span *ngIf="newUserForm.submitted && FamountRef.invalid" class="invalid-form">
+              <small class="form-text text-danger" *ngIf="FamountRef.errors.required">This field is required!</small>
+            </span>
+            <small class="form-text text-muted"> You can use number only </small>
           </div>
           <div class="form-group mb-2">
-            <label class="form-label" for="user-plan">Select Plan</label>
-            <select id="user-plan" class="form-control">
-              <option value="basic">Basic</option>
-              <option value="enterprise">Enterprise</option>
-              <option value="company">Company</option>
-              <option value="team">Team</option>
+            <label for="paymentDate" class="form-label">Payment Date</label>
+            <ng2-flatpickr #FpaymentDateRef="ngModel" id="paymentDate" [config]="dateOptions" name="paymentDate"
+              [(ngModel)]="date" #paymentDate required>
+            </ng2-flatpickr>
+            <span *ngIf="newUserForm.submitted && FpaymentDateRef.invalid" class="invalid-form">
+              <small class="form-text text-danger" *ngIf="FpaymentDateRef.errors.required">This field is
+                required!</small>
+            </span>
+          </div>
+          <div class="form-group mb-2">
+            <label class="form-label" for="paymentType">Payment type</label>
+            <select id="paymentType" class="form-control" name="paymentType" [(ngModel)]="paymentType"
+              #FpaymentRef="ngModel">
+              <option value="cash">Cash</option>
+              <option value="banktransfer">Bank Trasfer</option>
             </select>
+            <span *ngIf="newUserForm.submitted && FpaymentRef.invalid" class="invalid-form">
+              <small class="form-text text-danger" *ngIf="FpaymentRef.errors.required">This field is required!</small>
+            </span>
+            <small class="form-text text-muted"> please select one </small>
+          </div>
+          <div class="form-group mb-2">
+            <label class="form-label" for="user-plan">Comments</label>
+            <textarea class="form-control" name="comments" id="comments" cols="30" rows="5"
+              [(ngModel)]="comments"></textarea>
           </div>
           <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" rippleEffect>Submit</button>
-          <button
-            type="reset"
-            class="btn btn-outline-secondary"
-            (click)="toggleSidebar('new-user-sidebar')"
-            rippleEffect
-          >
+          <button type="reset" class="btn btn-outline-secondary" (click)="toggleSidebar('new-payment-sidebar')"
+            rippleEffect>
             Cancel
           </button>
         </div>
