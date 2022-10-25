@@ -25,7 +25,7 @@
           </div>
           <div class="card-body statistics-body">
             <div class="row">
-              <div class="col-sm-6 col-xl-3 mb-2 mb-xl-0">
+              <div class="col-sm-6 col-xl-3 mb-2 mb-xl-1">
                 <div class="media">
                   <div class="avatar bg-light-primary mr-2">
                     <div class="avatar-content">
@@ -38,7 +38,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-sm-6 col-xl-3 mb-2 mb-xl-0">
+              <div class="col-sm-6 col-xl-3 mb-2 mb-xl-1">
                 <div class="media">
                   <div class="avatar bg-light-primary mr-2">
                     <div class="avatar-content">
@@ -51,7 +51,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-sm-6 col-xl-3 mb-2 mb-xl-0">
+              <div class="col-sm-6 col-xl-3 mb-2 mb-xl-1">
                 <div class="media">
                   <div class="avatar bg-light-primary mr-2">
                     <div class="avatar-content">
@@ -84,7 +84,7 @@
           </div>
           <div class="card-body statistics-body">
             <div class="row">
-              <div class="col-sm-6 col-xl-3 mb-2 mb-xl-0">
+              <div class="col-sm-6 col-xl-3 mb-2 mb-xl-1">
                 <div class="media">
                   <div class="avatar bg-light-primary mr-2">
                     <div class="avatar-content">
@@ -97,7 +97,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-sm-6 col-xl-3 mb-2 mb-xl-0">
+              <div class="col-sm-6 col-xl-3 mb-2 mb-xl-1">
                 <div class="media">
                   <div class="avatar bg-light-primary mr-2">
                     <div class="avatar-content">
@@ -110,7 +110,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-sm-6 col-xl-3 mb-2 mb-xl-0">
+              <div class="col-sm-6 col-xl-3 mb-2 mb-xl-1">
                 <div class="media">
                   <div class="avatar bg-light-primary mr-2">
                     <div class="avatar-content">
@@ -123,7 +123,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-sm-6 col-xl-3 mb-2 mb-xl-0">
+              <div class="col-sm-6 col-xl-3 mb-2 mb-xl-1">
                 <div class="media">
                   <div class="avatar bg-light-info mr-2">
                     <div class="avatar-content">
@@ -149,8 +149,6 @@
                   </div>
                 </div>
               </div>
-
-
             </div>
           </div>
         </div>
@@ -168,7 +166,7 @@
           </div>
           <div class="card-body statistics-body">
             <div class="row">
-              <div class="col-sm-6 col-xl-3 mb-2 mb-xl-0">
+              <div class="col-sm-6 col-xl-3 mb-2 mb-xl-1">
                 <div class="media">
                   <div class="avatar bg-light-primary mr-2">
                     <div class="avatar-content">
@@ -182,7 +180,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-sm-6 col-xl-3 mb-2 mb-xl-0">
+              <div class="col-sm-6 col-xl-3 mb-2 mb-xl-1">
                 <div class="media">
                   <div class="avatar bg-light-primary mr-2">
                     <div class="avatar-content">
@@ -195,7 +193,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-sm-6 col-xl-3 mb-2 mb-xl-0">
+              <div class="col-sm-6 col-xl-3 mb-2 mb-xl-1">
                 <div class="media">
                   <div class="avatar bg-light-primary mr-2">
                     <div class="avatar-content">
@@ -208,7 +206,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-sm-6 col-xl-3 mb-2 mb-xl-0">
+              <div class="col-sm-6 col-xl-3 mb-2 mb-xl-1">
                 <div class="media">
                   <div class="avatar bg-light-info mr-2">
                     <div class="avatar-content">
@@ -221,7 +219,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-sm-6 col-xl-3 mb-2 mb-sm-0">
+              <div class="col-sm-6 col-xl-3 mb-2 mb-sm-1">
                 <div class="media">
                   <div class="avatar bg-light-danger mr-2">
                     <div class="avatar-content">
@@ -234,8 +232,6 @@
                   </div>
                 </div>
               </div>
-
-
             </div>
           </div>
         </div>
@@ -251,10 +247,9 @@
           <div class="col-lg-6 col-md-3 col-6">
             <div class="card">
               <div class="card-body pb-50">
-                <h6>Orders</h6>
-                <h2 class="font-weight-bolder mb-1">{{ data.ordersChart.analyticsData.orders }}</h2>
-                <div id="statistics-bar-chart" #statisticsBarChartRef>
-                  <!-- Apexchart component-->
+                <h6>Total Payments</h6>
+                <h2 class="font-weight-bolder mb-1" *ngIf="analyticData">{{ analyticData[0]?.tillDate[0]?.total }}</h2>
+                <!-- <div id="statistics-bar-chart" #statisticsBarChartRef>
                   <apx-chart [series]="data.ordersChart.series" [chart]="{
                       height: 70,
                       width: isMenuToggled === false ? statisticsBarChartRef.offsetWidth : statisticsBar.chart.width,
@@ -267,7 +262,7 @@
                     [dataLabels]="statisticsBar.dataLabels" [grid]="statisticsBar.grid"
                     [plotOptions]="statisticsBar.plotOptions" [dataLabels]="statisticsBar.dataLabels"
                     [xaxis]="statisticsBar.xaxis" [yaxis]="statisticsBar.yaxis"></apx-chart>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
@@ -277,9 +272,10 @@
           <div class="col-lg-6 col-md-3 col-6">
             <div class="card card-tiny-line-stats">
               <div class="card-body pb-50">
-                <h6>Profit</h6>
-                <h2 class="font-weight-bolder mb-1">{{ data.profitChart.analyticsData.profit }}</h2>
-                <div id="statistics-line-chart" #statisticsLineChartRef>
+                <h6>Current Month</h6>
+                <h2 class="font-weight-bolder mb-1" *ngIf="analyticData">{{ analyticData[0]?.monthWise[0]?.amount }}
+                </h2>
+                <!-- <div id="statistics-line-chart" #statisticsLineChartRef>
                   <apx-chart [chart]="{
                       height: 70,
                       width: isMenuToggled === false ? statisticsLineChartRef.offsetWidth : statisticsLine.chart.width,
@@ -293,14 +289,14 @@
                     }" [grid]="statisticsLine.grid" [stroke]="statisticsLine.stroke" [colors]="statisticsLine.colors"
                     [series]="data.profitChart.series" [markers]="statisticsLine.markers" [xaxis]="statisticsLine.xaxis"
                     [yaxis]="statisticsLine.yaxis" [tooltip]="statisticsLine.tooltip"></apx-chart>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
           <!--/ Line Chart Profit -->
 
           <!-- Earnings Chart -->
-          <div class="col-lg-12 col-md-6 col-12">
+          <!-- <div class="col-lg-12 col-md-6 col-12">
             <div class="card earnings-card">
               <div class="card-body">
                 <div class="row">
@@ -314,7 +310,6 @@
                   </div>
                   <div class="col-6">
                     <div id="earnings-donut-chart" #earningChartRef>
-                      <!-- Apexchart component-->
                       <apx-chart [chart]="{
                           type: 'donut',
                           width:
@@ -327,51 +322,52 @@
                         [legend]="earningChartoptions.legend" [labels]="earningChartoptions.labels"
                         [stroke]="earningChartoptions.stroke" [colors]="earningChartoptions.colors"
                         [grid]="earningChartoptions.grid" [plotOptions]="earningChartoptions.plotOptions"></apx-chart>
-                      <!-- / Apexchart component-->
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
           <!--/ Earnings Chart -->
         </div>
       </div>
       <div class="col-lg-8 col-12">
-        <!-- Revenue Report Card -->
         <div class="card card-revenue-budget">
           <div class="row mx-0">
-            <div class="col-md-8 col-12 revenue-report-wrapper">
+            <div class="col-md-12 col-12 revenue-report-wrapper">
               <div class="d-sm-flex justify-content-between align-items-center mb-3">
                 <h4 class="card-title mb-50 mb-sm-0">Revenue Report</h4>
                 <div class="d-flex align-items-center">
                   <div class="d-flex align-items-center mr-2">
                     <span class="bullet bullet-primary font-small-3 mr-50 cursor-pointer"></span>
-                    <span>Earning</span>
+                    <span>Payments</span>
                   </div>
-                  <div class="d-flex align-items-center ml-75">
+                  <!-- <div class="d-flex align-items-center ml-75">
                     <span class="bullet bullet-warning font-small-3 mr-50 cursor-pointer"></span>
                     <span>Expense</span>
-                  </div>
+                  </div> -->
                 </div>
               </div>
               <div id="revenue-report-chart" #revenueReportChartRef>
-                <apx-chart [series]="data.revenueReport.earningExpenseChart.series" [chart]="{
+                <apx-chart *ngIf="analyticData" [series]="analyticData[0]?.revenueReport" [chart]="{
                     height: 230,
                     width:
                       isMenuToggled === false
                         ? revenueReportChartRef.offsetWidth
-                        : revenueReportChartoptions.chart.width,
+                        : analyticData[0]?.revenueReport[0].revenueReportChartoptions.chart.width,
                     stacked: true,
                     type: 'bar',
                     toolbar: { show: false }
-                  }" [plotOptions]="revenueReportChartoptions.plotOptions" [colors]="revenueReportChartoptions.colors"
-                  [dataLabels]="revenueReportChartoptions.dataLabels" [legend]="revenueReportChartoptions.legend"
-                  [grid]="revenueReportChartoptions.grid" [xaxis]="revenueReportChartoptions.xaxis"
-                  [yaxis]="revenueReportChartoptions.yaxis"></apx-chart>
+                  }" [plotOptions]="analyticData[0]?.revenueReport[0].revenueReportChartoptions.plotOptions"
+                  [colors]="analyticData[0]?.revenueReport[0].revenueReportChartoptions.colors"
+                  [dataLabels]="analyticData[0]?.revenueReport[0].revenueReportChartoptions.dataLabels"
+                  [legend]="analyticData[0]?.revenueReport[0].revenueReportChartoptions.legend"
+                  [grid]="analyticData[0]?.revenueReport[0].revenueReportChartoptions.grid"
+                  [xaxis]="analyticData[0]?.revenueReport[0].revenueReportChartoptions.xaxis"
+                  [yaxis]="analyticData[0]?.revenueReport[0].revenueReportChartoptions.yaxis"></apx-chart>
               </div>
             </div>
-            <div class="col-md-4 col-12 budget-wrapper">
+            <!-- <div class="col-md-4 col-12 budget-wrapper">
               <div class="btn-group">
                 <div ngbDropdown>
                   <button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle budget-dropdown"
@@ -402,16 +398,14 @@
                   [tooltip]="budgetChartoptions.tooltip"></apx-chart>
               </div>
               <button type="button" class="btn btn-primary" rippleEffect>Increase Budget</button>
-            </div>
+            </div> -->
           </div>
         </div>
-        <!--/ Revenue Report Card -->
       </div>
     </div>
 
-    <div class="row match-height" *ngIf="isAdmin">
+    <!-- <div class="row match-height" *ngIf="isAdmin">
 
-      <!-- Browser States Card -->
       <div class="col-lg-4 col-md-6 col-12">
         <div class="card card-browser-states">
           <div class="card-header">
@@ -515,9 +509,6 @@
           </div>
         </div>
       </div>
-      <!-- Browser States Card -->
-
-      <!-- Goal Overview Card -->
       <div class="col-lg-4 col-md-6 col-12">
         <div class="card">
           <div class="card-header d-flex justify-content-between align-items-center">
@@ -526,7 +517,6 @@
           </div>
           <div class="card-body p-0">
             <div id="goalChartoptions" class="mb-1 mt-1 pt-1" #goalChartRef>
-              <!-- Apexchart component-->
               <apx-chart [chart]="{
                   height: 245,
                   width: isMenuToggled === false ? goalChartRef.offsetWidth : goalChartoptions.chart.width,
@@ -544,7 +534,6 @@
                 }" [colors]="goalChartoptions.colors" [plotOptions]="goalChartoptions.plotOptions"
                 [fill]="goalChartoptions.fill" [series]="data.goalOverview.series" [stroke]="goalChartoptions.stroke"
                 [grid]="goalChartoptions.grid"></apx-chart>
-              <!-- / Apexchart component-->
             </div>
             <div class="row border-top text-center mx-0">
               <div class="col-6 border-right py-1">
@@ -559,14 +548,10 @@
           </div>
         </div>
       </div>
-      <!--/ Goal Overview Card -->
-
-      <!-- Transactions Card -->
       <div class="col-lg-4 col-md-6 col-12">
         <div class="card card-transaction">
           <div class="card-header">
             <h4 class="card-title">Transactions</h4>
-            <!-- <i data-feather="more-vertical" class="font-medium-3 cursor-pointer"></i> -->
             <div ngbDropdown>
               <a ngbDropdownToggle href="javascript:void(0);" class="hide-arrow" id="dropdownTransactions"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -653,7 +638,6 @@
           </div>
         </div>
       </div>
-      <!-- Transactions Card -->
-    </div>
+    </div> -->
   </div>
 </div>

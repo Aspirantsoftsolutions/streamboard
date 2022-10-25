@@ -36,6 +36,7 @@ export class EcommerceComponent implements OnInit {
 
   // Public
   public data: any;
+  public analyticData;
   public currentUser: any;
   public isAdmin: boolean;
   public isClient: boolean;
@@ -62,6 +63,8 @@ export class EcommerceComponent implements OnInit {
   private $strokeColor = '#ebe9f1';
   private $earningsStrokeColor2 = '#28c76f66';
   private $earningsStrokeColor3 = '#28c76f33';
+
+  public paymentsHistory;
 
   /**
    * Constructor
@@ -274,7 +277,7 @@ export class EcommerceComponent implements OnInit {
         }
       },
       xaxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
         labels: {
           style: {
             colors: this.$textMutedColor,
@@ -701,7 +704,20 @@ export class EcommerceComponent implements OnInit {
     });
     this._commonServie.getNotifications().then((response) => {
       console.log("notifications:", response);
-      
+    });
+    this._commonServie.getPaymentHistory().subscribe((resp) => {
+      this.paymentsHistory = resp['data'];
+    });
+    this._commonServie.getAnalytics().subscribe((resp) => {
+      this.analyticData = resp['data'];
+      this.analyticData[0].revenueReport = [];
+      let revenueReport = {
+        "revenueReportChartoptions": { ...this.revenueReportChartoptions }
+      };
+      revenueReport['name'] = 'Payments'
+      revenueReport['data'] = this.analyticData[0].monthWise.map(data => data.amount);
+      revenueReport['revenueReportChartoptions'].xaxis.categories = this.analyticData[0].monthWise.map(data => this.revenueReportChartoptions.xaxis.categories[data._id.split('-')[1] - 1]);
+      this.analyticData[0].revenueReport.push(revenueReport);
     });
   }
 
@@ -717,7 +733,7 @@ export class EcommerceComponent implements OnInit {
         localStorage.getItem('currentUser')
       ) {
         setTimeout(() => {
-          if (this.currentUser!=null && this.currentUser.role == 'Admin') {
+          if (this.currentUser != null && this.currentUser.role == 'Admin') {
             // Get Dynamic Width for Charts
             this.isMenuToggled = true;
             this.statisticsBar.chart.width = this.statisticsBarChartRef?.nativeElement.offsetWidth;
