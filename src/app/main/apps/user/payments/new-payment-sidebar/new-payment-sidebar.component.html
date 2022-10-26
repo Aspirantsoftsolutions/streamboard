@@ -14,6 +14,7 @@
           <div class="form-group mb-2">
             <label class="form-label" for="user-plan">Select Client</label>
             <select id="user-plan" class="form-control" (change)="updateClient($event.target.value)" name="email">
+              <option value="" selected disabled hidden>Select Client</option>
               <option *ngFor="let client of clients" [value]="client.email">{{client.email}}</option>
             </select>
           </div>
