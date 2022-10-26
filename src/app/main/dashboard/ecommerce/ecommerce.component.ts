@@ -36,6 +36,8 @@ export class EcommerceComponent implements OnInit {
 
   // Public
   public data: any;
+  public paymentAnalyticData;
+  public loginAnalyticData;
   public analyticData;
   public currentUser: any;
   public isAdmin: boolean;
@@ -81,7 +83,11 @@ export class EcommerceComponent implements OnInit {
     private _commonServie: CommonService
   ) {
     this._authenticationService.currentUser.subscribe(x => (this.currentUser = x));
-    this.isAdmin = true;
+    if (this._authenticationService.isAdmin) {
+      this.isAdmin = true;
+    } else {
+      this.isAdmin = false;
+    }
     this.isClient = this._authenticationService.isClient;
 
     this._coreTranslationService.translate(english, french, german, portuguese);
@@ -702,23 +708,40 @@ export class EcommerceComponent implements OnInit {
       console.log("counts:", response);
       this.countData = response;
     });
-    this._commonServie.getNotifications().then((response) => {
-      console.log("notifications:", response);
-    });
+    // this._commonServie.getNotifications().then((response) => {
+    //   console.log("notifications:", response);
+    // });
     this._commonServie.getPaymentHistory().subscribe((resp) => {
       this.paymentsHistory = resp['data'];
     });
-    this._commonServie.getAnalytics().subscribe((resp) => {
-      this.analyticData = resp['data'];
-      this.analyticData[0].revenueReport = [];
-      let revenueReport = {
-        "revenueReportChartoptions": { ...this.revenueReportChartoptions }
-      };
-      revenueReport['name'] = 'Payments'
-      revenueReport['data'] = this.analyticData[0].monthWise.map(data => data.amount);
-      revenueReport['revenueReportChartoptions'].xaxis.categories = this.analyticData[0].monthWise.map(data => this.revenueReportChartoptions.xaxis.categories[data._id.split('-')[1] - 1]);
-      this.analyticData[0].revenueReport.push(revenueReport);
-    });
+    if (this.isAdmin) {
+      this._commonServie.getPaymentAnalytics().subscribe((resp) => {
+        this.paymentAnalyticData = resp['data'];
+        this.paymentAnalyticData[0].revenueReport = [];
+        let revenueReport = {
+          "revenueReportChartoptions": { ...this.revenueReportChartoptions }
+        };
+        revenueReport['name'] = 'Payments'
+        revenueReport['data'] = this.paymentAnalyticData[0].monthWise.map(data => data.amount);
+        revenueReport['revenueReportChartoptions'].xaxis.categories = this.paymentAnalyticData[0].monthWise.map(data => this.revenueReportChartoptions.xaxis.categories[data._id.split('-')[1] - 1]);
+        this.paymentAnalyticData[0].revenueReport.push(revenueReport);
+        this.analyticData = { ...this.paymentAnalyticData };
+      });
+    }
+    if (this.isClient) {
+      this._commonServie.getLoginAnalytics().subscribe((resp) => {
+        this.loginAnalyticData = resp['data'];
+        this.loginAnalyticData[0].revenueReport = [];
+        let revenueReport = {
+          "revenueReportChartoptions": { ...this.revenueReportChartoptions }
+        };
+        revenueReport['name'] = 'Payments'
+        revenueReport['data'] = this.loginAnalyticData[0].dayWise.map(data => data.amount);
+        revenueReport['revenueReportChartoptions'].xaxis.categories = this.loginAnalyticData[0].dayWise.map(data => data._id);
+        this.loginAnalyticData[0].revenueReport.push(revenueReport);
+        this.analyticData = { ...this.loginAnalyticData };
+      });
+    }
   }
 
   /**

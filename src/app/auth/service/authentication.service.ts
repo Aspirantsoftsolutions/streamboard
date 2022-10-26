@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 import { environment } from 'environments/environment';
 import { User, Role } from 'app/auth/models';
@@ -150,6 +150,9 @@ export class AuthenticationService {
     return this._http
       .post<any>(`${environment.apiUrl}/api/auth/login`, { 'identity': email, 'password': password })
       .pipe(
+        tap(user => {
+          localStorage.setItem('token', user.data.token);
+        }),
         map(user => {
           console.log('logged in user:', user);
           // login successful if there's a jwt token in the response
@@ -182,6 +185,9 @@ export class AuthenticationService {
     return this._http
       .post<any>(`${environment.apiUrl}/api/auth/social-login`, { 'identity': email })
       .pipe(
+        tap(user => {
+          localStorage.setItem('token', user.data.token);
+        }),
         map(user => {
           console.log('logged in user:', user);
           // login successful if there's a jwt token in the response
