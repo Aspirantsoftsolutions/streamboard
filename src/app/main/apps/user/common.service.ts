@@ -623,12 +623,12 @@ export class CommonService implements Resolve<any> {
     return this._httpClient.get(`${environment.apiUrl}/api/payments`);
   }
 
-  getPaymentAnalytics() {
-    return this._httpClient.get(`${environment.apiUrl}/api/analytics/payments`);
+  getAdminAnalytics() {
+    return this._httpClient.get(`${environment.apiUrl}/api/analytics/adminAnalytics`);
   }
 
-  getLoginAnalytics() {
-    return this._httpClient.get(`${environment.apiUrl}/api/analytics/loginActivity`);
+  getSchoolAnalytics() {
+    return this._httpClient.get(`${environment.apiUrl}/api/analytics/schoolAnalytics`);
   }
 
   // deleteClass(id): Promise<any[]> {

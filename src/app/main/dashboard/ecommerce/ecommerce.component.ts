@@ -36,9 +36,8 @@ export class EcommerceComponent implements OnInit {
 
   // Public
   public data: any;
-  public paymentAnalyticData;
-  public loginAnalyticData;
-  public analyticData;
+  public adminAnalyticsData;
+  public schoolAnalyticData;
   public currentUser: any;
   public isAdmin: boolean;
   public isClient: boolean;
@@ -715,31 +714,32 @@ export class EcommerceComponent implements OnInit {
       this.paymentsHistory = resp['data'];
     });
     if (this.isAdmin) {
-      this._commonServie.getPaymentAnalytics().subscribe((resp) => {
-        this.paymentAnalyticData = resp['data'];
-        this.paymentAnalyticData[0].revenueReport = [];
+      this._commonServie.getAdminAnalytics().subscribe((resp) => {
+        this.adminAnalyticsData = resp['data'];
+        this.adminAnalyticsData[0].revenueReport = [];
         let revenueReport = {
-          "revenueReportChartoptions": { ...this.revenueReportChartoptions }
+          "revenueReportChartoptions": { ...JSON.parse(JSON.stringify(this.revenueReportChartoptions)) }
         };
         revenueReport['name'] = 'Payments'
-        revenueReport['data'] = this.paymentAnalyticData[0].monthWise.map(data => data.amount);
-        revenueReport['revenueReportChartoptions'].xaxis.categories = this.paymentAnalyticData[0].monthWise.map(data => this.revenueReportChartoptions.xaxis.categories[data._id.split('-')[1] - 1]);
-        this.paymentAnalyticData[0].revenueReport.push(revenueReport);
-        this.analyticData = { ...this.paymentAnalyticData };
+        revenueReport['data'] = this.adminAnalyticsData[0].monthWise.map(data => data.amount);
+        revenueReport['revenueReportChartoptions'].xaxis.categories = this.adminAnalyticsData[0].monthWise.map(data => this.revenueReportChartoptions.xaxis.categories[data._id.split('-')[1] - 1]);
+        this.adminAnalyticsData[0].revenueReport.push(revenueReport);
       });
     }
     if (this.isClient) {
-      this._commonServie.getLoginAnalytics().subscribe((resp) => {
-        this.loginAnalyticData = resp['data'];
-        this.loginAnalyticData[0].revenueReport = [];
-        let revenueReport = {
-          "revenueReportChartoptions": { ...this.revenueReportChartoptions }
-        };
-        revenueReport['name'] = 'Payments'
-        revenueReport['data'] = this.loginAnalyticData[0].dayWise.map(data => data.amount);
-        revenueReport['revenueReportChartoptions'].xaxis.categories = this.loginAnalyticData[0].dayWise.map(data => data._id);
-        this.loginAnalyticData[0].revenueReport.push(revenueReport);
-        this.analyticData = { ...this.loginAnalyticData };
+      this._commonServie.getSchoolAnalytics().subscribe((resp) => {
+        resp = resp['data'][0];
+        this.schoolAnalyticData = [];
+        Object.keys(resp).forEach((key, i) => {
+          this.schoolAnalyticData.push({ revenueReport: [] });
+          let revenueReport = {
+            "revenueReportChartoptions": { ...JSON.parse(JSON.stringify(this.revenueReportChartoptions)) }
+          };
+          revenueReport['name'] = key;
+          revenueReport['data'] = resp[key].map(data => data.amount || 0);
+          revenueReport['revenueReportChartoptions'].xaxis.categories = resp[key].map(data => data._id || 0);
+          this.schoolAnalyticData[i].revenueReport.push({ ...revenueReport });
+        });
       });
     }
   }
