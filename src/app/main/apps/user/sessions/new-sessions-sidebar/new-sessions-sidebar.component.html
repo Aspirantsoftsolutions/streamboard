@@ -63,7 +63,7 @@
             </select>
           </div>
 
-          <div class="form-group mb-2" *ngIf="isToInvite()">
+          <div class="form-group mb-2" *ngIf="getCurrentUser().role === 'School'">
             <label class="form-label" for="group">Host</label>
             <select id="host" class="form-control" name='host' [(ngModel)]="host">
               <option value="{{host.userId}}" *ngFor="let host of hosts">{{host.username}}</option>
