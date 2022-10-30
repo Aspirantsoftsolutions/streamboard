@@ -179,6 +179,8 @@ export class AppComponent implements OnInit, OnDestroy {
               '👋 !',
               { toastClass: 'toast ngx-toastr', closeButton: true, newestOnTop: true }
             );
+          }, (error) => {
+            this._toastrService.error(error.message || 'Something bad happened');
           });
         } else if (profileType === 'student') {
           this.bulkUploadService.createBulkStudents(this.records).subscribe(resp => {
@@ -188,6 +190,8 @@ export class AppComponent implements OnInit, OnDestroy {
               '👋 !',
               { toastClass: 'toast ngx-toastr', closeButton: true }
             );
+          }, (error) => {
+            this._toastrService.error(error.message || 'Something bad happened');
           });
         }
         this.fileReset();
