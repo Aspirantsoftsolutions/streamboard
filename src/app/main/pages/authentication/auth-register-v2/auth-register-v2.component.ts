@@ -184,7 +184,7 @@ export class AuthRegisterV2Component implements OnInit {
         localStorage.setItem('currentUser', JSON.stringify(user));
         localStorage.setItem('loginSSO', 'MICROSOFT');
         this._authenticationService.isSocialLogin = true;
-        this.socialRegistration(user.account.idTokenClaims.email);
+        this.socialRegistration(user.account.idTokenClaims['email']);
         this.submitted = true;
       } else {
         this._router.navigate(['/pages/authentication/login-v2']);
