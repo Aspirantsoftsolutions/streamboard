@@ -128,6 +128,27 @@ export class UserListService implements Resolve<any> {
     });
   }
 
+  socialRegister(email): Promise<any[]> {
+    let company = email.split('@')[1].split('.')[0];
+    return new Promise((resolve, reject) => {
+      this._httpClient.post(`${environment.apiUrl}/api/auth/socialRegister`, {
+        'username': email.split('@')[0],
+        'email': email,
+        'password': 'Test123',
+        'mobile': '',
+        'countryCode': '+971',
+        'role': 'Individual',
+        'plan': "Free",
+        'status': 'active',
+        'location': '',
+        'organisation': company
+      }).subscribe((response: any) => {
+        console.log(response);
+        resolve(response);
+      }, reject);
+    });
+  }
+
   registerSchool(form, role): Promise<any[]> {
     console.log(form);
     return new Promise((resolve, reject) => {
