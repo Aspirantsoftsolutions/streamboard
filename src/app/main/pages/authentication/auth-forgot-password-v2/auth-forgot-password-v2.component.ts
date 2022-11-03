@@ -5,6 +5,8 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 import { CoreConfigService } from '@core/services/config.service';
+import { CommonService } from 'app/main/apps/user/common.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-auth-forgot-password-v2',
@@ -29,7 +31,9 @@ export class AuthForgotPasswordV2Component implements OnInit {
    * @param {FormBuilder} _formBuilder
    *
    */
-  constructor(private _coreConfigService: CoreConfigService, private _formBuilder: FormBuilder) {
+  constructor(private _coreConfigService: CoreConfigService, private _formBuilder: FormBuilder,
+    private commonService: CommonService,
+    private toastr: ToastrService) {
     this._unsubscribeAll = new Subject();
 
     // Configure the layout
@@ -59,12 +63,12 @@ export class AuthForgotPasswordV2Component implements OnInit {
    * On Submit
    */
   onSubmit() {
-    this.submitted = true;
-
-    // stop here if form is invalid
-    if (this.forgotPasswordForm.invalid) {
-      return;
-    }
+    this.commonService.forgotPassword(this.forgotPasswordForm.value).subscribe((resp) => {
+      this.submitted = true;
+      this.toastr.success('Successfully sent password link to your email')
+    }, (error) => {
+      this.toastr.error(error.message);
+    });
   }
 
   // Lifecycle Hooks
