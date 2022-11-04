@@ -369,7 +369,7 @@
                     width:
                       isMenuToggled === false
                         ? revenueReportChartRef.offsetWidth
-                        : adminAnalyticsData[0]?.revenueReport[0].revenueReportChartoptions.chart.width,
+                        : (adminAnalyticsData[0]?.revenueReport[0].revenueReportChartoptions.chart.width || 908),
                     stacked: true,
                     type: 'bar',
                     toolbar: { show: false }
