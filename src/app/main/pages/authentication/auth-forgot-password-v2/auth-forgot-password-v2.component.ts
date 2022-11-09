@@ -65,7 +65,9 @@ export class AuthForgotPasswordV2Component implements OnInit {
   onSubmit() {
     this.commonService.forgotPassword(this.forgotPasswordForm.value).subscribe((resp) => {
       this.submitted = true;
-      this.toastr.success('Successfully sent password link to your email')
+      this.toastr.success('Successfully sent password link to your email');
+      this.forgotPasswordForm.reset();
+      this.forgotPasswordForm.updateValueAndValidity();
     }, (error) => {
       this.toastr.error(error.message);
     });
