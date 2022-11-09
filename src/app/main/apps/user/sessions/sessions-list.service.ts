@@ -10,6 +10,7 @@ import { environment } from 'environments/environment';
 export class SessionsListService implements Resolve<any> {
   public rows: any;
   public onUserListChanged: BehaviorSubject<any>;
+  public onSessionSelected: BehaviorSubject<any>;
 
   /**
    * Constructor
@@ -19,6 +20,7 @@ export class SessionsListService implements Resolve<any> {
   constructor(private _httpClient: HttpClient, private _authenticationService: AuthenticationService) {
     // Set the defaults
     this.onUserListChanged = new BehaviorSubject({});
+    this.onSessionSelected = new BehaviorSubject({});
     console.log('current user here:', this._authenticationService.currentUser);
 
   }
@@ -65,6 +67,26 @@ export class SessionsListService implements Resolve<any> {
   createSession(form): Promise<any[]> {
     return new Promise((resolve, reject) => {
       this._httpClient.post(`${environment.apiUrl}/api/session/createSession`, {
+        'title': form['user-title'],
+        'groupId': form['group'],
+        'description': form['user-description'],
+        'teacherId': form['host'] ? form['host'] : form['teacherId'],
+        'type': form['type'],
+        'start': form['start'],
+        'end': form['end'],
+        'participants': form['user-emailids'] ? form['user-emailids'].map(x => x.email).join(',') : "",
+        'scheduledBy': form['host'] ? 'school' : 'teacher',
+        'school_id': this.getCurrentUser().userId
+      }).subscribe((response: any) => {
+        console.log(response);
+        resolve(response);
+      }, reject);
+    });
+  }
+
+  updateSession(form, sessionId): Promise<any[]> {
+    return new Promise((resolve, reject) => {
+      this._httpClient.post(`${environment.apiUrl}/api/session/updateSession/${sessionId}`, {
         'title': form['user-title'],
         'groupId': form['group'],
         'description': form['user-description'],

@@ -64,7 +64,7 @@ export class SessionsListComponent implements OnInit {
   private _unsubscribeAll: Subject<any>;
   public url = this.router.url;
   public urlLastValue;
-  
+
   /**
    * Constructor
    *
@@ -221,8 +221,22 @@ export class SessionsListComponent implements OnInit {
         console.log(row.type.toLowerCase().indexOf('scheduledsession'));
         match = row.type.toLowerCase().indexOf('livesession') !== -1;
       }
-      return match;  
+      return match;
     });
+  }
+
+  deleteSession(session) {
+    this.toggleSidebar('new-sessions-sidebar');
+    setTimeout(() => {
+      this._sessionListService.onSessionSelected.next(session);
+    }, 500);
+  }
+
+  editSession(session) {
+    this.toggleSidebar('new-sessions-sidebar');
+    setTimeout(() => {
+      this._sessionListService.onSessionSelected.next(session);
+    }, 250);
   }
 
   /**

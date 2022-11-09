@@ -64,7 +64,8 @@
           <ngx-datatable-column name="Description" prop="fullName" [width]="200">
             <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
               <div class="cell-line-height">
-                <span class="text-muted font-small-2 wrapText" style=" display: flex; flex-wrap: wrap;"> {{ row.description
+                <span class="text-muted font-small-2 wrapText" style=" display: flex; flex-wrap: wrap;"> {{
+                  row.description
                   }}</span>
               </div>
             </ng-template>
@@ -87,6 +88,23 @@
                   <!-- <span class="text-muted font-small-2"> {{ row.sessionLink }}</span> -->
                   <a href="{{row.sessionLink}}" target="_blank">
                     <span [size]="16" [class]="'mr-50'"></span> Start Session </a>
+                </div>
+              </div>
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Actions" [width]="40" [sortable]="false">
+            <ng-template ngx-datatable-cell-template let-row="row">
+              <div ngbDropdown container="body">
+                <button ngbDropdownToggle type="button" class="btn icon-btn btn-sm hide-arrow" rippleEffect>
+                  <span [data-feather]="'more-vertical'" [class]="'cursor-pointer'"></span>
+                </button>
+                <div ngbDropdownMenu>
+                  <a (click)="editSession(row)" ngbDropdownItem>
+                    <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span>
+                    Edit</a>
+                  <!-- <a (click)="deleteSession(row)" ngbDropdownItem>
+                    <span [data-feather]="'trash'" [size]="16" [class]="'mr-50'"></span>
+                    Delete</a> -->
                 </div>
               </div>
             </ng-template>

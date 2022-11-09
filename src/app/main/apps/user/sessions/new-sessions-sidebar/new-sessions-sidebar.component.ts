@@ -13,6 +13,7 @@ import {
 } from "@ng-bootstrap/ng-bootstrap";
 import { Router } from "@angular/router";
 import { CommonService } from "../../common.service";
+import { FlatpickrOptions } from "ng2-flatpickr";
 
 @Component({
   selector: "app-new-sessions-sidebar",
@@ -36,26 +37,29 @@ export class NewSessionsSidebarComponent implements OnInit {
   public url = this.router.url;
   public urlLastValue;
   public basicTP;
-  public startDateOptions = {
+  public startDate = "21-6-2022";
+  public endDate = "21-6-2022";
+  public startDateOptions: FlatpickrOptions = {
     altInput: true,
     mode: "single",
     altInputClass:
       "form-control flat-picker flatpickr-input invoice-edit-input",
-    enableTime: true,
+    enableTime: true
   };
-  public endDateOptions = {
+  public endDateOptions: FlatpickrOptions = {
     altInput: true,
     mode: "single",
     altInputClass:
       "form-control flat-picker flatpickr-input invoice-edit-input",
-    enableTime: true,
+    enableTime: true
   };
   public hosts;
   public host;
   public selectedUsers = [];
   users = [];
   classDropdownSettings = {};
-
+  isUpdate = false;
+  sessionId = "";
   /**
    * Constructor
    *
@@ -145,25 +149,47 @@ export class NewSessionsSidebarComponent implements OnInit {
         form.value["group"] = "";
       }
       //console.log(form);
-      this.SessionsListService.createSession(form.value).then(
-        (resposne) => {
-          //console.log('res set:', resposne);
-          let successString = Response;
-          this.toastr.success("👋 User Created Successfully.", "Success!", {
-            toastClass: "toast ngx-toastr",
-            closeButton: true,
-          });
-          this.SessionsListService.getDataTableRows();
-        },
-        (error) => {
-          //console.log('res set error:', error);
-          let errorString = error;
-          this.toastr.error(errorString, "Error!", {
-            toastClass: "toast ngx-toastr",
-            closeButton: true,
-          });
-        }
-      );
+      if (this.isUpdate) {
+        this.SessionsListService.updateSession(form.value, this.sessionId).then(
+          (resposne) => {
+            //console.log('res set:', resposne);
+            let successString = Response;
+            this.toastr.success("👋 User Created Successfully.", "Success!", {
+              toastClass: "toast ngx-toastr",
+              closeButton: true,
+            });
+            this.SessionsListService.getDataTableRows();
+          },
+          (error) => {
+            //console.log('res set error:', error);
+            let errorString = error;
+            this.toastr.error(errorString, "Error!", {
+              toastClass: "toast ngx-toastr",
+              closeButton: true,
+            });
+          }
+        );
+      } else {
+        this.SessionsListService.createSession(form.value).then(
+          (resposne) => {
+            //console.log('res set:', resposne);
+            let successString = Response;
+            this.toastr.success("👋 User Created Successfully.", "Success!", {
+              toastClass: "toast ngx-toastr",
+              closeButton: true,
+            });
+            this.SessionsListService.getDataTableRows();
+          },
+          (error) => {
+            //console.log('res set error:', error);
+            let errorString = error;
+            this.toastr.error(errorString, "Error!", {
+              toastClass: "toast ngx-toastr",
+              closeButton: true,
+            });
+          }
+        );
+      }
       this.toggleSidebar("new-sessions-sidebar");
     }
   }
@@ -218,9 +244,21 @@ export class NewSessionsSidebarComponent implements OnInit {
         this.users = resp;
       })
       .catch(console.error);
-    setTimeout(() => {
-      this.startDatePicker.flatpickr.clear();
-      this.endDatePicker.flatpickr.clear();
+
+    this.SessionsListService.onSessionSelected.asObservable().subscribe((data) => {
+      if (Object.keys(data).length) {
+        this.startDatePicker && this.startDatePicker.flatpickr.clear();
+        this.startDatePicker && this.endDatePicker.flatpickr.clear();
+        this.isUpdate = true;
+        this.sessionId = data._id;
+        this.selectedUsers = this.users.filter(user => data.participants && data.participants.split(',').includes(user.email));
+        this.title = data.title;
+        this.description = data.description;
+        this.group = data.groupId || '';
+        this.host = data.teacherId || '';
+        this.startDate = data.start ? new Date(data.start).toISOString() : '';
+        this.endDate = data.end ? new Date(data.end).toISOString() : '';
+      }
     });
   }
 }
