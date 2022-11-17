@@ -70,6 +70,7 @@ export class IndSessionsListComponent implements OnInit {
   isHandWriting = false;
   isPhet = false;
   currentUser;
+  plans = {};
 
   /**
    * Constructor
@@ -86,6 +87,9 @@ export class IndSessionsListComponent implements OnInit {
   ) {
     this._unsubscribeAll = new Subject();
     this.currentUser = this._commonService.getCurrentUser();
+    this._commonService.getPlans().subscribe((resp) => {
+      this.plans = resp['data'].plans[this.currentUser.plan.toLowerCase()];
+    });
   }
 
   // Public Methods
@@ -207,12 +211,12 @@ export class IndSessionsListComponent implements OnInit {
       }
     });
     let user = this._commonService.getCurrentUser();
-     this.isGooogleDrive = user.isGoogleDriveEnable;
-    this.isOneDrive = user.isOneDriveEnable ;
-     this.isImmersiveReader = user.isImmersiveReaderEnable;
-     this.isMagicDraw = user.isMagicDrawEnable;
-     this.isHandWriting = user.isHandWritingEnable;
-     this.isPhet = user.isPhetEnable;
+    this.isGooogleDrive = user.isGoogleDriveEnable;
+    this.isOneDrive = user.isOneDriveEnable;
+    this.isImmersiveReader = user.isImmersiveReaderEnable;
+    this.isMagicDraw = user.isMagicDrawEnable;
+    this.isHandWriting = user.isHandWritingEnable;
+    this.isPhet = user.isPhetEnable;
   }
 
   /**
@@ -252,7 +256,7 @@ export class IndSessionsListComponent implements OnInit {
           { toastClass: 'toast ngx-toastr', closeButton: true }
         );
       }, 1000);
-      
+
     }, (error) => {
       console.log('res updateFeatures error:', error);
     }

@@ -1,0 +1,105 @@
+<div color="primary">
+    <div class="toolbar-spacer"></div>
+    <div class="content-wrapper container-xxl p-0">
+        <div class="content-body">
+            <div class="card-body">
+                <div class="form-group">
+
+                </div>
+                <ul ngbNav #nav="ngbNav" class="nav-tabs" (navChange)="onTabChange($event)">
+                    <li ngbNavItem>
+                        <a ngbNavLink>Basic</a>
+                        <ng-template ngbNavContent>
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3>Please choose features for Basic Plan</h3>
+                                    <div class="col-12 flex-sm-row flex-column mt-2">
+                                        <div *ngFor="let feature of features; let i = index">
+                                            <div
+                                                class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
+                                                <input class="custom-control-input"
+                                                    (change)="changeStatus($event, 'basic')" type="checkbox"
+                                                    [id]="feature" [name]="feature" [value]="feature"
+                                                    [checked]="isItemChecked('basic', feature)">
+                                                <label class="custom-control-label" [for]="feature">{{feature}}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 d-flex flex-sm-row flex-column mt-2">
+                                        <button type="submit" (click)="updatePlan()"
+                                            class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1" rippleEffect
+                                            *ngIf="!gloginDisplay">
+                                            Update Plan
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </li>
+                    <li ngbNavItem>
+                        <a ngbNavLink>Premium</a>
+                        <ng-template ngbNavContent>
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3>Please choose features for Premium Plan</h3>
+                                    <div class="col-12 flex-sm-row flex-column mt-2">
+                                        <div *ngFor="let feature of features">
+                                            <div
+                                                class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
+                                                <input class="custom-control-input"
+                                                    (change)="changeStatus($event, 'premium')" type="checkbox"
+                                                    [id]="feature" [name]="feature" [value]="feature"
+                                                    [checked]="isItemChecked('premium', feature)">
+                                                <label class="custom-control-label" [for]="feature">{{feature}}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 d-flex flex-sm-row flex-column mt-2">
+                                        <button type="submit" (click)="updatePlan()"
+                                            class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1" rippleEffect
+                                            *ngIf="!gloginDisplay">
+                                            Update Plan
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </li>
+                    <li ngbNavItem>
+                        <a ngbNavLink>Enterprise</a>
+                        <ng-template ngbNavContent>
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3>Please choose features for Enterprise Plan</h3>
+                                    <div class="col-12 flex-sm-row flex-column mt-2">
+                                        <div *ngFor="let feature of features">
+                                            <div
+                                                class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
+                                                <input class="custom-control-input"
+                                                    (change)="changeStatus($event, 'enterprise')" type="checkbox"
+                                                    [id]="feature" [name]="feature" [value]="feature"
+                                                    [checked]="isItemChecked('enterprise', feature)">
+                                                <label class="custom-control-label" [for]="feature">{{feature}}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 d-flex flex-sm-row flex-column mt-2">
+                                        <button type="submit" (click)="updatePlan()"
+                                            class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1" rippleEffect
+                                            *ngIf="!gloginDisplay">
+                                            Update Plan
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </li>
+                </ul>
+                <div [ngbNavOutlet]="nav" class="mt-2"></div>
+            </div>
+        </div>
+    </div>
+</div>

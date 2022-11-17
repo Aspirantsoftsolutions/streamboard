@@ -4,57 +4,60 @@
     <section class="users-list-wrapper">
 
       <div class="card">
-         <div class="card-body">
-          <h2 *ngIf="currentUser.plan=='Basic'"> Please contact Administrator</h2>
-           <div class="form-group" *ngIf="currentUser.plan!='Basic'" >
-             <div class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
-               <input class="custom-control-input" id="google-drive" type="checkbox" tabindex="3"
-                 [(ngModel)]="isGooogleDrive" />
-               <label class="custom-control-label" for="google-drive"> Google Drive</label>
-             </div>
-             <div class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
-               <input class="custom-control-input" id="one-drive" type="checkbox" tabindex="3"
-                 [(ngModel)]="isOneDrive" />
-               <label class="custom-control-label" for="one-drive"> One Drive</label>
-             </div>
-             <div class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
-               <input class="custom-control-input" id="immersive-reader" type="checkbox" tabindex="3"
-                 [(ngModel)]="isImmersiveReader" />
-               <label class="custom-control-label" for="immersive-reader"> Immersive Reader</label>
-             </div>
-             <div class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
-               <input class="custom-control-input" id="magic-draw" type="checkbox" tabindex="3"
-                 [(ngModel)]="isMagicDraw" />
-               <label class="custom-control-label" for="magic-draw"> Magic Draw</label>
-             </div>
-             <div class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
-               <input class="custom-control-input" id="hand-writing" type="checkbox" tabindex="3" 
-               [(ngModel)]="isHandWriting"/>
-               <label class="custom-control-label" for="hand-writing"> Hand Writing</label>
-             </div>
-             <div class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
-               <input class="custom-control-input" id="phet" type="checkbox" tabindex="3" [(ngModel)]="isPhet" />
-               <label class="custom-control-label" for="phet"> Phet</label>
-             </div>
-             <div class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
-                <button type="submit" (click)="updateFeatures()" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"
-                  rippleEffect >
-                  Update Readers
-                </button>
-             </div>
-           </div>
-         </div>
-       </div>
+        <div class="card-body">
+          <!-- <h2 *ngIf="currentUser.plan=='Basic'"> Please contact Administrator</h2> -->
+          <div class="form-group">
+            <div *ngFor="let feature of this.plans">
+              <div class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
+                <input class="custom-control-input" [id]="feature" type="checkbox" tabindex="3" />
+                <label class="custom-control-label" [for]="feature">{{feature}}</label>
+              </div>
+            </div>
+            <!-- <div class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
+              <input class="custom-control-input" id="google-drive" type="checkbox" tabindex="3"
+                [(ngModel)]="isGooogleDrive" />
+              <label class="custom-control-label" for="google-drive"> Google Drive</label>
+            </div>
+            <div class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
+              <input class="custom-control-input" id="one-drive" type="checkbox" tabindex="3"
+                [(ngModel)]="isOneDrive" />
+              <label class="custom-control-label" for="one-drive"> One Drive</label>
+            </div>
+            <div class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
+              <input class="custom-control-input" id="immersive-reader" type="checkbox" tabindex="3"
+                [(ngModel)]="isImmersiveReader" />
+              <label class="custom-control-label" for="immersive-reader"> Immersive Reader</label>
+            </div>
+            <div class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
+              <input class="custom-control-input" id="magic-draw" type="checkbox" tabindex="3"
+                [(ngModel)]="isMagicDraw" />
+              <label class="custom-control-label" for="magic-draw"> Magic Draw</label>
+            </div>
+            <div class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
+              <input class="custom-control-input" id="hand-writing" type="checkbox" tabindex="3"
+                [(ngModel)]="isHandWriting" />
+              <label class="custom-control-label" for="hand-writing"> Hand Writing</label>
+            </div>
+            <div class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
+              <input class="custom-control-input" id="phet" type="checkbox" tabindex="3" [(ngModel)]="isPhet" />
+              <label class="custom-control-label" for="phet"> Phet</label>
+            </div>
+            <div class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
+              <button type="submit" (click)="updateFeatures()" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"
+                rippleEffect>
+                Update Readers
+              </button>
+            </div> -->
+          </div>
+        </div>
+      </div>
     </section>
     <!--/ User List -->
   </div>
 
   <!-- New User Sidebar -->
-  <core-sidebar
-    class="modal modal-slide-in sidebar-todo-modal fade"
-    name="new-ind-sessions-sidebar"
-    overlayClass="modal-backdrop"
-  >
+  <core-sidebar class="modal modal-slide-in sidebar-todo-modal fade" name="new-ind-sessions-sidebar"
+    overlayClass="modal-backdrop">
     <app-new-ind-sessions-sidebar></app-new-ind-sessions-sidebar>
   </core-sidebar>
   <!--/ New User Sidebar -->

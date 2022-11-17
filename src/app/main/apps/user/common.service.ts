@@ -635,6 +635,14 @@ export class CommonService implements Resolve<any> {
     return this._httpClient.post(`${environment.apiUrl}/api/auth/forgotPassword`, { email: form.email });
   }
 
+  getPlans() {
+    return this._httpClient.get(`${environment.apiUrl}/api/plans`);
+  }
+
+  updatePlans(body) {
+    return this._httpClient.post(`${environment.apiUrl}/api/plans`, body);
+  }
+
   // deleteClass(id): Promise<any[]> {
   //   return new Promise((resolve, reject) => {
   //     this._httpClient.delete(`${environment.apiUrl}/api/user/${id}`, {

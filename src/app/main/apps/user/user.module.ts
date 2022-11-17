@@ -92,6 +92,7 @@ import { DeviceGroupSideBar } from './all-devices/device-group-sidebar/device-gr
 import { DeviceGroups } from './all-devices/device-groups/device-groups.component';
 import { InvitationsComponent } from './invitations/invitations.component';
 import { CredentialsSideBar } from './all-devices/credentials-sidebar/credentials-sidebar.component';
+import { whiteBoardSettingsComponent } from './whiteBoardSettings/whiteBoardSettings.component';
 
 
 // routing
@@ -143,6 +144,11 @@ const routes: Routes = [
       uls: UserListService
     },
     data: { animation: 'UserListComponent' }
+  },
+  {
+    path: 'whiteBoardSettings',
+    component: whiteBoardSettingsComponent,
+    data: { animation: 'whiteBoardSettingsComponent' }
   },
   {
     path: 'clients-list',
@@ -341,7 +347,8 @@ const routes: Routes = [
     DeviceGroupSideBar,
     DeviceGroups,
     InvitationsComponent,
-    CredentialsSideBar
+    CredentialsSideBar,
+    whiteBoardSettingsComponent
   ],
   imports: [
     ToastrModule,

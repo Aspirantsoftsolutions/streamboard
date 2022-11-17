@@ -109,6 +109,15 @@ export const menu: CoreMenu[] = [
         url: "apps/user/invites",
       },
       {
+        id: "whiteBoardSettings",
+        title: "WhiteBoard Settings",
+        translate: "WhiteBoard Settings",
+        type: "item",
+        icon: "home",
+        role: ["Admin"],
+        url: "apps/user/whiteBoardSettings",
+      },
+      {
         id: "whiteBoard",
         title: "WhiteBoard",
         translate: "WhiteBoard",
