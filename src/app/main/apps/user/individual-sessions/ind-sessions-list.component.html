@@ -9,7 +9,8 @@
           <div class="form-group">
             <div *ngFor="let feature of this.plans">
               <div class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
-                <input class="custom-control-input" [id]="feature" type="checkbox" tabindex="3" />
+                <input class="custom-control-input" [id]="feature" type="checkbox" tabindex="3"
+                  [(ngModel)]="features[featureKeys[feature]]" />
                 <label class="custom-control-label" [for]="feature">{{feature}}</label>
               </div>
             </div>
@@ -41,13 +42,13 @@
             <div class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
               <input class="custom-control-input" id="phet" type="checkbox" tabindex="3" [(ngModel)]="isPhet" />
               <label class="custom-control-label" for="phet"> Phet</label>
-            </div>
+            </div> -->
             <div class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
               <button type="submit" (click)="updateFeatures()" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"
                 rippleEffect>
                 Update Readers
               </button>
-            </div> -->
+            </div>
           </div>
         </div>
       </div>

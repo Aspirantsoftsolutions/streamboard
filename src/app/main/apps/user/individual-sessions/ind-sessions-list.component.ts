@@ -27,6 +27,54 @@ export class IndSessionsListComponent implements OnInit {
   public previousRoleFilter = '';
   public previousPlanFilter = '';
   public previousStatusFilter = '';
+  public featureKeys = {
+    "Geogebra": "isGeoGebraEnable",
+    "Creative tools": "isCreativeToolsEnable",
+    "New page": "isNewPageEnable",
+    "Background": "isBackgroundEnable",
+    "Save .SB File": "isSaveSBEnable",
+    "Import": "isImportEnable",
+    "Handwriting": "isHandWritingEnable",
+    "Immersive reader": "isImmersiveReaderEnable",
+    "Google drive": "isGoogleDriveEnable",
+    "one drive": "isOneDriveEnable",
+    "screenshot": "isScreenshotEnable",
+    "recording": "isRecordingEnable",
+    "QR code": "isQRCodeEnable",
+    "participate mode": "isParticipateModeEnable",
+    "export pdf": "isExportpdfEnable",
+    "Magic draw": "isMagicDrawEnable",
+    "Session interaction": "isSessionInteractionEnable",
+    "Student attendance": "isStudentAttendanceEnable",
+    "SSO integration": "isSSOIntegrationEnable",
+    "Device management": "isDeviceManagementEnable",
+    "QR login": "isQRloginEnable",
+    "Phet": "isPhetEnable"
+  }
+  public features = {
+    isGeoGebraEnable: false,
+    isCreativeToolsEnable: false,
+    isNewPageEnable: false,
+    isSaveSBEnable: false,
+    isImportEnable: false,
+    isBackgroundEnable: false,
+    isHandWritingEnable: false,
+    isImmersiveReaderEnable: false,
+    isGoogleDriveEnable: false,
+    isOneDriveEnable: false,
+    isScreenshotEnable: false,
+    isRecordingEnable: false,
+    isQRCodeEnable: false,
+    isParticipateModeEnable: false,
+    isExportpdfEnable: false,
+    isMagicDrawEnable: false,
+    isSessionInteractionEnable: false,
+    isStudentAttendanceEnable: false,
+    isSSOIntegrationEnable: false,
+    isDeviceManagementEnable: false,
+    isQRloginEnable: false,
+    isPhetEnable: false
+  }
 
   public selectRole: any = [
     { name: 'All', value: '' },
@@ -211,12 +259,11 @@ export class IndSessionsListComponent implements OnInit {
       }
     });
     let user = this._commonService.getCurrentUser();
-    this.isGooogleDrive = user.isGoogleDriveEnable;
-    this.isOneDrive = user.isOneDriveEnable;
-    this.isImmersiveReader = user.isImmersiveReaderEnable;
-    this.isMagicDraw = user.isMagicDrawEnable;
-    this.isHandWriting = user.isHandWritingEnable;
-    this.isPhet = user.isPhetEnable;
+    Object.keys(user).map(key => {
+      if (this.features.hasOwnProperty(key)) {
+        this.features[key] = user[key]
+      }
+    });
   }
 
   /**
@@ -230,25 +277,12 @@ export class IndSessionsListComponent implements OnInit {
   updateFeatures() {
     let user = this._commonService.getCurrentUser();
     const userId = user.userId;
-    let featureUpdate: any = {};
-    featureUpdate.isGoogleDriveEnable = this.isGooogleDrive;
-    featureUpdate.isOneDriveEnable = this.isOneDrive;
-    featureUpdate.isImmersiveReaderEnable = this.isImmersiveReader;
-    featureUpdate.isMagicDrawEnable = this.isMagicDraw;
-    featureUpdate.isHandWritingEnable = this.isHandWriting;
-    featureUpdate.isPhetEnable = this.isPhet;
-
-    user.isGoogleDriveEnable = this.isGooogleDrive;
-    user.isOneDriveEnable = this.isOneDrive;
-    user.isImmersiveReaderEnable = this.isImmersiveReader;
-    user.isMagicDrawEnable = this.isMagicDraw;
-    user.isHandWritingEnable = this.isHandWriting;
-    user.isPhetEnable = this.isPhet;
-
-    this._commonService.updateFeatures(featureUpdate, userId).then((resposne: any) => {
+    Object.keys(this.features).map((key) => {
+      user[key] = this.features[key];
+    });
+    this._commonService.updateFeatures(this.features, userId).then((resposne: any) => {
       console.log('res updateFeatures:', resposne);
       localStorage.setItem('currentUser', JSON.stringify(user));
-
       setTimeout(() => {
         this._toastrService.success(
           'Successfully Updated  🎉',
@@ -256,7 +290,6 @@ export class IndSessionsListComponent implements OnInit {
           { toastClass: 'toast ngx-toastr', closeButton: true }
         );
       }, 1000);
-
     }, (error) => {
       console.log('res updateFeatures error:', error);
     }

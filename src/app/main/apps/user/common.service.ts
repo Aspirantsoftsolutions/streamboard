@@ -507,12 +507,7 @@ export class CommonService implements Resolve<any> {
   updateFeatures(object, userId): Promise<any[]> {
     return new Promise((resolve, reject) => {
       this._httpClient.put(`${environment.apiUrl}/api/user/updateFeatures`, {
-        'isGoogleDriveEnable': object.isGoogleDriveEnable,
-        'isOneDriveEnable': object.isOneDriveEnable,
-        'isImmersiveReaderEnable': object.isImmersiveReaderEnable,
-        'isMagicDrawEnable': object.isMagicDrawEnable,
-        'isHandWritingEnable': object.isHandWritingEnable,
-        'isPhetEnable': object.isPhetEnable,
+        ...object,
         'userId': userId
       }).subscribe((response: any) => {
         console.log(response);
