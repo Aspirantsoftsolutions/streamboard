@@ -136,8 +136,8 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     MsalModule.forRoot(new PublicClientApplication({
       auth: {
         clientId: '96b6652e-a952-4991-9b27-02e578e89a9f', // Application (client) ID from the app registration
-        authority: '8773e58d-09ef-48e3-97f0-63ab901bcee0', // The Azure cloud instance and the app's sign-in audience (tenant ID, common, organizations, or consumers)
-        redirectUri: 'http://localhost:4200/#/apps/user/starterSSO'// This is your redirect URI
+        authority: 'https://login.microsoftonline.com/8773e58d-09ef-48e3-97f0-63ab901bcee0', // The Azure cloud instance and the app's sign-in audience (tenant ID, common, organizations, or consumers)
+        redirectUri: `${environment.redirectUrl}/#/apps/user/starterSSO`// This is your redirect URI
       }
     }), null, null),
     NgbModule,

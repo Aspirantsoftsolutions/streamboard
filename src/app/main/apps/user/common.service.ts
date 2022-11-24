@@ -446,6 +446,9 @@ export class CommonService implements Resolve<any> {
       this._httpClient.post(`${environment.apiUrl}/api/notificaitons/add`, {
         'title': form['title'],
         'body': form['body'],
+        'schools': (form['schools'] || []).map(x => ({ ...x, role: 'School' })),
+        'teachers': (form['teachers'] || []).map(x => ({ ...x, role: 'Teacher' })),
+        'students': (form['students'] || []).map(x => ({ ...x, role: 'Student' })),
       }).subscribe((response: any) => {
         console.log(response);
         resolve(response);

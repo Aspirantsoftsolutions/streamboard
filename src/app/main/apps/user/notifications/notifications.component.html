@@ -45,39 +45,38 @@
 
             </div>
             <div class="form-group" style="margin-top: 20px;">
-              <form class="event-form needs-validation" (ngSubmit)="(eventForm.form.valid); eventForm.reset()"
-                #eventForm="ngForm">
-
-                <!-- <div style="margin-top: 20px;">
+              <!-- <form class="event-form needs-validation" (ngSubmit)="(eventForm.form.valid); eventForm.reset()"
+                #eventForm="ngForm"></form> -->
+              <!-- <div style="margin-top: 20px;">
                   <ng-multiselect-dropdown [placeholder]="'All Users'" [settings]="dropdownSettings"
                     [data]="allUsers" [(ngModel)]="selectedItems" (onSelect)="onItemSelect($event)"
                     (onSelectAll)="onSelectAll($event)">
                   </ng-multiselect-dropdown>
                  </div> -->
-                <div style="margin-top: 20px;">
-                  <ng-multiselect-dropdown [placeholder]="'All Schools'" [settings]="dropdownSettings"
-                    [data]="allSchools" *ngIf="isAdmin()" [(ngModel)]="selectedSchools"
-                    (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" name="school">
-                  </ng-multiselect-dropdown>
-                </div>
-                <div style="margin-top: 20px;">
-                  <ng-multiselect-dropdown [placeholder]="'All Teachers'" [settings]="dropdownSettings"
-                    [data]="allTeachers" *ngIf="isSchool()" [(ngModel)]="selectedTeachers"
-                    (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" name="teacher">
-                  </ng-multiselect-dropdown>
-                </div>
+              <div style="margin-top: 20px;">
+                <ng-multiselect-dropdown formControlName="schools" [placeholder]="'All Schools'"
+                  [settings]="dropdownSettings" [data]="allSchools" *ngIf="isAdmin()" [(ngModel)]="selectedSchools"
+                  (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" name="school">
+                </ng-multiselect-dropdown>
+              </div>
+              <div style="margin-top: 20px;">
+                <ng-multiselect-dropdown formControlName="teachers" [placeholder]="'All Teachers'"
+                  [settings]="dropdownSettings" [data]="allTeachers" *ngIf="isSchool()" [(ngModel)]="selectedTeachers"
+                  (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" name="teacher">
+                </ng-multiselect-dropdown>
+              </div>
 
-                <div style="margin-top: 20px;">
-                  <ng-multiselect-dropdown [placeholder]="'All Students'" [settings]="dropdownSettings"
-                    [data]="allStudents" *ngIf="isSchool()" [(ngModel)]="selectedItems"
-                    (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" name="student">
-                  </ng-multiselect-dropdown>
-                </div>
-              </form>
+              <div style="margin-top: 20px;">
+                <ng-multiselect-dropdown formControlName="students" [placeholder]="'All Students'"
+                  [settings]="dropdownSettings" [data]="allStudents" *ngIf="isSchool()" [(ngModel)]="selectedItems"
+                  (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" name="student">
+                </ng-multiselect-dropdown>
+              </div>
             </div>
 
           </div>
-          <button class="btn btn-primary btn-block" tabindex="3" rippleEffect>Send Notification</button>
+          <button [disabled]="!notificationsForm.valid" class="btn btn-primary btn-block" tabindex="3" rippleEffect>Send
+            Notification</button>
         </form>
 
       </div>

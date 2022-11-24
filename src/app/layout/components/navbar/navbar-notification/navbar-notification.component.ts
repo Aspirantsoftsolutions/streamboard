@@ -21,7 +21,7 @@ export class NavbarNotificationComponent implements OnInit {
    *
    * @param {NotificationsService} _notificationsService
    */
-  constructor(private _notificationsService: NotificationsService) {}
+  constructor(private _notificationsService: NotificationsService) { }
 
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------
@@ -33,5 +33,11 @@ export class NavbarNotificationComponent implements OnInit {
     this._notificationsService.onApiDataChange.subscribe(res => {
       this.notifications = res;
     });
+  }
+
+  markAsRead() {
+    this._notificationsService.markAllAsRead().subscribe(res => {
+      console.log(res);
+    })
   }
 }

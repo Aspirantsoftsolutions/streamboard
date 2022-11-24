@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
@@ -9,6 +9,22 @@ import { CommonService } from 'app/main/apps/user/common.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
+
+const atLeastOne = (validator: ValidatorFn, controls: string[] = null) => (
+  group: FormGroup,
+): ValidationErrors | null => {
+  if (!controls) {
+    controls = Object.keys(group.controls)
+  }
+
+  const hasAtLeastOne = group && group.controls && controls
+    .some(k => !validator(group.controls[k]));
+
+  return hasAtLeastOne ? null : {
+    atLeastOne: true,
+  };
+};
+
 
 @Component({
   selector: 'app-notifications',
@@ -107,8 +123,11 @@ export class NotificationsComponent implements OnInit {
   ngOnInit(): void {
     this.notificationsForm = this._formBuilder.group({
       title: ['', [Validators.required]],
-      body: ['', [Validators.required]]
-    });
+      body: ['', [Validators.required]],
+      schools: ['',],
+      teachers: ['',],
+      students: ['',]
+    }, { validator: atLeastOne(Validators.required, ['teachers', 'students']) });
     // Subscribe to config changes
     this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
       this.coreConfig = config;

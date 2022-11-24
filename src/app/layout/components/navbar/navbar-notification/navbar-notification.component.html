@@ -1,15 +1,10 @@
 <li ngbDropdown class="nav-item dropdown-notification mr-25">
-  <a class="nav-link" ngbDropdownToggle id="navbarNotificationDropdown"
-    ><i class="ficon" data-feather="bell"></i
-    ><span class="badge badge-pill badge-danger badge-up">{{
+  <a class="nav-link" ngbDropdownToggle id="navbarNotificationDropdown"><i class="ficon" data-feather="bell"></i><span
+      class="badge badge-pill badge-danger badge-up">{{
       notifications.data?.length
-    }}</span></a
-  >
-  <ul
-    ngbDropdownMenu
-    aria-labelledby="navbarNotificationDropdown"
-    class="dropdown-menu dropdown-menu-media dropdown-menu-right"
-  >
+      }}</span></a>
+  <ul ngbDropdownMenu aria-labelledby="navbarNotificationDropdown"
+    class="dropdown-menu dropdown-menu-media dropdown-menu-right">
     <!-- Notifications header -->
     <li class="dropdown-menu-header">
       <div class="dropdown-header d-flex">
@@ -35,31 +30,24 @@
             <p class="media-heading" [innerHTML]="message.heading"></p>
             <small class="card-text" style="color: black !important;">{{ message.title }} - {{ message.body }}</small>
           </div>
-        </div></a
-      >
-      <div class="media d-flex align-items-center">
+        </div>
+      </a>
+      <!-- <div class="media d-flex align-items-center">
         <h6 class="font-weight-bolder mr-auto mb-0">System Notifications</h6>
         <div class="custom-control custom-control-primary custom-switch">
-          <input
-            class="custom-control-input"
-            id="systemNotification"
-            type="checkbox"
-            [checked]="notifications.system"
-          />
+          <input class="custom-control-input" id="systemNotification" type="checkbox"
+            [checked]="notifications.system" />
           <label class="custom-control-label" for="systemNotification"></label>
         </div>
       </div>
       <a class="d-flex" href="javascript:void(0)" *ngFor="let systemMessage of notifications.systemMessages">
         <div class="media d-flex align-items-start">
           <div class="media-left">
-            <div
-              class="avatar"
-              [ngClass]="{
+            <div class="avatar" [ngClass]="{
                 'bg-light-danger': systemMessage.icon === 'x',
                 'bg-light-success': systemMessage.icon === 'check',
                 'bg-light-warning': systemMessage.icon === 'alert-triangle'
-              }"
-            >
+              }">
               <div class="avatar-content"><i class="avatar-icon" [data-feather]="systemMessage.icon"></i></div>
             </div>
           </div>
@@ -67,14 +55,14 @@
             <p class="media-heading" [innerHTML]="systemMessage.heading"></p>
             <small class="notification-text">{{ systemMessage.text }}</small>
           </div>
-        </div></a
-      >
+        </div>
+        </a> -->
     </li>
     <!--/ Notifications content -->
 
     <!-- Notifications footer -->
     <li class="dropdown-menu-footer">
-      <a class="btn btn-primary btn-block" href="javascript:void(0)">Read all notifications</a>
+      <a class="btn btn-primary btn-block" (click)="markAsRead()">Read all notifications</a>
     </li>
     <!--/ Notifications footer -->
   </ul>
