@@ -258,7 +258,7 @@ export const menu: CoreMenu[] = [
         title: "Notifications",
         translate: "Notifications",
         type: "item",
-        role: ["Admin", "School"],
+        role: ["Admin", "School", "Teacher"],
         icon: "home",
         url: "apps/user/notifications",
       },

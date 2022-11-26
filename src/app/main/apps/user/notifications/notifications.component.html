@@ -68,7 +68,7 @@
 
               <div style="margin-top: 20px;">
                 <ng-multiselect-dropdown formControlName="students" [placeholder]="'All Students'"
-                  [settings]="dropdownSettings" [data]="allStudents" *ngIf="isSchool()" [(ngModel)]="selectedItems"
+                  [settings]="dropdownSettings" [data]="allStudents" *ngIf="isSchool() || isTeacher()" [(ngModel)]="selectedItems"
                   (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" name="student">
                 </ng-multiselect-dropdown>
               </div>

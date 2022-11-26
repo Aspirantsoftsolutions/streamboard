@@ -85,7 +85,17 @@ export class MediaComponent implements OnInit {
 
   deleteMedia(media) {
     this._commonService.deleteMedia(media._id).subscribe(() => {
+      this._toastrService.success('👋 Media deleted successfully', 'Success!', {
+        toastClass: 'toast ngx-toastr',
+        closeButton: true
+      });
       this.getMedia();
+    }, err => {
+      console.log(err);
+      this._toastrService.error('something bad happened', 'Error!', {
+        toastClass: 'toast ngx-toastr',
+        closeButton: true
+      });
     })
   }
 

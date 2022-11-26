@@ -114,6 +114,10 @@ export class NotificationsComponent implements OnInit {
   isSchool() {
     return this._commonService.getCurrentUser().role == 'School';
   }
+
+  isTeacher() {
+    return this._commonService.getCurrentUser().role == 'Teacher';
+  }
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------
 

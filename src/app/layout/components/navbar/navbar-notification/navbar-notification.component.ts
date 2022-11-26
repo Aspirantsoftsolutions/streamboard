@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { NotificationsService } from 'app/layout/components/navbar/navbar-notification/notifications.service';
+import { ToastrService } from 'ngx-toastr';
 
 // Interface
 interface notification {
@@ -21,7 +22,8 @@ export class NavbarNotificationComponent implements OnInit {
    *
    * @param {NotificationsService} _notificationsService
    */
-  constructor(private _notificationsService: NotificationsService) { }
+  constructor(private _notificationsService: NotificationsService,
+    private _toastrService: ToastrService) { }
 
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------
@@ -37,7 +39,16 @@ export class NavbarNotificationComponent implements OnInit {
 
   markAsRead() {
     this._notificationsService.markAllAsRead().subscribe(res => {
-      console.log(res);
+      this._toastrService.success('👋 All Notification marked as read', 'Success!', {
+        toastClass: 'toast ngx-toastr',
+        closeButton: true
+      });
+    }, err => {
+      console.log(err);
+      this._toastrService.error('something bad happened', 'Error!', {
+        toastClass: 'toast ngx-toastr',
+        closeButton: true
+      });
     })
   }
 }
