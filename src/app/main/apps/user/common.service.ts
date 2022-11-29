@@ -641,6 +641,10 @@ export class CommonService implements Resolve<any> {
     return this._httpClient.post(`${environment.apiUrl}/api/plans`, body);
   }
 
+  sendInvoice() {
+    return this._httpClient.post(`${environment.apiUrl}/api/invoice/sendInvoice`, {});
+  }
+
   // deleteClass(id): Promise<any[]> {
   //   return new Promise((resolve, reject) => {
   //     this._httpClient.delete(`${environment.apiUrl}/api/user/${id}`, {

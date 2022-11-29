@@ -7,6 +7,8 @@ import { takeUntil } from 'rxjs/operators';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 
 import { InvoicePreviewService } from 'app/main/apps/invoice/invoice-preview/invoice-preview.service';
+import { CommonService } from '../../user/common.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-invoice-preview',
@@ -42,7 +44,9 @@ export class InvoicePreviewComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private _invoicePreviewService: InvoicePreviewService,
-    private _coreSidebarService: CoreSidebarService
+    private _coreSidebarService: CoreSidebarService,
+    private commonService: CommonService,
+    private toaster: ToastrService
   ) {
     this._unsubscribeAll = new Subject();
     this.urlLastValue = this.url.substr(this.url.lastIndexOf('/') + 1);
@@ -78,5 +82,19 @@ export class InvoicePreviewComponent implements OnInit, OnDestroy {
     // Unsubscribe from all subscriptions
     this._unsubscribeAll.next();
     this._unsubscribeAll.complete();
+  }
+
+  sendInvoice() {
+    this.commonService.sendInvoice().subscribe((res) => {
+      this.toaster.success('👋 successfully sent invoice.', 'Success!', {
+        toastClass: 'toast ngx-toastr',
+        closeButton: true
+      });
+    }, err => {
+      this.toaster.error(err.message, 'Error!', {
+        toastClass: 'toast ngx-toastr',
+        closeButton: true
+      });
+    })
   }
 }
