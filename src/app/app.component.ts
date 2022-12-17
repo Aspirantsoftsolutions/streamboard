@@ -70,11 +70,12 @@ export class AppComponent implements OnInit, OnDestroy {
     private authenticationService: AuthenticationService
   ) {
     // Add languages to the translation service
-    this._translateService.addLangs(['en', 'fr', 'de', 'pt']);
-
+    this._translateService.addLangs(['en', 'ar']);
     // This language will be used as a fallback when a translation isn't found in the current language
     this._translateService.setDefaultLang('en');
 
+    const browserLang = _translateService.getBrowserLang();
+    _translateService.use(browserLang.match(/en|ar/) ? browserLang : 'en');
     // Set the translations for the menu
     this._coreTranslationService.translate(menuEnglish, menuFrench, menuGerman, menuPortuguese);
 

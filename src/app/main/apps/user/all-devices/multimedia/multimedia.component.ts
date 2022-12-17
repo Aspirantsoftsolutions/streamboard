@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { NgbDateStruct, NgbCalendar, NgbDate, NgbDateParserFormatter, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-multimedia',
@@ -59,7 +60,7 @@ export class MultimediaComponent implements OnInit {
     private _coreSidebarService: CoreSidebarService,
 
     private _toastrService: ToastrService,
-
+    public translate: TranslateService
   ) {
     // this._commonService.getDeviceList().subscribe(response => {
     //   this.devicesList = response['data'];

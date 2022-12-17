@@ -21,7 +21,7 @@
                                                     (change)="changeStatus($event, 'basic')" type="checkbox"
                                                     [id]="feature" [name]="feature" [value]="feature"
                                                     [checked]="isItemChecked('basic', feature)">
-                                                <label class="custom-control-label" [for]="feature">{{feature}}</label>
+                                                <label class="custom-control-label" [for]="feature">{{feature | translate}}</label>
                                             </div>
                                         </div>
                                     </div>
@@ -51,7 +51,7 @@
                                                     (change)="changeStatus($event, 'premium')" type="checkbox"
                                                     [id]="feature" [name]="feature" [value]="feature"
                                                     [checked]="isItemChecked('premium', feature)">
-                                                <label class="custom-control-label" [for]="feature">{{feature}}</label>
+                                                <label class="custom-control-label" [for]="feature">{{feature | translate}}</label>
                                             </div>
                                         </div>
                                     </div>
@@ -81,7 +81,7 @@
                                                     (change)="changeStatus($event, 'enterprise')" type="checkbox"
                                                     [id]="feature" [name]="feature" [value]="feature"
                                                     [checked]="isItemChecked('enterprise', feature)">
-                                                <label class="custom-control-label" [for]="feature">{{feature}}</label>
+                                                <label class="custom-control-label" [for]="feature">{{feature | translate}}</label>
                                             </div>
                                         </div>
                                     </div>

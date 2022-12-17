@@ -12,6 +12,7 @@ import { CalendarService } from 'app/main/apps/calendar/calendar.service';
 import { EventRef } from 'app/main/apps/calendar/calendar.model';
 import { GoogleLoginProvider, SocialAuthService } from 'angularx-social-login';
 import { AuthenticationService } from 'app/auth/service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-calendar',
@@ -61,7 +62,8 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     private _calendarService: CalendarService,
     private _coreConfigService: CoreConfigService,
     private _sauthService: SocialAuthService,
-    private _authenticationService: AuthenticationService
+    private _authenticationService: AuthenticationService,
+    public translate: TranslateService
 
   ) {
     this._unsubscribeAll = new Subject();

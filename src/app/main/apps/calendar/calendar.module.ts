@@ -22,6 +22,7 @@ import { CalendarComponent } from 'app/main/apps/calendar/calendar.component';
 import { CalendarService } from 'app/main/apps/calendar/calendar.service';
 import { GoogleLoginProvider, SocialAuthServiceConfig  } from 'angularx-social-login';
 import { UserModule } from '../user/user.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 FullCalendarModule.registerPlugins([dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin]);
 
@@ -49,7 +50,8 @@ const routes: Routes = [
     Ng2FlatpickrModule,
     NgSelectModule,
     NgbModule,
-    UserModule
+    UserModule,
+    TranslateModule
   ],
   providers: [CalendarService, {
     provide: 'SocialAuthServiceConfig',

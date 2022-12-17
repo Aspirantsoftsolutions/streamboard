@@ -15,6 +15,7 @@ import { ProviderOptions, GraphService } from '../sso/graph.service';
 import { MsalService } from '@azure/msal-angular';
 import { UserViewService } from '../user-view/user-view.service';
 import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 // var admin = require('google-admin-sdk');
 // const privatekey = require('../../../../../../streamboard-346619-e851b52adce0.json');
 // const { JWT } = require('google-auth-library');    
@@ -84,6 +85,7 @@ export class UserListComponent implements OnInit {
     private userService: UserViewService,
     private graphService: GraphService,
     private toastr: ToastrService,
+    public translate: TranslateService
   ) {
     this._unsubscribeAll = new Subject();
   }

@@ -93,6 +93,7 @@ import { DeviceGroups } from './all-devices/device-groups/device-groups.componen
 import { InvitationsComponent } from './invitations/invitations.component';
 import { CredentialsSideBar } from './all-devices/credentials-sidebar/credentials-sidebar.component';
 import { whiteBoardSettingsComponent } from './whiteBoardSettings/whiteBoardSettings.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 // routing
@@ -366,7 +367,8 @@ const routes: Routes = [
     CoreSidebarModule,
     ToastrModule,
     MsalModule,
-    NgMultiSelectDropDownModule.forRoot()
+    NgMultiSelectDropDownModule.forRoot(),
+    TranslateModule
   ],
   providers: [
     TeachersListService,

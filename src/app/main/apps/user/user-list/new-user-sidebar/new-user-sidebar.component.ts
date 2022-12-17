@@ -4,6 +4,7 @@ import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.s
 import { UserListService } from '../user-list.service';
 import { ToastrService } from 'ngx-toastr';
 import { CommonService } from '../../common.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-new-user-sidebar',
@@ -26,7 +27,9 @@ export class NewUserSidebarComponent implements OnInit {
   constructor(private _coreSidebarService: CoreSidebarService,
     private toastr: ToastrService,
     private _userListService: UserListService,
-    private _commonService: CommonService,) {
+    private _commonService: CommonService,
+    public translate: TranslateService
+    ) {
     this._commonService.onUserEditListChanged.subscribe(response => {
       console.log('res cms', response);
       if (response != null) {

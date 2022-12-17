@@ -13,6 +13,7 @@ import { locale as english } from 'app/main/dashboard/i18n/en';
 import { locale as french } from 'app/main/dashboard/i18n/fr';
 import { locale as german } from 'app/main/dashboard/i18n/de';
 import { locale as portuguese } from 'app/main/dashboard/i18n/pt';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-ecommerce',
@@ -79,6 +80,7 @@ export class EcommerceComponent implements OnInit {
     private _dashboardService: DashboardService,
     private _coreConfigService: CoreConfigService,
     private _coreTranslationService: CoreTranslationService,
+    public translate: TranslateService,
     private _commonServie: CommonService
   ) {
     this._authenticationService.currentUser.subscribe(x => (this.currentUser = x));

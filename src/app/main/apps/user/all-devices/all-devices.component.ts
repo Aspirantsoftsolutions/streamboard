@@ -15,6 +15,7 @@ import { InteractionType } from '@azure/msal-browser';
 import { protectedResources } from '../../../../auth-config';
 import { ToastrService } from 'ngx-toastr';
 import { startWith } from "rxjs/operators";
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-all-devices',
   templateUrl: './all-devices.component.html',
@@ -86,7 +87,7 @@ export class AllDevicesComponent implements OnInit {
     private userService: UserViewService,
     private graphService: GraphService,
     private _toastrService: ToastrService,
-
+    public translate: TranslateService
   ) {
     this._unsubscribeAll = new Subject();
   }

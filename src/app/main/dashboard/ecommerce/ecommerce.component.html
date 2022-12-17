@@ -18,9 +18,9 @@
       <div class="col-xl-12 col-md-12 col-12" *ngIf="currentUser?.role == 'Teacher'">
         <div class="card card-statistics">
           <div class="card-header">
-            <h4 class="card-title">Statistics</h4>
+            <h4 class="card-title">{{'Statistics' | translate}}</h4>
             <div class="d-flex align-items-center">
-              <p class="card-text font-small-2 mr-25 mb-0">Updated Just now</p>
+              <p class="card-text font-small-2 mr-25 mb-0">{{'Updated Just now'| translate}}</p>
             </div>
           </div>
           <div class="card-body statistics-body">
@@ -34,7 +34,7 @@
                   </div>
                   <div class="media-body my-auto">
                     <h4 class="font-weight-bolder mb-0">{{countData.quickSession}}</h4>
-                    <p class="card-text font-small-3 mb-0">Quick Sessions</p>
+                    <p class="card-text font-small-3 mb-0">{{'Quick Sessions'| translate}}</p>
                   </div>
                 </div>
               </div>
@@ -47,7 +47,7 @@
                   </div>
                   <div class="media-body my-auto">
                     <h4 class="font-weight-bolder mb-0">{{countData.liveSession}}</h4>
-                    <p class="card-text font-small-3 mb-0">Live Sessions</p>
+                    <p class="card-text font-small-3 mb-0">{{'Live Sessions'| translate}}</p>
                   </div>
                 </div>
               </div>
@@ -60,7 +60,7 @@
                   </div>
                   <div class="media-body my-auto">
                     <h4 class="font-weight-bolder mb-0">{{countData.scheduledSession}}</h4>
-                    <p class="card-text font-small-3 mb-0">Scheduled Sessions</p>
+                    <p class="card-text font-small-3 mb-0">{{'Scheduled Sessions' | translate}}</p>
                   </div>
                 </div>
               </div>
@@ -77,9 +77,9 @@
       <div class="col-xl-12 col-md-6 col-12" *ngIf="currentUser?.role == 'Admin'">
         <div class="card card-statistics">
           <div class="card-header">
-            <h4 class="card-title">Statistics</h4>
+            <h4 class="card-title">{{'Statistics' | translate}}</h4>
             <div class="d-flex align-items-center">
-              <p class="card-text font-small-2 mr-25 mb-0">Updated Just now</p>
+              <p class="card-text font-small-2 mr-25 mb-0">{{'Updated Just now' | translate}}</p>
             </div>
           </div>
           <div class="card-body statistics-body">
@@ -93,7 +93,7 @@
                   </div>
                   <div class="media-body my-auto">
                     <h4 class="font-weight-bolder mb-0">{{ countData.schoolsCount }}</h4>
-                    <p class="card-text font-small-3 mb-0">All Users</p>
+                    <p class="card-text font-small-3 mb-0">{{'All Users'| translate}}</p>
                   </div>
                 </div>
               </div>
@@ -106,7 +106,7 @@
                   </div>
                   <div class="media-body my-auto">
                     <h4 class="font-weight-bolder mb-0">{{ countData.Enterprise }}</h4>
-                    <p class="card-text font-small-3 mb-0">Enterprise Users</p>
+                    <p class="card-text font-small-3 mb-0">{{'Enterprise Users'| translate}}</p>
                   </div>
                 </div>
               </div>
@@ -119,7 +119,7 @@
                   </div>
                   <div class="media-body my-auto">
                     <h4 class="font-weight-bolder mb-0">{{ countData.Premium }}</h4>
-                    <p class="card-text font-small-3 mb-0">Profession Users</p>
+                    <p class="card-text font-small-3 mb-0">{{'Profession Users'| translate}}</p>
                   </div>
                 </div>
               </div>
@@ -132,7 +132,7 @@
                   </div>
                   <div class="media-body my-auto">
                     <h4 class="font-weight-bolder mb-0">{{ countData.Basic }}</h4>
-                    <p class="card-text font-small-3 mb-0">Basic Users</p>
+                    <p class="card-text font-small-3 mb-0">{{'Basic Users'| translate}}</p>
                   </div>
                 </div>
               </div>
@@ -145,7 +145,7 @@
                   </div>
                   <div class="media-body my-auto">
                     <h4 class="font-weight-bolder mb-0">{{ countData.schoolsActiveCount }}</h4>
-                    <p class="card-text font-small-3 mb-0">Active Customers</p>
+                    <p class="card-text font-small-3 mb-0">{{'Active Customers'| translate}}</p>
                   </div>
                 </div>
               </div>
@@ -158,7 +158,7 @@
                   </div>
                   <div class="media-body my-auto">
                     <h4 class="font-weight-bolder mb-0">{{ countData.schoolsInActiveCount }}</h4>
-                    <p class="card-text font-small-3 mb-0">Inactive Customers</p>
+                    <p class="card-text font-small-3 mb-0">{{'Inactive Customers'| translate}}</p>
                   </div>
                 </div>
               </div>
@@ -172,9 +172,9 @@
       <div class="col-xl-8 col-md-6 col-12" *ngIf="currentUser?.role == 'School'">
         <div class="card card-statistics">
           <div class="card-header">
-            <h4 class="card-title">Statistics</h4>
+            <h4 class="card-title">{{'Statistics' | translate}}</h4>
             <div class="d-flex align-items-center">
-              <p class="card-text font-small-2 mr-25 mb-0">Updated Just now</p>
+              <p class="card-text font-small-2 mr-25 mb-0">{{'Updated Just now'| translate}}</p>
             </div>
           </div>
           <div class="card-body statistics-body">
@@ -189,7 +189,7 @@
                   <div class="media-body my-auto">
                     <h4 class="font-weight-bolder mb-0">{{ countData.usersCount ? countData.usersCount :
                       countData.teachersCount + countData.studentsCount}}</h4>
-                    <p class="card-text font-small-3 mb-0">All Users</p>
+                    <p class="card-text font-small-3 mb-0">{{'All Users'| translate}}</p>
                   </div>
                 </div>
               </div>
@@ -202,7 +202,7 @@
                   </div>
                   <div class="media-body my-auto">
                     <h4 class="font-weight-bolder mb-0">{{ countData.teachersCount }}</h4>
-                    <p class="card-text font-small-3 mb-0">Teachers</p>
+                    <p class="card-text font-small-3 mb-0">{{'Teachers'| translate}}</p>
                   </div>
                 </div>
               </div>
@@ -215,7 +215,7 @@
                   </div>
                   <div class="media-body my-auto">
                     <h4 class="font-weight-bolder mb-0">{{ countData.studentsCount }}</h4>
-                    <p class="card-text font-small-3 mb-0">Students</p>
+                    <p class="card-text font-small-3 mb-0">{{'Students'| translate}}</p>
                   </div>
                 </div>
               </div>
@@ -228,7 +228,7 @@
                   </div>
                   <div class="media-body my-auto">
                     <h4 class="font-weight-bolder mb-0">{{ countData.teachersActiveCount }}</h4>
-                    <p class="card-text font-small-3 mb-0">Active Teachers</p>
+                    <p class="card-text font-small-3 mb-0">{{'Active Teachers'| translate}}</p>
                   </div>
                 </div>
               </div>
@@ -241,7 +241,7 @@
                   </div>
                   <div class="media-body my-auto">
                     <h4 class="font-weight-bolder mb-0">{{ countData.studentsActiveCount }}</h4>
-                    <p class="card-text font-small-3 mb-0">Active Students</p>
+                    <p class="card-text font-small-3 mb-0">{{'Active Students'| translate}}</p>
                   </div>
                 </div>
               </div>
@@ -260,7 +260,7 @@
           <div class="col-lg-6 col-md-3 col-6">
             <div class="card">
               <div class="card-body pb-50">
-                <h6>Total Payments</h6>
+                <h6>{{'Total Payments'| translate}}</h6>
                 <h2 class="font-weight-bolder mb-1" *ngIf="adminAnalyticsData">{{
                   adminAnalyticsData[0]?.tillDate[0]?.total }}</h2>
                 <!-- <div id="statistics-bar-chart" #statisticsBarChartRef>
@@ -286,7 +286,7 @@
           <div class="col-lg-6 col-md-3 col-6">
             <div class="card card-tiny-line-stats">
               <div class="card-body pb-50">
-                <h6>Current Month</h6>
+                <h6>{{'Current Month'| translate}}</h6>
                 <h2 class="font-weight-bolder mb-1" *ngIf="adminAnalyticsData">{{
                   adminAnalyticsData[0]?.monthWise[0]?.amount }}
                 </h2>
@@ -351,11 +351,11 @@
           <div class="row mx-0">
             <div class="col-md-12 col-12 revenue-report-wrapper">
               <div class="d-sm-flex justify-content-between align-items-center mb-3">
-                <h4 class="card-title mb-50 mb-sm-0">Revenue Report</h4>
+                <h4 class="card-title mb-50 mb-sm-0">{{'Revenue Report'| translate}}</h4>
                 <div class="d-flex align-items-center">
                   <div class="d-flex align-items-center mr-2">
                     <span class="bullet bullet-primary font-small-3 mr-50 cursor-pointer"></span>
-                    <span>Payments</span>
+                    <span>{{'Payments'| translate}}</span>
                   </div>
                   <!-- <div class="d-flex align-items-center ml-75">
                     <span class="bullet bullet-warning font-small-3 mr-50 cursor-pointer"></span>
@@ -425,12 +425,12 @@
           <div class="card card-revenue-budget">
             <div class="revenue-report-wrapper">
               <div class="d-sm-flex justify-content-between align-items-center mb-3">
-                <h4 class="card-title mb-50 mb-sm-0">{{ item.revenueReport[0].name}} {{['Teachers',
+                <h4 class="card-title mb-50 mb-sm-0">{{ item.revenueReport[0].name | translate}} {{['Teachers',
                   'Students'].includes(item.revenueReport[0].name) ? 'Logins': 'Users'}}</h4>
                 <div class="d-flex align-items-center">
                   <div class="d-flex align-items-center mr-2">
                     <span class="bullet bullet-primary font-small-3 mr-50 cursor-pointer"></span>
-                    <span>{{ item.revenueReport[0].name}}</span>
+                    <span>{{ item.revenueReport[0].name | translate}}</span>
                   </div>
                 </div>
               </div>

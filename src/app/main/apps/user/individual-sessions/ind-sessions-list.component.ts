@@ -9,6 +9,7 @@ import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.s
 import { IndSessionsListService } from './ind-sessions-list.service';
 import { CommonService } from '../common.service';
 import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -132,6 +133,7 @@ export class IndSessionsListComponent implements OnInit {
     private _coreConfigService: CoreConfigService,
     private _commonService: CommonService,
     private _toastrService: ToastrService,
+    public translate: TranslateService
   ) {
     this._unsubscribeAll = new Subject();
     this.currentUser = this._commonService.getCurrentUser();

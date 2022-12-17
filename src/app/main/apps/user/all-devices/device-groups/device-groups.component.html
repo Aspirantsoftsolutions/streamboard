@@ -4,7 +4,7 @@
         <section class="users-list-wrapper">
             <!-- users filter start -->
             <div class="card">
-                <h5 class="card-header">Search Filter</h5>
+                <h5 class="card-header">{{ 'Search Filter' | translate }}</h5>
                 <div class="card-body">
                     <div class="users-list-filter">
                         <form>
@@ -197,7 +197,7 @@
                                     </ngx-datatable-column> -->
                                     <ngx-datatable-column name="IP Address" prop="ip" [width]="150">
                                     </ngx-datatable-column>
-                                    <ngx-datatable-column name="Status" prop="status" [width]="100">
+                                    <ngx-datatable-column name="{{'Status' | translate}}" prop="status" [width]="100">
                                         <ng-template let-status="value" ngx-datatable-cell-template>
                                             <!-- <div class="badge badge-pill" [ngClass]="{
                             'badge-light-success': status == 'active',
@@ -216,7 +216,8 @@
                                             {{name | date : 'dd/MM/yyyy HH:MM'}}
                                         </ng-template>
                                     </ngx-datatable-column>
-                                    <ngx-datatable-column name="Actions" [width]="40" [sortable]="false">
+                                    <ngx-datatable-column name="{{'Actions' | translate}}" [width]="40"
+                                        [sortable]="false">
                                         <ng-template ngx-datatable-cell-template let-row="row">
                                             <div ngbDropdown container="body">
                                                 <button ngbDropdownToggle type="button"

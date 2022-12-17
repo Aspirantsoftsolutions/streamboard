@@ -8,6 +8,7 @@ import { CoreConfigService } from '@core/services/config.service';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 import { SessionsListService } from './sessions-list.service';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -77,6 +78,7 @@ export class SessionsListComponent implements OnInit {
     private _coreSidebarService: CoreSidebarService,
     private _coreConfigService: CoreConfigService,
     private router: Router,
+    public translate: TranslateService
   ) {
     this._unsubscribeAll = new Subject();
     this.urlLastValue = this.url.substr(this.url.lastIndexOf('/') + 1);

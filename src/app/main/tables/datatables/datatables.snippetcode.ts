@@ -503,7 +503,7 @@ export const snippetCodeRowDetails: snippetCode = {
           <div>
             <span><strong>City : </strong> {{ row.city }}</span
             ><span class="ml-1"><strong>Experience : </strong> {{ row.experience }}</span
-            ><span class="ml-1"><strong>Start Date : </strong> {{ row.start_date }}</span>
+            ><span class="ml-1"><strong>{{'Start Date' | translate}} : </strong> {{ row.start_date }}</span>
           </div>
         </div>
       </ng-template>

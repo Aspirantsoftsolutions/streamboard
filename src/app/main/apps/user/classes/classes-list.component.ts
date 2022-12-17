@@ -8,6 +8,7 @@ import { takeUntil } from 'rxjs/operators';
 import { CoreConfigService } from '@core/services/config.service';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 import { ClassesListService } from './classes-list.service';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -75,7 +76,8 @@ export class ClassesListComponent implements OnInit {
     private _classesListService: ClassesListService,
     private _commonService: CommonService,
     private _coreSidebarService: CoreSidebarService,
-    private _coreConfigService: CoreConfigService
+    private _coreConfigService: CoreConfigService,
+    public translate: TranslateService
   ) {
     this._unsubscribeAll = new Subject();
     this.currentUser = this._commonService.getCurrentUser();

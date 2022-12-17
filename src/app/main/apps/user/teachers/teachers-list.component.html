@@ -4,7 +4,7 @@
     <section class="users-list-wrapper">
       <!-- users filter start -->
       <div class="card">
-        <h5 class="card-header">Search Filter</h5>
+        <h5 class="card-header">{{ 'Search Filter' | translate }}</h5>
         <div class="card-body">
           <div class="users-list-filter">
             <form>
@@ -68,7 +68,7 @@
         </div>
         <ngx-datatable [rows]="rows" [rowHeight]="50" class="bootstrap core-bootstrap" [limit]="selectedOption"
           [columnMode]="ColumnMode.force" [headerHeight]="50" [footerHeight]="50" [scrollbarH]="true">
-          <ngx-datatable-column name="User" prop="fullName" [width]="200">
+          <ngx-datatable-column name="{{'User' | translate}}" prop="fullName" [width]="200">
             <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
               <div class="d-flex align-items-center">
                 <!-- <div *ngIf="row.profile_pic.length > 0; else customAvatar">
@@ -100,10 +100,10 @@
               </div>
             </ng-template>
           </ngx-datatable-column>
-          <ngx-datatable-column name="Email" prop="email" [width]="200"></ngx-datatable-column>
-          <ngx-datatable-column name="ShortId" prop="shortId" [width]="100"> </ngx-datatable-column>
+          <ngx-datatable-column name="{{'Email' | translate}}" prop="email" [width]="200"></ngx-datatable-column>
+          <ngx-datatable-column name="{{'ShortId' | translate}}" prop="shortId" [width]="100"> </ngx-datatable-column>
           <!-- <ngx-datatable-column name="Plan" prop="plan" [width]="100"></ngx-datatable-column> -->
-          <ngx-datatable-column name="Status" prop="status" [width]="50">
+          <ngx-datatable-column name="{{'Status' | translate}}" prop="status" [width]="50">
             <ng-template let-status="value" ngx-datatable-cell-template>
               <div class="badge badge-pill" [ngClass]="{
                   'badge-light-success': status == 'active',
@@ -114,7 +114,7 @@
               </div>
             </ng-template>
           </ngx-datatable-column>
-          <ngx-datatable-column name="Actions" [width]="40" [sortable]="false">
+          <ngx-datatable-column name="{{'Actions' | translate}}" [width]="40" [sortable]="false">
             <ng-template ngx-datatable-cell-template let-row="row">
               <div class="actionicon d-flex">
                 <a (click)="toggleSidebarEdit('new-teachers-sidebar',row.userId)" ngbDropdownItem>

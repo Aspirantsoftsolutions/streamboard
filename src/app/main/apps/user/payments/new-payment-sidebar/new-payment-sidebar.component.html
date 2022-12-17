@@ -8,18 +8,18 @@
           ×
         </button>
         <div class="modal-header mb-1">
-          <h5 class="modal-title" id="exampleModalLabel">New User</h5>
+          <h5 class="modal-title" id="exampleModalLabel">{{'New User' | translate}}</h5>
         </div>
         <div class="modal-body flex-grow-1">
           <div class="form-group mb-2">
-            <label class="form-label" for="user-plan">Select Client</label>
+            <label class="form-label" for="user-plan">{{'Select Client'| translate}}</label>
             <select id="user-plan" class="form-control" (change)="updateClient($event.target.value)" name="email">
               <option value="" selected disabled hidden>Select Client</option>
               <option *ngFor="let client of clients" [value]="client.email">{{client.email}}</option>
             </select>
           </div>
           <div class="form-group">
-            <label class="form-label" for="basic-icon-default-fullName">Full Name</label>
+            <label class="form-label" for="basic-icon-default-fullName">{{'Full Name'| translate}}</label>
             <input type="text" class="form-control dt-full-name" id="basic-icon-default-fullName" name="user-fullName"
               [(ngModel)]="fullName" [class.error]="newUserForm.submitted && FNameRef.invalid" #FNameRef="ngModel"
               required aria-label="John Doe" aria-describedby="basic-icon-default-fullName2" [disabled]="disableFields"
@@ -29,7 +29,7 @@
             </span>
           </div>
           <div class="form-group">
-            <label class="form-label" for="basic-icon-default-uname">Username</label>
+            <label class="form-label" for="basic-icon-default-uname">{{'Username'| translate}}</label>
             <input type="text" id="basic-icon-default-uname" class="form-control dt-uname" aria-label="jdoe1"
               aria-describedby="basic-icon-default-uname2" name="user-name" [(ngModel)]="username"
               [class.error]="newUserForm.submitted && FUserNameRef.invalid" #FUserNameRef="ngModel" required
@@ -39,7 +39,7 @@
             </span>
           </div>
           <div class="form-group">
-            <label class="form-label" for="basic-icon-default-email">Email</label>
+            <label class="form-label" for="basic-icon-default-email">{{'Email'| translate}}</label>
             <input type="text" id="basic-icon-default-email" class="form-control dt-email"
               aria-label="john.doe@example.com" aria-describedby="basic-icon-default-email2" name="user-email"
               [(ngModel)]="email" name="email" [class.error]="newUserForm.submitted && FEmailRef.invalid"
@@ -50,7 +50,7 @@
             <small class="form-text text-muted"> You can use letters, numbers & periods </small>
           </div>
           <div class="form-group">
-            <label class="form-label" for="basic-icon-default-amount">Amount</label>
+            <label class="form-label" for="basic-icon-default-amount">{{'Amount'| translate}}</label>
             <input type="number" id="basic-icon-default-amount" class="form-control dt-amount"
               aria-describedby="basic-icon-default-amount2" name="amount" [(ngModel)]="amount"
               [class.error]="newUserForm.submitted && FamountRef.invalid" #FamountRef="ngModel" required />
@@ -60,7 +60,7 @@
             <small class="form-text text-muted"> You can use number only </small>
           </div>
           <div class="form-group mb-2">
-            <label for="paymentDate" class="form-label">Payment Date</label>
+            <label for="paymentDate" class="form-label">{{'Payment Date'| translate}}</label>
             <ng2-flatpickr #FpaymentDateRef="ngModel" id="paymentDate" [config]="dateOptions" name="paymentDate"
               [(ngModel)]="date" #paymentDate required>
             </ng2-flatpickr>
@@ -70,11 +70,11 @@
             </span>
           </div>
           <div class="form-group mb-2">
-            <label class="form-label" for="paymentType">Payment type</label>
+            <label class="form-label" for="paymentType">{{'Payment type'| translate}}</label>
             <select id="paymentType" class="form-control" name="paymentType" [(ngModel)]="paymentType"
               #FpaymentRef="ngModel">
-              <option value="cash">Cash</option>
-              <option value="banktransfer">Bank Trasfer</option>
+              <option value="cash">{{'Cash'| translate}}</option>
+              <option value="banktransfer">{{'Bank Trasfer'| translate}}</option>
             </select>
             <span *ngIf="newUserForm.submitted && FpaymentRef.invalid" class="invalid-form">
               <small class="form-text text-danger" *ngIf="FpaymentRef.errors.required">This field is required!</small>
@@ -82,7 +82,7 @@
             <small class="form-text text-muted"> please select one </small>
           </div>
           <div class="form-group mb-2">
-            <label class="form-label" for="user-plan">Comments</label>
+            <label class="form-label" for="user-plan">{{'Comments'| translate}}</label>
             <textarea class="form-control" name="comments" id="comments" cols="30" rows="5"
               [(ngModel)]="comments"></textarea>
           </div>

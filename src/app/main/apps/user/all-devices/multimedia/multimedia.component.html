@@ -35,7 +35,7 @@
                         (onDeSelectAll)="onDeselectAll($event)">
                     </ng-multiselect-dropdown>
                     <div class="form-group position-relative">
-                        <label for="start-date" class="form-label">Start Date</label>
+                        <label for="start-date" class="form-label">{{'Start Date' | translate}}</label>
                         <ng2-flatpickr [config]="startDateOptions" name="startDate" [setDate]="startDate"
                             #startDatePicker required>
                         </ng2-flatpickr>

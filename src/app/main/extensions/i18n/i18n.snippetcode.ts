@@ -35,6 +35,7 @@ export const snippetCodei18n: snippetCode = {
   import { locale as french } from './data/fr';
   import { locale as german } from './data/de';
   import { locale as portuguese } from './data/pt';
+  import { locale as arabic } from './data/ar';
 
   /**
    * Constructor
@@ -50,7 +51,8 @@ export const snippetCodei18n: snippetCode = {
       english,
       french,
       german,
-      portuguese
+      portuguese,
+      arabic
     );
   }
 

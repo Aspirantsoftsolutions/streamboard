@@ -14,6 +14,7 @@ import { GraphService, ProviderOptions } from '../sso/graph.service';
 import { InteractionType } from '@azure/msal-browser';
 import { protectedResources } from '../../../../auth-config';
 import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
 // var admin = require('google-admin-sdk');
 // const privatekey = require('../../../../../../streamboard-346619-e851b52adce0.json');
@@ -88,6 +89,7 @@ export class ClientsListComponent implements OnInit {
     private userService: UserViewService,
     private graphService: GraphService,
     private _toastrService: ToastrService,
+    public translate: TranslateService
 
   ) {
     this._unsubscribeAll = new Subject();

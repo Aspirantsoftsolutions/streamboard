@@ -8,6 +8,7 @@ import { CoreConfigService } from '@core/services/config.service';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 import { PaymentsListService } from './payments-list.service';
 import { CommonService } from '../common.service';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -74,7 +75,8 @@ export class PaymentsListComponent implements OnInit {
     private _userListService: PaymentsListService,
     private _coreSidebarService: CoreSidebarService,
     private _coreConfigService: CoreConfigService,
-    private _commonService: CommonService
+    private _commonService: CommonService,
+    public translate: TranslateService
   ) {
     this._unsubscribeAll = new Subject();
     this._commonService.onPaymentsChanged.subscribe(() => {

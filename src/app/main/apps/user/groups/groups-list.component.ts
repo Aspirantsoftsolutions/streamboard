@@ -10,6 +10,7 @@ import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.s
 import { GroupsListService } from './groups-list.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -83,7 +84,8 @@ export class GroupsListComponent implements OnInit {
     private _coreConfigService: CoreConfigService,
     private groupService: GroupsListService,
     private modalService: NgbModal,
-    private toaster: ToastrService
+    private toaster: ToastrService,
+    public translate: TranslateService
   ) {
     this._unsubscribeAll = new Subject();
   }

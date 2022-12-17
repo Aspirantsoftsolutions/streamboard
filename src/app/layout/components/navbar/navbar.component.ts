@@ -86,7 +86,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private _mediaObserver: MediaObserver,
     public _translateService: TranslateService,
     @Inject(MSAL_INSTANCE) private msalInstance: PublicClientApplication,
-    private _sauthService: SocialAuthService
+    private _sauthService: SocialAuthService,
   ) {
     this._authenticationService.currentUser.subscribe(x => (this.currentUser = x));
 
@@ -94,6 +94,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
       en: {
         title: 'English',
         flag: 'us'
+      },
+      ar: {
+        title: 'Arabic',
+        flag: 'ae'
       },
       fr: {
         title: 'French',
@@ -226,6 +230,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.selectedLanguage = _.find(this.languageOptions, {
       id: this._translateService.currentLang
     });
+    console.log("&&&&",this._translateService.getLangs());
+    
   }
 
   /**

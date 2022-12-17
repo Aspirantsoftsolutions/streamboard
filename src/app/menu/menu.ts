@@ -1,6 +1,5 @@
 import { CoreMenu } from "@core/types";
 
-//? DOC: http://localhost:7777/demo/vuexy-angular-admin-dashboard-template/documentation/guide/development/navigation-menus.html#interface
 
 export const menu: CoreMenu[] = [
   // Dashboard
@@ -32,7 +31,7 @@ export const menu: CoreMenu[] = [
       {
         id: "calendar",
         title: "Calendar",
-        translate: "MENU.APPS.CALENDAR",
+        translate: "Calendar",
         type: "item",
         role: ["Student", "Teacher", "School"],
         icon: "calendar",

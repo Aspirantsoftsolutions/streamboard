@@ -14,6 +14,7 @@ import {
 import { Router } from "@angular/router";
 import { CommonService } from "../../common.service";
 import { FlatpickrOptions } from "ng2-flatpickr";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: "app-new-sessions-sidebar",
@@ -72,7 +73,8 @@ export class NewSessionsSidebarComponent implements OnInit {
     private router: Router,
     private SessionsListService: SessionsListService,
     private _authenticationService: AuthenticationService,
-    private _commonService: CommonService
+    private _commonService: CommonService,
+    public translate: TranslateService
   ) {
     this.classDropdownSettings = {
       singleSelection: false,

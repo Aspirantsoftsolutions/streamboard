@@ -14,6 +14,7 @@ import { locale as portuguese } from 'app/main/tables/datatables/i18n/pt';
 import * as snippet from 'app/main/tables/datatables/datatables.snippetcode';
 
 import { DatatablesService } from 'app/main/tables/datatables/datatables.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-datatables',
@@ -173,7 +174,7 @@ export class DatatablesComponent implements OnInit {
    * @param {DatatablesService} _datatablesService
    * @param {CoreTranslationService} _coreTranslationService
    */
-  constructor(private _datatablesService: DatatablesService, private _coreTranslationService: CoreTranslationService) {
+  constructor(private _datatablesService: DatatablesService, private _coreTranslationService: CoreTranslationService,     public translate: TranslateService) {
     this._unsubscribeAll = new Subject();
     this._coreTranslationService.translate(english, french, german, portuguese);
   }

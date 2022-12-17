@@ -14,6 +14,7 @@ import { startWith } from "rxjs/operators";
 import { protectedResources } from '../../../../../auth-config';
 import { UserViewService } from '../../user-view/user-view.service';
 import { GraphService, ProviderOptions } from '../../sso/graph.service';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
     selector: 'app-device-groups',
     templateUrl: 'device-groups.component.html',
@@ -90,7 +91,8 @@ export class DeviceGroups implements OnInit {
         private graphService: GraphService,
         private _toastrService: ToastrService,
         private route: ActivatedRoute,
-        private router: Router
+        private router: Router,
+        public translate: TranslateService
     ) {
         this._unsubscribeAll = new Subject();
         this.route.params.subscribe((params) => {

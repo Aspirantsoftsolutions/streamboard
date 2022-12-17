@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
+import { TranslateService } from '@ngx-translate/core';
 
 import { EventRef } from 'app/main/apps/calendar/calendar.model';
 import { CalendarService } from 'app/main/apps/calendar/calendar.service';
@@ -44,7 +45,7 @@ export class CalendarEventSidebarComponent implements OnInit {
    * @param {CoreSidebarService} _coreSidebarService
    * @param {CalendarService} _calendarService
    */
-  constructor(private _coreSidebarService: CoreSidebarService, private _calendarService: CalendarService) {}
+  constructor(private _coreSidebarService: CoreSidebarService, private _calendarService: CalendarService,    public translate: TranslateService) {}
 
   // Public Methods
   // -----------------------------------------------------------------------------------------------------

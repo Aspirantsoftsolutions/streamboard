@@ -9,6 +9,7 @@ import { CoreConfigService } from '@core/services/config.service';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 import { GradesListService } from './grades-list.service';
 import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -76,7 +77,8 @@ export class GradesListComponent implements OnInit {
     private _gradesListService: GradesListService,
     private _coreSidebarService: CoreSidebarService,
     private _commonService: CommonService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    public translate: TranslateService
   ) {
     this._unsubscribeAll = new Subject();
     this.currentUser = this._commonService.getCurrentUser();

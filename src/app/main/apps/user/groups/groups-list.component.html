@@ -4,7 +4,7 @@
     <section class="users-list-wrapper">
       <!-- users filter start -->
       <!-- <div class="card">
-        <h5 class="card-header">Search Filter</h5>
+        <h5 class="card-header">{{ 'Search Filter' | translate }}</h5>
         <div class="card-body">
           <div class="users-list-filter">
             <form>
@@ -56,7 +56,7 @@
         </div>
         <ngx-datatable [rows]="rows" [rowHeight]="50" class="bootstrap core-bootstrap" [limit]="selectedOption"
           [columnMode]="ColumnMode.force" [headerHeight]="50" [footerHeight]="50" [scrollbarH]="true">
-          <ngx-datatable-column name="Name" prop="name" [width]="200">
+          <ngx-datatable-column name="{{'Name'| translate}}" prop="name" [width]="200">
             <!-- <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
               <div class="d-flex align-items-center">
                 <div *ngIf="row.profile_pic.length > 0; else customAvatar">
@@ -123,7 +123,7 @@
               </div>
             </ng-template>
           </ngx-datatable-column> -->
-          <ngx-datatable-column name="Actions" [width]="40" [sortable]="false">
+          <ngx-datatable-column name="{{'Actions'| translate}}" [width]="40" [sortable]="false">
             <ng-template ngx-datatable-cell-template let-row="row">
 
               <div class="actionicon d-flex">
@@ -169,9 +169,9 @@
       <ngx-datatable [rows]="SelectedStudentsGroup" [rowHeight]="50" class="bootstrap core-bootstrap"
         [limit]="selectedOption" [columnMode]="ColumnMode.force" [headerHeight]="50" [footerHeight]="50"
         [scrollbarH]="true">
-        <ngx-datatable-column name="name" prop="username" [width]="200">
+        <ngx-datatable-column name="{{'name'| translate}}" prop="username" [width]="200">
         </ngx-datatable-column>
-        <ngx-datatable-column name="email" prop="email" [width]="200">
+        <ngx-datatable-column name="{{'email'| translate}}" prop="email" [width]="200">
         </ngx-datatable-column>
       </ngx-datatable>
     </div>

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { FakeDbService } from '@fake-db/fake-db.service';
@@ -16,7 +16,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import 'hammerjs';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { ContextMenuModule } from '@ctrl/ngx-rightclick';
 
 import { CoreModule } from '@core/core.module';
@@ -41,8 +41,12 @@ import { CommonService } from './main/apps/user/common.service';
 import { MsalBroadcastService, MsalGuard, MsalGuardConfiguration, MsalInterceptor, MsalInterceptorConfiguration, MsalModule, MsalRedirectComponent, MsalService, MSAL_GUARD_CONFIG, MSAL_INSTANCE, MSAL_INTERCEPTOR_CONFIG } from '@azure/msal-angular';
 import { InteractionType, IPublicClientApplication, PublicClientApplication } from '@azure/msal-browser';
 import { loginRequest, msalConfig, protectedResources } from './auth-config';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;
 
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 const appRoutes: Routes = [
   {
@@ -142,7 +146,14 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     }), null, null),
     NgbModule,
     ToastrModule.forRoot(),
-    TranslateModule.forRoot(),
+    TranslateModule.forRoot({
+      loader: {
+          provide: TranslateLoader,
+          useFactory: (createTranslateLoader),
+          deps: [HttpClient]
+      },
+      defaultLanguage: 'en'
+  }),
     ContextMenuModule,
     CoreModule.forRoot(coreConfig),
     CoreCommonModule,

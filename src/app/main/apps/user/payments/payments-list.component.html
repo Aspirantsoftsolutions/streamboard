@@ -4,7 +4,7 @@
     <section class="users-list-wrapper">
       <!-- users filter start -->
       <!-- <div class="card">
-        <h5 class="card-header">Search Filter</h5>
+        <h5 class="card-header">{{ 'Search Filter' | translate }}</h5>
         <div class="card-body">
           <div class="users-list-filter">
             <form>
@@ -82,11 +82,13 @@
         </div>
         <ngx-datatable [rows]="rows" [rowHeight]="50" class="bootstrap core-bootstrap" [limit]="selectedOption"
           [columnMode]="ColumnMode.force" [headerHeight]="50" [footerHeight]="50" [scrollbarH]="true">
-          <ngx-datatable-column name="organisation" prop="clientId.organisation" [width]="200"></ngx-datatable-column>
-          <ngx-datatable-column name="email" prop="clientId.email" [width]="200"></ngx-datatable-column>
-          <ngx-datatable-column name="amount" prop="amount" [width]="100"> </ngx-datatable-column>
-          <ngx-datatable-column name="type" prop="paymentType" [width]="100"></ngx-datatable-column>
-          <ngx-datatable-column name="paymentDate" prop="paymentDate" [width]="100">
+          <ngx-datatable-column name="{{'organisation'| translate }}" prop="clientId.organisation"
+            [width]="200"></ngx-datatable-column>
+          <ngx-datatable-column name="{{'email'| translate }}" prop="clientId.email"
+            [width]="200"></ngx-datatable-column>
+          <ngx-datatable-column name="{{'amount'| translate }}" prop="amount" [width]="100"> </ngx-datatable-column>
+          <ngx-datatable-column name="{{'type'| translate }}" prop="paymentType" [width]="100"></ngx-datatable-column>
+          <ngx-datatable-column name="{{'paymentDate' | translate }}" prop="paymentDate" [width]="100">
             <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
               <div class="d-flex align-items-center">
                 <div class="cell-line-height">
@@ -95,7 +97,7 @@
               </div>
             </ng-template>
           </ngx-datatable-column>
-          <ngx-datatable-column name="comments" prop="comments" [width]="50"></ngx-datatable-column>
+          <ngx-datatable-column name="{{'comments'| translate }}" prop="comments" [width]="50"></ngx-datatable-column>
         </ngx-datatable>
       </div>
     </section>

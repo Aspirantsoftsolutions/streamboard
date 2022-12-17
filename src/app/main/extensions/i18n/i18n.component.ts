@@ -47,6 +47,10 @@ export class I18nComponent implements OnInit {
       pt: {
         title: 'Portuguese',
         flag: 'pt'
+      },
+      ar: {
+        title: "Arabic",
+        flag: 'ar'
       }
     };
 

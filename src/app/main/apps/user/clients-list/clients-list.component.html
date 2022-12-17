@@ -4,7 +4,7 @@
     <section class="users-list-wrapper">
       <!-- users filter start -->
       <div class="card">
-        <h5 class="card-header">Search Filter</h5>
+        <h5 class="card-header">{{ 'Search Filter' | translate }}</h5>
         <div class="card-body">
           <div class="users-list-filter">
             <form>
@@ -50,7 +50,7 @@
         </div>
         <div class="modal-body" tabindex="0" ngbAutofocus>
           <form action="#">
-            <label>Email: </label>
+            <label>{{'Email' | translate}}: </label>
             <div class="form-group">
               <input id="idemail" type="email" name="inviteEmail" placeholder="Email Address" class="form-control"
                 [(ngModel)]="emailInvite" />
@@ -123,7 +123,7 @@
         </div>
         <ngx-datatable [rows]="rows" [rowHeight]="50" class="bootstrap core-bootstrap" [limit]="selectedOption"
           [columnMode]="ColumnMode.force" [headerHeight]="50" [footerHeight]="50" [scrollbarH]="true">
-          <ngx-datatable-column name="Customers" prop="fullName" [width]="200">
+          <ngx-datatable-column name="{{'Customers'| translate}}" prop="fullName" [width]="200">
             <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
               <div class="d-flex align-items-center">
                 <div *ngIf="row.profile_pic.length > 0; else customAvatar">
@@ -147,10 +147,11 @@
               </div>
             </ng-template>
           </ngx-datatable-column>
-          <ngx-datatable-column name="Email" prop="email" [width]="200"></ngx-datatable-column>
-          <ngx-datatable-column name="Mobile Number" prop="mobile" [width]="100"></ngx-datatable-column>
-          <ngx-datatable-column name="Plan" prop="plan" [width]="100"></ngx-datatable-column>
-          <ngx-datatable-column name="Status" prop="status" [width]="50">
+          <ngx-datatable-column name="{{'Email'| translate}}" prop="email" [width]="200"></ngx-datatable-column>
+          <ngx-datatable-column name="{{'Mobile Number'| translate}}" prop="mobile"
+            [width]="100"></ngx-datatable-column>
+          <ngx-datatable-column name="{{'Plan'| translate}}" prop="plan" [width]="100"></ngx-datatable-column>
+          <ngx-datatable-column name="{{'Status'| translate}}" prop="status" [width]="50">
             <ng-template let-status="value" ngx-datatable-cell-template>
               <div class="badge badge-pill" [ngClass]="{
                   'badge-light-success': status == 'active',
@@ -161,7 +162,7 @@
               </div>
             </ng-template>
           </ngx-datatable-column>
-          <ngx-datatable-column name="Actions" [width]="40" [sortable]="false">
+          <ngx-datatable-column name="{{'Actions'| translate}}" [width]="40" [sortable]="false">
             <ng-template ngx-datatable-cell-template let-row="row">
               <div ngbDropdown container="body">
                 <button ngbDropdownToggle type="button" class="btn icon-btn btn-sm hide-arrow" rippleEffect>
@@ -171,7 +172,8 @@
                   <a (click)="statusChange(row.userId, false)" ngbDropdownItem
                     *ngIf="(row.isActive && row.status != 'pending')">
                     <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> InActive </a>
-                  <a (click)="statusChange(row.userId, true)" ngbDropdownItem *ngIf="!row.isActive || row.status == 'pending'">
+                  <a (click)="statusChange(row.userId, true)" ngbDropdownItem
+                    *ngIf="!row.isActive || row.status == 'pending'">
                     <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> Active </a>
                   <a (click)="toggleSidebarEdit('new-client-sidebar',row.userId)" ngbDropdownItem>
                     <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> Edit</a>
