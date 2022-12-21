@@ -3,6 +3,7 @@
   "version": "8.0.0",
   "scripts": {
     "ng": "ng",
+    "scr": "node script.js",
     "start": "set NODE_OPTIONS=--max_old_space_size=8192 & ng serve --open",
     "start-hmr": "ng serve --configuration hmr --source-map=false --hmr-warning=false",
     "start-hmr-sourcemaps": "ng serve --configuration hmr --source-map=true --hmr-warning=false",
@@ -44,7 +45,8 @@
     "@microsoft/microsoft-graph-client": "^3.0.2",
     "@ng-bootstrap/ng-bootstrap": "11.0.0-rc.0",
     "@ng-select/ng-select": "6.1.0",
-    "@ngx-translate/core": "13.0.0",
+    "@ngx-translate/core": "^14.0.0",
+    "@ngx-translate/http-loader": "^7.0.0",
     "@sweetalert2/ngx-sweetalert2": "8.1.1",
     "@swimlane/ngx-datatable": "19.0.0",
     "angular-in-memory-web-api": "0.11.0",
