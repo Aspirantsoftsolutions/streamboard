@@ -49,7 +49,7 @@
                     [items]="selectStatus"
                     [(ngModel)]="selectedStatus"
                     bindLabel="name"
-                    placeholder="Select Status"
+                    placeholder="{{'Select Status' | translate}}"
                     (change)="filterByStatus($event)"
                   ></ng-select>
                 </fieldset>

@@ -5,7 +5,7 @@
       <div class="col-xl-4 col-md-6 col-12" *ngIf="currentUser?.role == 'School'">
         <div class="card card-congratulation-medal">
           <div class="card-body">
-            <h3>You are in <b>{{ currentUser?.plan }} Plan</b>🎉</h3>
+            <h3>{{'You are in' | translate}} <b>{{ currentUser?.plan }} Plan</b>🎉</h3>
 
             <!-- <button type="button" class="btn btn-primary" rippleEffect>{{ currentUser?.plan }}</button> -->
             <!-- <img src="assets/images/illustration/badge.svg" class="congratulation-medal" alt="Medal Pic" /> -->
@@ -426,7 +426,7 @@
             <div class="revenue-report-wrapper">
               <div class="d-sm-flex justify-content-between align-items-center mb-3">
                 <h4 class="card-title mb-50 mb-sm-0">{{ item.revenueReport[0].name | translate}} {{['Teachers',
-                  'Students'].includes(item.revenueReport[0].name) ? 'Logins': 'Users'}}</h4>
+                  'Students'].includes(item.revenueReport[0].name) ? ('Logins' | translate): ('Users'| translate)}}</h4>
                 <div class="d-flex align-items-center">
                   <div class="d-flex align-items-center mr-2">
                     <span class="bullet bullet-primary font-small-3 mr-50 cursor-pointer"></span>

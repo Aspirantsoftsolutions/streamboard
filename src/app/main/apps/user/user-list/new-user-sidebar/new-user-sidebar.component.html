@@ -13,11 +13,11 @@
           ×
         </button>
         <div class="modal-header mb-1">
-          <h5 class="modal-title" id="exampleModalLabel">New User</h5>
+          <h5 class="modal-title" id="exampleModalLabel">{{'New User' | translate}}</h5>
         </div>
         <div class="modal-body flex-grow-1">
           <div class="form-group">
-            <label class="form-label" for="basic-icon-default-fullname">First Name</label>
+            <label class="form-label" for="basic-icon-default-fullname">{{'First Name' | translate}}</label>
             <input
               type="text"
               class="form-control dt-full-name"
@@ -32,11 +32,11 @@
               aria-describedby="basic-icon-default-fullname2"
             />
             <span *ngIf="newUserForm.submitted && FNameRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="FNameRef.errors.required">This field is required!</small>
+              <small class="form-text text-danger" *ngIf="FNameRef.errors.required">{{'This field is required!' | translate}}</small>
             </span>
           </div>
           <div class="form-group">
-            <label class="form-label" for="basic-icon-default-uname">Last Name</label>
+            <label class="form-label" for="basic-icon-default-uname">{{'Last Name' | translate}}</label>
             <input
               type="text"
               id="basic-icon-default-uname"
@@ -51,16 +51,16 @@
               required
             />
             <span *ngIf="newUserForm.submitted && FUserNameRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="FUserNameRef.errors.required">This field is required!</small>
+              <small class="form-text text-danger" *ngIf="FUserNameRef.errors.required">{{'This field is required!' | translate}}</small>
             </span>
           </div>
            <div class="form-group">
-             <label class="form-label" for="basic-icon-default-uname">Mobile Number</label>
+             <label class="form-label" for="basic-icon-default-uname">{{'Mobile Number' | translate}}</label>
              <input type="text" id="basic-icon-default-uname" class="form-control dt-uname" placeholder="mobile number"
                aria-label="jdoe1" aria-describedby="basic-icon-default-uname2" name="user-number" [(ngModel)]="mobilenumber"
                [class.error]="newUserForm.submitted && MUserNameRef.invalid" #MUserNameRef="ngModel" required />
              <span *ngIf="newUserForm.submitted && MUserNameRef.invalid" class="invalid-form">
-               <small class="form-text text-danger" *ngIf="MUserNameRef.errors.required">This field is required!</small>
+               <small class="form-text text-danger" *ngIf="MUserNameRef.errors.required">{{'This field is required!' | translate}}</small>
              </span>
            </div>
           <div class="form-group">
@@ -79,15 +79,15 @@
               required
             />
             <span *ngIf="newUserForm.submitted && FEmailRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="FEmailRef.errors.required">This field is required!</small>
+              <small class="form-text text-danger" *ngIf="FEmailRef.errors.required">{{'This field is required!' | translate}}</small>
             </span>
-            <small class="form-text text-muted"> You can use letters, numbers & periods </small>
+            <small class="form-text text-muted"> {{'You can use letters, numbers & periods' | translate}} </small>
           </div>
           <div class="form-group" >
-            <label class="form-label" for="user-role">User Role</label>
+            <label class="form-label" for="user-role">{{'User Role' | translate}}</label>
             <select id="user-role" class="form-control" id="role" name='role' [(ngModel)]="role">
-              <option value="Teacher">Teacher</option>
-              <option value="Student">Student</option>
+              <option value="Teacher">{{'Teacher' | translate}}</option>
+              <option value="Student">{{'Student' | translate}}</option>
             </select>
           </div>
           <!-- <div class="form-group mb-2">
@@ -99,16 +99,16 @@
             </select>
           </div> -->
           <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" *ngIf="!isToUpdate"
-            rippleEffect>Submit</button>
+            rippleEffect>{{'Submit' | translate}}</button>
           <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" *ngIf="isToUpdate"
-            rippleEffect>Update</button>
+            rippleEffect>{{'Update' | translate}}</button>
           <button
             type="reset"
             class="btn btn-outline-secondary"
             (click)="toggleSidebar('new-user-sidebar')"
             rippleEffect
           >
-            Cancel
+            {{'Cancel' | translate}}
           </button>
         </div>
       </form>

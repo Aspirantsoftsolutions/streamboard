@@ -19,12 +19,12 @@
     <!-- Reset password-->
     <div class="d-flex col-lg-5 align-items-center auth-bg px-2 p-lg-5">
       <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
-        <h2 class="card-title font-weight-bold mb-1">Notifications</h2>
-        <p class="card-text mb-2">Please send notifications by adding title and body</p>
+        <h2 class="card-title font-weight-bold mb-1">{{'Notifications' | translate}}</h2>
+        <p class="card-text mb-2">{{'Please send notifications by adding title and body' | translate}}</p>
         <form class="auth-reset-password-form mt-2" [formGroup]="notificationsForm" (ngSubmit)="onSubmit()">
           <div class="form-group">
             <div class="d-flex justify-content-between">
-              <label for="reset-password-new">Notification Title</label>
+              <label for="reset-password-new">{{'Notification Title' | translate}}</label>
             </div>
             <div class="input-group input-group-merge form-password-toggle">
               <input type="text" formControlName="title" name="title" class="form-control form-control-merge"
@@ -36,7 +36,7 @@
           </div>
           <div class="form-group">
             <div class="d-flex justify-content-between">
-              <label for="reset-password-confirm">Notification Body</label>
+              <label for="reset-password-confirm">{{'Notification Body' | translate}}</label>
             </div>
             <div class="input-group input-group-merge form-password-toggle">
               <textarea rows="4" cols="10" formControlName="body" class="form-control form-control-merge"
@@ -60,14 +60,14 @@
                 </ng-multiselect-dropdown>
               </div>
               <div style="margin-top: 20px;">
-                <ng-multiselect-dropdown formControlName="teachers" [placeholder]="'All Teachers'"
+                <ng-multiselect-dropdown formControlName="teachers" placeholder="{{'All Teachers' | translate}}"
                   [settings]="dropdownSettings" [data]="allTeachers" *ngIf="isSchool()" [(ngModel)]="selectedTeachers"
                   (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" name="teacher">
                 </ng-multiselect-dropdown>
               </div>
 
               <div style="margin-top: 20px;">
-                <ng-multiselect-dropdown formControlName="students" [placeholder]="'All Students'"
+                <ng-multiselect-dropdown formControlName="students" placeholder="{{'All Students' | translate}}"
                   [settings]="dropdownSettings" [data]="allStudents" *ngIf="isSchool() || isTeacher()" [(ngModel)]="selectedItems"
                   (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" name="student">
                 </ng-multiselect-dropdown>
@@ -75,8 +75,7 @@
             </div>
 
           </div>
-          <button [disabled]="!notificationsForm.valid" class="btn btn-primary btn-block" tabindex="3" rippleEffect>Send
-            Notification</button>
+          <button [disabled]="!notificationsForm.valid" class="btn btn-primary btn-block" tabindex="3" rippleEffect>{{'Send Notification' | translate}}</button>
         </form>
 
       </div>

@@ -4,6 +4,7 @@ import { ToastService } from 'app/main/components/toasts/toasts.service';
 import { Component, OnInit } from '@angular/core';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -25,7 +26,8 @@ export class AllDeviceSidebarComponent implements OnInit {
    */
   constructor(private _coreSidebarService: CoreSidebarService,
     private toastr: ToastrService,
-    private _commonService: CommonService,) {
+    private _commonService: CommonService,
+    private translate: TranslateService) {
     this._commonService.onUserEditListChanged.subscribe(response => {
       console.log('row', response);
       if (response != null) {

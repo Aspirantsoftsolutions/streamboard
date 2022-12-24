@@ -26,7 +26,7 @@
                     </div> -->
 
                     <div class="form-group">
-                        <label class="form-label" for="basic-icon-default-groupName">Group Name</label>
+                        <label class="form-label" for="basic-icon-default-groupName">{{'Group Name' | translate}}</label>
                         <input type="text" class="form-control dt-full-name" id="basic-icon-default-groupName"
                             placeholder="Device" name="groupName" [(ngModel)]="groupName"
                             [class.error]="newUserForm.submitted && FNameRef.invalid" #FNameRef="ngModel" required
@@ -40,12 +40,12 @@
 
 
                     <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" *ngIf="!isToUpdate"
-                        rippleEffect>Submit</button>
+                        rippleEffect>{{'Submit' | translate}}</button>
                     <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" *ngIf="isToUpdate"
-                        rippleEffect>Update</button>
+                        rippleEffect>{{'Update' | translate}}</button>
                     <button type="reset" class="btn btn-outline-secondary" (click)="toggleSidebar('device-groups-sidebar')"
                         rippleEffect>
-                        Cancel
+                        {{'Cancel' | translate}}
                     </button>
                 </div>
             </form>

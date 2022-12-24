@@ -32,7 +32,7 @@
               aria-describedby="basic-icon-default-fullname2"
             />
             <span *ngIf="newUserForm.submitted && FNameRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="FNameRef.errors.required">This field is required!</small>
+              <small class="form-text text-danger" *ngIf="FNameRef.errors.required">{{'This field is required!' | translate}}</small>
             </span>
           </div>
           <div class="form-group">
@@ -51,7 +51,7 @@
               required
             />
             <span *ngIf="newUserForm.submitted && FUserNameRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="FUserNameRef.errors.required">This field is required!</small>
+              <small class="form-text text-danger" *ngIf="FUserNameRef.errors.required">{{'This field is required!' | translate}}</small>
             </span>
           </div>
           <div class="form-group">
@@ -70,9 +70,9 @@
               required
             />
             <span *ngIf="newUserForm.submitted && FEmailRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="FEmailRef.errors.required">This field is required!</small>
+              <small class="form-text text-danger" *ngIf="FEmailRef.errors.required">{{'This field is required!' | translate}}</small>
             </span>
-            <small class="form-text text-muted"> You can use letters, numbers & periods </small>
+            <small class="form-text text-muted"> {{'You can use letters, numbers & periods' | translate}} </small>
           </div>
           <div class="form-group">
             <label class="form-label" for="user-role">User Role</label>
@@ -93,14 +93,14 @@
               <option value="team">Team</option>
             </select>
           </div>
-          <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" rippleEffect>Submit</button>
+          <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" rippleEffect>{{'Submit' | translate}}</button>
           <button
             type="reset"
             class="btn btn-outline-secondary"
             (click)="toggleSidebar('new-user-sidebar')"
             rippleEffect
           >
-            Cancel
+            {{'Cancel' | translate}}
           </button>
         </div>
       </form>

@@ -38,11 +38,11 @@ export class DeviceGroups implements OnInit {
     public emailInvite = '';
     disabled = true;
     public selectRole: any = [
-        { name: 'All', value: '' },
-        { name: 'School', value: 'School' },
-        { name: 'Teacher', value: 'Teacher' },
-        { name: 'Student', value: 'Student' },
-        { name: 'Class', value: 'Class' }
+        { name: this.translate.instant('All'), value: '' },
+        { name: this.translate.instant('School'), value: 'School' },
+        { name: this.translate.instant('Teacher'), value: 'Teacher' },
+        { name: this.translate.instant('Student'), value: 'Student' },
+        { name: this.translate.instant('Class'), value: 'Class' }
     ];
 
     public selectPlan: any = [
@@ -51,12 +51,11 @@ export class DeviceGroups implements OnInit {
         { name: 'Premium', value: 'Premium' },
         { name: 'Enterprise', value: 'Enterprise' },
     ];
-
     public selectStatus: any = [
-        { name: 'All', value: '' },
+        { name: this.translate.instant('All'), value: '' },
         // { name: 'Pending', value: 'Pending' },
-        { name: 'Active', value: 'Active' },
-        { name: 'Inactive', value: 'Inactive' }
+        { name: this.translate.instant('Active'), value: 'Active' },
+        { name: this.translate.instant('Inactive'), value: 'Inactive' }
     ];
 
     public selectedRole = [];

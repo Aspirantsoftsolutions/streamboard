@@ -79,7 +79,7 @@
                           />
                           <span *ngIf="accountForm.submitted && UserNameRef.invalid" class="invalid-form">
                             <small class="form-text text-danger" *ngIf="UserNameRef.errors.required"
-                              >This field is required!</small
+                              >{{'This field is required!' | translate}}</small
                             >
                           </span>
                         </div>
@@ -100,7 +100,7 @@
                           />
                           <span *ngIf="accountForm.submitted && FullNameRef.invalid" class="invalid-form">
                             <small class="form-text text-danger" *ngIf="FullNameRef.errors.required"
-                              >This field is required!</small
+                              >{{'This field is required!' | translate}}</small
                             >
                           </span>
                         </div>
@@ -121,7 +121,7 @@
                           />
                           <span *ngIf="accountForm.submitted && EmailRef.invalid" class="invalid-form">
                             <small class="form-text text-danger" *ngIf="EmailRef.errors.required"
-                              >This field is required!</small
+                              >{{'This field is required!' | translate}}</small
                             >
                           </span>
                         </div>
@@ -130,9 +130,9 @@
                         <div class="form-group">
                           <label for="status">Status</label>
                           <select class="form-control" [(ngModel)]="currentRow.status" name="status" id="status">
-                            <option>active</option>
-                            <option>inactive</option>
-                            <option>pending</option>
+                            <option>{{'active' | translate}}</option>
+                            <option>{{'inactive' | translate}}</option>
+                            <option>{{'pending' | translate}}</option>
                           </select>
                         </div>
                       </div>

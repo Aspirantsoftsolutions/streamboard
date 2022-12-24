@@ -23,15 +23,15 @@
                 <div class="card-body" *ngIf="currentUser.plan!='Basic'">
                   <h2>Social SSO </h2>
                   <p>
-                    You must be a Global Administrator in your Azure AD & Google Account.<br>
+                    {{'You must be a Global Administrator in your Azure AD & Google Account.' | translate}}<br>
 
-                    To install onboarding application, use the sign in button to proceed.
+                    {{'To install onboarding application, use the sign in button to proceed.' | translate}}
                   </p>
                   <div class="col-12 d-flex flex-sm-row flex-column mt-2">
 
                     <button type="submit" (click)="microSoftLogin()" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"
                       rippleEffect *ngIf="!loginDisplay">
-                      SignIn with Microsoft
+                      {{'SignIn with Microsoft' | translate}}
                     </button>
                     <button type="submit" (click)="logout()" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"
                       rippleEffect *ngIf="loginDisplay">
@@ -43,7 +43,7 @@
                   <div class="col-12 d-flex flex-sm-row flex-column mt-2">
                     <button type="submit" (click)="googleLogin()" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"
                       rippleEffect *ngIf="!gloginDisplay">
-                      SignIn with Google Workspace
+                      {{'SignIn with Google Workspace' | translate}}
                     </button>
                     <button type="submit" (click)="googleLogout()" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"
                       rippleEffect *ngIf="gloginDisplay">
@@ -67,7 +67,7 @@
                     <button type="submit" (click)="download('teacher')"
                       class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1" rippleEffect>
                       <span [data-feather]="'file'"></span>
-                      Teachers Template
+                      {{'Teachers Template' | translate}}
                     </button>
                     <!-- <label for="teachersFileUpload">Upload teachers template</label> -->
                     <input type="file" #csvReader name="Upload CSV" id="teachersFileUpload"
@@ -78,7 +78,7 @@
                     <button type="submit" (click)="download('student')"
                       class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1" rippleEffect>
                       <span [data-feather]="'file'"></span>
-                      Student Template
+                      {{'Student Template' | translate}}
                     </button>
                     <!-- <label for="StudentsFileUpload">Upload students Template</label> -->
                     <input type="file" #csvReader name="Upload CSV" id="StudentsFileUpload"

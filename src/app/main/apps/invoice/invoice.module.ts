@@ -29,6 +29,7 @@ import { InvoicePreviewComponent } from 'app/main/apps/invoice/invoice-preview/i
 import { InvoicePreviewService } from 'app/main/apps/invoice/invoice-preview/invoice-preview.service';
 import { AddPaymentSidebarPreviewComponent } from 'app/main/apps/invoice/invoice-preview/sidebar/add-payment-sidebar-preview/add-payment-sidebar-preview.component';
 import { SendInvoiceSidebarPreviewComponent } from 'app/main/apps/invoice/invoice-preview/sidebar/send-invoice-sidebar-preview/send-invoice-sidebar-preview.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 // routing
 const routes: Routes = [
@@ -97,7 +98,8 @@ const routes: Routes = [
     CorePipesModule,
     NgbModule,
     NgSelectModule,
-    CoreSidebarModule
+    CoreSidebarModule,
+    TranslateModule.forChild()
   ],
   providers: [InvoiceListService, InvoicePreviewService, InvoiceEditService, InvoiceAddService],
   exports: [InvoiceListComponent]

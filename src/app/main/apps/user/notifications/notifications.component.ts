@@ -9,6 +9,7 @@ import { CommonService } from 'app/main/apps/user/common.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { TranslateService } from '@ngx-translate/core';
 
 const atLeastOne = (validator: ValidatorFn, controls: string[] = null) => (
   group: FormGroup,
@@ -67,7 +68,7 @@ export class NotificationsComponent implements OnInit {
     private _coreConfigService: CoreConfigService,
     private toastr: ToastrService,
     private _router: Router,
-    private _formBuilder: FormBuilder) {
+    private _formBuilder: FormBuilder, private translate: TranslateService) {
     this._unsubscribeAll = new Subject();
 
   }

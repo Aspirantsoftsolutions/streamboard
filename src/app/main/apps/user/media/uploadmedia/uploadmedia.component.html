@@ -1,22 +1,22 @@
 <div class="notification">
-  
+
     <!-- Modal to add new user starts-->
     <div class="modalsd modal-slide-in sdfade new-user-modal" id="modals-slide-in">
         <div class="modal-dialog">
-           
+
             <form class="add-new-user modal-content pt-0" (ngSubmit)="(newUserForm.form.valid)" #newUserForm="ngForm">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"
                     (click)="toggleSidebar('app-uploadmedia-sidebar')">
                     ×
                 </button>
                 <div class="modal-header mb-1">
-                    <h5 class="modal-title" id="exampleModalLabel">New Device</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">{{'New Device' | translate}</h5>
                 </div>
                 <div class="modal-body flex-grow-1">
                     <div>
-                        <h3>Upload media</h3>
-                        <p>Max video file size : 300MB</p>
-                        <p>Max image file size : 5MB</p>
+                        <h3>{{'Upload media' | translate}}</h3>
+                        <p>{{'Max video file size' | translate}} : 300MB</p>
+                        <p>{{'Max image file size' | translate}} : 5MB</p>
                     </div>
                     <!-- <div class="header">
                             <div class="headerleft">
@@ -27,7 +27,7 @@
 
                     <div class="draganddrap">
                         <img src="../../../../../../assets/images/icons/upload-new.svg" alt="">
-                        <p>Darg and drop a media file to upload</p>
+                        <p>{{'Drag and drop a media file to upload' | translate}}</p>
                         <p>or</p>
                         <p> <input type="file" (change)="onImagePicked($event)" placeholder="Upload File" /> </p>
                     </div>
@@ -42,14 +42,14 @@
                     <div class="footerpopup">
                         <button type="reset" class="btn btn-outline-secondary mr-1"
                             (click)="toggleSidebar('app-uploadmedia-sidebar')" rippleEffect>
-                            Cancel
+                            {{'Cancel' | translate}}
                         </button>
                         <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)"
-                            *ngIf="isToUpdate" rippleEffect>Update</button>
+                            *ngIf="isToUpdate" rippleEffect>{{'Update' | translate}}</button>
 
                         <button type="submit" class="btn btn-primary " (click)="onImageUpload()" *ngIf="!isToUpdate"
                             rippleEffect [disabled]="loading"> <span *ngIf="loading"
-                                class="spinner-border spinner-border-sm mr-1"></span>Add</button>
+                                class="spinner-border spinner-border-sm mr-1"></span>{{'Add' | translate}}</button>
 
 
                     </div>

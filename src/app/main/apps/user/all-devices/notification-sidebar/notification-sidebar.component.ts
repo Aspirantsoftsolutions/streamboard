@@ -4,6 +4,7 @@ import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.s
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-notification-sidebar',
   templateUrl: './notification-sidebar.component.html',
@@ -34,7 +35,7 @@ export class NotificationSidebarComponent implements OnInit {
    */
   constructor(private _coreSidebarService: CoreSidebarService,
     private toastr: ToastrService,
-    private _commonService: CommonService,) {
+    private _commonService: CommonService, private translate: TranslateService) {
     this.classDropdownSettings = {
       singleSelection: false,
       idField: '_id',

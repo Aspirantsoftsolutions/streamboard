@@ -34,7 +34,8 @@
                                 <div class="col-12 col-md-3">
                                     <fieldset class="form-group">
                                         <ng-select [items]="selectStatus" [(ngModel)]="selectedStatus"
-                                            name="selectedStatus" bindLabel="name" placeholder="Select Status"
+                                            name="selectedStatus" bindLabel="name"
+                                            placeholder="{{'Select Status' | translate}}"
                                             (change)="filterByStatus($event)"></ng-select>
                                     </fieldset>
                                 </div>
@@ -42,12 +43,12 @@
                                     <fieldset class="form-group totalactive">
 
                                         <div>
-                                            <label>Total active devices :</label>
+                                            <label>{{"Total active devices" | translate}} :</label>
                                             {{rows.length}}
                                         </div>
                                         |
                                         <div>
-                                            <label> Total inactive devices :</label>
+                                            <label> {{'Total inactive devices' | translate}} :</label>
                                             0
                                         </div>
                                     </fieldset>
@@ -93,14 +94,14 @@
                         <div class="row">
                             <div class="col-md-4 col-12">
                                 <div class="d-flex justify-content-between align-items-center m-1">
-                                    <label class="d-flex align-items-center">Show
+                                    <label class="d-flex align-items-center">{{'Show' | translate}}
                                         <select class="form-control mx-25" [(ngModel)]="selectedOption">
                                             <option value="10">10</option>
                                             <option value="25">25</option>
                                             <option value="50">50</option>
                                             <option value="100">100</option>
                                         </select>
-                                        entries</label>
+                                        {{'entries' | translate}}</label>
                                 </div>
                             </div>
                             <div class="col-md-5 col-4 d-flex justify-content-start justify-content-md-end">
@@ -124,24 +125,24 @@
                                             class="d-none d-sm-inline-block">Multimedia</span>
                                     </button> -->
 
-                                    <button class="dropbtn btn btn-primary" (click)="deleteGroup()">Delete
-                                        Group</button>
+                                    <button class="dropbtn btn btn-primary" (click)="deleteGroup()">{{ 'Delete Group' |
+                                        translate}}</button>
                                     <button class="dropbtn btn btn-primary" *ngIf="chkBoxSelected.length"
-                                        (click)="addBulkCreds()">Add Credentials</button>
+                                        (click)="addBulkCreds()">{{'Add Credentials' | translate}}</button>
                                     <div class="mdropdown">
-                                        <button class="dropbtn btn btn-primary"
-                                            [disabled]="disabled">Broadcasting</button>
+                                        <button class="dropbtn btn btn-primary" [disabled]="disabled">{{'Broadcasting' |
+                                            translate}</button>
                                         <div class="mdropdown-content" *ngIf="!disabled">
                                             <a class="" rippleEffect (click)="toggleSidebar('notification-sidebar')">
                                                 <i data-feather="plus"
                                                     class="d-sm-none d-inline-block mr-0 mr-sm-1"></i><span
-                                                    class="d-none d-sm-inline-block">Message</span>
+                                                    class="d-none d-sm-inline-block">{{'Message' | translate}}</span>
                                             </a>
 
                                             <a class="" rippleEffect (click)="toggleSidebar('app-multimedia-sidebar')">
                                                 <i data-feather="plus"
                                                     class="d-sm-none d-inline-block mr-0 mr-sm-1"></i><span
-                                                    class="d-none d-sm-inline-block">Multimedia</span>
+                                                    class="d-none d-sm-inline-block">{{'Multimedia' | translate}}</span>
                                             </a>
 
                                         </div>
@@ -230,11 +231,11 @@
                                                         ngbDropdownItem>
                                                         <span [data-feather]="'edit'" [size]="16"
                                                             [class]="'mr-50'"></span>
-                                                        Edit</a>
+                                                        {{'Edit' | translate}}</a>
                                                     <a (click)="deleteDeviceFromGroup(row._id)" ngbDropdownItem>
                                                         <span [data-feather]="'trash'" [size]="16"
                                                             [class]="'mr-50'"></span>
-                                                        Delete</a>
+                                                        {{'Delete' | translate}}</a>
                                                 </div>
                                             </div>
                                         </ng-template>
@@ -252,26 +253,26 @@
                             <div class="div-devicepanel">
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <h4>Remote Control</h4>
+                                        <h4>{{"Remote Control" | translate}}</h4>
                                         <hr />
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <div class="colbox" (click)="sendCommand('PowerOff')">
-                                            <p>Power Off</p>
+                                            <p>{{'Power Off' | translate}}</p>
                                             <img src="../../../../../assets/images/icons/power.png" alt="" />
                                         </div>
                                     </div>
                                     <div class="col-sm-4 restart" (click)="sendCommand('Restart')">
                                         <div class="colbox">
-                                            <p>Restart</p>
+                                            <p>{{'Restart' | translate}}</p>
                                             <img src="../../../../../assets/images/icons/restart.png" alt="" />
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="colbox " (click)="sendCommand('Sleep')">
-                                            <p>Lock</p>
+                                            <p>{{'Lock' | translate}}</p>
                                             <img src="../../../../../assets/images/icons/lock.png" alt="" />
                                         </div>
                                     </div>
@@ -280,13 +281,13 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="colbox video" (click)="sendCommand('Sleep')">
-                                            <p>Sleep</p>
+                                            <p>{{'Sleep' | translate}}</p>
                                             <img src="../../../../../assets/images/icons/sleep.png" alt="" />
                                         </div>
                                     </div>
                                     <div class="col-sm-6 pause" (click)="sendCommand('WakeUp')">
                                         <div class="colbox">
-                                            <p>Wakeup</p>
+                                            <p>{{'Wakeup' | translate}}</p>
                                             <img src="../../../../../assets/images/icons/wakeup.png" alt="" />
                                         </div>
                                     </div>
@@ -300,7 +301,7 @@
                                                 <input type="text" class="form-control" />
                                             </div>
                                             <div class="col-sm-1">
-                                                <button class="btn primary-btn">Submit</button>
+                                                <button class="btn primary-btn">{{'Submit' | translate}}</button>
                                             </div>
                                         </div>
                                     </div>

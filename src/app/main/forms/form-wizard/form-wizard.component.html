@@ -70,7 +70,7 @@
                     />
                     <span *ngIf="accountDetailsForm.submitted && TDNameRef.invalid" class="invalid-form">
                       <small class="form-text text-danger" *ngIf="TDNameRef.errors.required"
-                        >This field is required!</small
+                        >{{'This field is required!' | translate}}</small
                       >
                     </span>
                   </div>
@@ -193,7 +193,7 @@
                     />
                     <span *ngIf="personalInfoForm.submitted && TDFirstNameRef.invalid" class="invalid-form">
                       <small class="form-text text-danger" *ngIf="TDFirstNameRef.errors.required"
-                        >This field is required!</small
+                        >{{'This field is required!' | translate}}</small
                       >
                     </span>
                   </div>
@@ -212,7 +212,7 @@
                     />
                     <span *ngIf="personalInfoForm.submitted && TDLastNameRef.invalid" class="invalid-form">
                       <small class="form-text text-danger" *ngIf="TDLastNameRef.errors.required"
-                        >This field is required!</small
+                        >{{'This field is required!' | translate}}</small
                       >
                     </span>
                   </div>
@@ -286,7 +286,7 @@
                     />
                     <span *ngIf="addressForm.submitted && addressRef.invalid" class="invalid-form">
                       <small class="form-text text-danger" *ngIf="addressRef.errors.required"
-                        >This field is required!</small
+                        >{{'This field is required!' | translate}}</small
                       >
                     </span>
                   </div>
@@ -305,7 +305,7 @@
                     />
                     <span *ngIf="addressForm.submitted && landmarkRef.invalid" class="invalid-form">
                       <small class="form-text text-danger" *ngIf="landmarkRef.errors.required"
-                        >This field is required!</small
+                        >{{'This field is required!' | translate}}</small
                       >
                     </span>
                   </div>
@@ -364,7 +364,7 @@
                     />
                     <span *ngIf="socialLinkForm.submitted && twitterkRef.invalid" class="invalid-form">
                       <small class="form-text text-danger" *ngIf="twitterkRef.errors.required"
-                        >This field is required!</small
+                        >{{'This field is required!' | translate}}</small
                       >
                     </span>
                   </div>
@@ -383,7 +383,7 @@
                     />
                     <span *ngIf="socialLinkForm.submitted && facebookRef.invalid" class="invalid-form">
                       <small class="form-text text-danger" *ngIf="facebookRef.errors.required"
-                        >This field is required!</small
+                        >{{'This field is required!' | translate}}</small
                       >
                     </span>
                   </div>
@@ -404,7 +404,7 @@
                     />
                     <span *ngIf="socialLinkForm.submitted && googleRef.invalid" class="invalid-form">
                       <small class="form-text text-danger" *ngIf="googleRef.errors.required"
-                        >This field is required!</small
+                        >{{'This field is required!' | translate}}</small
                       >
                     </span>
                   </div>
@@ -423,7 +423,7 @@
                     />
                     <span *ngIf="socialLinkForm.submitted && linkedinRef.invalid" class="invalid-form">
                       <small class="form-text text-danger" *ngIf="linkedinRef.errors.required"
-                        >This field is required!</small
+                        >{{'This field is required!' | translate}}</small
                       >
                     </span>
                   </div>
@@ -438,7 +438,7 @@
                     <i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
                     <span class="align-middle d-sm-inline-block d-none">Previous</span>
                   </button>
-                  <button class="btn btn-success btn-submit" rippleEffect (click)="onSubmit()">Submit</button>
+                  <button class="btn btn-success btn-submit" rippleEffect (click)="onSubmit()">{{'Submit' | translate}}</button>
                 </div>
               </form>
             </div>
@@ -668,7 +668,7 @@
                 <i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
                 <span class="align-middle d-sm-inline-block d-none">Previous</span>
               </button>
-              <button class="btn btn-success btn-submit" rippleEffect (click)="onSubmit()">Submit</button>
+              <button class="btn btn-success btn-submit" rippleEffect (click)="onSubmit()">{{'Submit' | translate}}</button>
             </div>
           </div>
         </div>
@@ -908,7 +908,7 @@
                 <i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
                 <span class="align-middle d-sm-inline-block d-none">Previous</span>
               </button>
-              <button class="btn btn-success btn-submit" rippleEffect (click)="onSubmit()">Submit</button>
+              <button class="btn btn-success btn-submit" rippleEffect (click)="onSubmit()">{{'Submit' | translate}}</button>
             </div>
           </div>
         </div>
@@ -1159,7 +1159,7 @@
                 <i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
                 <span class="align-middle d-sm-inline-block d-none">Previous</span>
               </button>
-              <button class="btn btn-success btn-submit" rippleEffect (click)="onSubmit()">Submit</button>
+              <button class="btn btn-success btn-submit" rippleEffect (click)="onSubmit()">{{'Submit' | translate}}</button>
             </div>
           </div>
         </div>

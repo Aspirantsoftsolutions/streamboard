@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 import * as snippet from 'app/main/forms/form-layout/form-layout.snippetcode';
 
@@ -16,7 +17,7 @@ export class FormLayoutComponent implements OnInit {
   public _snippetCodeVertiacalIcons = snippet.snippetCodeVertiacalIcons;
   public _snippetCodeMultiple = snippet.snippetCodeMultiple;
 
-  constructor() {}
+  constructor(private translate: TranslateService) {}
 
   ngOnInit() {
     // content header

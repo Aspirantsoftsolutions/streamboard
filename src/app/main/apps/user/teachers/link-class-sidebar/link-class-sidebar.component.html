@@ -18,14 +18,14 @@
         <div class="modal-body flex-grow-1">
          
            <div class="form-group">
-            <label class="form-label" for="class">Select Class</label>
+            <label class="form-label" for="class">{{'Select Class' | translate}}</label>
             <select id="class" class="form-control" name='class'  [(ngModel)]="class">
               <option value="{{itemp.userId}}" *ngFor="let itemp of classes">{{itemp.className}}</option>
             </select>
           </div>
 
           <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserFormt)"
-            rippleEffect>Submit</button>
+            rippleEffect>{{'Submit' | translate}}</button>
           
           <button
             type="reset"
@@ -33,7 +33,7 @@
             (click)="toggleSidebar('link-class-sidebar')"
             rippleEffect
           >
-            Cancel
+            {{'Cancel' | translate}}
           </button>
         </div>
       </form>

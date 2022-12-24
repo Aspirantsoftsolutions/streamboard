@@ -17,7 +17,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./classes-list.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-  
+
 export class ClassesListComponent implements OnInit {
   // Public
   public sidebarToggleRef = false;
@@ -30,12 +30,12 @@ export class ClassesListComponent implements OnInit {
   public previousStatusFilter = '';
 
   public selectRole: any = [
-    { name: 'All', value: '' },
-    { name: 'Admin', value: 'Admin' },
-    { name: 'Author', value: 'Author' },
-    { name: 'Editor', value: 'Editor' },
-    { name: 'Maintainer', value: 'Maintainer' },
-    { name: 'Subscriber', value: 'Subscriber' }
+    { name: this.translate.instant('All'), value: '' },
+    { name: this.translate.instant('Admin'), value: 'Admin' },
+    { name: this.translate.instant('Author'), value: 'Author' },
+    { name: this.translate.instant('Editor'), value: 'Editor' },
+    { name: this.translate.instant('Maintainer'), value: 'Maintainer' },
+    { name: this.translate.instant('Subscriber'), value: 'Subscriber' }
   ];
 
   public selectPlan: any = [
@@ -47,10 +47,10 @@ export class ClassesListComponent implements OnInit {
   ];
 
   public selectStatus: any = [
-    { name: 'All', value: '' },
-    { name: 'Pending', value: 'Pending' },
-    { name: 'Active', value: 'Active' },
-    { name: 'Inactive', value: 'Inactive' }
+    { name: this.translate.instant('All'), value: '' },
+    { name: this.translate.instant('Pending'), value: 'Pending' },
+    { name: this.translate.instant('Active'), value: 'Active' },
+    { name: this.translate.instant('Inactive'), value: 'Inactive' }
   ];
 
   public selectedRole = [];

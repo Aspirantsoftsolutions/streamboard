@@ -23,6 +23,7 @@ type ProfileType = {
   id?: string
 }
 import * as msal from "@azure/msal-browser";
+import { TranslateService } from '@ngx-translate/core';
 
 
 const msalInstance = new msal.PublicClientApplication(msalConfig);
@@ -125,7 +126,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private _commonService: CommonService,
     private csvService: CsvService,
     private bulkUploadService: BulkUploadService,
-    private _toastrService: ToastrService
+    private _toastrService: ToastrService,
+    private translate:TranslateService
   ) {
     this.currentUser = this._commonService.getCurrentUser();
     // this.teacherTemplateData.schoolId = this.currentUser.userId;

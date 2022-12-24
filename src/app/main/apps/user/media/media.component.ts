@@ -15,6 +15,7 @@ import { GraphService, ProviderOptions } from '../sso/graph.service';
 import { InteractionType } from '@azure/msal-browser';
 import { protectedResources } from '../../../../auth-config';
 import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-media',
@@ -48,6 +49,7 @@ export class MediaComponent implements OnInit {
     private userService: UserViewService,
     private graphService: GraphService,
     private _toastrService: ToastrService,
+    private translate: TranslateService
 
   ) {
 

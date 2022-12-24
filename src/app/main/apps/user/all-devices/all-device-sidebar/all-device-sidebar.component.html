@@ -8,7 +8,7 @@
                     ×
                 </button>
                 <div class="modal-header mb-1">
-                    <h5 class="modal-title" id="exampleModalLabel">New Device</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">{{"New Device" | translate}}</h5>
                 </div>
                 <div class="modal-body flex-grow-1">
 
@@ -20,54 +20,53 @@
                             [class.error]="newUserForm.submitted && FUserNameRef.invalid" #FUserNameRef="ngModel"
                             required />
                         <span *ngIf="newUserForm.submitted && FUserNameRef.invalid" class="invalid-form">
-                            <small class="form-text text-danger" *ngIf="FUserNameRef.errors.required">This field is
-                                required!</small>
+                            <small class="form-text text-danger" *ngIf="FUserNameRef.errors.required">{{'This field is required!' | translate}}</small>
                         </span>
                     </div> -->
 
                     <div class="form-group">
-                        <label class="form-label" for="basic-icon-default-deviceName">Device Name</label>
+                        <label class="form-label" for="basic-icon-default-deviceName">{{'Device Name' |
+                            translate}}</label>
                         <input type="text" class="form-control dt-full-name" id="basic-icon-default-deviceName"
                             placeholder="Device" name="deviceName" [(ngModel)]="deviceName"
                             [class.error]="newUserForm.submitted && FNameRef.invalid" #FNameRef="ngModel" required
                             aria-label="Device" aria-describedby="basic-icon-default-deviceName2" />
                         <span *ngIf="newUserForm.submitted && FNameRef.invalid" class="invalid-form">
-                            <small class="form-text text-danger" *ngIf="FNameRef.errors.required">This field is
-                                required!</small>
+                            <small class="form-text text-danger" *ngIf="FNameRef.errors.required">{{'This field is required!' | translate}}</small>
                         </span>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label" for="basic-icon-default-deviceUserName">Device User Name</label>
+                        <label class="form-label" for="basic-icon-default-deviceUserName">{{'Device User Name' |
+                            translate}}</label>
                         <input type="text" class="form-control dt-full-name" id="basic-icon-default-deviceUserName"
                             placeholder="Device" name="deviceUserName" [(ngModel)]="deviceUserName"
                             [class.error]="newUserForm.submitted && FNameRef.invalid" #FNameRef="ngModel" required
                             aria-label="Device" aria-describedby="basic-icon-default-deviceUserName2" />
                         <span *ngIf="newUserForm.submitted && FNameRef.invalid" class="invalid-form">
-                            <small class="form-text text-danger" *ngIf="FNameRef.errors.required">This field is
-                                required!</small>
+                            <small class="form-text text-danger" *ngIf="FNameRef.errors.required">{{'This field is required!' | translate}}</small>
                         </span>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label" for="basic-icon-default-devicePass">Device Password</label>
+                        <label class="form-label" for="basic-icon-default-devicePass">{{'Device Password' |
+                            translate}}</label>
                         <input type="text" class="form-control dt-full-name" id="basic-icon-default-devicePass"
                             placeholder="Device" name="devicePass" [(ngModel)]="devicePass"
                             [class.error]="newUserForm.submitted && FNameRef.invalid" #FNameRef="ngModel" required
                             aria-label="Device" aria-describedby="basic-icon-default-devicePass2" />
                         <span *ngIf="newUserForm.submitted && FNameRef.invalid" class="invalid-form">
-                            <small class="form-text text-danger" *ngIf="FNameRef.errors.required">This field is
-                                required!</small>
+                            <small class="form-text text-danger" *ngIf="FNameRef.errors.required">{{'This field is required!' | translate}}</small>
                         </span>
                     </div>
 
                     <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" *ngIf="!isToUpdate"
-                        rippleEffect>Submit</button>
+                        rippleEffect>{{'Submit' | translate}}</button>
                     <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" *ngIf="isToUpdate"
-                        rippleEffect>Update</button>
+                        rippleEffect>{{'Update' | translate}}</button>
                     <button type="reset" class="btn btn-outline-secondary" (click)="toggleSidebar('all-device-sidebar')"
                         rippleEffect>
-                        Cancel
+                        {{'Cancel' | translate}}
                     </button>
                 </div>
             </form>

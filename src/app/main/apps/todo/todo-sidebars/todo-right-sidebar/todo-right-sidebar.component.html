@@ -62,7 +62,7 @@
               required
             />
             <span *ngIf="todoForm.submitted && TDNameRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="TDNameRef.errors.required">This field is required!</small>
+              <small class="form-text text-danger" *ngIf="TDNameRef.errors.required">{{'This field is required!' | translate}}</small>
             </span>
           </div>
           <div class="form-group position-relative">
@@ -147,7 +147,7 @@
             (click)="updateTodo()"
             rippleEffect
           >
-            Update
+            {{'Update' | translate}}
           </button>
           <button
             class="btn btn-outline-secondary add-todo-item"

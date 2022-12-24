@@ -32,7 +32,7 @@
               aria-describedby="basic-icon-default-fullname2"
             />
             <span *ngIf="newUserForm.submitted && FNameRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="FNameRef.errors.required">This field is required!</small>
+              <small class="form-text text-danger" *ngIf="FNameRef.errors.required">{{'This field is required!' | translate}}</small>
             </span>
           </div>
           
@@ -52,7 +52,7 @@
               aria-describedby="basic-icon-default-fullname2"
             />
             <span *ngIf="newUserForm.submitted && MNameRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="MNameRef.errors.required">This field is required!</small>
+              <small class="form-text text-danger" *ngIf="MNameRef.errors.required">{{'This field is required!' | translate}}</small>
             </span>
           </div>
 
@@ -72,9 +72,9 @@
               required
             />
             <span *ngIf="newUserForm.submitted && FEmailRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="FEmailRef.errors.required">This field is required!</small>
+              <small class="form-text text-danger" *ngIf="FEmailRef.errors.required">{{'This field is required!' | translate}}</small>
             </span>
-            <small class="form-text text-muted"> You can use letters, numbers & periods </small>
+            <small class="form-text text-muted"> {{'You can use letters, numbers & periods' | translate}} </small>
           </div>
 
           <div class="form-group">
@@ -93,9 +93,9 @@
               required
             />
             <span *ngIf="newUserForm.submitted && FEmailRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="FEmailRef.errors.required">This field is required!</small>
+              <small class="form-text text-danger" *ngIf="FEmailRef.errors.required">{{'This field is required!' | translate}}</small>
             </span>
-            <small class="form-text text-muted"> You can use letters, numbers & periods </small>
+            <small class="form-text text-muted"> {{'You can use letters, numbers & periods' | translate}} </small>
           </div>
           
           <div class="form-group">
@@ -114,7 +114,7 @@
               aria-describedby="basic-icon-default-fullname2"
             />
             <span *ngIf="newUserForm.submitted && ANameRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="ANameRef.errors.required">This field is required!</small>
+              <small class="form-text text-danger" *ngIf="ANameRef.errors.required">{{'This field is required!' | translate}}</small>
             </span>
           </div>
 
@@ -134,21 +134,21 @@
               aria-describedby="basic-icon-default-fullname2"
             />
             <span *ngIf="newUserForm.submitted && LNameRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="LNameRef.errors.required">This field is required!</small>
+              <small class="form-text text-danger" *ngIf="LNameRef.errors.required">{{'This field is required!' | translate}}</small>
             </span>
           </div>
 
           <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" *ngIf="!isToUpdate"
-            rippleEffect>Submit</button>
+            rippleEffect>{{'Submit' | translate}}</button>
           <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" *ngIf="isToUpdate"
-            rippleEffect>Update</button>
+            rippleEffect>{{'Update' | translate}}</button>
           <button
             type="reset"
             class="btn btn-outline-secondary"
             (click)="toggleSidebar('new-schools-sidebar')"
             rippleEffect
           >
-            Cancel
+            {{'Cancel' | translate}}
           </button>
         </div>
       </form>

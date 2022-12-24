@@ -32,7 +32,7 @@
               required
             />
             <span *ngIf="newUserForm.submitted && FUserNameRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="FUserNameRef.errors.required">This field is required!</small>
+              <small class="form-text text-danger" *ngIf="FUserNameRef.errors.required">{{'This field is required!' | translate}}</small>
             </span>
           </div>
 
@@ -52,7 +52,7 @@
               aria-describedby="basic-icon-default-fullname2"
             />
             <span *ngIf="newUserForm.submitted && OwnerNameRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="OwnerNameRef.errors.required">This field is required!</small>
+              <small class="form-text text-danger" *ngIf="OwnerNameRef.errors.required">{{'This field is required!' | translate}}</small>
             </span>
           </div>
           
@@ -71,9 +71,9 @@
               #FEmailRef="ngModel"
               required/>
             <span *ngIf="newUserForm.submitted && FEmailRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="FEmailRef.errors.required">This field is required!</small>
+              <small class="form-text text-danger" *ngIf="FEmailRef.errors.required">{{'This field is required!' | translate}}</small>
             </span>
-            <small class="form-text text-muted"> You can use letters, numbers & periods </small>
+            <small class="form-text text-muted"> {{'You can use letters, numbers & periods' | translate}} </small>
           </div>
 
            <div class="form-group">
@@ -82,7 +82,7 @@
                aria-label="jdoe1" aria-describedby="basic-icon-default-uname2" name="user-number" [(ngModel)]="mobilenumber"
                [class.error]="newUserForm.submitted && MUserNameRef.invalid" #MUserNameRef="ngModel" required />
              <span *ngIf="newUserForm.submitted && MUserNameRef.invalid" class="invalid-form">
-               <small class="form-text text-danger" *ngIf="MUserNameRef.errors.required">This field is required!</small>
+               <small class="form-text text-danger" *ngIf="MUserNameRef.errors.required">{{'This field is required!' | translate}}</small>
              </span>
            </div>
 
@@ -94,7 +94,7 @@
               #addressRef="ngModel" required aria-label="John Doe"
               aria-describedby="basic-icon-default-fullname2" />
             <span *ngIf="newUserForm.submitted && addressRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="addressRef.errors.required">This field is required!</small>
+              <small class="form-text text-danger" *ngIf="addressRef.errors.required">{{'This field is required!' | translate}}</small>
             </span>
           </div>
 
@@ -106,7 +106,7 @@
               #firstNameRef="ngModel" required aria-label="John Doe"
               aria-describedby="basic-icon-default-fullname2" />
             <span *ngIf="newUserForm.submitted && firstNameRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="firstNameRef.errors.required">This field is required!</small>
+              <small class="form-text text-danger" *ngIf="firstNameRef.errors.required">{{'This field is required!' | translate}}</small>
             </span>
           </div>
 
@@ -118,7 +118,7 @@
               #LNameRef="ngModel" required aria-label="John Doe"
               aria-describedby="basic-icon-default-fullname2" />
             <span *ngIf="newUserForm.submitted && LNameRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="LNameRef.errors.required">This field is required!</small>
+              <small class="form-text text-danger" *ngIf="LNameRef.errors.required">{{'This field is required!' | translate}}</small>
             </span>
           </div>
 
@@ -137,9 +137,9 @@
               #FEmailRef="ngModel"
               required/>
             <span *ngIf="newUserForm.submitted && FEmailRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="FEmailRef.errors.required">This field is required!</small>
+              <small class="form-text text-danger" *ngIf="FEmailRef.errors.required">{{'This field is required!' | translate}}</small>
             </span>
-            <small class="form-text text-muted"> You can use letters, numbers & periods </small>
+            <small class="form-text text-muted"> {{'You can use letters, numbers & periods' | translate}} </small>
           </div>
           
           <div class="form-group">
@@ -155,20 +155,20 @@
                 required ></ng-select>
             </fieldset>
             <span *ngIf="newUserForm.submitted && FPlanRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="FPlanRef.errors.required">This field is required!</small>
+              <small class="form-text text-danger" *ngIf="FPlanRef.errors.required">{{'This field is required!' | translate}}</small>
             </span>
             <small class="form-text text-muted"> Please select a plan </small>
           </div>
           <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" *ngIf="!isToUpdate"
-            rippleEffect>Submit</button>
+            rippleEffect>{{'Submit' | translate}}</button>
             <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" *ngIf="isToUpdate"
-              rippleEffect>Update</button>
+              rippleEffect>{{'Update' | translate}}</button>
           <button
             type="reset"
             class="btn btn-outline-secondary"
             (click)="toggleSidebar('new-client-sidebar')"
             rippleEffect>
-            Cancel
+            {{'Cancel' | translate}}
           </button>
         </div>
       </form>

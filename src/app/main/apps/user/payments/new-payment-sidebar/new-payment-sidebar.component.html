@@ -25,7 +25,7 @@
               required aria-label="John Doe" aria-describedby="basic-icon-default-fullName2" [disabled]="disableFields"
               name="fullName" />
             <span *ngIf="newUserForm.submitted && FNameRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="FNameRef.errors.required">This field is required!</small>
+              <small class="form-text text-danger" *ngIf="FNameRef.errors.required">{{'This field is required!' | translate}}</small>
             </span>
           </div>
           <div class="form-group">
@@ -35,7 +35,7 @@
               [class.error]="newUserForm.submitted && FUserNameRef.invalid" #FUserNameRef="ngModel" required
               [disabled]="disableFields" name="username" />
             <span *ngIf="newUserForm.submitted && FUserNameRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="FUserNameRef.errors.required">This field is required!</small>
+              <small class="form-text text-danger" *ngIf="FUserNameRef.errors.required">{{'This field is required!' | translate}}</small>
             </span>
           </div>
           <div class="form-group">
@@ -45,9 +45,9 @@
               [(ngModel)]="email" name="email" [class.error]="newUserForm.submitted && FEmailRef.invalid"
               #FEmailRef="ngModel" required [disabled]="disableFields" />
             <span *ngIf="newUserForm.submitted && FEmailRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="FEmailRef.errors.required">This field is required!</small>
+              <small class="form-text text-danger" *ngIf="FEmailRef.errors.required">{{'This field is required!' | translate}}</small>
             </span>
-            <small class="form-text text-muted"> You can use letters, numbers & periods </small>
+            <small class="form-text text-muted"> {{'You can use letters, numbers & periods' | translate}} </small>
           </div>
           <div class="form-group">
             <label class="form-label" for="basic-icon-default-amount">{{'Amount'| translate}}</label>
@@ -55,7 +55,7 @@
               aria-describedby="basic-icon-default-amount2" name="amount" [(ngModel)]="amount"
               [class.error]="newUserForm.submitted && FamountRef.invalid" #FamountRef="ngModel" required />
             <span *ngIf="newUserForm.submitted && FamountRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="FamountRef.errors.required">This field is required!</small>
+              <small class="form-text text-danger" *ngIf="FamountRef.errors.required">{{'This field is required!' | translate}}</small>
             </span>
             <small class="form-text text-muted"> You can use number only </small>
           </div>
@@ -77,7 +77,7 @@
               <option value="banktransfer">{{'Bank Trasfer'| translate}}</option>
             </select>
             <span *ngIf="newUserForm.submitted && FpaymentRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="FpaymentRef.errors.required">This field is required!</small>
+              <small class="form-text text-danger" *ngIf="FpaymentRef.errors.required">{{'This field is required!' | translate}}</small>
             </span>
             <small class="form-text text-muted"> please select one </small>
           </div>
@@ -86,10 +86,10 @@
             <textarea class="form-control" name="comments" id="comments" cols="30" rows="5"
               [(ngModel)]="comments"></textarea>
           </div>
-          <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" rippleEffect>Submit</button>
+          <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" rippleEffect>{{'Submit' | translate}}</button>
           <button type="reset" class="btn btn-outline-secondary" (click)="toggleSidebar('new-payment-sidebar')"
             rippleEffect>
-            Cancel
+            {{'Cancel' | translate}}
           </button>
         </div>
       </form>

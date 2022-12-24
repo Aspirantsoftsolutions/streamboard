@@ -37,7 +37,7 @@
                       />
                       <span *ngIf="TDSimpleForm.submitted && TDNameRef.invalid" class="invalid-form">
                         <small class="form-text text-danger" *ngIf="TDNameRef.errors.required"
-                          >This field is required!</small
+                          >{{'This field is required!' | translate}}</small
                         >
                       </span>
                     </div>
@@ -63,7 +63,7 @@
                     </div>
                   </div>
                 </div>
-                <button type="submit" class="btn btn-primary" rippleEffect>Submit</button>
+                <button type="submit" class="btn btn-primary" rippleEffect>{{'Submit' | translate}}</button>
               </form>
 
               <pre class="p-1 text-white mt-1">
@@ -103,7 +103,7 @@ Email: {{ TDEmailVar }}
                       />
                       <span *ngIf="!TDMultiRuleNameRef.valid && TDMultiRuleNameRef.touched" class="invalid-form">
                         <small class="form-text text-danger" *ngIf="TDMultiRuleNameRef.errors.required"
-                          >This field is required!</small
+                          >{{'This field is required!' | translate}}</small
                         >
                       </span>
                     </div>
@@ -189,7 +189,7 @@ Email: {{ TDEmailVar }}
                   </div>
                 </div>
                 <button type="submit" [disabled]="!TDMultiRuleForm.form.valid" class="btn btn-primary" rippleEffect>
-                  Submit
+                  {{'Submit' | translate}}
                 </button>
               </form>
             </div>
@@ -223,7 +223,7 @@ Email: {{ TDEmailVar }}
                       <small
                         class="form-text text-danger"
                         *ngIf="TDRequiredFieldRef.invalid && TDValidationForm.submitted"
-                        >This field is required!</small
+                        >{{'This field is required!' | translate}}</small
                       >
                     </div>
                     <div class="form-group">
@@ -462,7 +462,7 @@ Email: {{ TDEmailVar }}
                     </div>
                   </div>
                 </div>
-                <button type="submit" class="btn btn-primary" rippleEffect>Submit</button>
+                <button type="submit" class="btn btn-primary" rippleEffect>{{'Submit' | translate}}</button>
               </form>
             </div>
           </core-card-snippet>

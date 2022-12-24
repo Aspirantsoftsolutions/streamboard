@@ -10,13 +10,13 @@
                     ×
                 </button>
                 <div class="modal-header mb-1">
-                    <h5 class="modal-title" id="exampleModalLabel">Send Notification</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">{{'Send Notification' | translate}}</h5>
                 </div>
                 <div class="modal-body flex-grow-1">
 
                     <div class="form-group">
 
-                        <label class="form-label" for="basic-icon-default-uname">Title</label>
+                        <label class="form-label" for="basic-icon-default-uname">{{'Title' | translate}}</label>
                         <input type="text" id="basic-icon-default-uname" class="form-control dt-uname"
                             placeholder="Title" aria-label="jdoe1" aria-describedby="basic-icon-default-uname2"
                             name="title" [(ngModel)]="title"
@@ -27,9 +27,10 @@
                                 required!</small>
                         </span>
 
-                        <label class="form-label" for="basic-icon-default-uname">Notification Message</label>
+                        <label class="form-label" for="basic-icon-default-uname">{{'Notification Message' |
+                            translate}}</label>
                         <textarea type="text" id="basic-icon-default-uname" class="form-control dt-uname"
-                            placeholder="Notification Message" aria-label="jdoe1"
+                            placeholder="{{'Notification Message' | translate}}" aria-label="jdoe1"
                             aria-describedby="basic-icon-default-uname2" name="description" [(ngModel)]="username"
                             [class.error]="newUserForm.submitted && FUserNameRef.invalid" #FUserNameRef="ngModel"
                             required> </textarea>
@@ -39,7 +40,7 @@
                         </span>
                         <br>
                         <ng-multiselect-dropdown *ngIf="!this.devices.length" class="mb-2" id="devices" name='groupName'
-                            [placeholder]="'Select Device Group'" [settings]="classDropdownSettings"
+                            placeholder="{{'Select Device Group' | translate}}" [settings]="classDropdownSettings"
                             [data]="deviceGroupList" [(ngModel)]="selectedDevices" (onSelect)="onItemSelect($event)"
                             (onSelectAll)="onSelectAll($event)" (onDeSelect)="onDeselect($event)"
                             (onDeSelectAll)="onDeselectAll($event)">
@@ -61,7 +62,7 @@
 
                     <button type="reset" class="btn btn-outline-secondary"
                         (click)="toggleSidebar('notification-sidebar')" rippleEffect>
-                        Cancel
+                        {{'Cancel' | translate}}
                     </button>
                 </div>
             </form>

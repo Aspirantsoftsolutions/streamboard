@@ -40,7 +40,7 @@
                       [(ngModel)]="selectedStatus"
                       name="selectedStatus"
                       bindLabel="name"
-                      placeholder="Select Status"
+                      placeholder="{{'Select Status' | translate}}"
                       (change)="filterByStatus($event)"
                     ></ng-select>
                   </fieldset>
@@ -57,21 +57,21 @@
           <div class="col-md-6 col-12">
             <div class="d-flex justify-content-between align-items-center m-1">
               <label class="d-flex align-items-center"
-                >Show
+                >{{'Show' | translate}}
                 <select class="form-control mx-25" [(ngModel)]="selectedOption">
                   <option value="10">10</option>
                   <option value="25">25</option>
                   <option value="50">50</option>
                   <option value="100">100</option>
                 </select>
-                entries</label
+                {{'entries' | translate}}</label
               >
             </div>
           </div>
           <div class="col-md-6 col-12 d-flex justify-content-start justify-content-md-end">
             <div class="d-flex align-items-center justify-content-end pr-1 pb-1 pb-md-0">
               <label class="d-flex align-items-center ml-1 ml-md-0"
-                >Search:<input
+                >{{'Search' | translate}}:<input
                   [(ngModel)]="searchValue"
                   name="searchValue"
                   type="search"
@@ -135,7 +135,7 @@
                     'icon-slack text-danger': role == 'Student'
                   }"
                 ></i>
-                {{ role }}
+                {{ role | translate}}
               </div>
             </ng-template>
           </ngx-datatable-column>
@@ -150,7 +150,7 @@
                   'badge-light-warning': status == 'pending'
                 }"
               >
-                {{ status }}
+                {{ status | translate }}
               </div>
             </ng-template>
           </ngx-datatable-column>
@@ -162,9 +162,9 @@
                 </button>
                 <div ngbDropdownMenu>
                     <a (click)="toggleSidebarEdit('new-schools-sidebar',row.userId)" ngbDropdownItem>
-                      <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> Edit</a>
+                      <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> {{'Edit' | translate}}</a>
                     <a (click)="deleteUser(row.userId)" ngbDropdownItem>
-                      <span [data-feather]="'trash'" [size]="16" [class]="'mr-50'"></span> Delete</a>
+                      <span [data-feather]="'trash'" [size]="16" [class]="'mr-50'"></span> {{'Delete' | translate}}</a>
                 </div>
               </div>
             </ng-template>

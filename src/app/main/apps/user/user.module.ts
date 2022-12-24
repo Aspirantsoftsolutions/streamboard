@@ -368,7 +368,7 @@ const routes: Routes = [
     ToastrModule,
     MsalModule,
     NgMultiSelectDropDownModule.forRoot(),
-    TranslateModule
+    TranslateModule.forChild()
   ],
   providers: [
     TeachersListService,

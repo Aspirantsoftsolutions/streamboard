@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { CoreCommonModule } from '@core/common.module';
 import { CardSnippetModule } from '@core/components/card-snippet/card-snippet.module';
+import { TranslateModule } from '@ngx-translate/core';
 import { ContentHeaderModule } from 'app/layout/components/content-header/content-header.module';
 
 import { FormLayoutComponent } from 'app/main/forms/form-layout/form-layout.component';
@@ -18,6 +19,6 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [FormLayoutComponent],
-  imports: [RouterModule.forChild(routes), ContentHeaderModule, CardSnippetModule, FormsModule, CoreCommonModule]
+  imports: [RouterModule.forChild(routes), ContentHeaderModule, CardSnippetModule, FormsModule, CoreCommonModule, TranslateModule.forChild()]
 })
-export class FormLayoutModule {}
+export class FormLayoutModule { }

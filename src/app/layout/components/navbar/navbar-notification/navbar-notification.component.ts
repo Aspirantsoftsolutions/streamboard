@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 import { NotificationsService } from 'app/layout/components/navbar/navbar-notification/notifications.service';
 import { ToastrService } from 'ngx-toastr';
@@ -23,7 +24,7 @@ export class NavbarNotificationComponent implements OnInit {
    * @param {NotificationsService} _notificationsService
    */
   constructor(private _notificationsService: NotificationsService,
-    private _toastrService: ToastrService) { }
+    private _toastrService: ToastrService, private translate: TranslateService) { }
 
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------

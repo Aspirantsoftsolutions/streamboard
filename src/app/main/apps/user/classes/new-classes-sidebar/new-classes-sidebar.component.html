@@ -13,16 +13,16 @@
           x
         </button>
         <div class="modal-header mb-1">
-          <h5 class="modal-title" id="exampleModalLabel">New Class</h5>
+          <h5 class="modal-title" id="exampleModalLabel">{{"New Class" | translate}}</h5>
         </div>
         <div class="modal-body flex-grow-1">
           <div class="form-group">
-            <label class="form-label" for="basic-icon-default-fullname">Class Name</label>
+            <label class="form-label" for="basic-icon-default-fullname">{{'Class Name' | translate}}</label>
             <input
               type="text"
               class="form-control dt-full-name"
               id="basic-icon-default-fullname"
-              placeholder="Class name"
+              placeholder="{{'Class name' | translate}}"
               name="user-fullname"
               [(ngModel)]="fullname"
               [class.error]="newUserForm.submitted && FNameRef.invalid"
@@ -32,7 +32,7 @@
               aria-describedby="basic-icon-default-fullname2"
             />
             <span *ngIf="newUserForm.submitted && FNameRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="FNameRef.errors.required">This field is required!</small>
+              <small class="form-text text-danger" *ngIf="FNameRef.errors.required">{{'This field is required!' | translate}}</small>
             </span>
           </div>
 <!--          
@@ -52,19 +52,19 @@
               required
             />
             <span *ngIf="newUserForm.submitted && FEmailRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="FEmailRef.errors.required">This field is required!</small>
+              <small class="form-text text-danger" *ngIf="FEmailRef.errors.required">{{'This field is required!' | translate}}</small>
             </span>
-            <small class="form-text text-muted"> You can use letters, numbers & periods </small>
+            <small class="form-text text-muted"> {{'You can use letters, numbers & periods' | translate}} </small>
           </div> -->
         
-          <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" rippleEffect>Submit</button>
+          <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" rippleEffect>{{'Submit' | translate}}</button>
           <button
             type="reset"
             class="btn btn-outline-secondary"
             (click)="toggleSidebar('new-classes-sidebar')"
             rippleEffect
           >
-            Cancel
+            {{'Cancel' | translate}}
           </button>
         </div>
       </form>

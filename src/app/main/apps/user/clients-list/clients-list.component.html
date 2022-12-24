@@ -30,7 +30,7 @@
                 <div class="col-12 col-md-4">
                   <fieldset class="form-group">
                     <ng-select [items]="selectStatus" [(ngModel)]="selectedStatus" name="selectedStatus"
-                      bindLabel="name" placeholder="Select Status" (change)="filterByStatus($event)"></ng-select>
+                      bindLabel="name" placeholder="{{'Select Status' | translate}}" (change)="filterByStatus($event)"></ng-select>
                   </fieldset>
                 </div>
               </div>
@@ -78,7 +78,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" (click)="modal.dismiss('Cross click')" rippleEffect>
-            Cancel
+            {{'Cancel' | translate}}
           </button>
           <button type="button" class="btn btn-primary" (click)="deleteUser()" rippleEffect>
             Delete
@@ -91,21 +91,21 @@
         <div class="row">
           <div class="col-md-6 col-12">
             <div class="d-flex justify-content-between align-items-center m-1">
-              <label class="d-flex align-items-center">Show
+              <label class="d-flex align-items-center">{{'Show' | translate}}
                 <select class="form-control mx-25" [(ngModel)]="selectedOption">
                   <option value="10">10</option>
                   <option value="25">25</option>
                   <option value="50">50</option>
                   <option value="100">100</option>
                 </select>
-                entries</label>
+                {{'entries' | translate}}</label>
             </div>
           </div>
           <div class="col-md-6 col-12 d-flex justify-content-start justify-content-md-end">
             <div class="d-flex align-items-center justify-content-end pr-1 pb-1 pb-md-0">
-              <label class="d-flex align-items-center ml-1 ml-md-0">Search:<input [(ngModel)]="searchValue"
-                  name="searchValue" type="search" class="form-control ml-25" (keyup)="filterUpdate($event)"
-                  (search)="filterUpdate($event)" /></label>
+              <label class="d-flex align-items-center ml-1 ml-md-0">{{'Search'| translate}}:<input
+                  [(ngModel)]="searchValue" name="searchValue" type="search" class="form-control ml-25"
+                  (keyup)="filterUpdate($event)" (search)="filterUpdate($event)" /></label>
               <button class="btn btn-primary ml-2" rippleEffect (click)="openInvite(modalForm)">
                 <i data-feather="plus" class="d-sm-none d-inline-block mr-0 mr-sm-1"></i><span
                   class="d-none d-sm-inline-block">Send Invite</span>
@@ -158,7 +158,7 @@
                   'badge-light-secondary': status == 'inactive',
                   'badge-light-warning': status == 'pending'
                 }">
-                {{ status }}
+                {{ status | translate }}
               </div>
             </ng-template>
           </ngx-datatable-column>
@@ -171,20 +171,20 @@
                 <div ngbDropdownMenu>
                   <a (click)="statusChange(row.userId, false)" ngbDropdownItem
                     *ngIf="(row.isActive && row.status != 'pending')">
-                    <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> InActive </a>
+                    <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> {{'InActive' | translate}} </a>
                   <a (click)="statusChange(row.userId, true)" ngbDropdownItem
                     *ngIf="!row.isActive || row.status == 'pending'">
-                    <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> Active </a>
+                    <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> {{'Active'| translate}} </a>
                   <a (click)="toggleSidebarEdit('new-client-sidebar',row.userId)" ngbDropdownItem>
-                    <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> Edit</a>
+                    <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> {{'Edit'| translate}}</a>
                   <a (click)="deleteUserPopUp(row.userId, row.fullName,deleteModal)" ngbDropdownItem>
-                    <span [data-feather]="'trash'" [size]="16" [class]="'mr-50'"></span> Delete</a>
+                    <span [data-feather]="'trash'" [size]="16" [class]="'mr-50'"></span> {{'Delete'| translate}}</a>
                   <a (click)="changeSubscriptionType('Basic',row.userId)" ngbDropdownItem>
-                    <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> Basic</a>
+                    <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> {{'Basic' | translate}}</a>
                   <a (click)="changeSubscriptionType('Premium',row.userId)" ngbDropdownItem>
-                    <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> Premium</a>
+                    <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> {{'Premium' | translate}}</a>
                   <a (click)="changeSubscriptionType('Enterprise',row.userId)" ngbDropdownItem>
-                    <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> Enterprise</a>
+                    <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> {{'Enterprise' | translate}}</a>
 
                 </div>
               </div>

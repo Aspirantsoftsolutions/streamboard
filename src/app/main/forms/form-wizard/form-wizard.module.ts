@@ -11,6 +11,7 @@ import { ContentHeaderModule } from 'app/layout/components/content-header/conten
 import { CoreDirectivesModule } from '@core/directives/directives';
 
 import { FormWizardComponent } from 'app/main/forms/form-wizard/form-wizard.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 const routes: Routes = [
   {
@@ -30,7 +31,8 @@ const routes: Routes = [
     CardSnippetModule,
     FormsModule,
     CoreDirectivesModule,
-    NgSelectModule
+    NgSelectModule,
+    TranslateModule.forChild()
   ]
 })
 export class FormWizardModule {}

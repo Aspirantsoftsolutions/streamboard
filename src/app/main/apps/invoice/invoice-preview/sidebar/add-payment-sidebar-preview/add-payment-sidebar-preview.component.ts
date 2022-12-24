@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-add-payment-sidebar-preview',
@@ -16,7 +17,7 @@ export class AddPaymentSidebarPreviewComponent implements OnInit {
     altFormat: 'Y-n-j'
   };
 
-  constructor(private _coreSidebarService: CoreSidebarService) {}
+  constructor(private _coreSidebarService: CoreSidebarService, private translate: TranslateService) {}
 
   /**
    * Toggle the sidebar

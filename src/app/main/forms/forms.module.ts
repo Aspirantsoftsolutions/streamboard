@@ -5,6 +5,7 @@ import { FormElementsModule } from 'app/main/forms/form-elements/form-elements.m
 import { FormLayoutModule } from 'app/main/forms/form-layout/form-layout.module';
 import { FormValidationModule } from 'app/main/forms/form-validation/form-validation.module';
 import { FormWizardModule } from 'app/main/forms/form-wizard/form-wizard.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [],

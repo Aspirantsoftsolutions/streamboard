@@ -8,30 +8,30 @@
           x
         </button>
         <div class="modal-header mb-1">
-          <h5 class="modal-title" id="exampleModalLabel">New Group</h5>
+          <h5 class="modal-title" id="exampleModalLabel">{{'New Group' | translate}}</h5>
         </div>
         <div class="modal-body flex-grow-1">
           <div class="form-group">
-            <label class="form-label" for="basic-icon-default-fullname">Group Name</label>
+            <label class="form-label" for="basic-icon-default-fullname">{{'Group Name' | translate}}</label>
             <input type="text" class="form-control dt-full-name" id="basic-icon-default-fullname"
-              placeholder="Group name" name="name" [(ngModel)]="fullname"
+              placeholder="{{'Group Name' | translate}}" name="name" [(ngModel)]="fullname"
               [class.error]="newUserForm.submitted && FNameRef.invalid" #FNameRef="ngModel" required
               aria-label="Group name" aria-describedby="basic-icon-default-fullname2" />
             <span *ngIf="newUserForm.submitted && FNameRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="FNameRef.errors.required">This field is required!</small>
+              <small class="form-text text-danger" *ngIf="FNameRef.errors.required">{{'This field is required!' | translate}}</small>
             </span>
           </div>
           <div class="form-group">
-            <ng-multiselect-dropdown class="mb-2" id="_id" name='username' [placeholder]="'Select students'"
+            <ng-multiselect-dropdown class="mb-2" id="_id" name='username' placeholder="{{'Select students' | translate}}"
               [settings]="classDropdownSettings" [data]="users" [(ngModel)]="selectedUsers"
               (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" (onDeSelect)="onDeselect($event)"
               (onDeSelectAll)="onDeselectAll($event)" (onFilterChange)="search($event)">
             </ng-multiselect-dropdown>
           </div>
-          <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" rippleEffect>Submit</button>
+          <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" rippleEffect>{{'Submit' | translate}}</button>
           <button type="reset" class="btn btn-outline-secondary" (click)="toggleSidebar('new-groups-sidebar')"
             rippleEffect>
-            Cancel
+            {{'Cancel' | translate}}
           </button>
         </div>
       </form>
