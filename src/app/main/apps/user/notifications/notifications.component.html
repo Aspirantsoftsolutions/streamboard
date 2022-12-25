@@ -54,7 +54,7 @@
                   </ng-multiselect-dropdown>
                  </div> -->
               <div style="margin-top: 20px;">
-                <ng-multiselect-dropdown formControlName="schools" [placeholder]="'All Schools'"
+                <ng-multiselect-dropdown formControlName="schools" placeholder="{{'All Schools' | translate}}"
                   [settings]="dropdownSettings" [data]="allSchools" *ngIf="isAdmin()" [(ngModel)]="selectedSchools"
                   (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" name="school">
                 </ng-multiselect-dropdown>

@@ -102,7 +102,7 @@ export class ClassesListComponent implements OnInit {
 
     // Filter Our Data
     const temp = this.tempData.filter(function (d) {
-      return d.fullName.toLowerCase().indexOf(val) !== -1 || !val;
+      return d.className.toLowerCase().indexOf(val) !== -1 || d.shortId.toLowerCase().indexOf(val) !== -1 || !val;
     });
 
     // Update The Rows

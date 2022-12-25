@@ -105,11 +105,24 @@ export class SessionsListComponent implements OnInit {
 
     // Filter Our Data
     const temp = this.tempData.filter(function (d) {
-      return d.fullName.toLowerCase().indexOf(val) !== -1 || !val;
+      return (d.title !== undefined && d.title.toLowerCase().indexOf(val) !== -1) || (d.description !== undefined && d.description.toLowerCase().indexOf(val) !== -1) || !val;
     });
 
     // Update The Rows
-    this.rows = temp;
+    this.rows = temp.filter(row => {
+      var match;
+      if (this.urlLastValue == 'quick_sessions') {
+        console.log(row.type.toLowerCase().indexOf('quicksession'));
+        match = row.type.toLowerCase().indexOf('quicksession') !== -1;
+      } else if (this.urlLastValue == 'scheduled_sessions') {
+        console.log(row.type.toLowerCase().indexOf('scheduledsession'));
+        match = row.type.toLowerCase().indexOf('scheduledsession') !== -1;
+      } else if (this.urlLastValue == 'live_sessions') {
+        console.log(row.type.toLowerCase().indexOf('scheduledsession'));
+        match = row.type.toLowerCase().indexOf('livesession') !== -1;
+      }
+      return match;
+    });
     // Whenever The Filter Changes, Always Go Back To The First Page
     this.table.offset = 0;
   }

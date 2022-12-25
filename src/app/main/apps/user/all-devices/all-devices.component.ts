@@ -70,6 +70,7 @@ export class AllDevicesComponent implements OnInit {
   private _unsubscribeAll: Subject<any>;
   public chkBoxSelected = [];
   public SelectionType = SelectionType;
+  public devicelist;
 
   /**
    * Constructor
@@ -110,7 +111,7 @@ export class AllDevicesComponent implements OnInit {
 
     // Filter Our Data
     const temp = this.tempData.filter(function (d) {
-      return d.device.toLowerCase().indexOf(val) !== -1 || !val;
+      return d.deviceName.toLowerCase().indexOf(val) !== -1 || !val;
     });
 
     // Update The Rows
@@ -243,7 +244,7 @@ export class AllDevicesComponent implements OnInit {
     planFilter = planFilter.toLowerCase();
     statusFilter = statusFilter.toLowerCase();
 
-    return this.tempData.filter(row => {
+    return this.rows.filter(row => {
       // const isPartialNameMatch = row.role.toLowerCase().indexOf(roleFilter) !== -1 || !roleFilter;
       // const isPartialGenderMatch = row.plan.toLowerCase().indexOf(planFilter) !== -1 || !planFilter;
       const isPartialStatusMatch = row.status.toLowerCase().indexOf(statusFilter) !== -1 || !statusFilter;
@@ -269,8 +270,9 @@ export class AllDevicesComponent implements OnInit {
   getDevices() {
     this._commonService.getDeviceList().subscribe(devices => {
       this.rows = devices['data'];
+      this.tempData = devices['data'];
     });
-    this.tempData = this.rows;
+
   }
 
   doSync() {

@@ -132,7 +132,7 @@ export class NotificationsComponent implements OnInit {
       schools: ['',],
       teachers: ['',],
       students: ['',]
-    }, { validator: atLeastOne(Validators.required, ['teachers', 'students']) });
+    }, { validator: atLeastOne(Validators.required, ['teachers', 'students', 'schools']) });
     // Subscribe to config changes
     this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
       this.coreConfig = config;

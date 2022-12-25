@@ -102,7 +102,7 @@ export class PaymentsListComponent implements OnInit {
 
     // Filter Our Data
     const temp = this.tempData.filter(function (d) {
-      return d.fullName.toLowerCase().indexOf(val) !== -1 || !val;
+      return (d.comments !== undefined && d.comments.toLowerCase().indexOf(val) !== -1) || (d.clientId.fullName !== undefined && d.clientId.fullName.toLowerCase().indexOf(val) !== -1) || (d.clientId.firstName !== undefined && d.clientId.firstName.toLowerCase().indexOf(val) !== -1) || (d.clientId.email !== undefined && d.clientId.email.toLowerCase().indexOf(val) !== -1)|| !val;
     });
 
     // Update The Rows

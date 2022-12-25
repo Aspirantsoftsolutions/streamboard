@@ -99,7 +99,7 @@ export class TeachersListComponent implements OnInit {
 
     // Filter Our Data
     const temp = this.tempData.filter(function (d) {
-      return d.fullName.toLowerCase().indexOf(val) !== -1 || !val;
+      return (d.username !== undefined && d.username.toLowerCase().indexOf(val) !== -1) || (d.shortId !== undefined && d.shortId.toLowerCase().indexOf(val) !== -1) || (d.email !== undefined && d.email.toLowerCase().indexOf(val) !== -1) || (d.fullName !== undefined && d.fullName.toLowerCase().indexOf(val) !== -1) || (d.firstName !== undefined && d.firstName.toLowerCase().indexOf(val) !== -1) || !val;
     });
 
     // Update The Rows
