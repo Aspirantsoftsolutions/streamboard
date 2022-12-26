@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { SocialAuthService } from 'angularx-social-login';
 import { Subject, async } from 'rxjs';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -28,6 +29,7 @@ export class AuthenticationService {
   constructor(private _http: HttpClient, private _toastrService: ToastrService,
     private _sauthService: SocialAuthService,
     private _router: Router,
+    // private translate: TranslateService
   ) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
@@ -64,7 +66,7 @@ export class AuthenticationService {
           if (user) {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('currentUser', JSON.stringify(user.data));
-
+            // this.translate.use(user.locale);
             // Display welcome toast!
             setTimeout(() => {
               this._toastrService.success(

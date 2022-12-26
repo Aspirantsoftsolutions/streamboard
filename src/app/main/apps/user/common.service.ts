@@ -645,6 +645,10 @@ export class CommonService implements Resolve<any> {
     return this._httpClient.post(`${environment.apiUrl}/api/invoice/sendInvoice`, {});
   }
 
+  updateLocale(userId, locale) {
+    return this._httpClient.post(`${environment.apiUrl}/api/user/preferences/${userId}`, { locale });
+  }
+
   // deleteClass(id): Promise<any[]> {
   //   return new Promise((resolve, reject) => {
   //     this._httpClient.delete(`${environment.apiUrl}/api/user/${id}`, {

@@ -18,6 +18,8 @@ import { Router } from '@angular/router';
 import { MSAL_INSTANCE } from '@azure/msal-angular';
 import { PublicClientApplication } from '@azure/msal-browser';
 import { SocialAuthService } from 'angularx-social-login';
+import { CommonService } from 'app/main/apps/user/common.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-navbar',
@@ -85,8 +87,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private _coreSidebarService: CoreSidebarService,
     private _mediaObserver: MediaObserver,
     public _translateService: TranslateService,
+    private toaster: ToastrService,
     @Inject(MSAL_INSTANCE) private msalInstance: PublicClientApplication,
     private _sauthService: SocialAuthService,
+    private _commonService: CommonService
   ) {
     this._authenticationService.currentUser.subscribe(x => (this.currentUser = x));
 
@@ -135,6 +139,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
    * @param language
    */
   setLanguage(language): void {
+    const user = this._commonService.getCurrentUser();
     // Set the selected language for the navbar on change
     this.selectedLanguage = language;
 
@@ -142,6 +147,19 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this._translateService.use(language);
 
     this._coreConfigService.setConfig({ app: { appLanguage: language } }, { emitEvent: true });
+    console.log();
+
+    this._commonService.updateLocale(user.userId, language).subscribe((res) => {
+      this.toaster.success(res['message'], 'Success!', {
+        toastClass: 'toast ngx-toastr',
+        closeButton: true
+      });
+    }, err => {
+      this.toaster.success(err['message'], 'Error!', {
+        toastClass: 'toast ngx-toastr',
+        closeButton: true
+      });
+    });
   }
 
   /**
@@ -195,6 +213,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // get the currentUser details from localStorage
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    setTimeout(() => {
+      this.selectedLanguage = this.currentUser['locale'];
+
+      // Use the selected language id for translations
+      this._translateService.use(this.currentUser['locale']);
+    }, 1000);
 
     // Subscribe to the config changes
     this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
@@ -230,8 +254,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.selectedLanguage = _.find(this.languageOptions, {
       id: this._translateService.currentLang
     });
-    console.log("&&&&",this._translateService.getLangs());
-    
+    console.log("&&&&", this._translateService.getLangs());
+
   }
 
   /**

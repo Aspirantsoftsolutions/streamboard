@@ -284,7 +284,7 @@ export class IndSessionsListComponent implements OnInit {
     });
     this._commonService.updateFeatures(this.features, userId).then((resposne: any) => {
       console.log('res updateFeatures:', resposne);
-      localStorage.setItem('currentUser', JSON.stringify(user));
+      // localStorage.setItem('currentUser', JSON.stringify(user));
       setTimeout(() => {
         this._toastrService.success(
           'Successfully Updated  🎉',
