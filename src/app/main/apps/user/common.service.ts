@@ -154,7 +154,7 @@ export class CommonService implements Resolve<any> {
 
   getAllStudents(): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      this._httpClient.get(`${environment.apiUrl}/api/user/allStudents/` + this.getCurrentUser().userId).subscribe((response: any) => {
+      this._httpClient.get(`${environment.apiUrl}/api/user/allStudents/` + (this.getCurrentUser().role != 'School' ? this.getCurrentUser().schoolId : this.getCurrentUser().userId)).subscribe((response: any) => {
         console.log(response.data);
         response.data.map(row => {
           row.checked = false;
@@ -177,7 +177,7 @@ export class CommonService implements Resolve<any> {
 
   getAllTeachers(): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      this._httpClient.get(`${environment.apiUrl}/api/user/allTeachers/` + this.getCurrentUser().userId).subscribe((response: any) => {
+      this._httpClient.get(`${environment.apiUrl}/api/user/allTeachers/` + (this.getCurrentUser().role != 'School' ? this.getCurrentUser().schoolId : this.getCurrentUser().userId)).subscribe((response: any) => {
         console.log(response.data);
         this.onUserListChanged.next(response.data);
         resolve(response.data);
@@ -187,7 +187,7 @@ export class CommonService implements Resolve<any> {
 
   getAllUsers(): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      this._httpClient.get(`${environment.apiUrl}/api/user/all/` + this.getCurrentUser().userId).subscribe((response: any) => {
+      this._httpClient.get(`${environment.apiUrl}/api/user/all/` + (this.getCurrentUser().role != 'School' ? this.getCurrentUser().schoolId : this.getCurrentUser().userId)).subscribe((response: any) => {
         console.log(response.data);
         resolve(response.data);
       }, reject);

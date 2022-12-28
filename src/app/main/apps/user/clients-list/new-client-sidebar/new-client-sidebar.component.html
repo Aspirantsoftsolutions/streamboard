@@ -3,170 +3,126 @@
   <div class="modalsd modal-slide-in sdfade new-user-modal" id="modals-slide-in">
     <div class="modal-dialog">
       <form class="add-new-user modal-content pt-0" (ngSubmit)="(newUserForm.form.valid)" #newUserForm="ngForm">
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
           (click)="toggleSidebar('new-client-sidebar')">
           ×
         </button>
         <div class="modal-header mb-1">
-          <h5 class="modal-title" id="exampleModalLabel">New Client</h5>
+          <h5 class="modal-title" id="exampleModalLabel">{{'New Client' | translate}}</h5>
         </div>
         <div class="modal-body flex-grow-1">
 
           <div class="form-group">
-            <label class="form-label" for="basic-icon-default-uname">Organization Name</label>
-            <input
-              type="text"
-              id="basic-icon-default-uname"
-              class="form-control dt-uname"
-              placeholder="Web Developer"
-              aria-label="jdoe1"
-              aria-describedby="basic-icon-default-uname2"
-              name="user-name"
-              [(ngModel)]="username"
-              [class.error]="newUserForm.submitted && FUserNameRef.invalid"
-              #FUserNameRef="ngModel"
-              required
-            />
+            <label class="form-label" for="basic-icon-default-uname">{{'Organization Name' | translate}}</label>
+            <input type="text" id="basic-icon-default-uname" class="form-control dt-uname" placeholder="Web Developer"
+              aria-label="jdoe1" aria-describedby="basic-icon-default-uname2" name="user-name" [(ngModel)]="username"
+              [class.error]="newUserForm.submitted && FUserNameRef.invalid" #FUserNameRef="ngModel" required />
             <span *ngIf="newUserForm.submitted && FUserNameRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="FUserNameRef.errors.required">{{'This field is required!' | translate}}</small>
+              <small class="form-text text-danger" *ngIf="FUserNameRef.errors.required">{{'This field is required!' |
+                translate}}</small>
             </span>
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="basic-icon-default-fullname">Owner Full Name</label>
-            <input
-              type="text"
-              class="form-control dt-full-name"
-              id="basic-icon-default-fullname"
-              placeholder="John Doe"
-              name="user-fullname"
-              [(ngModel)]="fullname"
-              [class.error]="newUserForm.submitted && OwnerNameRef.invalid"
-              #OwnerNameRef="ngModel"
-              required
-              aria-label="John Doe"
-              aria-describedby="basic-icon-default-fullname2"
-            />
+            <label class="form-label" for="basic-icon-default-fullname">{{'Owner Full Name' | translate}}</label>
+            <input type="text" class="form-control dt-full-name" id="basic-icon-default-fullname" placeholder="John Doe"
+              name="user-fullname" [(ngModel)]="fullname" [class.error]="newUserForm.submitted && OwnerNameRef.invalid"
+              #OwnerNameRef="ngModel" required aria-label="John Doe" aria-describedby="basic-icon-default-fullname2" />
             <span *ngIf="newUserForm.submitted && OwnerNameRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="OwnerNameRef.errors.required">{{'This field is required!' | translate}}</small>
+              <small class="form-text text-danger" *ngIf="OwnerNameRef.errors.required">{{'This field is required!' |
+                translate}}</small>
             </span>
           </div>
-          
-           <div class="form-group">
-            <label class="form-label" for="basic-icon-default-email">Owner Email</label>
-            <input
-              type="text"
-              id="basic-icon-default-email"
-              class="form-control dt-email"
-              placeholder="john.doe@example.com"
-              aria-label="john.doe@example.com"
-              aria-describedby="basic-icon-default-email2"
-              name="user-email"
-              [(ngModel)]="email"
-              [class.error]="newUserForm.submitted && FEmailRef.invalid"
-              #FEmailRef="ngModel"
-              required/>
+
+          <div class="form-group">
+            <label class="form-label" for="basic-icon-default-email">{{'Owner Email' | translate}}</label>
+            <input type="text" id="basic-icon-default-email" class="form-control dt-email"
+              placeholder="john.doe@example.com" aria-label="john.doe@example.com"
+              aria-describedby="basic-icon-default-email2" name="user-email" [(ngModel)]="email"
+              [class.error]="newUserForm.submitted && FEmailRef.invalid" #FEmailRef="ngModel" required />
             <span *ngIf="newUserForm.submitted && FEmailRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="FEmailRef.errors.required">{{'This field is required!' | translate}}</small>
+              <small class="form-text text-danger" *ngIf="FEmailRef.errors.required">{{'This field is required!' |
+                translate}}</small>
             </span>
             <small class="form-text text-muted"> {{'You can use letters, numbers & periods' | translate}} </small>
           </div>
 
-           <div class="form-group">
-             <label class="form-label" for="basic-icon-default-uname">Mobile Number</label>
-             <input type="text" id="basic-icon-default-uname" class="form-control dt-uname" placeholder="mobile number"
-               aria-label="jdoe1" aria-describedby="basic-icon-default-uname2" name="user-number" [(ngModel)]="mobilenumber"
-               [class.error]="newUserForm.submitted && MUserNameRef.invalid" #MUserNameRef="ngModel" required />
-             <span *ngIf="newUserForm.submitted && MUserNameRef.invalid" class="invalid-form">
-               <small class="form-text text-danger" *ngIf="MUserNameRef.errors.required">{{'This field is required!' | translate}}</small>
-             </span>
-           </div>
-
           <div class="form-group">
-            <label class="form-label" for="basic-icon-default-address">Address</label>
-            <input type="text" class="form-control dt-full-name" id="basic-icon-default-address"
-              placeholder="Address" name="user-address" [(ngModel)]="address"
-              [class.error]="newUserForm.submitted && addressRef.invalid"
-              #addressRef="ngModel" required aria-label="John Doe"
-              aria-describedby="basic-icon-default-fullname2" />
-            <span *ngIf="newUserForm.submitted && addressRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="addressRef.errors.required">{{'This field is required!' | translate}}</small>
+            <label class="form-label" for="basic-icon-default-uname">{{'Mobile Number' | translate}}</label>
+            <input type="text" id="basic-icon-default-uname" class="form-control dt-uname" placeholder="mobile number"
+              aria-label="jdoe1" aria-describedby="basic-icon-default-uname2" name="user-number"
+              [(ngModel)]="mobilenumber" [class.error]="newUserForm.submitted && MUserNameRef.invalid"
+              #MUserNameRef="ngModel" required />
+            <span *ngIf="newUserForm.submitted && MUserNameRef.invalid" class="invalid-form">
+              <small class="form-text text-danger" *ngIf="MUserNameRef.errors.required">{{'This field is required!' |
+                translate}}</small>
             </span>
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="basic-icon-default-firstname">First Name</label>
+            <label class="form-label" for="basic-icon-default-address">{{'Address' | translate}}</label>
+            <input type="text" class="form-control dt-full-name" id="basic-icon-default-address" placeholder="Address"
+              name="user-address" [(ngModel)]="address" [class.error]="newUserForm.submitted && addressRef.invalid"
+              #addressRef="ngModel" required aria-label="John Doe" aria-describedby="basic-icon-default-fullname2" />
+            <span *ngIf="newUserForm.submitted && addressRef.invalid" class="invalid-form">
+              <small class="form-text text-danger" *ngIf="addressRef.errors.required">{{'This field is required!' |
+                translate}}</small>
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="basic-icon-default-firstname">{{'First Name' | translate}}</label>
             <input type="text" class="form-control dt-full-name" id="basic-icon-default-firstname"
               placeholder="firstname" name="user-firstname" [(ngModel)]="firstname"
-              [class.error]="newUserForm.submitted && firstNameRef.invalid"
-              #firstNameRef="ngModel" required aria-label="John Doe"
-              aria-describedby="basic-icon-default-fullname2" />
+              [class.error]="newUserForm.submitted && firstNameRef.invalid" #firstNameRef="ngModel" required
+              aria-label="John Doe" aria-describedby="basic-icon-default-fullname2" />
             <span *ngIf="newUserForm.submitted && firstNameRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="firstNameRef.errors.required">{{'This field is required!' | translate}}</small>
+              <small class="form-text text-danger" *ngIf="firstNameRef.errors.required">{{'This field is required!' |
+                translate}}</small>
             </span>
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="basic-icon-default-lastname">Last Name</label>
-            <input type="text" class="form-control dt-full-name" id="basic-icon-default-lastname"
-              placeholder="lastname" name="user-lastname" [(ngModel)]="lastname"
-              [class.error]="newUserForm.submitted && LNameRef.invalid"
-              #LNameRef="ngModel" required aria-label="John Doe"
-              aria-describedby="basic-icon-default-fullname2" />
+            <label class="form-label" for="basic-icon-default-lastname">{{'Last Name' | translate}}</label>
+            <input type="text" class="form-control dt-full-name" id="basic-icon-default-lastname" placeholder="lastname"
+              name="user-lastname" [(ngModel)]="lastname" [class.error]="newUserForm.submitted && LNameRef.invalid"
+              #LNameRef="ngModel" required aria-label="John Doe" aria-describedby="basic-icon-default-fullname2" />
             <span *ngIf="newUserForm.submitted && LNameRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="LNameRef.errors.required">{{'This field is required!' | translate}}</small>
+              <small class="form-text text-danger" *ngIf="LNameRef.errors.required">{{'This field is required!' |
+                translate}}</small>
             </span>
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="basic-icon-default-email">IT Admin Email</label>
-            <input
-              type="text"
-              id="basic-icon-default-email"
-              class="form-control dt-email"
-              placeholder="john.doe@example.com"
-              aria-label="john.doe@example.com"
-              aria-describedby="basic-icon-default-email2"
-              name="user-it-email"
-              [(ngModel)]="itemail"
-              [class.error]="newUserForm.submitted && FEmailRef.invalid"
-              #FEmailRef="ngModel"
-              required/>
+            <label class="form-label" for="basic-icon-default-email">{{'IT Admin Email' | translate}}</label>
+            <input type="text" id="basic-icon-default-email" class="form-control dt-email"
+              placeholder="john.doe@example.com" aria-label="john.doe@example.com"
+              aria-describedby="basic-icon-default-email2" name="user-it-email" [(ngModel)]="itemail"
+              [class.error]="newUserForm.submitted && FEmailRef.invalid" #FEmailRef="ngModel" required />
             <span *ngIf="newUserForm.submitted && FEmailRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="FEmailRef.errors.required">{{'This field is required!' | translate}}</small>
+              <small class="form-text text-danger" *ngIf="FEmailRef.errors.required">{{'This field is required!' |
+                translate}}</small>
             </span>
             <small class="form-text text-muted"> {{'You can use letters, numbers & periods' | translate}} </small>
           </div>
-          
+
           <div class="form-group">
-            <label class="form-label" for="basic-icon-default-email">Select Plan</label>
+            <label class="form-label" for="basic-icon-default-email">{{'Select Plan' | translate}}</label>
             <fieldset class="form-group">
-              <ng-select
-                [items]="selectPlan"
-                [(ngModel)]="selectedPlan"
-                name="user-plan"
-                bindLabel="name"
-                placeholder="Select Plan"
-                #FPlanRef="ngModel"
-                required ></ng-select>
+              <ng-select [items]="selectPlan" [(ngModel)]="selectedPlan" name="user-plan" bindLabel="name"
+                placeholder="{{'Select Plan' | translate }}" #FPlanRef="ngModel" required></ng-select>
             </fieldset>
             <span *ngIf="newUserForm.submitted && FPlanRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="FPlanRef.errors.required">{{'This field is required!' | translate}}</small>
+              <small class="form-text text-danger" *ngIf="FPlanRef.errors.required">{{'This field is required!' |
+                translate}}</small>
             </span>
-            <small class="form-text text-muted"> Please select a plan </small>
+            <small class="form-text text-muted"> {{'Please select a plan' | translate}} </small>
           </div>
           <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" *ngIf="!isToUpdate"
             rippleEffect>{{'Submit' | translate}}</button>
-            <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" *ngIf="isToUpdate"
-              rippleEffect>{{'Update' | translate}}</button>
-          <button
-            type="reset"
-            class="btn btn-outline-secondary"
-            (click)="toggleSidebar('new-client-sidebar')"
+          <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" *ngIf="isToUpdate"
+            rippleEffect>{{'Update' | translate}}</button>
+          <button type="reset" class="btn btn-outline-secondary" (click)="toggleSidebar('new-client-sidebar')"
             rippleEffect>
             {{'Cancel' | translate}}
           </button>

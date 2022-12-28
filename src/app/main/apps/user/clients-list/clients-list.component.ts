@@ -38,26 +38,27 @@ export class ClientsListComponent implements OnInit {
   public previousPlanFilter = '';
   public previousStatusFilter = '';
   public emailInvite = '';
-  public selectRole: any = [
-    { name: 'All', value: '' },
-    { name: 'School', value: 'School' },
-    { name: 'Teacher', value: 'Teacher' },
-    { name: 'Student', value: 'Student' },
-    { name: 'Class', value: 'Class' }
-  ];
 
   public selectPlan: any = [
-    { name: 'All', value: '' },
-    { name: 'Basic', value: 'Basic' },
-    { name: 'Premium', value: 'Premium' },
-    { name: 'Enterprise', value: 'Enterprise' },
+    { name: this.translate.instant('All'), value: '' },
+    { name: this.translate.instant('Basic'), value: 'Basic' },
+    { name: this.translate.instant('Premium'), value: 'Premium' },
+    { name: this.translate.instant('Enterprise'), value: 'Enterprise' },
+  ];
+
+  public selectRole: any = [
+    { name: this.translate.instant('All'), value: '' },
+    { name: this.translate.instant('School'), value: 'School' },
+    { name: this.translate.instant('Teacher'), value: 'Teacher' },
+    { name: this.translate.instant('Student'), value: 'Student' },
+    { name: this.translate.instant('Class'), value: 'Class' },
   ];
 
   public selectStatus: any = [
-    { name: 'All', value: '' },
-    { name: 'Pending', value: 'Pending' },
-    { name: 'Active', value: 'Active' },
-    { name: 'Inactive', value: 'Inactive' }
+    { name: this.translate.instant('All'), value: '' },
+    { name: this.translate.instant('Pending'), value: 'Pending' },
+    { name: this.translate.instant('Active'), value: 'Active' },
+    { name: this.translate.instant('Inactive'), value: 'Inactive' }
   ];
 
   public selectedRole = [];
@@ -113,7 +114,7 @@ export class ClientsListComponent implements OnInit {
 
     // Filter Our Data
     const temp = this.tempData.filter(function (d) {
-      return (d.fullName !== undefined && d.fullName.toLowerCase().indexOf(val) !== -1) || (d.firstName !== undefined && d.firstName.toLowerCase().indexOf(val) !== -1) || (d.email !== undefined && d.email.toLowerCase().indexOf(val) !== -1)|| !val;
+      return (d.fullName !== undefined && d.fullName.toLowerCase().indexOf(val) !== -1) || (d.firstName !== undefined && d.firstName.toLowerCase().indexOf(val) !== -1) || (d.email !== undefined && d.email.toLowerCase().indexOf(val) !== -1) || !val;
     });
 
     // Update The Rows

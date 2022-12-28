@@ -65,7 +65,7 @@
             <!-- Modal -->
             <ng-template #modalForm let-modal>
                 <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel1">Send Invitation</h4>
+                    <h4 class="modal-title" id="myModalLabel1">{{'Send Invitation' | translate}}</h4>
                     <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -81,7 +81,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" (click)="sendInvite(modal,modalForm)" rippleEffect>
-                        Send Invitation
+                        {{ 'Send Invitation' | translate}
                     </button>
                 </div>
             </ng-template>

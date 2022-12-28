@@ -41,7 +41,7 @@ export class GroupsListService implements Resolve<any> {
    */
   getDataTableRows(): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      this._httpClient.get(`${environment.apiUrl}/api/groups/${this.getCurrentUser().userId}`).subscribe((response: any) => {
+      this._httpClient.get(`${environment.apiUrl}/api/groups/${(this.getCurrentUser().role != 'School' ? this.getCurrentUser().schoolId : this.getCurrentUser().userId)}`).subscribe((response: any) => {
         this.rows = response;
         console.log(this.rows.data);
         this.onUserListChanged.next(this.rows.data);

@@ -39,11 +39,11 @@ export class ClassesListComponent implements OnInit {
   ];
 
   public selectPlan: any = [
-    { name: 'All', value: '' },
-    { name: 'Basic', value: 'Basic' },
-    { name: 'Company', value: 'Company' },
-    { name: 'Enterprise', value: 'Enterprise' },
-    { name: 'Team', value: 'Team' }
+    { name: this.translate.instant('All'), value: '' },
+    { name: this.translate.instant('Basic'), value: 'Basic' },
+    { name: this.translate.instant('Premium'), value: 'Premium' },
+    { name: this.translate.instant('Enterprise'), value: 'Enterprise' },
+    { name:  this.translate.instant('Team'), value: 'Team' }
   ];
 
   public selectStatus: any = [

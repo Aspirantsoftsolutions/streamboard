@@ -93,7 +93,7 @@
               </div>
             </ng-template>
           </ngx-datatable-column>
-          <ngx-datatable-column name="{{'Actions'| translate}}" [width]="40" [sortable]="false">
+          <ngx-datatable-column *ngIf="getCurrentUser().role != 'Student'" name="{{'Actions'| translate}}" [width]="40" [sortable]="false">
             <ng-template ngx-datatable-cell-template let-row="row">
               <div ngbDropdown container="body">
                 <button ngbDropdownToggle type="button" class="btn icon-btn btn-sm hide-arrow" rippleEffect>

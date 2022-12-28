@@ -28,7 +28,7 @@
                       [(ngModel)]="selectedPlan"
                       name="selectedPlan"
                       bindLabel="name"
-                      placeholder="Select Plan"
+                      placeholder="{{'Select Plan' | translate }}"
                       (change)="filterByPlan($event)"
                     ></ng-select>
                   </fieldset>
@@ -76,7 +76,7 @@
               </button> -->
             </div>
             <div class="d-flex align-items-center justify-content-end pr-1 pb-1 pb-md-0">
-              <button class="dropbtn btn btn-primary" (click)="addPayment()">Add Payment</button>
+              <button class="dropbtn btn btn-primary" (click)="addPayment()">{{'Add Payment' | translate}}</button>
             </div>
           </div>
         </div>

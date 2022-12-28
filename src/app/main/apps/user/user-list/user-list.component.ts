@@ -38,23 +38,23 @@ export class UserListComponent implements OnInit {
   public previousStatusFilter = '';
 
   public selectRole: any = [
-    { name: 'All', value: '' },
-    { name: 'Teacher', value: 'Teacher' },
-    { name: 'Student', value: 'Student' },
+    { name: this.translate.instant('All'), value: '' },
+    { name: this.translate.instant('Teacher'), value: 'Teacher' },
+    { name: this.translate.instant('Student'), value: 'Student' },
   ];
 
   public selectPlan: any = [
-    { name: 'All', value: '' },
-    { name: 'Basic', value: 'Basic' },
-    { name: 'Premium', value: 'Premium' },
-    { name: 'Enterprise', value: 'Enterprise' },
+    { name: this.translate.instant('All'), value: '' },
+    { name: this.translate.instant('Basic'), value: 'Basic' },
+    { name: this.translate.instant('Premium'), value: 'Premium' },
+    { name: this.translate.instant('Enterprise'), value: 'Enterprise' },
   ];
 
   public selectStatus: any = [
-    { name: 'All', value: '' },
-    { name: 'Pending', value: 'Pending' },
-    { name: 'Active', value: 'Active' },
-    { name: 'Inactive', value: 'Inactive' }
+    { name: this.translate.instant('All'), value: '' },
+    { name: this.translate.instant('Pending'), value: 'Pending' },
+    { name: this.translate.instant('Active'), value: 'Active' },
+    { name: this.translate.instant('Inactive'), value: 'Inactive' }
   ];
 
   public selectedRole = [];

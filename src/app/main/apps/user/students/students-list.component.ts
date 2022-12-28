@@ -31,27 +31,27 @@ export class StudentsListComponent implements OnInit {
   public previousStatusFilter = '';
 
   public selectRole: any = [
-    { name: 'All', value: '' },
-    { name: 'Admin', value: 'Admin' },
-    { name: 'Author', value: 'Author' },
-    { name: 'Editor', value: 'Editor' },
-    { name: 'Maintainer', value: 'Maintainer' },
-    { name: 'Subscriber', value: 'Subscriber' }
+    { name: this.translate.instant('All'), value: '' },
+    { name: this.translate.instant('Admin'), value: 'Admin' },
+    { name: this.translate.instant('Author'), value: 'Author' },
+    { name: this.translate.instant('Editor'), value: 'Editor' },
+    { name: this.translate.instant('Maintainer'), value: 'Maintainer' },
+    { name: this.translate.instant('Subscriber'), value: 'Subscriber' }
   ];
 
   public selectPlan: any = [
-    { name: 'All', value: '' },
-    { name: 'Basic', value: 'Basic' },
-    { name: 'Company', value: 'Company' },
-    { name: 'Enterprise', value: 'Enterprise' },
-    { name: 'Team', value: 'Team' }
+    { name: this.translate.instant('All'), value: '' },
+    { name: this.translate.instant('Basic'), value: 'Basic' },
+    { name: this.translate.instant('Premium'), value: 'Premium' },
+    { name: this.translate.instant('Enterprise'), value: 'Enterprise' },
+    { name: this.translate.instant('Team'), value: 'Team' }
   ];
 
   public selectStatus: any = [
-    { name: 'All', value: '' },
-    { name: 'Pending', value: 'Pending' },
-    { name: 'Active', value: 'Active' },
-    { name: 'Inactive', value: 'Inactive' }
+    { name: this.translate.instant('All'), value: '' },
+    { name: this.translate.instant('Pending'), value: 'Pending' },
+    { name: this.translate.instant('Active'), value: 'Active' },
+    { name: this.translate.instant('Inactive'), value: 'Inactive' }
   ];
 
   public selectedRole = [];

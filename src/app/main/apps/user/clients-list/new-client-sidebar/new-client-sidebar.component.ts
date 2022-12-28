@@ -4,6 +4,7 @@ import { ToastService } from 'app/main/components/toasts/toasts.service';
 import { Component, OnInit } from '@angular/core';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-new-client-sidebar',
@@ -22,10 +23,12 @@ export class NewClientSidebarComponent implements OnInit {
   public userId;
   public selectedPlan = [];
   public selectPlan: any = [
-    { name: 'Basic', value: 'Basic' },
-    { name: 'Premium', value: 'Premium' },
-    { name: 'Enterprise', value: 'Enterprise' },
+    { name: this.translate.instant('All'), value: '' },
+    { name: this.translate.instant('Basic'), value: 'Basic' },
+    { name: this.translate.instant('Premium'), value: 'Premium' },
+    { name: this.translate.instant('Enterprise'), value: 'Enterprise' },
   ];
+
 
   /**
    * Constructor
@@ -34,7 +37,7 @@ export class NewClientSidebarComponent implements OnInit {
    */
   constructor(private _coreSidebarService: CoreSidebarService,
     private toastr: ToastrService,
-    private _commonService: CommonService,) {
+    private _commonService: CommonService,private translate: TranslateService) {
     this._commonService.onUserEditListChanged.subscribe(response => {
       console.log('res cms', response);
       if (response != null) {
