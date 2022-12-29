@@ -41,7 +41,8 @@ export class GradesListService implements Resolve<any> {
    */
   getDataTableRows(): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      this._httpClient.get(`${environment.apiUrl}/api/grades/${this.getCurrentUser().userId}`).subscribe((response: any) => {
+      var userId = (this.getCurrentUser().role != 'School' ? this.getCurrentUser().schoolId : this.getCurrentUser().userId);
+      this._httpClient.get(`${environment.apiUrl}/api/grades/${userId}`).subscribe((response: any) => {
         this.rows = response.data;
         resolve(this.rows);
       }, reject);
@@ -59,7 +60,7 @@ export class GradesListService implements Resolve<any> {
     return new Promise((resolve, reject) => {
       this._httpClient.post(`${environment.apiUrl}/api/grades/create`, {
         'name': form.name,
-        'school_id': this.getCurrentUser().userId
+        'school_id': (this.getCurrentUser().role != 'School' ? this.getCurrentUser().schoolId : this.getCurrentUser().userId)
       }).subscribe((response: any) => {
         this.getDataTableRows().then(() => { });
         resolve(response);

@@ -19,6 +19,7 @@ export class NewUserSidebarComponent implements OnInit {
   public plan = "Basic";
   public isToUpdate = false;
   public userId;
+  public selectedUser;
   /**
    * Constructor
    *
@@ -33,6 +34,7 @@ export class NewUserSidebarComponent implements OnInit {
     this._commonService.onUserEditListChanged.subscribe(response => {
       console.log('res cms', response);
       if (response != null) {
+        this.selectedUser = response;
         this.isToUpdate = true;
         this.userId = response.userId;
         this.firstName = response.firstName;
@@ -65,7 +67,7 @@ export class NewUserSidebarComponent implements OnInit {
     if (form.valid) {
       console.log(form);
       if (this.isToUpdate) {
-        this._commonService.updateProfile(form.value, this.userId).then((resposne) => {
+        this._commonService.updateProfile({...this.selectedUser, ...form.value}, this.userId).then((resposne) => {
           console.log('res set:', resposne);
           let successString = Response;
           this.toastr.success('👋 updated Successfully.', 'Success!', {

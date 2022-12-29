@@ -47,8 +47,8 @@ export class TeachersListService implements Resolve<any> {
    */
   getAllTeachers(): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      var school = this.getCurrentUser();
-      this._httpClient.get(`${environment.apiUrl}/api/user/allTeachers/` + school.userId).subscribe((response: any) => {
+      var userId = (this.getCurrentUser().role != 'School' ? this.getCurrentUser().schoolId : this.getCurrentUser().userId);
+      this._httpClient.get(`${environment.apiUrl}/api/user/allTeachers/` + userId).subscribe((response: any) => {
         this.rows = response;
         console.log(this.rows.data);
         this.onUserListChanged.next(this.rows.data);

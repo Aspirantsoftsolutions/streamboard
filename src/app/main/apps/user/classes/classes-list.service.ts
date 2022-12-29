@@ -11,7 +11,7 @@ export class ClassesListService implements Resolve<any> {
   public rows: any;
   public onUserListChanged: BehaviorSubject<any>;
   public classRows: any;
-  
+
   /**
    * Constructor
    *
@@ -42,8 +42,9 @@ export class ClassesListService implements Resolve<any> {
    */
   getDataTableRows(): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      var school = this._commonServie.getCurrentUser();
-      this._httpClient.get(`${environment.apiUrl}/api/user/allClasses/`+school.userId).subscribe((response: any) => {
+      const user = this._commonServie.getCurrentUser();
+      var school = (user.role != 'School' ? user.schoolId : user.userId);
+      this._httpClient.get(`${environment.apiUrl}/api/user/allClasses/` + school).subscribe((response: any) => {
         this.rows = response;
         console.log(this.rows.data);
         this.onUserListChanged.next(this.rows.data);
@@ -72,12 +73,12 @@ export class ClassesListService implements Resolve<any> {
     return new Promise((resolve, reject) => {
       this._httpClient.put(`${environment.apiUrl}/api/user`, {
         'classId': classId,
-        'userId' : userId
+        'userId': userId
       }).subscribe((response: any) => {
         console.log(response);
         resolve(response);
       }, reject);
     });
   }
- 
+
 }

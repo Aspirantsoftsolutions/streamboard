@@ -62,6 +62,7 @@ export class StudentsListComponent implements OnInit {
   public SelectionType = SelectionType;
   public chekBoxSelected = [];
   public isStudentSelected = false;
+  public studentList = [];
   // Decorator
   @ViewChild(DatatableComponent) table: DatatableComponent;
 
@@ -150,7 +151,7 @@ export class StudentsListComponent implements OnInit {
       this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
 
       setTimeout(() => {
-        this._studentListService.onStudentListChanged.next(null);
+        this._studentListService.onStudentListChanged.next(this.studentList);
         this._commonService.onStudentsSelected.next(this.chekBoxSelected);
       }, 200);
     }
@@ -165,6 +166,7 @@ export class StudentsListComponent implements OnInit {
   toggleSidebarEdit(name, id): void {
     console.log('id:', id);
     this._studentListService.getAllStudents().then((response: any) => {
+      this._commonService.onUserEditListChanged.next(response);
       response.map(row => {
         if (row.userId == id) {
           console.log('current row', row);
@@ -251,6 +253,10 @@ export class StudentsListComponent implements OnInit {
    * On init
    */
   ngOnInit(): void {
+
+    this._studentListService.getAllStudents().then((list) => {
+      this.studentList = list;
+    });
     // Subscribe config change
     this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
       //! If we have zoomIn route Transition then load datatable after 450ms(Transition will finish in 400ms)

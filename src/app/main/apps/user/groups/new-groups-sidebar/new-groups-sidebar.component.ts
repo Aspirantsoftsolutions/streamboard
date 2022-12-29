@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { GroupsListService } from '../groups-list.service';
 import { CommonService } from '../../common.service';
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
+import { StudentsListService } from '../../students/students-list.service';
 
 @Component({
   selector: 'app-new-groups-sidebar',
@@ -26,7 +27,8 @@ export class NewGroupsSidebarComponent implements OnInit {
   constructor(private _coreSidebarService: CoreSidebarService,
     private toastr: ToastrService,
     private _groupService: GroupsListService,
-    private _commonService: CommonService,) {
+    private _commonService: CommonService,
+    private _studentListService: StudentsListService) {
     this.classDropdownSettings = {
       singleSelection: false,
       idField: '_id',
@@ -50,6 +52,10 @@ export class NewGroupsSidebarComponent implements OnInit {
       } else {
         this.isToUpdate = false;
       }
+    });
+
+    this._studentListService.onStudentListChanged.subscribe((list) => {
+      this.users = list;
     });
 
     // this._commonService.onStudentsSelected.subscribe(resp => {

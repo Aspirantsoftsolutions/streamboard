@@ -295,19 +295,20 @@ export class CommonService implements Resolve<any> {
   updateProfile(form, userid): Promise<any[]> {
     return new Promise((resolve, reject) => {
       this._httpClient.put(`${environment.apiUrl}/api/user/updateProfileData`, {
-        'organisation': form['user-name'],
+        'organisation': form['user-name'] || form['user-name'],
         'fullName': form['user-fullname'],
-        'firstName': form['user-firstname'],
-        'lastName': form['user-lastname'],
+        'firstName': form['user-firstName'],
+        'lastName': form['user-lastName'],
         'address': form['user-address'],
         'mobile': form['user-number'],
         'userId': userid,
-        'username': form['user-name'],
-        'email': form['user-email'],
+        'username': form['user-name'] || form['username'],
+        'email': form['user-email'] || form['email'],
         'itemail': form['user-it-email'],
-        'countryCode': '+91',
-        'role': 'School',
-        'plan': form['user-plan'].value,
+        'countryCode': '+971',
+        'role': form['role'],
+        'plan': form['user-plan'] ? form['user-plan'].value : form['plan'],
+        'schoolId': form['schoolId']
       }, {
         headers: {
           'Authorization': 'Bearer ' + localStorage.getItem('token')
