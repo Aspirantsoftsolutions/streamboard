@@ -22,6 +22,12 @@
             </span>
           </div>
           <div class="form-group">
+            <label class="form-label" for="class">{{'Select Class' | translate}}</label>
+            <select id="class" (change)="onClassSelect($event.target.value)"  class="form-control" name='class' [(ngModel)]="class">
+              <option *ngFor="let class of classes" [value]="class._id">{{class.className}}</option>
+            </select>
+          </div>
+          <div class="form-group">
             <ng-multiselect-dropdown class="mb-2" id="_id" name='username' placeholder="{{'Select students' | translate}}"
               [settings]="classDropdownSettings" [data]="users" [(ngModel)]="selectedUsers"
               (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" (onDeSelect)="onDeselect($event)"

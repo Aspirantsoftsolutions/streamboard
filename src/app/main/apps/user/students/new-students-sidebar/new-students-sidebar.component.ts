@@ -41,7 +41,7 @@ export class NewStudentsSidebarComponent implements OnInit {
     private _studentListService: StudentsListService,) {
 
     this._studentListService.onStudentListChanged.subscribe(response => {
-      if (response != null) {
+      if (!Array.isArray(response) && response != null) {
         this.isToUpdate = true;
         this.userId = response.userId;
         this.email = response.email;

@@ -127,7 +127,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private csvService: CsvService,
     private bulkUploadService: BulkUploadService,
     private _toastrService: ToastrService,
-    private translate:TranslateService
+    private translate: TranslateService
   ) {
     this.currentUser = this._commonService.getCurrentUser();
     // this.teacherTemplateData.schoolId = this.currentUser.userId;
@@ -142,6 +142,7 @@ export class AppComponent implements OnInit, OnDestroy {
       delete temp['username'];
       delete temp['password'];
       delete temp['schoolId'];
+      delete temp['countryCode'];
       this.jsonData.push(temp);
       this.csvService.setCSVHeaders(temp);
     } else {
@@ -149,6 +150,7 @@ export class AppComponent implements OnInit, OnDestroy {
       delete temp['username'];
       delete temp['password'];
       delete temp['schoolId'];
+      delete temp['countryCode'];
       this.jsonData.push(temp);
       this.csvService.setCSVHeaders(temp);
     }
@@ -220,26 +222,26 @@ export class AppComponent implements OnInit, OnDestroy {
           csvRecord.firstName = curruntRecord[1].trim();
           csvRecord.lastName = curruntRecord[2].trim();
           csvRecord.email = curruntRecord[3].trim();
-          csvRecord.countryCode = curruntRecord[4].trim();
-          csvRecord.mobile = curruntRecord[5].trim();
-          csvRecord.classes = curruntRecord[6].trim().split(';');
+          csvRecord.mobile = curruntRecord[4].trim();
+          csvRecord.classes = curruntRecord[5].trim().split(';');
           csvRecord.password = 'Test@123';
           csvRecord.schoolId = this.currentUser.userId;
           csvRecord.username = csvRecord.firstName + csvRecord.lastName;
+          csvRecord.countryCode = '+971';
           csvArr.push(csvRecord);
         } else if (profileType === 'student') {
           let csvRecord: studentTemplateData = new studentTemplateData();
           csvRecord.firstName = curruntRecord[1].trim();
           csvRecord.lastName = curruntRecord[2].trim();
           csvRecord.email = curruntRecord[3].trim();
-          csvRecord.countryCode = curruntRecord[4].trim();
-          csvRecord.mobile = curruntRecord[5].trim();
-          csvRecord.classes = curruntRecord[6].trim();
-          csvRecord.grades = curruntRecord[7].trim();
-          csvRecord.teachers = curruntRecord[8].trim().split(';');
+          csvRecord.mobile = curruntRecord[4].trim();
+          csvRecord.classes = curruntRecord[5].trim();
+          csvRecord.grades = curruntRecord[6].trim();
+          csvRecord.teachers = curruntRecord[7].trim().split(';');
           csvRecord.username = csvRecord.firstName + csvRecord.lastName;
           csvRecord.password = 'Test@123';
           csvRecord.schoolId = this.currentUser.userId;
+          csvRecord.countryCode = '+971';
           csvArr.push(csvRecord);
         }
       }

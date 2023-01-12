@@ -6,6 +6,7 @@ import { GroupsListService } from '../groups-list.service';
 import { CommonService } from '../../common.service';
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 import { StudentsListService } from '../../students/students-list.service';
+import { ClassesListService } from '../../classes/classes-list.service';
 
 @Component({
   selector: 'app-new-groups-sidebar',
@@ -13,12 +14,14 @@ import { StudentsListService } from '../../students/students-list.service';
 })
 export class NewGroupsSidebarComponent implements OnInit {
   public fullname;
+  public class;
   public id;
   public isToUpdate = false;
   public groupId;
   public selectedUsers = [];
   public classDropdownSettings;
   public users = [];
+  public classes = [];
   /**
    * Constructor
    *
@@ -28,7 +31,8 @@ export class NewGroupsSidebarComponent implements OnInit {
     private toastr: ToastrService,
     private _groupService: GroupsListService,
     private _commonService: CommonService,
-    private _studentListService: StudentsListService) {
+    private _studentListService: StudentsListService,
+    private _classListService: ClassesListService) {
     this.classDropdownSettings = {
       singleSelection: false,
       idField: '_id',
@@ -58,12 +62,22 @@ export class NewGroupsSidebarComponent implements OnInit {
       this.users = list;
     });
 
+    this.classes = this._classListService.onUserListChanged.getValue();
+
+    this._classListService.onUserListChanged.subscribe((list) => {
+      this.classes = list;
+    });
+
     // this._commonService.onStudentsSelected.subscribe(resp => {
     //   if (Array.isArray(resp)) {
     //     this.selectedUsers = resp.map(x => x._id);
     //   }
     // });
 
+  }
+
+  onClassSelect(classId) {
+    this.users = this.classes.find(clas => clas._id === classId).students;
   }
 
   /**

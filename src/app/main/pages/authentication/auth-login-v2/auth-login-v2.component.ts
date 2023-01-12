@@ -105,7 +105,11 @@ export class AuthLoginV2Component implements OnInit {
           this._authenticationService.getCurrentUser(data.data.token, data.data.user.userId)
             .subscribe(
               data => {
-                this._router.navigate(['/']);
+                if(data.data.role === 'Individual'){
+                  this._router.navigate(['/apps/user/quick_sessions']);
+                } else{
+                  this._router.navigate(['/']);
+                }
               },
               error => {
               }

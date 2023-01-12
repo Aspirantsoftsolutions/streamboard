@@ -9,6 +9,7 @@ export const menu: CoreMenu[] = [
     type: "item",
     icon: "home",
     url: "dashboard/ecommerce",
+    role: ["Student", "Teacher", "School","Admin"],
     children: [
       {
         id: "analytics",
@@ -57,8 +58,8 @@ export const menu: CoreMenu[] = [
         id: "collab",
         title: "Collaboration Class",
         type: "collapsible",
-        role: ["School", "Teacher", "Student"],
         icon: "file-text",
+        role: ["School", "Teacher", "Student"],
         children: [
           {
             id: "quick_sessions",

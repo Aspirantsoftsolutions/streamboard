@@ -71,7 +71,7 @@
         <ngx-datatable [rows]="rows" [rowHeight]="50" class="bootstrap core-bootstrap" [limit]="selectedOption"
           [columnMode]="ColumnMode.force" [headerHeight]="50" [footerHeight]="50" [scrollbarH]="true"
           (select)="chekBoxSelect($event)" [selected]="chekBoxSelected" [selectionType]="SelectionType.checkbox">
-
+<!-- 
           <ngx-datatable-column [width]="50" [sortable]="false" [canAutoResize]="false" [draggable]="false"
             [resizeable]="false">
 
@@ -83,7 +83,7 @@
                 <label class="custom-control-label" for="rowCustomChkbxRef{{ rowIndex }}"></label>
               </div>
             </ng-template>
-          </ngx-datatable-column>
+          </ngx-datatable-column> -->
 
 
           <ngx-datatable-column name="{{'User' | translate}}" prop="username" [width]="200">

@@ -151,7 +151,7 @@ export class StudentsListComponent implements OnInit {
       this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
 
       setTimeout(() => {
-        this._studentListService.onStudentListChanged.next(this.studentList);
+        // this._studentListService.onStudentListChanged.next(this.studentList);
         this._commonService.onStudentsSelected.next(this.chekBoxSelected);
       }, 200);
     }
