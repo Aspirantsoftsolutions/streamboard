@@ -64,25 +64,36 @@
                 <div class="card-body" *ngIf="currentUser.plan!='Basic'">
 
                   <div class="col-12 d-flex flex-sm-row flex-xolumn mt-2">
+				  
+				  Download the sample teacher & student .CSV file from here.
+				  <div style="margin-left:20px;">
                     <button type="submit" (click)="download('teacher')"
                       class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1" rippleEffect>
                       <span [data-feather]="'file'"></span>
                       {{'Teachers Template' | translate}}
                     </button>
-                    <!-- <label for="teachersFileUpload">Upload teachers template</label> -->
-                    <input type="file" #csvReader name="Upload CSV" id="teachersFileUpload"
-                      (change)="uploadListener($event,'teacher')" accept=".csv" />
-
-                  </div>
-                  <div class="col-12 d-flex flex-sm-row flex-xolumn mt-2">
-                    <button type="submit" (click)="download('student')"
+					 <button type="submit" (click)="download('student')"
                       class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1" rippleEffect>
                       <span [data-feather]="'file'"></span>
                       {{'Student Template' | translate}}
                     </button>
+					</div>
+
+                  </div><br>
+                  <div class="col-12">
+				
+                   
+					You can map multiple teachers by giving semicolon and upload .CSV file here.
                     <!-- <label for="StudentsFileUpload">Upload students Template</label> -->
                     <input type="file" #csvReader name="Upload CSV" id="StudentsFileUpload"
                       (change)="uploadListener($event,'student')" accept=".csv" />
+					  </div><br>
+					   <div class="col-12">
+					  
+					  You can map multiple class by giving semicolon and upload .CSV file here. 
+                    <!-- <label for="teachersFileUpload">Upload teachers template</label> -->
+                    <input type="file" #csvReader name="Upload CSV" id="teachersFileUpload"
+                      (change)="uploadListener($event,'teacher')" accept=".csv" />
                   </div>
                 </div>
               </div>
