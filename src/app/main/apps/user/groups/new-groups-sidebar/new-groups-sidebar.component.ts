@@ -7,6 +7,7 @@ import { CommonService } from '../../common.service';
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 import { StudentsListService } from '../../students/students-list.service';
 import { ClassesListService } from '../../classes/classes-list.service';
+import { GradesListService } from '../../grades/grades-list.service';
 
 @Component({
   selector: 'app-new-groups-sidebar',
@@ -22,6 +23,8 @@ export class NewGroupsSidebarComponent implements OnInit {
   public classDropdownSettings;
   public users = [];
   public classes = [];
+  public grades;
+  public grade;
   /**
    * Constructor
    *
@@ -32,6 +35,7 @@ export class NewGroupsSidebarComponent implements OnInit {
     private _groupService: GroupsListService,
     private _commonService: CommonService,
     private _studentListService: StudentsListService,
+    public _gradeListService: GradesListService,
     private _classListService: ClassesListService) {
     this.classDropdownSettings = {
       singleSelection: false,
@@ -80,6 +84,10 @@ export class NewGroupsSidebarComponent implements OnInit {
     this.users = this.classes.find(clas => clas._id === classId).students;
   }
 
+  onGradeSelect(classId) {
+    this.grade = this.classes.find(clas => clas._id === classId).students;
+  }
+
   /**
    * Toggle the sidebar
    *
@@ -117,7 +125,7 @@ export class NewGroupsSidebarComponent implements OnInit {
     if (form.valid) {
       console.log(form);
       if (!this.id) {
-        this._groupService.createGroup(form.value, this.selectedUsers).then((resposne) => {
+        this._groupService.createGroup(form.value, this.selectedUsers, this.grade).then((resposne) => {
           console.log('res set:', resposne);
           let successString = Response;
           this.toastr.success('👋 updated Successfully.', 'Success!', {
@@ -135,7 +143,7 @@ export class NewGroupsSidebarComponent implements OnInit {
         }
         );
       } else {
-        this._groupService.createGroup({ ...form.value, id: this.id }, this.selectedUsers).then((resposne: any) => {
+        this._groupService.createGroup({ ...form.value, id: this.id }, this.selectedUsers,this.grade).then((resposne: any) => {
           console.log('res set:', resposne);
           let successString = resposne;
           if (this._groupService.classRows != null) {
@@ -192,5 +200,13 @@ export class NewGroupsSidebarComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this._gradeListService.getDataTableRows().then((resposne) => {
+      console.log('res set Grades:', resposne);
+      this.grades = resposne;
+      console.log('grades:', this.grades);
+    }, (error) => {
+      console.log('res set error:', error);
+    });
+  }
 }
