@@ -126,22 +126,22 @@
                                             class="d-none d-sm-inline-block">Multimedia</span>
                                     </button> -->
                                     <button class="dropbtn btn btn-primary" *ngIf="chkBoxSelected.length"
-                                        (click)="addToGroup()">Group</button>
+                                        (click)="addToGroup()">{{'Group' | translate}}</button>
                                     <button class="dropbtn btn btn-primary" *ngIf="chkBoxSelected.length"
-                                        (click)="addBulkCreds()">Add Credentials</button>
+                                        (click)="addBulkCreds()">{{'Add Credentials' | translate}}</button>
                                     <div class="mdropdown">
                                         <button class="dropbtn btn btn-primary">{{'Broadcasting' | translate}}</button>
                                         <div class="mdropdown-content">
                                             <a class="" rippleEffect (click)="toggleSidebar('notification-sidebar')">
                                                 <i data-feather="plus"
                                                     class="d-sm-none d-inline-block mr-0 mr-sm-1"></i><span
-                                                    class="d-none d-sm-inline-block">Message</span>
+                                                    class="d-none d-sm-inline-block">{{'Message' | translate}}</span>
                                             </a>
 
                                             <a class="" rippleEffect (click)="toggleSidebar('app-multimedia-sidebar')">
                                                 <i data-feather="plus"
                                                     class="d-sm-none d-inline-block mr-0 mr-sm-1"></i><span
-                                                    class="d-none d-sm-inline-block">Multimedia</span>
+                                                    class="d-none d-sm-inline-block">{{'Multimedia' | translate}}</span>
                                             </a>
 
                                         </div>

@@ -117,7 +117,7 @@ export class UserListService implements Resolve<any> {
         'mobile': form['mobilenumber'],
         'countryCode': '+91',
         'role': role,
-        'plan': "Free",
+        'plan': "Basic",
         'status': 'active',
         'location': form['location'],
         'organisation': form['username']
@@ -138,7 +138,7 @@ export class UserListService implements Resolve<any> {
         'mobile': '',
         'countryCode': '+971',
         'role': 'Individual',
-        'plan': "Free",
+        'plan': "Basic",
         'status': 'active',
         'location': '',
         'organisation': company
