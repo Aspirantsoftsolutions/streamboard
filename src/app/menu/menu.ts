@@ -263,7 +263,7 @@ export const menu: CoreMenu[] = [
         url: "apps/user/notifications",
       },
       {
-        id: "Devicemanagement",
+        id: "devicemanagement",
         title: "Device management",
         type: "collapsible",
         role: ["School"],

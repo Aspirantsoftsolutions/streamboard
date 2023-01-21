@@ -100,7 +100,7 @@ export class AuthRegisterV2Component implements OnInit {
       });
     }, (error) => {
       console.log('res set error:', error);
-      let errorString = error;
+      let errorString = error.message;
       this.toastr.error(errorString, 'Error!', {
         toastClass: 'toast ngx-toastr',
         closeButton: true
@@ -144,7 +144,7 @@ export class AuthRegisterV2Component implements OnInit {
       mobilenumber: ['', Validators.required],
       location: ['', Validators.required],
       organisation: ['', Validators.required],
-      role: ['', Validators.required]
+      privacy: ['', Validators.required]
     });
     this.selectedStatus = this.selectStatusRegister[0];
 

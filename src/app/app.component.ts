@@ -73,9 +73,12 @@ export class AppComponent implements OnInit, OnDestroy {
     this._translateService.addLangs(['en', 'ar']);
     // This language will be used as a fallback when a translation isn't found in the current language
     this._translateService.setDefaultLang('en');
-
-    const browserLang = _translateService.getBrowserLang();
-    _translateService.use(browserLang.match(/en|ar/) ? browserLang : 'en');
+    setTimeout(() => {
+      const browserLang = localStorage.getItem('currentUser') ? JSON.parse(localStorage.getItem('currentUser'))['locale'] : null;
+      if (browserLang) {
+        _translateService.use(browserLang.match(/en|ar/) ? browserLang : 'en');
+      }
+    }, 1000);
     // Set the translations for the menu
     this._coreTranslationService.translate(menuEnglish, menuFrench, menuGerman, menuPortuguese);
 
@@ -107,8 +110,8 @@ export class AppComponent implements OnInit, OnDestroy {
       // Change application language? Read the ngxTranslate Fix
 
       // ? Use app-config.ts file to set default language
-      const appLanguage = this.coreConfig.app.appLanguage || 'en';
-      this._translateService.use(appLanguage);
+      // const appLanguage = this.coreConfig.app.appLanguage || 'en';
+      // this._translateService.use(appLanguage);
 
       // ? OR
       // ? User the current browser lang if available, if undefined use 'en'
@@ -132,10 +135,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
       // Set the default language to 'en' and then back to 'fr'.
 
-      setTimeout(() => {
-        this._translateService.setDefaultLang('en');
-        this._translateService.setDefaultLang(appLanguage);
-      });
+      // setTimeout(() => {
+      //   // this._translateService.setDefaultLang('en');
+      //   // this._translateService.setDefaultLang(appLanguage);
+      // });
 
       /**
        * !Fix: ngxTranslate
@@ -252,18 +255,22 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   async setMenu() {
-
+    const plan = localStorage.getItem('currentUser') ? JSON.parse(localStorage.getItem('currentUser'))['plan'] : null;
     const childGrouteRoutes = await this.getDeviceGroups();
 
-    // Get the application main menu
-
     menu[1].children.find(item => {
-      if (item.id === "Devicemanagement") {
+      if (item.id === "devicemanagement") {
         item.children[2].children = childGrouteRoutes;
       }
     })
-
     this.menu = menu;
+    // Get the application main menu
+    if (plan === 'Premium' || plan === 'Basic' ) {
+      const x = menu[1].children.filter(item => {
+        return !(['sso', "devicemanagement"].includes(item.id));
+      });
+      this.menu[1].children =  x;
+    }
 
     // Register the menu to the menu service
     this._coreMenuService.register('main', this.menu);

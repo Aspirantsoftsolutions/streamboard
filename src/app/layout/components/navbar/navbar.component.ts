@@ -147,9 +147,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this._translateService.use(language);
 
     this._coreConfigService.setConfig({ app: { appLanguage: language } }, { emitEvent: true });
-    console.log();
-
     this._commonService.updateLocale(user.userId, language).subscribe((res) => {
+      localStorage.setItem('currentUser', JSON.stringify({ ...user, locale: language }));
       this.toaster.success(res['message'], 'Success!', {
         toastClass: 'toast ngx-toastr',
         closeButton: true

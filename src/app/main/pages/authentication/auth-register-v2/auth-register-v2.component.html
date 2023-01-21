@@ -36,7 +36,7 @@
             <label for="register-username" class="form-label">Username</label>
             <input type="text" formControlName="username" class="form-control" placeholder="johndoe"
               aria-describedby="register-username" tabindex="1" autofocus
-              [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+              [ngClass]="{ 'is-invalid': submitted && f.username.errors }" required />
             <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
               <div *ngIf="f.username.errors.required">Username is required</div>
             </div>
@@ -44,8 +44,8 @@
           <div class="form-group">
             <label for="register-email" class="form-label">Email</label>
             <input type="text" formControlName="email" class="form-control" placeholder="john@example.com"
-              aria-describedby="register-email" tabindex="2"
-              [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+              aria-describedby="register-email" tabindex="2" [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+              required />
             <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
               <div *ngIf="f.email.errors.required">Email is required</div>
               <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
@@ -58,7 +58,7 @@
             <div class="input-group input-group-merge form-password-toggle">
               <input [type]="passwordTextType ? 'text' : 'password'" formControlName="password"
                 class="form-control form-control-merge" placeholder="············" aria-describedby="register-password"
-                tabindex="3" [ngClass]="{ 'is-invalid error': submitted && f.password.errors }" />
+                tabindex="3" [ngClass]="{ 'is-invalid error': submitted && f.password.errors }" required />
               <div class="input-group-append">
                 <span class="input-group-text cursor-pointer"><i class="feather font-small-4" [ngClass]="{
                       'icon-eye-off': passwordTextType,
@@ -76,7 +76,7 @@
             <label for="register-mobilenumber" class="form-label">MobileNumber</label>
             <input type="text" formControlName="mobilenumber" class="form-control" placeholder="+91-1234567890"
               aria-describedby="register-mobilenumber" tabindex="1" autofocus
-              [ngClass]="{ 'is-invalid': submitted && f.mobilenumber.errors }" />
+              [ngClass]="{ 'is-invalid': submitted && f.mobilenumber.errors }" required />
             <div *ngIf="submitted && f.mobilenumber.errors" class="invalid-feedback">
               <div *ngIf="f.mobilenumber.errors.required">mobilenumber is required</div>
             </div>
@@ -86,7 +86,7 @@
             <label for="register-location" class="form-label">Location</label>
             <input type="text" formControlName="location" class="form-control" placeholder="Enter your location"
               aria-describedby="register-location" tabindex="1" autofocus
-              [ngClass]="{ 'is-invalid': submitted && f.location.errors }" />
+              [ngClass]="{ 'is-invalid': submitted && f.location.errors }" required />
             <div *ngIf="submitted && f.location.errors" class="invalid-feedback">
               <div *ngIf="f.location.errors.required">location is required</div>
             </div>
@@ -96,7 +96,7 @@
             <label for="register-organisation" class="form-label">Organisation</label>
             <input type="text" formControlName="organisation" class="form-control" placeholder="Enter your organisation"
               aria-describedby="register-organisation" tabindex="1" autofocus
-              [ngClass]="{ 'is-invalid': submitted && f.organisation.errors }" />
+              [ngClass]="{ 'is-invalid': submitted && f.organisation.errors }" required />
             <div *ngIf="submitted && f.organisation.errors" class="invalid-feedback">
               <div *ngIf="f.organisation.errors.required">organisation is required</div>
             </div>
@@ -105,7 +105,7 @@
 
           <div class="form-group">
             <label class="form-label" for="user-role">Are you a</label>
-            <select id="user-role" class="form-control" id="role" name='role' [(ngModel)]="role">
+            <select id="user-role" class="form-control" id="role" name='role' [(ngModel)]="role" required>
               <option value="Teacher">Teacher</option>
               <option value="Student">Student</option>
               <option value="ITAdmin">IT Admin</option>
@@ -114,10 +114,14 @@
 
           <div class="form-group">
             <div class="custom-control custom-checkbox">
-              <input class="custom-control-input" type="checkbox" id="register-privacy-policy" tabindex="4" />
+              <input class="custom-control-input" formControlName="privacy" type="checkbox" id="register-privacy-policy"
+                tabindex="4" required />
               <label class="custom-control-label" for="register-privacy-policy">
                 I agree to <a href="javascript:void(0);">privacy policy & terms</a>
               </label>
+            </div>
+            <div *ngIf="submitted && f.privacy.errors" class="invalid-feedback">
+              <div *ngIf="f.privacy.errors.required">privacy policy should be accepted</div>
             </div>
           </div>
           <button class="btn btn-primary btn-block" tabindex="5" rippleEffect>Sign up</button>
