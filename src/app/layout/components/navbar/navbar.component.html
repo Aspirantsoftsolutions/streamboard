@@ -3,7 +3,7 @@
   <ul class="nav navbar-nav flex-row">
     <li class="nav-item">
       <a class="navbar-brand" [routerLink]="['/']">
-                  <img src="{{ coreConfig.app.appLogoImage }}" alt="brand-logo" width="200" />
+        <img src="{{ coreConfig.app.appLogoImage }}" alt="brand-logo" width="200" />
 
         <!-- <h2 class="brand-text mb-0">{{ coreConfig.app.appName }}</h2> -->
       </a>
@@ -32,12 +32,13 @@
     <!-- Language selection -->
     <li ngbDropdown class="nav-item dropdown dropdown-language">
       <a class="nav-link dropdown-toggle" id="dropdown-flag" ngbDropdownToggle>
-        <i class="flag-icon flag-icon-{{ languageOptions[_translateService.currentLang].flag }}"></i
-        ><span class="selected-language">{{ languageOptions[_translateService.currentLang].title }}</span></a
-      >
+        <i *ngIf="languageOptions[_translateService.currentLang]"
+          class="flag-icon flag-icon-{{ languageOptions[_translateService.currentLang].flag }}"></i>
+        <span *ngIf="languageOptions[_translateService.currentLang]" class="selected-language">{{ languageOptions[_translateService.currentLang].title }}</span></a>
       <div ngbDropdownMenu aria-labelledby="dropdown-flag">
         <a *ngFor="let lang of ['en','ar']" ngbDropdownItem (click)="setLanguage(lang)">
-          <i class="flag-icon flag-icon-{{ languageOptions[lang].flag }}"></i> {{ languageOptions[lang].title }}
+          <i *ngIf="languageOptions[_translateService.currentLang]"
+            class="flag-icon flag-icon-{{ languageOptions[lang].flag }}"></i> {{ languageOptions[lang].title }}
         </a>
       </div>
     </li>
@@ -65,35 +66,23 @@
 
     <!-- User Dropdown -->
     <li ngbDropdown class="nav-item dropdown-user">
-      <a
-        class="nav-link dropdown-toggle dropdown-user-link"
-        id="dropdown-user"
-        ngbDropdownToggle
-        id="navbarUserDropdown"
-        aria-haspopup="true"
-        aria-expanded="false"
-      >
+      <a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" ngbDropdownToggle
+        id="navbarUserDropdown" aria-haspopup="true" aria-expanded="false">
         <ng-container *ngIf="this.currentUser">
           <div class="user-nav d-sm-flex d-none">
-            <span class="user-name font-weight-bolder"
-              >{{ this.currentUser.firstName }} {{ this.currentUser.lastName }}</span
-            ><span class="user-status">{{ this.currentUser.role }}</span>
+            <span class="user-name font-weight-bolder">{{ this.currentUser.firstName }} {{ this.currentUser.lastName
+              }}</span><span class="user-status">{{ this.currentUser.role }}</span>
           </div>
           <span class="avatar">
-            <img
-              class="round"
-              src="assets/images/logo/user.svg"
-              alt="avatar"
-              height="40"
-              width="40" />
+            <img class="round" src="assets/images/logo/user.svg" alt="avatar" height="40" width="40" />
             <!-- <img
               class="round"
               src="assets/images/portrait/small/{{ this.currentUser.profile_pic }}"
               alt="avatar"
               height="40"
               width="40" /> -->
-              <span class="avatar-status-online">
-                </span></span>
+            <span class="avatar-status-online">
+            </span></span>
         </ng-container>
       </a>
       <div ngbDropdownMenu aria-labelledby="navbarUserDropdown" class="dropdown-menu dropdown-menu-right">
@@ -113,7 +102,7 @@
           ><span [data-feather]="'credit-card'" [class]="'mr-50'"></span> Pricing</a
         ><a ngbDropdownItem [routerLink]="['/pages/faq']"
           ><span [data-feather]="'help-circle'" [class]="'mr-50'"></span> FAQ</a> -->
-          <a ngbDropdownItem (click)="logout()"><span [data-feather]="'power'" [class]="'mr-50'"></span> Logout</a>
+        <a ngbDropdownItem (click)="logout()"><span [data-feather]="'power'" [class]="'mr-50'"></span> Logout</a>
       </div>
     </li>
     <!--/ User Dropdown -->

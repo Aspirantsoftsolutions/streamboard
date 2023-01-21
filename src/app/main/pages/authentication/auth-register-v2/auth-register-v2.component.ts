@@ -88,25 +88,32 @@ export class AuthRegisterV2Component implements OnInit {
    * On Submit
    */
   onSubmit() {
-    this.submitted = true;
-    this._UserListService.register(this.registerForm.value, 'Individual').then((resposne) => {
-      console.log('res set:', resposne);
-      this._router.navigate(['/pages/authentication/login-v2']);
+    if (this.registerForm.valid) {
+      this.submitted = true;
+      this._UserListService.register(this.registerForm.value, 'Individual').then((resposne) => {
+        console.log('res set:', resposne);
+        this._router.navigate(['/pages/authentication/login-v2']);
 
-      let successString = Response;
-      this.toastr.success('👋 Registered Created Successfully.', 'Success!', {
-        toastClass: 'toast ngx-toastr',
-        closeButton: true
-      });
-    }, (error) => {
-      console.log('res set error:', error);
-      let errorString = error.message;
-      this.toastr.error(errorString, 'Error!', {
+        let successString = Response;
+        this.toastr.success('👋 Registered Created Successfully.', 'Success!', {
+          toastClass: 'toast ngx-toastr',
+          closeButton: true
+        });
+      }, (error) => {
+        console.log('res set error:', error);
+        let errorString = error.message;
+        this.toastr.error(errorString, 'Error!', {
+          toastClass: 'toast ngx-toastr',
+          closeButton: true
+        });
+      }
+      );
+    } else {
+      this.toastr.error('Validation error', 'Error!', {
         toastClass: 'toast ngx-toastr',
         closeButton: true
       });
     }
-    );
   }
 
   socialRegistration(email) {
