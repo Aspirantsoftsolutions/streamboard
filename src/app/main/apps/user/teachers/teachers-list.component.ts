@@ -29,7 +29,6 @@ export class TeachersListComponent implements OnInit {
   public previousStatusFilter = '';
 
   public selectRole: any = [
-    { name: this.translate.instant('All'), value: '' },
     { name: this.translate.instant('Admin'), value: 'Admin' },
     { name: this.translate.instant('Author'), value: 'Author' },
     { name: this.translate.instant('Editor'), value: 'Editor' },
@@ -38,7 +37,6 @@ export class TeachersListComponent implements OnInit {
   ];
 
   public selectPlan: any = [
-    { name: this.translate.instant('All'), value: '' },
     { name: this.translate.instant('Basic'), value: 'Basic' },
     { name: this.translate.instant('Premium'), value: 'Premium' },
     { name: this.translate.instant('Enterprise'), value: 'Enterprise' },

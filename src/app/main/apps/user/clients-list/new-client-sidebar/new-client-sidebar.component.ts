@@ -23,7 +23,6 @@ export class NewClientSidebarComponent implements OnInit {
   public userId;
   public selectedPlan = [];
   public selectPlan: any = [
-    { name: this.translate.instant('All'), value: '' },
     { name: this.translate.instant('Basic'), value: 'Basic' },
     { name: this.translate.instant('Premium'), value: 'Premium' },
     { name: this.translate.instant('Enterprise'), value: 'Enterprise' },

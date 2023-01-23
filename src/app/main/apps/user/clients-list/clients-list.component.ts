@@ -40,14 +40,12 @@ export class ClientsListComponent implements OnInit {
   public emailInvite = '';
 
   public selectPlan: any = [
-    { name: this.translate.instant('All'), value: '' },
     { name: this.translate.instant('Basic'), value: 'Basic' },
     { name: this.translate.instant('Premium'), value: 'Premium' },
     { name: this.translate.instant('Enterprise'), value: 'Enterprise' },
   ];
 
   public selectRole: any = [
-    { name: this.translate.instant('All'), value: '' },
     { name: this.translate.instant('School'), value: 'School' },
     { name: this.translate.instant('Teacher'), value: 'Teacher' },
     { name: this.translate.instant('Student'), value: 'Student' },
