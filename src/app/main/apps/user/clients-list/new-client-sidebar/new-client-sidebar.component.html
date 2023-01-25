@@ -118,6 +118,18 @@
             </span>
             <small class="form-text text-muted"> {{'Please select a plan' | translate}} </small>
           </div>
+
+          <div class="form-group position-relative">
+            <label for="end-date" class="form-label">{{'License Expiry' | translate}}</label>
+            <ng2-flatpickr [config]="endDateOptions" #planExpiry="ngModel" [(ngModel)]="PlanExpiry" name="plan-endDate"
+              [setDate]="endDate" required [class.error]="newUserForm.submitted && planExpiry.invalid" required>
+            </ng2-flatpickr>
+            <span *ngIf="newUserForm.submitted && planExpiry.invalid" class="invalid-form">
+              <small class="form-text text-danger" *ngIf="planExpiry.errors.required">{{'This field is required!' |
+                translate}}</small>
+            </span>
+          </div>
+
           <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" *ngIf="!isToUpdate"
             rippleEffect>{{'Submit' | translate}}</button>
           <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" *ngIf="isToUpdate"

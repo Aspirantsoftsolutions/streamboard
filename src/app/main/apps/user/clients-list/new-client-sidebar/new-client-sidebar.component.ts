@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
+import { FlatpickrOptions } from 'ng2-flatpickr';
 
 @Component({
   selector: 'app-new-client-sidebar',
@@ -22,6 +23,15 @@ export class NewClientSidebarComponent implements OnInit {
   public isToUpdate = false;
   public userId;
   public selectedPlan = [];
+  public PlanExpiry;
+  public endDateOptions: FlatpickrOptions = {
+    altInput: true,
+    mode: "single",
+    altInputClass:
+      "form-control flat-picker flatpickr-input invoice-edit-input",
+    enableTime: true
+  };
+  public endDate = ``;
   public selectPlan: any = [
     { name: this.translate.instant('Basic'), value: 'Basic' },
     { name: this.translate.instant('Premium'), value: 'Premium' },
@@ -36,7 +46,7 @@ export class NewClientSidebarComponent implements OnInit {
    */
   constructor(private _coreSidebarService: CoreSidebarService,
     private toastr: ToastrService,
-    private _commonService: CommonService,private translate: TranslateService) {
+    private _commonService: CommonService, private translate: TranslateService) {
     this._commonService.onUserEditListChanged.subscribe(response => {
       console.log('res cms', response);
       if (response != null) {
@@ -50,6 +60,10 @@ export class NewClientSidebarComponent implements OnInit {
         this.address = response.address!;
         this.itemail = response.itemail!;
         this.mobilenumber = response.mobile;
+        this.PlanExpiry = [];
+        this.PlanExpiry.push(response.licenseEndDate);
+        this.endDate = response.licenseEndDate;
+
         this.selectedPlan = this.selectPlan.find(plan => plan.value === response.plan);
       } else {
         this.isToUpdate = false;

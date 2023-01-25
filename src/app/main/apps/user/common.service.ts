@@ -297,8 +297,8 @@ export class CommonService implements Resolve<any> {
       this._httpClient.put(`${environment.apiUrl}/api/user/updateProfileData`, {
         'organisation': form['user-name'] || form['user-name'],
         'fullName': form['user-fullname'],
-        'firstName': form['user-firstName'],
-        'lastName': form['user-lastName'],
+        'firstName': form['user-firstname'],
+        'lastName': form['user-lastname'],
         'address': form['user-address'],
         'mobile': form['user-number'],
         'userId': userid,
@@ -308,7 +308,8 @@ export class CommonService implements Resolve<any> {
         'countryCode': '+971',
         'role': form['role'],
         'plan': form['user-plan'] ? form['user-plan'].value : form['plan'],
-        'schoolId': form['schoolId']
+        'schoolId': form['schoolId'],
+        'licenseEndDate': new Date(form['plan-endDate'][0]).toISOString()
       }, {
         headers: {
           'Authorization': 'Bearer ' + localStorage.getItem('token')
@@ -388,7 +389,8 @@ export class CommonService implements Resolve<any> {
         'countryCode': '+91',
         'role': 'School',
         'plan': form['user-plan'].value,
-        'status': 'active'
+        'status': 'active',
+        'licenseEndDate': new Date(form['plan-endDate'][0]).toISOString()
       }).subscribe((response: any) => {
         console.log(response);
         resolve(response);
