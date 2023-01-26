@@ -175,6 +175,17 @@ export class ClientsListComponent implements OnInit {
   changeSubscriptionType(plan, id) {
     this._commonService.updateSchoolSubscription(plan, id).then((response) => {
       this._commonService.getDataTableRowsAll();
+      this._toastrService.success(
+        '👋 !',
+        'Successfully updated  🎉',
+        { toastClass: 'toast ngx-toastr', closeButton: true }
+      );
+    }, err => {
+      this._toastrService.error(
+        err.message,
+        'Failed to update',
+        { toastClass: 'toast ngx-toastr', closeButton: true }
+      );
     });
   }
 
