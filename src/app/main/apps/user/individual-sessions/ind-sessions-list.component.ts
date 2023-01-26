@@ -91,7 +91,7 @@ export class IndSessionsListComponent implements OnInit {
     { name: this.translate.instant('Enterprise'), value: 'Enterprise' },
     { name: this.translate.instant('Team'), value: 'Team' }
   ];
-  
+
   public selectStatus: any = [
     { name: this.translate.instant('All'), value: '' },
     { name: this.translate.instant('Pending'), value: 'Pending' },
@@ -282,7 +282,7 @@ export class IndSessionsListComponent implements OnInit {
     });
     this._commonService.updateFeatures(this.features, userId).then((resposne: any) => {
       console.log('res updateFeatures:', resposne);
-      // localStorage.setItem('currentUser', JSON.stringify(user));
+      localStorage.setItem('currentUser', JSON.stringify({ ...JSON.parse(localStorage.getItem('currentUser')), ...this.features }));
       setTimeout(() => {
         this._toastrService.success(
           'Successfully Updated  🎉',
