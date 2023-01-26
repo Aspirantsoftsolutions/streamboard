@@ -263,5 +263,7 @@
     "Send Invoice":"إرسال الفاتورة",
     "Print":"مطبعة",
     "Remove from sync":"إزالة من المزامنة",
-    "License Expiry":"انتهاء الترخيص"
+    "License Expiry":"انتهاء الترخيص",
+    "Time":"وقت",
+    "Send":"إرسال"
 }
