@@ -113,7 +113,7 @@ export class UserListService implements Resolve<any> {
       this._httpClient.post(`${environment.apiUrl}/api/auth/register`, {
         'username': form['username'],
         'email': form['email'],
-        'password': form['password'],
+        'password': form['password'] || 'Test@123',
         'mobile': form['mobilenumber'],
         'countryCode': '+91',
         'role': role,
@@ -134,7 +134,7 @@ export class UserListService implements Resolve<any> {
       this._httpClient.post(`${environment.apiUrl}/api/auth/socialRegister`, {
         'username': email.split('@')[0],
         'email': email,
-        'password': 'Test123',
+        'password': 'Test@123',
         'mobile': '',
         'countryCode': '+971',
         'role': 'Individual',

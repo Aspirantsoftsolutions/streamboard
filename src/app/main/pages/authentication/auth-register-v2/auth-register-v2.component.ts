@@ -147,7 +147,6 @@ export class AuthRegisterV2Component implements OnInit {
     this.registerForm = this._formBuilder.group({
       username: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
       mobilenumber: ['', Validators.required],
       location: ['', Validators.required],
       organisation: ['', Validators.required],
