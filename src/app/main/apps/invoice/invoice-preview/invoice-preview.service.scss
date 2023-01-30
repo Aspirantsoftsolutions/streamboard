@@ -7,6 +7,7 @@
   @page {
     margin: 0;
   }
+
   .invoice-actions,
   .main-menu,
   .buy-now {
@@ -17,4 +18,18 @@
     max-width: 100% !important;
     flex: 0 0 100%;
   }
+}
+
+
+.invoice-spacing {
+  display: flex;
+  flex-direction: row;
+  justify-content: unset;
+}
+
+.addTask {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }

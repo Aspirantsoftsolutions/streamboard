@@ -154,7 +154,7 @@ export class UserListService implements Resolve<any> {
     return new Promise((resolve, reject) => {
       this._httpClient.post(`${environment.apiUrl}/api/auth/register`, {
         'username': form['username'],
-        'email': form['email'],
+        'email': form['itemail'],
         'firstName': form['firstname'],
         'lastName': form['lastname'],
         'password': 'Test@123',
@@ -164,7 +164,7 @@ export class UserListService implements Resolve<any> {
         'plan': "Basic",
         'status': 'active',
         'address': form['location'],
-        'itemail': form['itemail'],
+        'itemail': form['email'],
         'organisation': form['username']
       }).subscribe((response: any) => {
         console.log(response);
@@ -178,8 +178,8 @@ export class UserListService implements Resolve<any> {
       this._httpClient.post(`${environment.apiUrl}/api/auth/register`, {
         'organisation': form['username'],
         'username': form['username'],
-        'email': form['email'],
-        'itemail': form['itemail'],
+        'email': form['itemail'],
+        'itemail': form['email'],
         'fullName': form['fullname'],
         'firstName': form['firstname'],
         'lastName': form['lastname'],

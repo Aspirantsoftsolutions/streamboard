@@ -5,7 +5,8 @@
       <div class="col-xl-4 col-md-6 col-12" *ngIf="currentUser?.role == 'School'">
         <div class="card card-congratulation-medal">
           <div class="card-body">
-            <h3>{{'You are in' | translate}} <b>{{ currentUser?.plan }} Plan</b>🎉</h3>
+            <h5>{{'Subscription' | translate}} <b>{{ currentUser?.plan }} Plan</b> - {{currentUser.licenseEndDate |
+              date:'short'}}</h5>
 
             <!-- <button type="button" class="btn btn-primary" rippleEffect>{{ currentUser?.plan }}</button> -->
             <!-- <img src="assets/images/illustration/badge.svg" class="congratulation-medal" alt="Medal Pic" /> -->
@@ -119,7 +120,7 @@
                   </div>
                   <div class="media-body my-auto">
                     <h4 class="font-weight-bolder mb-0">{{ countData.Premium }}</h4>
-                    <p class="card-text font-small-3 mb-0">{{'Profession Users'| translate}}</p>
+                    <p class="card-text font-small-3 mb-0">{{'Professional Users'| translate}}</p>
                   </div>
                 </div>
               </div>
@@ -159,6 +160,19 @@
                   <div class="media-body my-auto">
                     <h4 class="font-weight-bolder mb-0">{{ countData.schoolsInActiveCount }}</h4>
                     <p class="card-text font-small-3 mb-0">{{'Inactive Customers'| translate}}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-xl-3 mb-2 mb-sm-0">
+                <div class="media">
+                  <div class="avatar bg-light-danger mr-2">
+                    <div class="avatar-content">
+                      <i data-feather="user" class="avatar-icon"></i>
+                    </div>
+                  </div>
+                  <div class="media-body my-auto">
+                    <h4 class="font-weight-bolder mb-0">{{ countData.invitesCount }}</h4>
+                    <p class="card-text font-small-3 mb-0">{{'Invited Customers'| translate}}</p>
                   </div>
                 </div>
               </div>

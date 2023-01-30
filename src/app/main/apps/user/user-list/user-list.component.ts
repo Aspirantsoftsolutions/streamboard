@@ -1,6 +1,6 @@
 import { CommonService } from 'app/main/apps/user/common.service';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { ColumnMode, DatatableComponent } from '@swimlane/ngx-datatable';
+import { ColumnMode, DatatableComponent, SelectionType } from '@swimlane/ngx-datatable';
 
 import { Subject, async } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -36,6 +36,7 @@ export class UserListComponent implements OnInit {
   public previousRoleFilter = '';
   public previousPlanFilter = '';
   public previousStatusFilter = '';
+  public SelectionType = SelectionType;
 
   public selectRole: any = [
     { name: this.translate.instant('All'), value: '' },
@@ -60,6 +61,10 @@ export class UserListComponent implements OnInit {
   public selectedPlan = [];
   public selectedStatus = [];
   public searchValue = '';
+  public selected = [];
+  public allSelected;
+  public role;
+
 
   // Decorator
   @ViewChild(DatatableComponent) table: DatatableComponent;
@@ -93,6 +98,13 @@ export class UserListComponent implements OnInit {
     return this.authService.instance.getAllAccounts().length > 0;
   }
 
+  onSelect({ selected }) {
+    console.log('Select Event', selected, this.selected);
+    this.selected.splice(0, this.selected.length);
+    this.selected.push(...selected);
+    this.allSelected = this.rows.length === this.selected.length;
+  }
+
   // Public Methods
   // -----------------------------------------------------------------------------------------------------
 
@@ -111,7 +123,7 @@ export class UserListComponent implements OnInit {
 
     // Filter Our Data
     const temp = this.tempData.filter(function (d) {
-      return (d.username !== undefined && d.username.toLowerCase().indexOf(val) !== -1) ||(d.email !== undefined && d.email.toLowerCase().indexOf(val) !== -1) || (d.fullName !== undefined && d.fullName.toLowerCase().indexOf(val) !== -1) || (d.firstName !== undefined && d.firstName.toLowerCase().indexOf(val) !== -1) || !val;
+      return (d.username !== undefined && d.username.toLowerCase().indexOf(val) !== -1) || (d.email !== undefined && d.email.toLowerCase().indexOf(val) !== -1) || (d.fullName !== undefined && d.fullName.toLowerCase().indexOf(val) !== -1) || (d.firstName !== undefined && d.firstName.toLowerCase().indexOf(val) !== -1) || !val;
     });
 
     // Update The Rows
@@ -292,6 +304,22 @@ export class UserListComponent implements OnInit {
     });
   }
 
+  updateRoles() {
+    this._commonService.updateRolesBulk(this.selected, this.role).subscribe((resp) => {
+      this.toastr.success('👋 Updated Successfully.', 'Success!', {
+        toastClass: 'toast ngx-toastr',
+        closeButton: true
+      });
+      this.rows = [];
+      window.location.reload();
+    }, (err) => {
+      this.toastr.error(`${err.message}`, 'Error!', {
+        toastClass: 'toast ngx-toastr',
+        closeButton: true
+      });
+    })
+  }
+
   async getUser() {
     // const client = new JWT({
     //   email: privatekey.client_email,
@@ -302,24 +330,24 @@ export class UserListComponent implements OnInit {
     // const res = await client.request({ url });
     // console.log(res.data);
 
-  // try {
-  //   const admin = await google.admin({
-  //     version: "directory_v1",
-  //     auth: client,
-  //   });
-  //   //get all users
-  //   const users = await admin.users.get({
-  //     userKey: email,
-  //   });
-  //   console.log(users, "users");
-  // } catch (error) {
-  //   console.log(
-  //     error.response ? error.response.data : error.message,
-  //     "error",
-  //     error.message ? error.errors : ""
-  //   );
-  // }
-}
+    // try {
+    //   const admin = await google.admin({
+    //     version: "directory_v1",
+    //     auth: client,
+    //   });
+    //   //get all users
+    //   const users = await admin.users.get({
+    //     userKey: email,
+    //   });
+    //   console.log(users, "users");
+    // } catch (error) {
+    //   console.log(
+    //     error.response ? error.response.data : error.message,
+    //     "error",
+    //     error.message ? error.errors : ""
+    //   );
+    // }
+  }
 
   /**
    * On destroy

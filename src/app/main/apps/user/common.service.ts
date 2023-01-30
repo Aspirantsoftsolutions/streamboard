@@ -16,6 +16,7 @@ export class CommonService implements Resolve<any> {
   public onDevicesUpdates: BehaviorSubject<any>;
   public onDevicesSelected: BehaviorSubject<any>;
   public updateSideMenu: BehaviorSubject<any>;
+  public editProfile: BehaviorSubject<any>;
   public static teacherGetList;
   public onTeacherEditListChanged = null;
   public devicesSelected = [];
@@ -35,6 +36,7 @@ export class CommonService implements Resolve<any> {
     this.onDevicesUpdates = new BehaviorSubject({});
     this.onDevicesSelected = new BehaviorSubject([]);
     this.updateSideMenu = new BehaviorSubject(false);
+    this.editProfile = new BehaviorSubject({});
   }
 
   getCurrentUser() {
@@ -303,8 +305,8 @@ export class CommonService implements Resolve<any> {
         'mobile': form['user-number'],
         'userId': userid,
         'username': form['user-name'] || form['username'],
-        'email': form['user-email'] || form['email'],
-        'itemail': form['user-it-email'],
+        'email': form['user-it-email'],
+        'itemail': form['user-email'] || form['email'],
         'countryCode': '+971',
         'role': form['role'],
         'plan': form['user-plan'] ? form['user-plan'].value : form['plan'],
@@ -378,8 +380,8 @@ export class CommonService implements Resolve<any> {
       this._httpClient.post(`${environment.apiUrl}/api/auth/register`, {
         'organisation': form['user-name'],
         'username': form['user-name'],
-        'email': form['user-email'],
-        'itemail': form['user-it-email'],
+        'email': form['user-it-email'],
+        'itemail': form['user-email'],
         'fullName': form['user-fullname'],
         'firstName': form['user-firstname'],
         'lastName': form['user-lastname'],
@@ -650,6 +652,23 @@ export class CommonService implements Resolve<any> {
 
   updateLocale(userId, locale) {
     return this._httpClient.post(`${environment.apiUrl}/api/user/preferences/${userId}`, { locale });
+  }
+
+  updateSelfProfile(user): Promise<any[]> {
+    return new Promise((resolve, reject) => {
+      this._httpClient.put(`${environment.apiUrl}/api/user/updateProfileData`, { ...user }, {
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+      }).subscribe((response: any) => {
+        console.log(response);
+        resolve(response);
+      }, reject);
+    });
+  }
+
+  updateRolesBulk(body, role) {
+    return this._httpClient.post(`${environment.apiUrl}/api/user/updateBulkRoles`, { users: body, role: role });
   }
 
   // deleteClass(id): Promise<any[]> {

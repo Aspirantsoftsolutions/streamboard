@@ -257,6 +257,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   }
 
+  editProfile(name): void {
+    this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
+    setTimeout(() => {
+      this._commonService.editProfile.next({});
+    }, 200);
+  }
+
   /**
    * On destroy
    */

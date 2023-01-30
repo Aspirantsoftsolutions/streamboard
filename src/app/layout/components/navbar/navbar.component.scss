@@ -1,5 +1,9 @@
 @import '@core/scss/base/bootstrap-extended/include'; // Bootstrap includes
 @import '@core/scss/base/components/include'; // Components includes
+@import '@core/scss/angular/libs/datatables.component.scss';
+@import '@core/scss/base/pages/app-user.scss';
+@import '@core/scss/angular/libs/select.component.scss';
+@import '@core/scss/angular/libs/toastr.component.scss';
 
 // To open dd on right
 .dropdown-menu-right {
@@ -12,6 +16,7 @@
   .touchspin-wrapper {
     width: 6.4rem;
   }
+
   &:focus-within {
     box-shadow: none !important;
   }

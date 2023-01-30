@@ -16,6 +16,9 @@ import { NavbarBookmarkComponent } from 'app/layout/components/navbar/navbar-boo
 import { NavbarSearchComponent } from 'app/layout/components/navbar/navbar-search/navbar-search.component';
 import { NavbarCartComponent } from 'app/layout/components/navbar/navbar-cart/navbar-cart.component';
 import { NavbarNotificationComponent } from 'app/layout/components/navbar/navbar-notification/navbar-notification.component';
+import { CoreSidebarModule } from '@core/components';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -28,9 +31,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NavbarSearchComponent,
     NavbarBookmarkComponent,
     NavbarCartComponent,
-    NavbarNotificationComponent
+    NavbarNotificationComponent,
+    UserProfileComponent
   ],
-  imports: [RouterModule, NgbModule, CoreCommonModule, PerfectScrollbarModule, CoreTouchspinModule],
+  imports: [RouterModule, NgbModule, CoreCommonModule, PerfectScrollbarModule, CoreTouchspinModule, CoreSidebarModule, TranslateModule],
   providers: [
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
@@ -39,4 +43,4 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   ],
   exports: [NavbarComponent]
 })
-export class NavbarModule {}
+export class NavbarModule { }
