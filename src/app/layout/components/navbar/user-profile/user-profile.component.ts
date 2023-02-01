@@ -24,7 +24,7 @@ export class UserProfileComponent implements OnInit {
             this.user = JSON.parse(localStorage.getItem('currentUser'));
             this.email = this.user.email;
             this.mobilenumber = this.user.mobile;
-            this.address = this.user.location;
+            this.address = this.user.address;
             this.firstname = this.user.firstName;
             this.lastname = this.user.lastName;
         });
@@ -40,14 +40,16 @@ export class UserProfileComponent implements OnInit {
             email: form.value['user-email'],
             mobile: form.value['user-number'],
             firstName: form.value['user-firstname'],
-            lastName: form.value['user-lastname']
+            lastName: form.value['user-lastname'],
+            address: form.value['user-address']
         }).then((resp) => {
             localStorage.setItem('currentUser', JSON.stringify({
                 ...this.user,
                 email: form.value['user-email'],
                 mobile: form.value['user-number'],
                 firstName: form.value['user-firstname'],
-                lastName: form.value['user-lastname']
+                lastName: form.value['user-lastname'],
+                address: form.value['user-address']
             }));
 
             this.toasterService.success('👋 Successfully updated profile', 'Success!', {
