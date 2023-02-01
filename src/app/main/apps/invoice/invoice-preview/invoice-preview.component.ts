@@ -58,6 +58,8 @@ export class InvoicePreviewComponent implements OnInit, OnDestroy {
     this.urlLastValue = this.url.substr(this.url.lastIndexOf('/') + 1);
     this.invoiceForm = this.fb.group({
       to: ['', Validators.required],
+      address: ['', Validators.required],
+      pincode: ['', Validators.required],
       paymentDetails: this.fb.group({
         due: ['', Validators.required],
         bankName: ['', Validators.required],
@@ -66,7 +68,7 @@ export class InvoicePreviewComponent implements OnInit, OnDestroy {
         swift: ['', Validators.required],
       }),
       tasks: this.fb.array([this.newTask()], Validators.required),
-      salePerson: ['', Validators.required],
+      // salePerson: ['', Validators.required],
       breakup: this.fb.group({
         subTotal: ['', Validators.required],
         discount: ['', Validators.required],
@@ -144,6 +146,11 @@ export class InvoicePreviewComponent implements OnInit, OnDestroy {
   saveInvoice() {
     console.log(this.invoiceForm.value);
     this.invoice = this.invoiceForm.value;
+    this.toaster.success('👋 successfully saved invoice.', 'Success!', {
+      toastClass: 'toast ngx-toastr',
+      closeButton: true
+    });
+    this.editInvoice();
   }
 
   editInvoice() {

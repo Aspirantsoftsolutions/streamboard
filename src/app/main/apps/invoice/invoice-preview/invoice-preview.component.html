@@ -37,12 +37,24 @@
 
             <!-- Address And Contact Starts -->
             <div class="card-body invoice-padding pt-0">
-              <div class="row invoice-spacing">
-                <div class="col-xl-8 p-0">
-                  <h6 class="mb-2">Invoice To:</h6>
-                  <p class="card-text mb-25">{{ invoice?.to }}</p>
+              <div class="invoice-spacing" style="display: flex;
+              flex-direction: row;
+              align-items: baseline;">
+                <div class="p-0" style="flex: 3;">
+                  <div class="mb-2">
+                    <h6>Invoice To:</h6>
+                    <p class="card-text">{{ invoice?.to }}</p>
+                  </div>
+                  <div class="mb-2">
+                    <h6>Address:</h6>
+                    <p class="card-text">{{ invoice?.address }}</p>
+                  </div>
+                  <div class="mb-2">
+                    <h6>Pincode:</h6>
+                    <p class="card-text">{{ invoice?.pincode }}</p>
+                  </div>
                 </div>
-                <div class="col-xl-4 p-0 mt-xl-0 mt-2">
+                <div style="flex: 1;" class="p-0 mt-xl-0 mt-2">
                   <h6 class="mb-2">Payment Details:</h6>
                   <table>
                     <tbody>
@@ -108,14 +120,15 @@
               </table>
             </div>
 
+
             <div class="card-body invoice-padding pb-0">
               <div class="row invoice-sales-total-wrapper">
                 <div class="col-md-6 order-md-1 order-2 mt-md-0 mt-3">
-                  <p class="card-text mb-0">
+                  <!-- <p class="card-text mb-0">
                     <span class="font-weight-bold">Salesperson:</span> <span class="ml-75">{{invoice?.salePerson}}</span>
-                  </p>
+                  </p> -->
                 </div>
-                <div class="col-md-6 d-flex justify-content-end order-md-2 order-1">
+                <div class="col-md-6 d-flex justify-content-end order-md-2 order-1" style="margin-left: -5%;">
                   <div class="invoice-total-wrapper">
                     <div class="invoice-total-item">
                       <p class="invoice-total-title">Subtotal:</p>
@@ -164,8 +177,18 @@
             <div class="modal-body flex-grow-1">
               <div class="form-group">
                 <label class="form-label" for="to">{{'Invoice to' | translate}}</label>
-                <textarea class="form-control dt-uname" name="to" id="to" cols="20" rows="4"
-                  formControlName="to"></textarea>
+                <input type='text' class="form-control dt-uname" name="to" id="to" cols="20" rows="4"
+                  formControlName="to">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="address">{{'Address' | translate}}</label>
+                <input type='text' class="form-control dt-uname" name="address" id="address" cols="20" rows="4"
+                  formControlName="address">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="pincode">{{'Pincode' | translate}}</label>
+                <input type='text' class="form-control dt-uname" name="pincode" id="pincode" cols="20" rows="4"
+                  formControlName="pincode">
               </div>
               <fieldset class="form-group">
                 <legend>{{'Payment Details' | translate}}: </legend>
@@ -238,14 +261,14 @@
                   </div>
                 </div>
               </fieldset>
-              <fieldset class="form-group">
+              <!-- <fieldset class="form-group">
                 <legend>{{'Sale' | translate}}</legend>
                 <div class="form-group">
                   <label class="form-label" for="salesPerson">{{'Sales person' | translate}}</label>
                   <input type='text' class="form-control dt-uname" name="salesPerson" id="salesPerson" cols="20"
                     rows="4" formControlName="salePerson">
                 </div>
-              </fieldset>
+              </fieldset> -->
               <fieldset class="form-group">
                 <legend>{{'Break up' | translate}}</legend>
                 <div [formGroupName]="'breakup'">
