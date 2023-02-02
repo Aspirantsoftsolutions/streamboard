@@ -163,7 +163,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-sm-6 col-xl-3 mb-2 mb-sm-0">
+              <!-- <div class="col-sm-6 col-xl-3 mb-2 mb-sm-0">
                 <div class="media">
                   <div class="avatar bg-light-danger mr-2">
                     <div class="avatar-content">
@@ -175,7 +175,7 @@
                     <p class="card-text font-small-3 mb-0">{{'Invited Customers'| translate}}</p>
                   </div>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
@@ -358,6 +358,18 @@
             </div>
           </div> -->
           <!--/ Earnings Chart -->
+        </div>
+        <div class="row match-height">
+          <!-- Bar Chart Orders -->
+          <div class="col-lg-6 col-md-3 col-6">
+            <div class="card">
+              <div class="card-body pb-50">
+                <h6>{{'Invited Customers'| translate}}</h6>
+                <h2 class="font-weight-bolder mb-1" *ngIf="adminAnalyticsData">{{
+                  countData.invitesCount }}</h2>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="col-lg-8 col-12">

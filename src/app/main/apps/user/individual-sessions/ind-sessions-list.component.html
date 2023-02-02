@@ -10,7 +10,7 @@
             <div class='featurelist-row'>
               <div class='featurelist-column'>
                 <div *ngFor="let feature of this.plans; let i = index">
-                  <div *ngIf="i < 10" class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
+                  <div *ngIf="i < 7" class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
                     <input class="custom-control-input" [id]="feature" type="checkbox" tabindex="3"
                       [(ngModel)]="features[featureKeys[feature]]" />
                     <label class="custom-control-label" [for]="feature">{{feature | translate}}</label>
@@ -19,7 +19,7 @@
               </div>
               <div class='featurelist-column'>
                 <div *ngFor="let feature of this.plans; let i = index">
-                  <div *ngIf="i >= 10 && i<= 19"
+                  <div *ngIf="i >= 7 && i< 14"
                     class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
                     <input class="custom-control-input" [id]="feature" type="checkbox" tabindex="3"
                       [(ngModel)]="features[featureKeys[feature]]" />
@@ -29,7 +29,7 @@
               </div>
               <div class='featurelist-column'>
                 <div *ngFor="let feature of this.plans; let i = index">
-                  <div *ngIf="i >= 20 && i<= 29"
+                  <div *ngIf="i >= 14 && i< 21"
                     class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
                     <input class="custom-control-input" [id]="feature" type="checkbox" tabindex="3"
                       [(ngModel)]="features[featureKeys[feature]]" />
@@ -39,7 +39,7 @@
               </div>
               <div class='featurelist-column'>
                 <div *ngFor="let feature of this.plans; let i = index">
-                  <div *ngIf="i >= 30 && i<= 39"
+                  <div *ngIf="i >= 21 && i<= 28"
                     class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
                     <input class="custom-control-input" [id]="feature" type="checkbox" tabindex="3"
                       [(ngModel)]="features[featureKeys[feature]]" />
