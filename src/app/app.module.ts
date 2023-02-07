@@ -54,6 +54,10 @@ const appRoutes: Routes = [
     loadChildren: () => import('./main/dashboard/dashboard.module').then(m => m.DashboardModule)
   },
   {
+    path: 'home',
+    loadChildren: () => import('./main/home/home.module').then(m => m.HomeModule)
+  },
+  {
     path: 'apps',
     loadChildren: () => import('./main/apps/apps.module').then(m => m.AppsModule),
     canActivate: [AuthGuard]
@@ -148,12 +152,12 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     ToastrModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
-          provide: TranslateLoader,
-          useFactory: (createTranslateLoader),
-          deps: [HttpClient]
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
       },
       defaultLanguage: 'en'
-  }),
+    }),
     ContextMenuModule,
     CoreModule.forRoot(coreConfig),
     CoreCommonModule,

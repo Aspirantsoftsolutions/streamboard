@@ -4,21 +4,22 @@ import { CoreMenu } from "@core/types";
 export const menu: CoreMenu[] = [
   // Dashboard
   {
-    id: "dashboard",
-    title: "Dashboard",
+    id: "home",
+    title: "Home",
     type: "item",
     icon: "home",
-    url: "dashboard/ecommerce",
-    role: ["Student", "Teacher", "School","Admin"],
+    url: "home",
+    role: ["School"],
     children: [
       {
-        id: "analytics",
-        title: "Analytics",
-        translate: "MENU.DASHBOARD.ANALYTICS",
+        id: "home",
+        title: "Home",
+        translate: "home",
         type: "item",
-        icon: "user",
-        url: "dashboard/ecommerce",
-      },
+        role: ["Student"],
+        icon: "home",
+        url: "/home",
+      }
     ],
   },
   // Apps & Pages
@@ -29,6 +30,14 @@ export const menu: CoreMenu[] = [
     translate: "Main Menu",
     icon: "package",
     children: [
+      {
+        id: "dashboard",
+        title: "Dashboard",
+        translate: "Dashboard",
+        type: "item",
+        icon: "user",
+        url: "dashboard/ecommerce",
+      },
       {
         id: "calendar",
         title: "Calendar",
@@ -58,7 +67,7 @@ export const menu: CoreMenu[] = [
         id: "collab",
         title: "Collaboration Class",
         type: "collapsible",
-        icon: "file-text",
+        icon: "book-open",
         role: ["School", "Teacher", "Student"],
         children: [
           {
@@ -89,7 +98,7 @@ export const menu: CoreMenu[] = [
         title: "All Users",
         type: "item",
         role: ["School"],
-        icon: "user",
+        icon: "users",
         url: "apps/user/user-list",
       },
       {
@@ -122,7 +131,7 @@ export const menu: CoreMenu[] = [
         title: "WhiteBoard",
         translate: "WhiteBoard",
         type: "item",
-        icon: "home",
+        icon: "monitor",
         role: ["School"],
         url: "apps/user/ind-sessions-list",
       },
@@ -131,7 +140,7 @@ export const menu: CoreMenu[] = [
         title: "SSO",
         type: "item",
         role: ["School"], //  for school
-        icon: "user",
+        icon: "user-plus",
         url: "apps/user/starterSSO",
       },
       {
@@ -209,14 +218,14 @@ export const menu: CoreMenu[] = [
         title: "School",
         type: "collapsible",
         role: ["School", "Class", "Teacher"],
-        icon: "user",
+        icon: "users",
         children: [
           {
             id: "teachers_list",
             title: "Teachers",
             type: "item",
             role: ["School", "Class"],
-            icon: "user",
+            icon: "users",
             url: "apps/user/teachers-list",
           },
           {
@@ -224,7 +233,7 @@ export const menu: CoreMenu[] = [
             title: "Students",
             type: "item",
             role: ["Teacher", "School"],
-            icon: "user",
+            icon: "users",
             url: "apps/user/students-list",
           },
           {
@@ -232,7 +241,7 @@ export const menu: CoreMenu[] = [
             title: "Classes",
             type: "item",
             role: ["School"],
-            icon: "user",
+            icon: "list",
             url: "apps/user/classes-list",
           },
           {
@@ -240,7 +249,7 @@ export const menu: CoreMenu[] = [
             title: "Groups",
             type: "item",
             role: ["Teacher", "School"],
-            icon: "user",
+            icon: "list",
             url: "apps/user/groups-list",
           },
           {
@@ -248,7 +257,7 @@ export const menu: CoreMenu[] = [
             title: "Grades",
             type: "item",
             role: ["School"],
-            icon: "user",
+            icon: "list",
             url: "apps/user/grades-list",
           },
         ],
@@ -259,7 +268,7 @@ export const menu: CoreMenu[] = [
         translate: "Notifications",
         type: "item",
         role: ["Admin", "School", "Teacher"],
-        icon: "home",
+        icon: "bell",
         url: "apps/user/notifications",
       },
       {

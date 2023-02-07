@@ -255,7 +255,13 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   async setMenu() {
-    const plan = localStorage.getItem('currentUser') ? JSON.parse(localStorage.getItem('currentUser'))['plan'] : null;
+
+    const user = localStorage.getItem('currentUser') ? JSON.parse(localStorage.getItem('currentUser')) : null;
+    setTimeout(() => {
+      if (user && user.role == 'School') {
+        this.router.navigate(['/home']);
+      }
+    }, 500);
     const childGrouteRoutes = await this.getDeviceGroups();
 
     menu[1].children.find(item => {
@@ -265,11 +271,11 @@ export class AppComponent implements OnInit, OnDestroy {
     })
     this.menu = menu;
     // Get the application main menu
-    if (plan === 'Premium' || plan === 'Basic' ) {
+    if (user.plan === 'Premium' || user.plan === 'Basic') {
       const x = menu[1].children.filter(item => {
         return !(['sso', "devicemanagement"].includes(item.id));
       });
-      this.menu[1].children =  x;
+      this.menu[1].children = x;
     }
 
     // Register the menu to the menu service

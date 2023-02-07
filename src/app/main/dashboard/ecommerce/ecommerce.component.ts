@@ -729,7 +729,7 @@ export class EcommerceComponent implements OnInit {
       });
     }
     if (this.isClient) {
-      this._commonServie.getSchoolAnalytics().subscribe((resp) => {
+      this._commonServie.getSchoolAnalytics(this.currentUser.userId).subscribe((resp) => {
         resp = resp['data'][0];
         this.schoolAnalyticData = [];
         Object.keys(resp).forEach((key, i) => {

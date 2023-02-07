@@ -630,8 +630,8 @@ export class CommonService implements Resolve<any> {
     return this._httpClient.get(`${environment.apiUrl}/api/analytics/adminAnalytics`);
   }
 
-  getSchoolAnalytics() {
-    return this._httpClient.get(`${environment.apiUrl}/api/analytics/schoolAnalytics`);
+  getSchoolAnalytics(userId) {
+    return this._httpClient.get(`${environment.apiUrl}/api/analytics/schoolAnalytics/${userId}`);
   }
 
   forgotPassword(form) {
