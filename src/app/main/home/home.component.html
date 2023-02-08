@@ -1,116 +1,153 @@
-<div class="content-wrapper container-xxl p-0">
-    <div class="content-body" style="padding: 5%;">
-        <div class="row match-height">
-            <!-- Medal Card -->
-            <div class="col-xl-4 col-md-6 col-12">
-                <div class="card card-congratulation-medal">
-                    <div class="card-body">
-                        <div class="media">
-                            <div class="avatar bg-light-primary mr-2">
-                                <div class="avatar-content">
-                                    <i data-feather="monitor" class="avatar-icon"></i>
-                                </div>
-                            </div>
-                            <div class="media-body my-auto">
-                                <a href="https://class.thestreamboard.com/" target="_blank" class='card-link'>
-                                    <h5>{{'Streambord Whiteboard'}} </h5>
-                                </a>
-                            </div>
-                        </div>
-                        <!-- <button type="button" class="btn btn-primary" rippleEffect>{{ currentUser?.plan }}</button> -->
-                        <!-- <img src="assets/images/illustration/badge.svg" class="congratulation-medal" alt="Medal Pic" /> -->
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-4 col-md-6 col-12">
-                <div class="card card-congratulation-medal">
-                    <div class="card-body">
-                        <div class="media">
-                            <div class="avatar bg-light-primary mr-2">
-                                <div class="avatar-content">
-                                    <i data-feather="airplay" class="avatar-icon"></i>
-                                </div>
-                            </div>
-                            <div class="media-body my-auto">
-                                <a href="https://admin.thestreamboard.com/#/apps/user/alldevices">
-                                    <h5>{{'Streambord Devicemanger'}} </h5>
-                                </a>
-                            </div>
-                        </div>
-                        <!-- <button type="button" class="btn btn-primary" rippleEffect>{{ currentUser?.plan }}</button> -->
-                        <!-- <img src="assets/images/illustration/badge.svg" class="congratulation-medal" alt="Medal Pic" /> -->
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-4 col-md-6 col-12">
-                <div class="card card-congratulation-medal">
-                    <div class="card-body">
-                        <div class="media">
-                            <div class="avatar bg-light-primary mr-2">
-                                <div class="avatar-content">
-                                    <i data-feather="download" class="avatar-icon"></i>
-                                </div>
-                            </div>
-                            <div class="media-body my-auto">
-                                <a href="#" target="_blank">
-                                    <h5>{{'Streambord Download'}} </h5>
-                                </a>
-							
-                            </div>
-                        </div>
-                        <!-- <button type="button" class="btn btn-primary" rippleEffect>{{ currentUser?.plan }}</button> -->
-                        <!-- <img src="assets/images/illustration/badge.svg" class="congratulation-medal" alt="Medal Pic" /> -->
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row match-height">
-            <!-- Medal Card -->
-            <div class="col-xl-2 col-md-6 col-12">
+<div class="main main-card">
+    <div class="row">
+        <h4 style="margin-left: 14px;">Welcome {{user.firstName + user.lastName}}</h4>
+    </div>
 
-            </div>
-            <div class="col-xl-4 col-md-6 col-12">
-                <div class="card card-congratulation-medal">
-                    <div class="card-body">
-                        <div class="media">
-                            <div class="avatar bg-light-primary mr-2">
-                                <div class="avatar-content">
-                                    <i data-feather="sun" class="avatar-icon"></i>
+    <div class="card">
+        <div class="card-body">
+            <div class="content-wrapper container-xxl p-0">
+                <div class="content-body" style="padding: 5%;">
+                    <div class="row match-height">
+                        <!-- Medal Card -->
+                        <div class="col-xl-4 col-md-6 col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="media">
+                                        <div class="avatar bg-light-primary mr-2">
+                                            <div class="avatar-content">
+                                                <i data-feather="monitor" class="avatar-icon"></i>
+                                            </div>
+                                        </div>
+                                        <div class="media-body">
+                                            <a href="https://class.thestreamboard.com/" target="_blank"
+                                                class='card-link'>
+                                                <h5>{{'Streambord Whiteboard'}} </h5>
+                                            </a>
+                                        </div>
+                                        <div class="media-footer">
+                                        </div>
+                                    </div>
+                                    <!-- <button type="button" class="btn btn-primary" rippleEffect>{{ currentUser?.plan }}</button> -->
+                                    <!-- <img src="assets/images/illustration/badge.svg" class="congratulation-medal" alt="Medal Pic" /> -->
                                 </div>
                             </div>
-                            <div class="media-body my-auto">
-                                <a href="https://www.thestreamboard.com/knowledge-base/" target="_blank">
-                                    <h5>{{'Knowledge Base'}} </h5>
-                                </a>
-                            </div>
                         </div>
-                        <!-- <button type="button" class="btn btn-primary" rippleEffect>{{ currentUser?.plan }}</button> -->
-                        <!-- <img src="assets/images/illustration/badge.svg" class="congratulation-medal" alt="Medal Pic" /> -->
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-4 col-md-6 col-12">
-                <div class="card card-congratulation-medal">
-                    <div class="card-body">
-                        <div class="media">
-                            <div class="avatar bg-light-primary mr-2">
-                                <div class="avatar-content">
-                                    <i data-feather="help-circle" class="avatar-icon"></i>
-                                </div>
-                            </div>
-                            <div class="media-body my-auto">
-                                <a href="https://www.thestreamboard.com/support/" target="_blank">
-                                    <h5>{{'Support'}} </h5>
-                                </a>
-                            </div>
-                        </div>
-                        <!-- <button type="button" class="btn btn-primary" rippleEffect>{{ currentUser?.plan }}</button> -->
-                        <!-- <img src="assets/images/illustration/badge.svg" class="congratulation-medal" alt="Medal Pic" /> -->
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-2 col-md-6 col-12">
+                        <div class="col-xl-4 col-md-6 col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="media">
+                                        <div class="avatar bg-light-primary mr-2">
+                                            <div class="avatar-content">
+                                                <i data-feather="airplay" class="avatar-icon"></i>
+                                            </div>
+                                        </div>
+                                        <div class="media-body">
+                                            <a href="https://admin.thestreamboard.com/#/apps/user/alldevices">
+                                                <h5>{{'Streambord Devicemanger'}} </h5>
+                                            </a>
+                                        </div>
+                                        <div class="media-footer">
 
+                                        </div>
+                                    </div>
+                                    <!-- <button type="button" class="btn btn-primary" rippleEffect>{{ currentUser?.plan }}</button> -->
+                                    <!-- <img src="assets/images/illustration/badge.svg" class="congratulation-medal" alt="Medal Pic" /> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-6 col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="media">
+                                        <div class="avatar bg-light-primary mr-2">
+                                            <div class="avatar-content">
+                                                <i data-feather="download" class="avatar-icon"></i>
+                                            </div>
+                                        </div>
+                                        <div class="media-body">
+                                            <a href="#" target="_blank">
+                                                <h5>{{'Streambord Download'}} </h5>
+                                            </a>
+
+                                        </div>
+                                        <div class="media-footer">
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <img src="../../../../../assets/images/icons/power.png" alt="" />
+                                                </div>
+                                                <div class="col-sm-3 restart">
+                                                    <img src="../../../../../assets/images/icons/restart.png" alt="" />
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <img src="../../../../../assets/images/icons/switch.png" alt="" />
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <img src="../../../../../assets/images/icons/sleep.png" alt="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <button type="button" class="btn btn-primary" rippleEffect>{{ currentUser?.plan }}</button> -->
+                                    <!-- <img src="assets/images/illustration/badge.svg" class="congratulation-medal" alt="Medal Pic" /> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row match-height">
+                        <!-- Medal Card -->
+                        <div class="col-xl-2 col-md-6 col-12"> </div>
+                        <div class="col-xl-4 col-md-6 col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="media">
+                                        <div class="avatar bg-light-primary mr-2">
+                                            <div class="avatar-content">
+                                                <i data-feather="sun" class="avatar-icon"></i>
+                                            </div>
+                                        </div>
+                                        <div class="media-body">
+                                            <a href="https://www.thestreamboard.com/knowledge-base/" target="_blank">
+                                                <h5>{{'Knowledge Base'}} </h5>
+                                            </a>
+                                        </div>
+                                        <div class="media-footer">
+
+                                        </div>
+                                    </div>
+                                    <!-- <button type="button" class="btn btn-primary" rippleEffect>{{ currentUser?.plan }}</button> -->
+                                    <!-- <img src="assets/images/illustration/badge.svg" class="congratulation-medal" alt="Medal Pic" /> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-6 col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="media">
+                                        <div class="avatar bg-light-primary mr-2">
+                                            <div class="avatar-content">
+                                                <i data-feather="help-circle" class="avatar-icon"></i>
+                                            </div>
+                                        </div>
+                                        <div class="media-body">
+                                            <a href="https://www.thestreamboard.com/support/" target="_blank">
+                                                <h5>{{'Support'}} </h5>
+                                            </a>
+                                        </div>
+                                        <div class="media-footer">
+
+                                        </div>
+                                    </div>
+                                    <!-- <button type="button" class="btn btn-primary" rippleEffect>{{ currentUser?.plan }}</button> -->
+                                    <!-- <img src="assets/images/illustration/badge.svg" class="congratulation-medal" alt="Medal Pic" /> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-md-6 col-12">
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+</div>

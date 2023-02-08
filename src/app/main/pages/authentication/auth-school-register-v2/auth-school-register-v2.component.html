@@ -27,7 +27,7 @@
         <p class="card-text mb-2">Make your app management easy and fun!</p>
         <form class="auth-register-form mt-2" [formGroup]="sregisterForm" (ngSubmit)="onSubmit()">
           <div class="form-group">
-            <label for="register-username" class="form-label">Organisation Name</label>
+            <label for="register-username" class="form-label">Organisation Full Name</label>
             <input
               type="text"
               formControlName="username"
@@ -39,7 +39,7 @@
               [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
             />
             <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-              <div *ngIf="f.username.errors.required">Organisation name is required</div>
+              <div *ngIf="f.username.errors.required">Organisation Full Name is required</div>
             </div>
           </div>
           

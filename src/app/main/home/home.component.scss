@@ -10,3 +10,32 @@
     }
   }
 }
+
+.main-card {
+  width: calc(100vw - (100vw - 100%) - calc(2rem * 2) - 106px);
+  margin-left: auto;
+  margin-right: auto;
+  height: calc(100vh - 300px);
+}
+
+.card .card {
+  box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%) !important;
+}
+
+.media {
+  height: 100px;
+  flex-direction: column;
+
+  .media-body {
+    margin-top: 16px;
+  }
+
+  .media-footer {
+    margin-top: 10px;
+    align-self: flex-end;
+
+    img {
+      width: 32px;
+    }
+  }
+}
