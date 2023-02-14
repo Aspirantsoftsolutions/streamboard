@@ -266,5 +266,17 @@
     "License Expiry": "انتهاء الترخيص",
     "Time": "وقت",
     "Send": "إرسال",
-    "Invited Customers": "العملاء المدعوين"
+    "Invited Customers": "العملاء المدعوين",
+    "Home": "بيت",
+    "Welcome": "مرحباً",
+    "Knowledge Base": "قاعدة المعرفة",
+    "Support": "يدعم",
+    "Edit Profile": "تعديل الملف الشخصي",
+    "Logout": "تسجيل خروج",
+    "Subscription ": "الاشتراك",
+    "Command": "يأمر",
+    "Broadcast command": "أمر البث",
+    "Broadcast command to displays": "أمر البث للعرض",
+    "Select Command":"حدد الأمر",
+    "Select Device Group":"حدد مجموعة الأجهزة"
 }

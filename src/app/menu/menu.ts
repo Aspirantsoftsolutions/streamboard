@@ -4,17 +4,18 @@ import { CoreMenu } from "@core/types";
 export const menu: CoreMenu[] = [
   // Dashboard
   {
-    id: "home",
+    id: "Home",
     title: "Home",
     type: "item",
     icon: "home",
     url: "home",
+    translate: "Home",
     role: ["School"],
     children: [
       {
         id: "home",
         title: "Home",
-        translate: "home",
+        translate: "Home",
         type: "item",
         role: ["Student"],
         icon: "home",

@@ -104,9 +104,9 @@
         ><a ngbDropdownItem [routerLink]="['/pages/faq']"
           ><span [data-feather]="'help-circle'" [class]="'mr-50'"></span> FAQ</a> -->
         <a ngbDropdownItem (click)="editProfile('app-userProfile')"><span [data-feather]="'edit'"
-            [class]="'mr-50'"></span>Edit
-          Profile</a>
-        <a ngbDropdownItem (click)="logout()"><span [data-feather]="'power'" [class]="'mr-50'"></span> Logout</a>
+            [class]="'mr-50'"></span>{{'Edit Profile' | translate}}</a>
+        <a ngbDropdownItem (click)="logout()"><span [data-feather]="'power'" [class]="'mr-50'"></span> {{'Logout' |
+          translate}}</a>
       </div>
     </li>
     <!--/ User Dropdown -->

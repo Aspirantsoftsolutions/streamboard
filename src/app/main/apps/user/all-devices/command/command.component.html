@@ -22,7 +22,8 @@
                         <div class="greys">{{'Broadcast command to displays' | translate}}</div>
                     </div>
                     <ng-select class="mb-2" [items]="commandList" [(ngModel)]="selectedStatus" name="selectedStatus"
-                        bindLabel="name" placeholder="Select Command" (change)="selectedCommand($event)"></ng-select>
+                        bindLabel="name" placeholder="{{'Select Command' | translate}}"
+                        (change)="selectedCommand($event)"></ng-select>
                     <ng-multiselect-dropdown *ngIf="!this.devices.length" class="mb-2" id="devices" name='groupName'
                         placeholder="{{'Select Device Group' | translate}}" [settings]="classDropdownSettings"
                         [data]="deviceGroupList" [(ngModel)]="selectedDevices" (onSelect)="onItemSelect($event)"
