@@ -95,7 +95,7 @@ export class AuthRegisterV2Component implements OnInit {
         this._router.navigate(['/pages/authentication/login-v2']);
 
         let successString = Response;
-        this.toastr.success('👋 Registered Created Successfully.', 'Success!', {
+        this.toastr.success('👋 Registered Successfuly! Email sent, create password.', 'Success!', {
           toastClass: 'toast ngx-toastr',
           closeButton: true
         });
@@ -122,7 +122,7 @@ export class AuthRegisterV2Component implements OnInit {
       console.log('res set:', resposne);
       this._router.navigate(['/pages/authentication/login-v2']);
       let successString = Response;
-      this.toastr.success('👋 Registered Created Successfully.', 'Success!', {
+      this.toastr.success('👋 Registered Successfuly! Email sent, create password.', 'Success!', {
         toastClass: 'toast ngx-toastr',
         closeButton: true
       });

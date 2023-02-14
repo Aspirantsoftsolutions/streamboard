@@ -17,7 +17,7 @@
                         <input type="text" id="basic-icon-default-email" class="form-control dt-email"
                             placeholder="john.doe@example.com" aria-label="john.doe@example.com"
                             aria-describedby="basic-icon-default-email2" name="user-email" [(ngModel)]="email"
-                            [class.error]="newUserForm.submitted && FEmailRef.invalid" #FEmailRef="ngModel" required />
+                            [class.error]="newUserForm.submitted && FEmailRef.invalid" #FEmailRef="ngModel" disabled required />
                         <span *ngIf="newUserForm.submitted && FEmailRef.invalid" class="invalid-form">
                             <small class="form-text text-danger" *ngIf="FEmailRef.errors.required">{{'This field is
                                 required!' |

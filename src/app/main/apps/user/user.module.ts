@@ -88,6 +88,7 @@ import { NotificationSidebarComponent } from './all-devices/notification-sidebar
 import { MediaComponent } from './media/media.component';
 import { UploadmediaComponent } from './media/uploadmedia/uploadmedia.component';
 import { MultimediaComponent } from './all-devices/multimedia/multimedia.component';
+import { CommandComponent } from './all-devices/command/command.component';
 import { DeviceGroupSideBar } from './all-devices/device-group-sidebar/device-group-sidebar.component';
 import { DeviceGroups } from './all-devices/device-groups/device-groups.component';
 import { InvitationsComponent } from './invitations/invitations.component';
@@ -345,6 +346,7 @@ const routes: Routes = [
     MediaComponent,
     UploadmediaComponent,
     MultimediaComponent,
+    CommandComponent,
     DeviceGroupSideBar,
     DeviceGroups,
     InvitationsComponent,

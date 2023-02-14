@@ -1,4 +1,4 @@
-import { CommonService } from './../../common.service';
+import { CommonService } from '../../common.service';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 import { ToastrService } from 'ngx-toastr';
@@ -8,12 +8,12 @@ import { NgbDateStruct, NgbCalendar, NgbDate, NgbDateParserFormatter, NgbTimeStr
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-multimedia',
-  templateUrl: './multimedia.component.html',
-  styleUrls: ['./multimedia.component.scss'],
+  selector: 'app-command',
+  templateUrl: './command.component.html',
+  styleUrls: ['./command.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class MultimediaComponent implements OnInit {
+export class CommandComponent implements OnInit {
   private _unsubscribeAll: Subject<any> = new Subject();
   public sidebarToggleRef = false;
   public modalRef;
@@ -25,9 +25,9 @@ export class MultimediaComponent implements OnInit {
   public previousStatusFilter = '';
   public selectedStatus = [];
   public selectedDevices = [];
-  public mediaURL = "";
+  public command = "";
   public mediaType = "";
-  public mediaList: any;
+  public commandList: any;
   public deviceGroupList: any;
   public devices = [];
   public allowedmediaTypes = {
@@ -102,9 +102,8 @@ export class MultimediaComponent implements OnInit {
     this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
   }
 
-  selectedMedia(event) {
-    this.mediaURL = event.location;
-    this.mediaType = event.type;
+  selectedCommand(event) {
+    this.command = event
   }
 
   toggleSidebarEdit(name, id): void {
@@ -116,29 +115,29 @@ export class MultimediaComponent implements OnInit {
   }
 
   getMediaType(type) {
-    if (this.allowedmediaTypes.video.includes(type)) {
-      return 'video'
-    }
+    // if (this.allowedmediaTypes.video.includes(type)) {
+    //   return 'video'
+    // }
 
-    if (this.allowedmediaTypes.audio.includes(type)) {
-      return 'audio'
-    }
+    // if (this.allowedmediaTypes.audio.includes(type)) {
+    //   return 'audio'
+    // }
 
-    if (this.allowedmediaTypes.image.includes(type)) {
-      return 'image'
-    }
+    // if (this.allowedmediaTypes.image.includes(type)) {
+    //   return 'image'
+    // }
   }
 
   getMedia() {
-    this._commonService.getMediaList().subscribe(list => {
-      this.mediaList = list['data'];
-    });
+    // this._commonService.getcommandList().subscribe(list => {
+    //   this.commandList = list['data'];
+    // });
   }
 
   getDeviceGroup() {
-    this._commonService.getDeviceGroup().subscribe(list => {
-      this.deviceGroupList = list['data'];
-    });
+    // this._commonService.getDeviceGroup().subscribe(list => {
+    //   this.deviceGroupList = list['data'];
+    // });
   }
 
   clearFields() {
@@ -150,14 +149,14 @@ export class MultimediaComponent implements OnInit {
     }, 100);
   }
 
-  broadcastMedia() {
+  broadcastCommand() {
 
     const pushPayLoad = {
       "data": {
         "title": '',
         "description": '',
-        "image_url": this.getMediaType(this.mediaType) === 'image' ? this.mediaURL : '',
-        "video_url": this.getMediaType(this.mediaType) === 'video' ? this.mediaURL : '',
+        "image_url": '',
+        "video_url": '',
       },
       "to": this._commonService.devicesSelected.map(x => x.deviceid),
       "notification": {
@@ -167,7 +166,8 @@ export class MultimediaComponent implements OnInit {
       "startDate": this.startDatePicker.flatpickrElement.nativeElement.children[0].value,
       "endDate": this.endDatePicker.flatpickrElement.nativeElement.children[0].value,
       "triggerTime": this.scheduleTime,
-      'type': 'media'
+      'type': 'command',
+      'command': this.command['value']
     }
 
     if (this.startDate && this.endDate && this.scheduleTime) {
@@ -176,7 +176,7 @@ export class MultimediaComponent implements OnInit {
           toastClass: 'toast ngx-toastr',
           closeButton: true
         });
-        this.toggleSidebar('app-multimedia-sidebar');
+        this.toggleSidebar('app-command-sidebar');
       }, err => {
         console.log(err);
         this._toastrService.error('something bad happened', 'Error!', {
@@ -191,7 +191,7 @@ export class MultimediaComponent implements OnInit {
           toastClass: 'toast ngx-toastr',
           closeButton: true
         });
-        this.toggleSidebar('app-multimedia-sidebar');
+        this.toggleSidebar('app-command-sidebar');
       }, err => {
         console.log(err);
         this._toastrService.error('something bad happened', 'Error!', {
@@ -205,6 +205,13 @@ export class MultimediaComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.commandList = [
+      { name: 'Power Off', value: 'PowerOff' },
+      { name: 'Restart', value: 'Restart' },
+      { name: 'Source', value: 'Switch' },
+      { name: 'Sleep', value: 'Sleep' },
+      { name: 'Wake Up', value: 'WakeUp' }
+    ];
 
     this._commonService.onDevicesSelected.asObservable().pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
       if (response != null && response.length) {
@@ -219,8 +226,8 @@ export class MultimediaComponent implements OnInit {
       }
     });
 
-    this.getMedia();
-    this.getDeviceGroup();
+    // this.getMedia();
+    // this.getDeviceGroup();
   }
 
   /**

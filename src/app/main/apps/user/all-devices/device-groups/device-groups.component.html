@@ -144,6 +144,11 @@
                                                     class="d-sm-none d-inline-block mr-0 mr-sm-1"></i><span
                                                     class="d-none d-sm-inline-block">{{'Multimedia' | translate}}</span>
                                             </a>
+                                            <a class="" rippleEffect (click)="toggleSidebar('app-command-sidebar')">
+                                                <i data-feather="plus"
+                                                    class="d-sm-none d-inline-block mr-0 mr-sm-1"></i><span
+                                                    class="d-none d-sm-inline-block">{{'Command' | translate}}</span>
+                                            </a>
 
                                         </div>
                                     </div>
@@ -328,6 +333,14 @@
         <app-multimedia>
         </app-multimedia>
     </core-sidebar>
+
+
+    <core-sidebar class="modal modal-slide-in sidebar-todo-modal fade" name="app-command-sidebar"
+        overlayClass="modal-backdrop">
+        <app-command>
+        </app-command>
+    </core-sidebar>
+
     <core-sidebar class="modal modal-slide-in sidebar-todo-modal fade" name="notification-sidebar"
         overlayClass="modal-backdrop">
         <app-notification-sidebar>
