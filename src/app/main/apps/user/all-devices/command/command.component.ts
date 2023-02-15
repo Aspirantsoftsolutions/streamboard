@@ -135,9 +135,9 @@ export class CommandComponent implements OnInit {
   }
 
   getDeviceGroup() {
-    // this._commonService.getDeviceGroup().subscribe(list => {
-    //   this.deviceGroupList = list['data'];
-    // });
+    this._commonService.getDeviceGroup().subscribe(list => {
+      this.deviceGroupList = list['data'];
+    });
   }
 
   clearFields() {
@@ -227,7 +227,7 @@ export class CommandComponent implements OnInit {
     });
 
     // this.getMedia();
-    // this.getDeviceGroup();
+    this.getDeviceGroup();
   }
 
   /**

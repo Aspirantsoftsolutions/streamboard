@@ -124,7 +124,7 @@
         </div>
         <ngx-datatable [rows]="rows" [rowHeight]="50" class="bootstrap core-bootstrap" [limit]="selectedOption"
           [columnMode]="ColumnMode.force" [headerHeight]="50" [footerHeight]="50" [scrollbarH]="true">
-          <ngx-datatable-column name="{{'Customers'| translate}}" prop="fullName" [width]="200">
+          <ngx-datatable-column name="{{'Customers'| translate}}" prop="organisation" [width]="200">
             <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
               <div class="d-flex align-items-center">
                 <!-- <div *ngIf="row.profile_pic.length > 0; else customAvatar">
@@ -141,8 +141,8 @@
                   </div>
                 </ng-template> -->
                 <div class="cell-line-height">
-                  <a routerLink="/apps/user/user-view/{{ row.id }}" class="font-medium-1 d-block"><span
-                      class="font-weight-bold">{{ name }}</span></a>
+                  <!-- <a routerLink="/apps/user/user-view/{{ row.id }}" class="font-medium-1 d-block"><span
+                      class="font-weight-bold">{{ name }}</span></a> -->
                   <span class="text-muted font-small-2"> {{ row.organisation }}</span>
                 </div>
               </div>

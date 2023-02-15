@@ -95,6 +95,14 @@ export const menu: CoreMenu[] = [
         ],
       },
       {
+        id: "sso",
+        title: "SSO",
+        type: "item",
+        role: ["School"], //  for school
+        icon: "user-plus",
+        url: "apps/user/starterSSO",
+      },
+      {
         id: "users_list",
         title: "All Users",
         type: "item",
@@ -135,14 +143,6 @@ export const menu: CoreMenu[] = [
         icon: "monitor",
         role: ["School"],
         url: "apps/user/ind-sessions-list",
-      },
-      {
-        id: "sso",
-        title: "SSO",
-        type: "item",
-        role: ["School"], //  for school
-        icon: "user-plus",
-        url: "apps/user/starterSSO",
       },
       {
         id: "integrations",
