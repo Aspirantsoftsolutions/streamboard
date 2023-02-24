@@ -681,4 +681,23 @@ export class CommonService implements Resolve<any> {
   //   });
   // }
 
+  /**
+   * Get rows
+   */
+  getAllClients() {
+    const url = `${environment.apiUrl}/api/user/clients`
+    return this._httpClient.get(url);
+  }
+
+  customizeClientFeature(object, userId) {
+    return new Promise((resolve, reject) => {
+      this._httpClient.put(`${environment.apiUrl}/api/user/customizeFeatures`, {
+        ...object,
+        'userId': userId
+      }).subscribe((response: any) => {
+        console.log(response);
+        resolve(response);
+      }, reject);
+    });
+  }
 }

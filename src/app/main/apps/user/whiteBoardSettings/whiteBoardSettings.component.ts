@@ -12,13 +12,45 @@ export class whiteBoardSettingsComponent {
     public features = [];
     public basic = [];
     public enterprise = [];
+    public custom = [];
     public premium = [];
+    public clientList = [];
+    public client;
+    public clientAssignedFeatures = [];
+    public selectedTab;
+    public selectedClient;
+    public featureKeys = {
+        isGeoGebraEnable: 'Geogebra',
+        isCreativeToolsEnable: 'Creative tools',
+        isNewPageEnable: 'New page',
+        isSaveSBEnable: 'Save .SB File',
+        isImportEnable: 'Import',
+        isBackgroundEnable: 'Background',
+        isHandWritingEnable: 'Handwriting',
+        isImmersiveReaderEnable: 'Immersive reader',
+        isGoogleDriveEnable: 'Google drive',
+        isOneDriveEnable: 'one drive',
+        isScreenshotEnable: 'screenshot',
+        isRecordingEnable: 'recording',
+        isQRCodeEnable: 'QR code',
+        isParticipateModeEnable: 'participate mode',
+        isExportpdfEnable: 'export pdf',
+        isMagicDrawEnable: 'Magic draw',
+        isSessionInteractionEnable: 'Session interaction',
+        isStudentAttendanceEnable: 'Student attendance',
+        isSSOIntegrationEnable: 'SSO integration',
+        isDeviceManagementEnable: 'Device management',
+        isQRloginEnable: 'QR login',
+        isPhetEnable: 'Phet'
+    }
     constructor(private commonService: CommonService, private toaster: ToastrService) {
         this.getMasterPlans();
+        this.getClientList();
     }
+
     onTabChange(event) {
-        const tabs = ['basic', 'premium', 'enterprise'];
-        const selectedTab = tabs[event.nextId.split('-')[2]];
+        const tabs = ['basic', 'premium', 'enterprise', 'customize'];
+        this.selectedTab = tabs[event.nextId.split('-')[2]];
     }
 
     changeStatus(event, plan) {
@@ -47,8 +79,15 @@ export class whiteBoardSettingsComponent {
                 }
             }
                 break;
+            case 'customize': {
+                if (event.target.checked) {
+                    this.custom.push({ name: event.target.value, value: true });
+                } else {
+                    this.custom = this.custom.filter(plan => plan.name != event.target.value);
+                }
+            }
+                break;
         }
-        console.log(this.basic, this.premium, this.enterprise);
     }
 
     isItemChecked(plan, item) {
@@ -88,6 +127,49 @@ export class whiteBoardSettingsComponent {
             })
         }, error => {
             console.log(error);
+            this.toaster.error('update failed', 'Error!', {
+                toastClass: 'toast ngx-toastr',
+                closeButton: true
+            });
+        });
+    }
+
+    getClientList() {
+        this.commonService.getAllClients().subscribe((response) => {
+            this.clientList = response['data'];
+        });
+    }
+
+    onClientSelect() {
+        this.selectedClient = this.clientList.find(cl => cl.userId === this.client);
+        this.clientAssignedFeatures = [];
+        Object.keys(this.selectedClient).forEach(key => {
+            if (this.featureKeys[key]) {
+                this.clientAssignedFeatures.push({ name: this.featureKeys[key], value: this.selectedClient[key] });
+            }
+        });
+        this.custom = [...this.clientAssignedFeatures.filter(sitem => sitem.value)];
+    }
+
+    updateUserPlan() {
+        //:: TODO
+        Object.keys(this.selectedClient).forEach(key => {
+            const obj = this.custom.find(feat => feat.name === this.featureKeys[key]);
+            if (this.featureKeys[key]) {
+                if (obj) {
+                    this.selectedClient[key] = true;
+                } else {
+                    this.selectedClient[key] = false;
+                }
+            }
+
+        });
+        this.commonService.customizeClientFeature(this.selectedClient, this.selectedClient.userId).then(() => {
+            this.toaster.success('updated plans successfully', 'Success!', {
+                toastClass: 'toast ngx-toastr',
+                closeButton: true
+            })
+        }).catch(() => {
             this.toaster.error('update failed', 'Error!', {
                 toastClass: 'toast ngx-toastr',
                 closeButton: true

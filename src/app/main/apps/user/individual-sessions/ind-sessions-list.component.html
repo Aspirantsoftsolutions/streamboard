@@ -10,39 +10,39 @@
             <div class='featurelist-row'>
               <div class='featurelist-column'>
                 <div *ngFor="let feature of this.plans; let i = index">
-                  <div *ngIf="i < 7" class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
+                  <div *ngIf="i <= 7" class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
                     <input class="custom-control-input" [id]="feature" type="checkbox" tabindex="3"
-                      [(ngModel)]="features[featureKeys[feature]]" />
+                      [(ngModel)]="features[featureKeys[feature]]" [disabled]="!currentUser[featureKeys[feature]]" />
                     <label class="custom-control-label" [for]="feature">{{feature | translate}}</label>
                   </div>
                 </div>
               </div>
               <div class='featurelist-column'>
                 <div *ngFor="let feature of this.plans; let i = index">
-                  <div *ngIf="i >= 7 && i< 14"
+                  <div *ngIf="i > 8 && i<= 15"
                     class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
                     <input class="custom-control-input" [id]="feature" type="checkbox" tabindex="3"
-                      [(ngModel)]="features[featureKeys[feature]]" />
+                      [(ngModel)]="features[featureKeys[feature]]"  [disabled]="!currentUser[featureKeys[feature]]" />
                     <label class="custom-control-label" [for]="feature">{{feature | translate}}</label>
                   </div>
                 </div>
               </div>
               <div class='featurelist-column'>
                 <div *ngFor="let feature of this.plans; let i = index">
-                  <div *ngIf="i >= 14 && i< 21"
+                  <div *ngIf="i > 16 && i<= 23"
                     class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
                     <input class="custom-control-input" [id]="feature" type="checkbox" tabindex="3"
-                      [(ngModel)]="features[featureKeys[feature]]" />
+                      [(ngModel)]="features[featureKeys[feature]]"  [disabled]="!currentUser[featureKeys[feature]]" />
                     <label class="custom-control-label" [for]="feature">{{feature | translate}}</label>
                   </div>
                 </div>
               </div>
               <div class='featurelist-column'>
                 <div *ngFor="let feature of this.plans; let i = index">
-                  <div *ngIf="i >= 21 && i<= 28"
+                  <div *ngIf="i > 23 && i<= 30"
                     class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
                     <input class="custom-control-input" [id]="feature" type="checkbox" tabindex="3"
-                      [(ngModel)]="features[featureKeys[feature]]" />
+                      [(ngModel)]="features[featureKeys[feature]]"  [disabled]="!currentUser[featureKeys[feature]]" />
                     <label class="custom-control-label" [for]="feature">{{feature | translate}}</label>
                   </div>
                 </div>

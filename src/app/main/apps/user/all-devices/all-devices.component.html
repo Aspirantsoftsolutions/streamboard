@@ -213,8 +213,8 @@
                           }">
                                                 active
                                             </div>  -->
-                                            <div class="badge badge-pill badge-light-success">
-                                                {{'active' | translate}}
+                                            <div class="badge badge-pill" [ngClass]="{'badge-light-success': (status === 'online'), 'badge-light-warning': (status === 'offline')}">
+                                                {{status | translate}}
                                             </div>
                                         </ng-template>
                                     </ngx-datatable-column>

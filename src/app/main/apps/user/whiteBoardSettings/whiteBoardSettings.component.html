@@ -3,9 +3,7 @@
     <div class="content-wrapper container-xxl p-0">
         <div class="content-body">
             <div class="card-body">
-                <div class="form-group">
 
-                </div>
                 <ul ngbNav #nav="ngbNav" class="nav-tabs" (navChange)="onTabChange($event)">
                     <li ngbNavItem>
                         <a ngbNavLink>Basic</a>
@@ -188,6 +186,89 @@
                                             Update Plan
                                         </button>
                                     </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </li>
+                    <li ngbNavItem>
+                        <a ngbNavLink>Customize</a>
+                        <ng-template ngbNavContent>
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3>Please choose features after selecting Client</h3>
+                                    <div class="form-group">
+                                        <!-- <label class="form-label" for="client">{{'Select Client' | translate}}</label> -->
+                                        <select id="client" class="form-control" id="client" name='client'
+                                            [(ngModel)]="client" (change)="onClientSelect()">
+                                            <option *ngFor="let client of clientList" [value]="client.userId">
+                                                {{client?.organisation}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12 flex-sm-row flex-column mt-2">
+                                        <div class='featurelist-row'>
+                                            <div class='featurelist-column'>
+                                                <div *ngFor="let feature of clientAssignedFeatures; let i = index">
+                                                    <div *ngIf="i <= 07"
+                                                        class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
+                                                        <input class="custom-control-input"
+                                                            (change)="changeStatus($event, 'customize')"
+                                                            type="checkbox" [id]="feature.name" [name]="feature.name"
+                                                            [value]="feature.name"
+                                                            [checked]="feature.value">
+                                                        <label class="custom-control-label" [for]="feature.name">{{feature.name |
+                                                            translate}}</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class='featurelist-column'>
+                                                <div *ngFor="let feature of clientAssignedFeatures; let i = index">
+                                                    <div *ngIf="i >= 08 && i <= 15"
+                                                        class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
+                                                        <input class="custom-control-input"
+                                                            (change)="changeStatus($event, 'customize')"
+                                                            type="checkbox" [id]="feature.name" [name]="feature.name"
+                                                            [value]="feature.name"
+                                                            [checked]="feature.value">
+                                                        <label class="custom-control-label" [for]="feature.name">{{feature.name |
+                                                            translate}}</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class='featurelist-column'>
+                                                <div *ngFor="let feature of clientAssignedFeatures; let i = index">
+                                                    <div *ngIf="i > 16 && i <= 23"
+                                                        class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
+                                                        <input class="custom-control-input"
+                                                            (change)="changeStatus($event, 'customize')"
+                                                            type="checkbox" [id]="feature.name" [name]="feature.name"
+                                                            [value]="feature.name"
+                                                            [checked]="feature.value">
+                                                        <label class="custom-control-label" [for]="feature.name">{{feature.name |
+                                                            translate}}</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="selectedTab !== 'customize';else templateName"
+                                        class="col-12 d-flex flex-sm-row flex-column mt-2">
+                                        <button type="submit" (click)="updatePlan()"
+                                            class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1" rippleEffect
+                                            *ngIf="!gloginDisplay">
+                                            Update Plan
+                                        </button>
+                                    </div>
+                                    <ng-template #templateName>
+                                        <div class="col-12 d-flex flex-sm-row flex-column mt-2">
+                                            <button type="submit" (click)="updateUserPlan()"
+                                                class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1" rippleEffect
+                                                *ngIf="!gloginDisplay">
+                                                Update User Plan
+                                            </button>
+                                        </div>
+                                    </ng-template>
+
                                 </div>
                             </div>
                         </ng-template>
