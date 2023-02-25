@@ -141,6 +141,7 @@ export class whiteBoardSettingsComponent {
     }
 
     onClientSelect() {
+        this.selectedTab = 'customize';
         this.selectedClient = this.clientList.find(cl => cl.userId === this.client);
         this.clientAssignedFeatures = [];
         Object.keys(this.selectedClient).forEach(key => {

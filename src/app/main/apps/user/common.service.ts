@@ -691,7 +691,7 @@ export class CommonService implements Resolve<any> {
 
   customizeClientFeature(object, userId) {
     return new Promise((resolve, reject) => {
-      this._httpClient.put(`${environment.apiUrl}/api/user/customizeFeatures`, {
+      this._httpClient.post(`${environment.apiUrl}/api/user/customizeFeatures`, {
         ...object,
         'userId': userId
       }).subscribe((response: any) => {

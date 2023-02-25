@@ -50,8 +50,8 @@ export class AllDevicesComponent implements OnInit {
   public selectStatus: any = [
     { name: this.translate.instant('All'), value: '' },
     // { name: 'Pending', value: 'Pending' },
-    { name: this.translate.instant('Active'), value: 'Active' },
-    { name: this.translate.instant('Inactive'), value: 'Inactive' }
+    { name: this.translate.instant('online'), value: 'online' },
+    { name: this.translate.instant('offline'), value: 'offline' }
   ];
 
   public selectedRole = [];
@@ -220,7 +220,6 @@ export class AllDevicesComponent implements OnInit {
    * @param event
    */
   filterByStatus(event) {
-    debugger
     const filter = event ? event.value : '';
     this.previousStatusFilter = filter;
     this.temp = this.filterRows(this.previousRoleFilter, this.previousPlanFilter, filter);
@@ -242,7 +241,7 @@ export class AllDevicesComponent implements OnInit {
     planFilter = planFilter.toLowerCase();
     statusFilter = statusFilter.toLowerCase();
 
-    return this.rows.filter(row => {
+    return this.tempData.filter(row => {
       // const isPartialNameMatch = row.role.toLowerCase().indexOf(roleFilter) !== -1 || !roleFilter;
       // const isPartialGenderMatch = row.plan.toLowerCase().indexOf(planFilter) !== -1 || !planFilter;
       const isPartialStatusMatch = row.status.toLowerCase().indexOf(statusFilter) !== -1 || !statusFilter;

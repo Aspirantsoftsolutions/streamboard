@@ -117,7 +117,7 @@ export class IndSessionsListComponent implements OnInit {
   isHandWriting = false;
   isPhet = false;
   currentUser;
-  plans = {};
+  plans = [];
 
   /**
    * Constructor
@@ -137,7 +137,14 @@ export class IndSessionsListComponent implements OnInit {
     this.currentUser = this._commonService.getCurrentUser();
     this._commonService.getPlans().subscribe((resp) => {
       this.plans = resp['data'].plans[this.currentUser.plan.toLowerCase()];
+      Object.keys(this.featureKeys).forEach(key => {
+        if (this.currentUser[this.featureKeys[key]] && this.plans.indexOf(key) === -1) {
+          this.plans.push(key)
+        }
+      });
+      console.log(this.plans);
     });
+    console.log(this.plans);
   }
 
   // Public Methods

@@ -53,8 +53,8 @@ export class DeviceGroups implements OnInit {
     public selectStatus: any = [
         { name: this.translate.instant('All'), value: '' },
         // { name: 'Pending', value: 'Pending' },
-        { name: this.translate.instant('Active'), value: 'Active' },
-        { name: this.translate.instant('Inactive'), value: 'Inactive' }
+        { name: this.translate.instant('online'), value: 'online' },
+        { name: this.translate.instant('offline'), value: 'offline' }
     ];
 
     public selectedRole = [];
@@ -231,7 +231,6 @@ export class DeviceGroups implements OnInit {
      * @param event
      */
     filterByStatus(event) {
-        debugger
         const filter = event ? event.value : '';
         this.previousStatusFilter = filter;
         this.temp = this.filterRows(this.previousRoleFilter, this.previousPlanFilter, filter);
