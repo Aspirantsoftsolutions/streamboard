@@ -41,18 +41,21 @@
                                 </div>
                                 <div class="col-12 col-md-5">
                                     <fieldset class="form-group totalactive">
-
                                         <div>
-                                            <label>{{"Total active devices" | translate}} :</label>
+                                            <label>{{'Total devices' | translate}} :</label>
+                                            {{tempData.length}}
+                                        </div>
+                                        <div *ngIf="previousStatusFilter === 'online'">
+                                            |&nbsp;&nbsp;
+                                            <label>{{'Total active devices' | translate}} :</label>
                                             {{rows.length}}
                                         </div>
-                                        |
-                                        <div>
-                                            <label> {{'Total inactive devices' | translate}} :</label>
-                                            0
+                                        <div *ngIf="previousStatusFilter === 'offline'">
+                                            |&nbsp;&nbsp;
+                                            <label>{{'Total inactive devices' | translate}} :</label>
+                                            {{rows.length}}
                                         </div>
                                     </fieldset>
-
                                 </div>
                             </div>
                         </form>

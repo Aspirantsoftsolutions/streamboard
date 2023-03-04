@@ -41,16 +41,19 @@
                                 </div>
                                 <div class="col-12 col-md-5">
                                     <fieldset class="form-group totalactive">
-
                                         <div>
+                                            <label>{{'Total devices' | translate}} :</label>
+                                            {{tempData.length}}
+                                        </div>
+                                        <div *ngIf="previousStatusFilter === 'online'">
+                                            |&nbsp;&nbsp;
                                             <label>{{'Total active devices' | translate}} :</label>
                                             {{rows.length}}
                                         </div>
-                                        |
-                                        <div>
+                                        <div *ngIf="previousStatusFilter === 'offline'">
+                                            |&nbsp;&nbsp;
                                             <label>{{'Total inactive devices' | translate}} :</label>
-                                            0
-
+                                            {{rows.length}}
                                         </div>
                                     </fieldset>
 
@@ -213,7 +216,8 @@
                           }">
                                                 active
                                             </div>  -->
-                                            <div class="badge badge-pill" [ngClass]="{'badge-light-success': (status === 'online'), 'badge-light-warning': (status === 'offline')}">
+                                            <div class="badge badge-pill"
+                                                [ngClass]="{'badge-light-success': (status === 'online'), 'badge-light-warning': (status === 'offline')}">
                                                 {{status | translate}}
                                             </div>
                                         </ng-template>

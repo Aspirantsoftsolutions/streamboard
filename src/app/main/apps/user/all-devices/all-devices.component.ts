@@ -64,7 +64,7 @@ export class AllDevicesComponent implements OnInit {
   @ViewChild(DatatableComponent) table: DatatableComponent;
 
   // Private
-  private tempData = [];
+  tempData = [];
   private _unsubscribeAll: Subject<any>;
   public chkBoxSelected = [];
   public SelectionType = SelectionType;
@@ -269,7 +269,6 @@ export class AllDevicesComponent implements OnInit {
       this.rows = devices['data'];
       this.tempData = devices['data'];
     });
-
   }
 
   doSync() {

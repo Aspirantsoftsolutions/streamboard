@@ -67,7 +67,7 @@ export class DeviceGroups implements OnInit {
     @ViewChild(DatatableComponent) table: DatatableComponent;
 
     // Private
-    private tempData = [];
+    tempData = [];
     private _unsubscribeAll: Subject<any>;
     public chkBoxSelected = [];
     public SelectionType = SelectionType;
