@@ -5,8 +5,8 @@
       <div class="col-xl-4 col-md-6 col-12" *ngIf="currentUser?.role == 'School'">
         <div class="card card-congratulation-medal">
           <div class="card-body">
-            <h5>{{'Subscription' | translate}} <b>{{ currentUser?.plan }} Plan</b> - {{currentUser.licenseEndDate |
-              date:'mediumDate'}}</h5>
+            <h2 style="text-align:center">{{'My Subscription' | translate}}!</h2> <br><br> <h1 style="text-align:center"> {{ currentUser?.plan }} Plan</h1> <h3 style="text-align:center">{{currentUser.licenseEndDate |
+              date:'mediumDate'}}</h3>
 
             <!-- <button type="button" class="btn btn-primary" rippleEffect>{{ currentUser?.plan }}</button> -->
             <!-- <img src="assets/images/illustration/badge.svg" class="congratulation-medal" alt="Medal Pic" /> -->
@@ -248,7 +248,7 @@
               </div>
               <div class="col-sm-6 col-xl-3 mb-2 mb-sm-1">
                 <div class="media">
-                  <div class="avatar bg-light-danger mr-2">
+                  <div class="avatar bg-light-info mr-2">
                     <div class="avatar-content">
                       <i data-feather="user" class="avatar-icon"></i>
                     </div>

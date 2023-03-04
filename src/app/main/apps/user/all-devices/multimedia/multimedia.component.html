@@ -21,10 +21,10 @@
                     <div>
 
 
-                        <div class="greys">{{'Broadcast multimedia to displays' | translate}}</div>
+                        <div class="greys">{{'Broadcast multimedia to displays' | translate}}</div><br>
 
-                        <p>{{'Max,video file size' | translate}} : 300MB</p>
-                        <p>{{'Max,video file size' | translate}} : 30MB</p>
+                        <p>{{'Max, video file size' | translate}} : 300MB</p>
+                        <p>{{'Max, image file size' | translate}} : 30MB</p>
                     </div>
                     <ng-select class="mb-2" [items]="mediaList" [(ngModel)]="selectedStatus" name="selectedStatus"
                         bindLabel="name" placeholder="Select Media" (change)="selectedMedia($event)"></ng-select>
