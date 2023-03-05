@@ -34,6 +34,8 @@ export class AllDevicesComponent implements OnInit {
   public previousPlanFilter = '';
   public previousStatusFilter = '';
   public emailInvite = '';
+  activeDevices = [];
+  InactiveDevices = [];
   public selectRole: any = [
     { name: this.translate.instant('School'), value: 'School' },
     { name: this.translate.instant('Teacher'), value: 'Teacher' },
@@ -267,6 +269,8 @@ export class AllDevicesComponent implements OnInit {
   getDevices() {
     this._commonService.getDeviceList().subscribe(devices => {
       this.rows = devices['data'];
+      this.activeDevices = (devices['data'].filter(device => device.status === 'online'));
+      this.InactiveDevices = (devices['data'].filter(device => device.status === 'offline'));
       this.tempData = devices['data'];
     });
   }

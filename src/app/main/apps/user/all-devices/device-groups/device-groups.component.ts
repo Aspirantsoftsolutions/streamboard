@@ -37,6 +37,8 @@ export class DeviceGroups implements OnInit {
     public previousStatusFilter = '';
     public emailInvite = '';
     disabled = true;
+    activeDevices = [];
+    InactiveDevices = [];
     public selectRole: any = [
         { name: this.translate.instant('School'), value: 'School' },
         { name: this.translate.instant('Teacher'), value: 'Teacher' },
@@ -278,6 +280,8 @@ export class DeviceGroups implements OnInit {
             this.devices = this.deviceGroups.find(group => group._id === this.id)['devicesList'];
             this.rows = this.devices;
             this.tempData = this.rows;
+            this.activeDevices = (this.devices.filter(device => device.status === 'online'));
+            this.InactiveDevices = (this.devices.filter(device => device.status === 'offline'));
         });
     }
 

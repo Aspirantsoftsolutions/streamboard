@@ -45,15 +45,15 @@
                                             <label>{{'Total devices' | translate}} :</label>
                                             {{tempData.length}}
                                         </div>
-                                        <div *ngIf="previousStatusFilter === 'online'">
+                                        <div>
                                             |&nbsp;&nbsp;
                                             <label>{{'Total active devices' | translate}} :</label>
-                                            {{rows.length}}
+                                            {{activeDevices.length}}
                                         </div>
-                                        <div *ngIf="previousStatusFilter === 'offline'">
+                                        <div>
                                             |&nbsp;&nbsp;
                                             <label>{{'Total inactive devices' | translate}} :</label>
-                                            {{rows.length}}
+                                            {{InactiveDevices.length}}
                                         </div>
                                     </fieldset>
 

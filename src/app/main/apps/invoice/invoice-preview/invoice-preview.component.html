@@ -43,15 +43,9 @@
                 <div class="p-0" style="flex: 3;">
                   <div class="mb-2">
                     <h6>Invoice To:</h6>
-                    <p class="card-text">{{ invoice?.to }}</p>
-                  </div>
-                  <div class="mb-2">
-                    <h6>Address:</h6>
-                    <p class="card-text">{{ invoice?.address }}</p>
-                  </div>
-                  <div class="mb-2">
-                    <h6>Pincode:</h6>
-                    <p class="card-text">{{ invoice?.pincode }}</p>
+                    <div class="card-text">{{ invoice?.to }}</div>
+                    <div class="card-text">{{ invoice?.address1 }}</div>
+                    <div class="card-text">{{ invoice?.address2 }}</div>
                   </div>
                 </div>
                 <div style="flex: 1;" class="p-0 mt-xl-0 mt-2">
@@ -181,14 +175,14 @@
                   formControlName="to">
               </div>
               <div class="form-group">
-                <label class="form-label" for="address">{{'Address' | translate}}</label>
-                <input type='text' class="form-control dt-uname" name="address" id="address" cols="20" rows="4"
-                  formControlName="address">
+                <label class="form-label" for="address1">{{'Address 1' | translate}}</label>
+                <input type='text' class="form-control dt-uname" name="address1" id="address1" cols="20" rows="4"
+                  formControlName="address1">
               </div>
               <div class="form-group">
-                <label class="form-label" for="pincode">{{'Pincode' | translate}}</label>
-                <input type='text' class="form-control dt-uname" name="pincode" id="pincode" cols="20" rows="4"
-                  formControlName="pincode">
+                <label class="form-label" for="address2">{{'Address 2' | translate}}</label>
+                <input type='text' class="form-control dt-uname" name="address2" id="address2" cols="20" rows="4"
+                  formControlName="address2">
               </div>
               <fieldset class="form-group">
                 <legend>{{'Payment Details' | translate}}: </legend>

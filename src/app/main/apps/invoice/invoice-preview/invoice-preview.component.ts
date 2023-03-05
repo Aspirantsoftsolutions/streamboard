@@ -58,8 +58,8 @@ export class InvoicePreviewComponent implements OnInit, OnDestroy {
     this.urlLastValue = this.url.substr(this.url.lastIndexOf('/') + 1);
     this.invoiceForm = this.fb.group({
       to: ['', Validators.required],
-      address: ['', Validators.required],
-      pincode: ['', Validators.required],
+      address1: ['', Validators.required],
+      address2: ['', Validators.required],
       paymentDetails: this.fb.group({
         due: ['', Validators.required],
         bankName: ['', Validators.required],
