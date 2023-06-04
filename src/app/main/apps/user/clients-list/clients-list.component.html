@@ -88,6 +88,35 @@
       </ng-template>
       <!-- / Modal -->
 
+
+           <!-- Modal -->
+           <ng-template #commandModal let-modal>
+            <div class="modal-header">
+              <h4 class="modal-title" id="myModalLabel1">{{'Send Command' | translate }}</h4>
+              <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" tabindex="0" ngbAutofocus>
+              <p>{{'Please input command' | translate }}</p>
+              <input id="command" type="tex" name="command" placeholder="command" class="form-control"
+              [(ngModel)]="command" />
+              <br>
+              <input id="commandUrl" type="tex" name="commandUrl" placeholder="Command Url" class="form-control"
+              [(ngModel)]="commandUrl" />
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" (click)="modal.dismiss('Cross click')" rippleEffect>
+                {{'Cancel' | translate }}
+              </button>
+              <button type="button" class="btn btn-primary" (click)="sendCommandToClient()" rippleEffect>
+                {{'Send' | translate }}
+              </button>
+            </div>
+          </ng-template>
+          <!-- / Modal -->
+
+
       <div class="card">
         <div class="row">
           <div class="col-md-6 col-12">
@@ -186,6 +215,8 @@
                     <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> {{'Premium' | translate}}</a>
                   <a (click)="changeSubscriptionType('Enterprise',row.userId)" ngbDropdownItem>
                     <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> {{'Enterprise' | translate}}</a>
+                    <a (click)="openCommandPopup(row.userId, row.fullName,commandModal)" ngbDropdownItem>
+                      <span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> {{'Send Command' | translate}}</a>
 
                 </div>
               </div>

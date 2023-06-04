@@ -223,8 +223,17 @@ export class AuthenticationService {
    *
    */
   logout() {
-    // remove user from local storage to log user out
-    localStorage.clear();
-    this.currentUserSubject.next(null);
+    const { role , email } = JSON.parse(localStorage.getItem('currentUser'));
+    return this._http
+      .post<any>(`${environment.apiUrl}/api/auth/logout`, { 'identity': email, role })
+      .pipe(
+        tap(user => {
+          // remove user from local storage to log user out
+          localStorage.clear();
+          this.currentUserSubject.next(null);
+          this._router.navigate(['/pages/authentication/login-v2']);
+        })
+      );
+
   }
 }

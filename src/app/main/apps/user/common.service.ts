@@ -592,6 +592,18 @@ export class CommonService implements Resolve<any> {
     return this._httpClient.post(`${environment.apiUrl}/api/pushnotifications/command`, body)
   }
 
+  sendCommand(to, command, url) {
+    const body = {
+      command,
+      url: url,
+      to: to,
+      "notification": {
+        "badge": 1
+      }
+    };
+    return this._httpClient.post(`${environment.apiUrl}/api/pushnotifications/commandByClient`, body)
+  }
+
   deleteDeviceFromGroup(groupId, deviceId) {
     return this._httpClient.delete(`${environment.apiUrl}/api/device/group/${groupId}`, { body: { deviceId } });
   }

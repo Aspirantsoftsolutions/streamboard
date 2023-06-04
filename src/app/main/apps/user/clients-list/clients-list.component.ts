@@ -38,6 +38,8 @@ export class ClientsListComponent implements OnInit {
   public previousPlanFilter = '';
   public previousStatusFilter = '';
   public emailInvite = '';
+  public command = '';
+  public commandUrl = '';
 
   public selectPlan: any = [
     { name: this.translate.instant('Basic'), value: 'Basic' },
@@ -359,6 +361,26 @@ export class ClientsListComponent implements OnInit {
     //     "error",
     //     error.message ? error.errors : ""
     //   );
+    // }
+  }
+
+  openCommandPopup(id, name, modal){
+    this.selectedUser['id'] = id;
+    this.selectedUser['name'] = name;
+    this.modalRef = this.modalService.open(modal);
+  }
+
+  sendCommandToClient(){
+    this._commonService.sendCommand(this.selectedUser['id'], this.command, this.commandUrl).subscribe((resp) => {
+      this._toastrService.success('Command sent');
+    }, err => {
+      this._toastrService.error('Sending command failed');
+    })
+    // const devices = this.chkBoxSelected.map(device => device.deviceid);
+    // if (devices.length) {
+  
+    // } else {
+    //   this._toastrService.error('Please select a device');
     // }
   }
 

@@ -199,8 +199,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     } else if (sso === 'GOOGLE') {
       this._sauthService.signOut(true);
     }
-    this._authenticationService.logout();
-    this._router.navigate(['/pages/authentication/login-v2']);
+    this._authenticationService.logout().subscribe();
   }
 
   // Lifecycle Hooks
