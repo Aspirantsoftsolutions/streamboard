@@ -38,7 +38,7 @@ export class ClientsListComponent implements OnInit {
   public previousPlanFilter = '';
   public previousStatusFilter = '';
   public emailInvite = '';
-  public command = '';
+  public command = 'App Update';
   public commandUrl = '';
 
   public selectPlan: any = [
