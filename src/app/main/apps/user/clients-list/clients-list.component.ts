@@ -373,6 +373,7 @@ export class ClientsListComponent implements OnInit {
   sendCommandToClient(){
     this._commonService.sendCommand(this.selectedUser['id'], this.command, this.commandUrl).subscribe((resp) => {
       this._toastrService.success('Command sent');
+      this.modalService.dismissAll();
     }, err => {
       this._toastrService.error('Sending command failed');
     })
