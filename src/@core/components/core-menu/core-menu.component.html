@@ -19,7 +19,7 @@
           core-menu-vertical-item
           *ngIf="
             item.type == 'item' && (item.role ? item.role.includes(currentUser.role) : false || item.role == undefined)
-            && (item?.role?.includes('School') ? plans.includes(item.title) : false)
+            && (currentUser.role === 'School' ? (plans.includes(item.title) ? true : false) : true)
           "
           [item]="item"
           [ngClass]="{ disabled: item.disabled === true }"
