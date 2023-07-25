@@ -15,7 +15,7 @@
                                         <div class='featurelist-row'>
                                             <div class='featurelist-column'>
                                                 <div *ngFor="let feature of features; let i = index">
-                                                    <div *ngIf="i <= 7"
+                                                    <div *ngIf="i <= 9"
                                                         class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
                                                         <input class="custom-control-input"
                                                             (change)="changeStatus($event, 'basic')" type="checkbox"
@@ -28,7 +28,7 @@
                                             </div>
                                             <div class='featurelist-column'>
                                                 <div *ngFor="let feature of features; let i = index">
-                                                    <div *ngIf="i >= 8 && i <= 15"
+                                                    <div *ngIf="i >= 10 && i <= 18"
                                                         class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
                                                         <input class="custom-control-input"
                                                             (change)="changeStatus($event, 'basic')" type="checkbox"
@@ -41,7 +41,7 @@
                                             </div>
                                             <div class='featurelist-column'>
                                                 <div *ngFor="let feature of features; let i = index">
-                                                    <div *ngIf="i >= 16 && i <= 23"
+                                                    <div *ngIf="i >= 19 && i <= 27"
                                                         class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
                                                         <input class="custom-control-input"
                                                             (change)="changeStatus($event, 'basic')" type="checkbox"
@@ -76,7 +76,7 @@
                                         <div class='featurelist-row'>
                                             <div class='featurelist-column'>
                                                 <div *ngFor="let feature of features; let i = index">
-                                                    <div *ngIf="i <= 7"
+                                                    <div *ngIf="i <= 9"
                                                         class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
                                                         <input class="custom-control-input"
                                                             (change)="changeStatus($event, 'premium')" type="checkbox"
@@ -89,7 +89,7 @@
                                             </div>
                                             <div class='featurelist-column'>
                                                 <div *ngFor="let feature of features; let i = index">
-                                                    <div *ngIf="i >= 8 && i <= 15"
+                                                    <div *ngIf="i >= 10 && i <= 18"
                                                         class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
                                                         <input class="custom-control-input"
                                                             (change)="changeStatus($event, 'premium')" type="checkbox"
@@ -102,7 +102,7 @@
                                             </div>
                                             <div class='featurelist-column'>
                                                 <div *ngFor="let feature of features; let i = index">
-                                                    <div *ngIf="i >= 16 && i <= 23"
+                                                    <div *ngIf="i >= 19 && i <= 27"
                                                         class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
                                                         <input class="custom-control-input"
                                                             (change)="changeStatus($event, 'premium')" type="checkbox"
@@ -137,8 +137,7 @@
                                         <div class='featurelist-row'>
                                             <div class='featurelist-column'>
                                                 <div *ngFor="let feature of features; let i = index">
-                                                    <div *ngIf="i <= 7"
-                                                        class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
+                                                    <div *ngIf="i <= 9" class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
                                                         <input class="custom-control-input"
                                                             (change)="changeStatus($event, 'enterprise')"
                                                             type="checkbox" [id]="feature" [name]="feature"
@@ -151,8 +150,7 @@
                                             </div>
                                             <div class='featurelist-column'>
                                                 <div *ngFor="let feature of features; let i = index">
-                                                    <div *ngIf="i >= 08 && i <= 15"
-                                                        class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
+                                                     <div *ngIf="i >= 10 && i <= 18" class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
                                                         <input class="custom-control-input"
                                                             (change)="changeStatus($event, 'enterprise')"
                                                             type="checkbox" [id]="feature" [name]="feature"
@@ -165,7 +163,7 @@
                                             </div>
                                             <div class='featurelist-column'>
                                                 <div *ngFor="let feature of features; let i = index">
-                                                    <div *ngIf="i >= 16 && i <= 23"
+                                                    <div *ngIf="i >= 19 && i <= 27"
                                                         class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
                                                         <input class="custom-control-input"
                                                             (change)="changeStatus($event, 'enterprise')"
@@ -209,7 +207,7 @@
                                         <div class='featurelist-row'>
                                             <div class='featurelist-column'>
                                                 <div *ngFor="let feature of clientAssignedFeatures; let i = index">
-                                                    <div *ngIf="i <= 07"
+                                                    <div *ngIf="i <= 09"
                                                         class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
                                                         <input class="custom-control-input"
                                                             (change)="changeStatus($event, 'customize')" type="checkbox"
@@ -223,7 +221,7 @@
                                             </div>
                                             <div class='featurelist-column'>
                                                 <div *ngFor="let feature of clientAssignedFeatures; let i = index">
-                                                    <div *ngIf="i >= 08 && i <= 15"
+                                                    <div *ngIf="i >= 10 && i <= 18"
                                                         class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
                                                         <input class="custom-control-input"
                                                             (change)="changeStatus($event, 'customize')" type="checkbox"
@@ -237,7 +235,7 @@
                                             </div>
                                             <div class='featurelist-column'>
                                                 <div *ngFor="let feature of clientAssignedFeatures; let i = index">
-                                                    <div *ngIf="i >= 16 && i <= 23"
+                                                    <div *ngIf="i >= 19 && i <= 27"
                                                         class="custom-control custom-checkbox col-12 d-flex flex-sm-row flex-column mt-2">
                                                         <input class="custom-control-input"
                                                             (change)="changeStatus($event, 'customize')" type="checkbox"
