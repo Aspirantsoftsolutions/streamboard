@@ -43,7 +43,14 @@ export class CoreMenuComponent implements OnInit {
     "SSO integration": "isSSOIntegrationEnable",
     "Device management": "isDeviceManagementEnable",
     "QR login": "isQRloginEnable",
-    "Phet": "isPhetEnable"
+    "Phet": "isPhetEnable",
+    "Dashboard": "isDashboardEnable",
+    "Calendar": "isCalendarEnable",
+    "Collaboration Class": "isCollaborationClassEnable",
+    "All Users": "isAllUsersEnable",
+    "WhiteBoard": "isWhiteBoardEnable",
+    "School": "isSchoolEnable",
+    "Notifications": "isNotificationsEnable"
   }
   // Private
   private _unsubscribeAll: Subject<any>;

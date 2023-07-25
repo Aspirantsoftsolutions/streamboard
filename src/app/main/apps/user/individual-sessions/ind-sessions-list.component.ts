@@ -50,7 +50,14 @@ export class IndSessionsListComponent implements OnInit {
     "SSO integration": "isSSOIntegrationEnable",
     "Device management": "isDeviceManagementEnable",
     "QR login": "isQRloginEnable",
-    "Phet": "isPhetEnable"
+    "Phet": "isPhetEnable",
+    "Dashboard": "isDashboardEnable",
+    "Calendar": "isCalendarEnable",
+    "Collaboration Class": "isCollaborationClassEnable",
+    "All Users": "isAllUsersEnable",
+    "WhiteBoard": "isWhiteBoardEnable",
+    "School": "isSchoolEnable",
+    "Notifications": "isNotificationsEnable"
   }
   public features = {
     isGeoGebraEnable: false,
@@ -74,7 +81,14 @@ export class IndSessionsListComponent implements OnInit {
     isSSOIntegrationEnable: false,
     isDeviceManagementEnable: false,
     isQRloginEnable: false,
-    isPhetEnable: false
+    isPhetEnable: false,
+    isDashboardEnable: false,
+    isCalendarEnable: false,
+    isCollaborationClassEnable: false,
+    isAllUsersEnable: false,
+    isWhiteBoardEnable: false,
+    isSchoolEnable: false,
+    isNotificationsEnable: false
   }
 
   public selectRole: any = [

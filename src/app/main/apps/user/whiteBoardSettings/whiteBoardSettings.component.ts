@@ -41,7 +41,14 @@ export class whiteBoardSettingsComponent {
         isSSOIntegrationEnable: 'SSO integration',
         isDeviceManagementEnable: 'Device management',
         isQRloginEnable: 'QR login',
-        isPhetEnable: 'Phet'
+        isPhetEnable: 'Phet',
+        isDashboardEnable: "Dashboard",
+        isCalendarEnable: "Calendar",
+        isCollaborationClassEnable: "Collaboration Class",
+        isAllUsersEnable: "All Users",
+        isWhiteBoardEnable: "WhiteBoard",
+        isSchoolEnable: "School",
+        isNotificationsEnable: "Notifications"
     }
     constructor(private commonService: CommonService, private toaster: ToastrService) {
         this.getMasterPlans();
