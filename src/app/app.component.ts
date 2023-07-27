@@ -261,7 +261,7 @@ export class AppComponent implements OnInit, OnDestroy {
       if (user && user.role == 'School') {
         this.router.navigate(['/home']);
       }
-    }, 500);
+    }, 1000);
     const childGrouteRoutes = await this.getDeviceGroups();
 
     menu[1].children.find(item => {

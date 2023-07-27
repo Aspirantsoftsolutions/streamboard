@@ -52,6 +52,38 @@ export class CoreMenuComponent implements OnInit {
     "School": "isSchoolEnable",
     "Notifications": "isNotificationsEnable"
   }
+
+  public features = {
+    isGeoGebraEnable: false,
+    isCreativeToolsEnable: false,
+    isNewPageEnable: false,
+    isSaveSBEnable: false,
+    isImportEnable: false,
+    isBackgroundEnable: false,
+    isHandWritingEnable: false,
+    isImmersiveReaderEnable: false,
+    isGoogleDriveEnable: false,
+    isOneDriveEnable: false,
+    isScreenshotEnable: false,
+    isRecordingEnable: false,
+    isQRCodeEnable: false,
+    isParticipateModeEnable: false,
+    isExportpdfEnable: false,
+    isMagicDrawEnable: false,
+    isSessionInteractionEnable: false,
+    isStudentAttendanceEnable: false,
+    isSSOIntegrationEnable: false,
+    isDeviceManagementEnable: false,
+    isQRloginEnable: false,
+    isPhetEnable: false,
+    isDashboardEnable: false,
+    isCalendarEnable: false,
+    isCollaborationClassEnable: false,
+    isAllUsersEnable: false,
+    isWhiteBoardEnable: false,
+    isSchoolEnable: false,
+    isNotificationsEnable: false
+  }
   // Private
   private _unsubscribeAll: Subject<any>;
 

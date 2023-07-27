@@ -19,8 +19,9 @@
           core-menu-vertical-item
           *ngIf="
             item.type == 'item' && (item.role ? item.role.includes(currentUser.role) : false || item.role == undefined)
-            && (currentUser.role === 'School' ? (plans.includes(item.title) ? true : false) : true)
+            && (currentUser.role === 'School' ? currentUser[featureKeys[item.title]] : true)
           "
+          [id]="currentUser[featureKeys[item.title]]"
           [item]="item"
           [ngClass]="{ disabled: item.disabled === true }"
           [routerLinkActive]="!item.openInNewTab ? 'active' : ''"
@@ -34,8 +35,9 @@
           core-menu-vertical-collapsible
           *ngIf="
             item.type == 'collapsible' &&
-            (item.role ? item.role.includes(currentUser.role) : false || item.role == undefined)
+            (item.role ? item.role.includes(currentUser.role) : false || item.role == undefined) && (currentUser.role === 'School' ? currentUser[featureKeys[item.title]] : true)
           "
+          [id]="currentUser[featureKeys[item.title]]"
           [item]="item"
           class="nav-item has-sub"
         ></li>
