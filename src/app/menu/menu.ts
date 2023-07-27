@@ -96,7 +96,7 @@ export const menu: CoreMenu[] = [
       },
       {
         id: "sso",
-        title: "SSO",
+        title: "SSO integration",
         type: "item",
         role: ["School"], //  for school
         icon: "user-plus",
